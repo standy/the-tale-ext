@@ -1,1 +1,7 @@
-This file was created by JetBrains WebStorm 6.0 for binding GitHub repository
+##Инструкции
+
+Для работы нужно установить gulp, а для этого npm и nodejs.
+
+Установка: [Gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md), [Node.js](http://nodejs.org/) (включает npm)
+
+Перед редактированием файлов выполните `gulp watch`. В build папках код будет обнавляться автоматически
