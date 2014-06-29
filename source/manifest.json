@@ -31,11 +31,6 @@
 			"matches": ["http://the-tale.org/game/", "http://the-tale.org/game/pvp/"],
 			"css": ["css/glyphicons.css"],
 			"js": ["injector.js"]
-		},
-		{
-			"matches": ["http://the-tale.org/*"],
-			"css": ["css/global.css"],
-			"js": ["tables.js"]
 		}
 	]
 }

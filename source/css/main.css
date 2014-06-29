@@ -1,3 +1,4 @@
+.test {}
 body.static-nav { padding-top: 0; }
 body.static-nav { position: relative; z-index: 1030; }
 .link-ajax {
