@@ -1,4 +1,4 @@
-############# node js ##############
+############# nodejs ##############
 # Logs
 logs
 *.log
@@ -29,7 +29,7 @@ node_modules
 .lock-wscript
 
 # Modules
-node_modules/*
+node_modules/
 
 
 
