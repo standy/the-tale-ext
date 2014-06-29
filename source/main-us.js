@@ -1,16 +1,19 @@
 ﻿// ==UserScript==
-// @name        {{name}}
-// @description {{description}}
-// @author      {{author}}
-// @version     {{version}}
+// @name        ${name}
+// @description ${description}
+// @author      ${author}
+// @version     ${version}
 // @include     http://the-tale.org/game/
 // @run-at      document-end
 // @license     MIT License
-// @icon
 // ==/UserScript==
 
 (function (window, undefined) {
-	var css = "{{css}}";
+
+	//= include bak/compiled.min.css;
+	var css = "${compiled_min_css}";
+
+
 	if (typeof GM_addStyle != "undefined") {
 		GM_addStyle(css);
 	} else if (typeof PRO_addStyle != "undefined") {
@@ -37,16 +40,19 @@
 		"use strict";
 
 		//= include ext-core.js
+		${ext_core_js}
 
 		//= include ext-parser.js
+		${ext_parser_js}
 
 		//= include ext-print.js
+		${ext_print_js}
 
-		_ext.publish('init');
 		return _ext;
 	})(window.ext || {});
 
 	//= include tables.js
+	${tables_js}
 
 	injectDone();
 })((typeof this.unsafeWindow !== 'undefined') ? this.unsafeWindow : window);
