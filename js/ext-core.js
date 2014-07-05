@@ -25,7 +25,6 @@ $(document).on('ajaxSuccess.ext', function(event, XMLHttpRequest, setting, resul
 });
 
 
-_ext.waitForInit = 1;
 _ext.const = {
 	MAX_LOG_LENGTH: 1000,
 	MAX_ARCHIVE_LENGTH: 5000,
