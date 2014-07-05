@@ -1,10 +1,10 @@
 {
 	"manifest_version": 2,
 
-	"name": "The Tale Extended",
-	"description": "Расширение базового функционала в браузерной игре Сказка",
-	"version": "0.3.4.0",
-	"author": "standy",
+	"name": "${name}",
+	"description": "${description}",
+	"version": "${version}",
+	"author": "${author}",
 
 
 	"icons": {
@@ -20,7 +20,7 @@
 		"notifications"
 	],
 	"web_accessible_resources" : [
-		"main.js",
+		"js/ext.js",
 		"css/main.css",
 		"img/quest/caravan.png",
 		"img/128.png"
@@ -28,9 +28,12 @@
 	"content_scripts": [
 		{
 			"run_at": "document_end",
-			"matches": ["http://the-tale.org/game/", "http://the-tale.org/game/pvp/"],
+			"matches": [
+				"http://the-tale.org/game/",
+				"http://the-tale.org/game/pvp/"
+			],
 			"css": ["css/glyphicons.css"],
-			"js": ["injector.js"]
+			"js": ["js/injector.js"]
 		}
 	]
 }

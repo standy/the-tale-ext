@@ -949,17 +949,6 @@ _elements.getTabInner('archive').on('click', '.group-title', function() {
 /* eo archive */
 
 
-/*var lastPosition;
-var startTime = +new Date();
-_ext.subscribe('newMessages', function(messagesNew, game_data) {
-	if (!game_data) return;
-	var position = game_data.account.hero.position;
-	if (lastPosition) var dist = Math.abs(position.x - lastPosition.x) + Math.abs(position.y - lastPosition.y);
-	if (!dist && lastPosition) return;
-	var typeName = _ext.const.ACTION_TYPE_NAMES[game_data.account.hero.action.type];
-	console.log('position: ', position.x.toFixed(5), position.y.toFixed(5), dist, typeName, Math.round((+new Date() - startTime)/1000), messagesNew);
-	lastPosition = position;
-});*/
 
 /* stats */
 /* статистика собирается из архива */
@@ -1230,7 +1219,6 @@ var _stats = (function(_stats) {
 		var types = [].concat(_const.ACTIVE, ['dmgSum'], _const.PASSIVE);
 		for (var i=0; i<types.length; i++) {
 			var type = types[i];
-//				var isActive = isActType('ACTIVE', type);
 			var isDot = isActType('DOT', type);
 			var isPassive = isActType('PASSIVE', type);
 			var sumTo = _const.SUM_TO_MAIN[type];
@@ -1253,7 +1241,8 @@ var _stats = (function(_stats) {
 				var totalSum = dmgSum.sum;
 
 				var chance = type === 'dmgSum' ? 100 : count/(hitCount + count) * 100;
-				var chanceText = type === 'hit' ? '-' : chance>=100 ? Math.round(chance * 10)/10  : chance.toFixed(3);
+				var chanceText = type === 'hit' ? '-' : chance>=100 ? Math.round(chance * 10)/10  : chance.toFixed(2);
+
 				var countText = 'сработал ' + _ext.utils.declenstionByNumber(count, ['раз', 'раза', 'раз'], 1);
 
 				if (!sum) {
@@ -1280,22 +1269,6 @@ var _stats = (function(_stats) {
 					htmlStat += '<td class="stats-sum" title="' + sumText + '">' + dmgPercentsText + '</td>';
 					htmlStat += '<td class="stats-bonus" title="' + bpTranslateText + '">' + bonusPercentText + '</td>';
 				}
-/*						var bonusPercent;
-					if (type === 'dmgSum') {
-						bonusPercent = stat.sum/stat.count / stats.hit.sum * stats.hit.count - 1;
-					} else if (type !== 'hit' && stats.hit && !sumTo && type !== 'heal') {
-						var skillAvg = (stats.hit.sum + sum) / (stats.hit.count + count);
-						var hitAvg = stats.hit.sum / stats.hit.count;
-						bonusPercent = skillAvg / hitAvg - 1;
-					} else {
-						bonusPercent = '';
-					}
-					bonusPercent = Math.round(bonusPercent*10000)/100||0;
-					var bonusPercentText = bonusPercent ?
-						(bonusPercent >= 0 ? '+' : '&ndash;') + Math.abs(bonusPercent) + '%' :
-						'';
-					htmlStat += '<td class="stats-bonus">' + bonusPercentText + '</td>';
-*/
 
 				html += '<tr class="stats-row stats-row-' + type + '">' + htmlStat + '</tr>';
 			}

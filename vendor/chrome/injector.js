@@ -37,7 +37,7 @@
 				count++;
 				if (count == files.length) {
 					var pass = chrome.extension.getURL('');
-					filesText.push('if (window.injectDone) injectDone();window.extPass="' + pass + '";')
+					filesText.push('if (window.injectDone) injectDone();window.extPass="' + pass + '";');
 //					filesText.push('console.timeEnd("ext");')
 					injectCode(filesText.join(';\n'));
 				}
@@ -48,4 +48,4 @@
 		injectStyle(styles[j]);
 
 	}
-})(['main.js'], ['/css/main.css']);
+})(['/js/ext.js'], ['/css/main.css']);

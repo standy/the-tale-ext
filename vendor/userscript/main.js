@@ -10,9 +10,7 @@
 
 (function (window, undefined) {
 
-	//= include bak/compiled.min.css;
-	var css = "${compiled_min_css}";
-
+	var css = "${css}";
 
 	if (typeof GM_addStyle != "undefined") {
 		GM_addStyle(css);
@@ -39,20 +37,16 @@
 	window.ext = (function (_ext) {
 		"use strict";
 
-		//= include ext-core.js
-		${ext_core_js}
+		//= include ../../js/ext-core.js
 
-		//= include ext-parser.js
-		${ext_parser_js}
+		//= include ../../js/ext-parser.js
 
-		//= include ext-print.js
-		${ext_print_js}
+		//= include ../../js/ext-print.js
 
 		return _ext;
 	})(window.ext || {});
 
-	//= include tables.js
-	${tables_js}
+	//= include ../../js/tables.js
 
 	injectDone();
 })((typeof this.unsafeWindow !== 'undefined') ? this.unsafeWindow : window);
