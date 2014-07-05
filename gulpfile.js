@@ -7,7 +7,6 @@ var template = require('gulp-template'); // Шаблонизатор
 var include = require('gulp-include'); // Шаблонизатор
 var zip = require('gulp-zip');
 var fs = require('fs');
-//var shell = require('gulp-shell');
 
 var es = require('event-stream');
 var rseq = require('gulp-run-sequence');
@@ -34,7 +33,7 @@ function pipe(src, transforms, dest) {
 }
 
 /* ===== chrome ===== */
-gulp.task('chrome', function() {
+gulp.task('build-chrome', function() {
 	return es.merge(
 		pipe('./img/**/*', './build/chrome/img'),
 		pipe('./css/**/*', './build/chrome/css'),
@@ -46,19 +45,6 @@ gulp.task('chrome', function() {
 /* ===== eo chrome ===== */
 
 
-/* ===== firefox ===== */
-//gulp.task('firefox', function() {
-//	return es.merge(
-//		pipe('./img/**/*', './build/firefox/data/img'),
-//		pipe('./css/**/*', './build/firefox/data/css'),
-//		pipe('./vendor/firefox/ext.js', [include()], './build/firefox/data/js'),
-//		pipe('./vendor/firefox/main.js', './build/firefox/data'),
-//		pipe('./vendor/firefox/package.json', [template(config)], './build/firefox/')
-//	);
-//});
-/* ===== eo firefox ===== */
-
-
 /* ===== userscript ===== */
 gulp.task('userscript-css-merge', function() {
 	return gulp.src(['./css/global.css', './css/main.css', './css/glyphicons.css'])
@@ -66,10 +52,14 @@ gulp.task('userscript-css-merge', function() {
 		.pipe(csso())
 		.pipe(gulp.dest('./build/userscript/temp/'));
 });
+gulp.task('userscript-cleanup', function(cb) {
+	return gulp.src(['./build/userscript/temp/'])
+		.pipe(rimraf());
+});
 
-gulp.task('userscript', ['userscript-css-merge'], function() {
+gulp.task('build-userscript', ['userscript-css-merge'], function() {
 	var data = config;
-	data.css = fs.readFile('./build/userscript/temp/compiled.min.css')
+	data.css = fs.readFile('./build/userscript/temp/compiled.min.css');
 	return es.merge(
 		pipe('./vendor/userscript/main.js', [include(), template(data), concat('the-tale-extension.user.js')], './build/userscript')
 	);
@@ -83,41 +73,37 @@ gulp.task('clean', function(cb) {
 	return gulp.src(['./build'])
 		.pipe(rimraf());
 });
-gulp.task('cleanup', function(cb) {
-	return gulp.src(['./build/userscript/temp/'])
-		.pipe(rimraf());
-});
 gulp.task('build', function(cb) {
-	return rseq('clean', ['chrome', 'userscript'], 'cleanup',  cb);
-});
-
-gulp.task('watch', function() {
-	gulp.watch(['./js/**/*', './css/**/*', './vendor/**/*', './img/**/*'], ['build']);
+	return rseq('clean', ['build-chrome', 'build-userscript'], 'userscript-cleanup',  cb);
 });
 /* ===== eo build ===== */
 
+/* ===== watch ===== */
+gulp.task('watch', function() {
+	gulp.watch(['./js/**/*', './css/**/*', './vendor/**/*', './img/**/*'], ['build']);
+});
+gulp.task('watch-chrome', function() {
+	gulp.watch(['./js/**/*', './css/**/*', './vendor/chrome/**/*', './img/**/*'], ['build-chrome']);
+});
+gulp.task('watch-userscript', function() {
+	gulp.watch(['./js/**/*', './css/**/*', './vendor/userscript/**/*'], ['build-userscript']);
+});
+
+/* ===== eo watch ===== */
 
 
 
 
 /* ===== deploy ===== */
-gulp.task('chrome-deploy', function () {
+gulp.task('chrome-deploy', ['chrome-build'], function () {
 	gulp.src('./build/chrome/**/*')
 		.pipe(zip('chrome-extension-' + config.version + '.zip'))
 		.pipe(gulp.dest('./deploy/chrome'));
 });
-gulp.task('userscript-deploy', function () {
+gulp.task('userscript-deploy', ['userscript-build'], function () {
 	gulp.src('./build/userscript/**/*')
 		.pipe(zip('userscript-' + config.version + '.zip'))
 		.pipe(gulp.dest('./deploy/userscript'));
 });
-
-//gulp.task('firefox-deploy', shell.task([
-//	path('vendor/firefox/deploy.bat ' + config.version)
-//]));
-//function path(str) {
-//	return str.replace(/\//g, '\\');
-//}
-
 gulp.task('deploy', ['chrome-deploy', 'userscript-deploy']);
-/* ===== eo pack ===== */
+/* ===== eo deploy ===== */
