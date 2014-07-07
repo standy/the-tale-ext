@@ -57,12 +57,15 @@ gulp.task('userscript-cleanup', function(cb) {
 		.pipe(rimraf());
 });
 
-gulp.task('build-userscript', ['userscript-css-merge'], function() {
+gulp.task('userscript-include', ['userscript-css-merge'], function() {
 	var data = config;
-	data.css = fs.readFile('./build/userscript/temp/compiled.min.css');
+	data.css = fs.readFileSync('./build/userscript/temp/compiled.min.css', 'utf8');
 	return es.merge(
 		pipe('./vendor/userscript/main.js', [include(), template(data), concat('the-tale-extension.user.js')], './build/userscript')
 	);
+});
+gulp.task('build-userscript', function(cb) {
+	return rseq('userscript-css-merge', 'userscript-include', 'userscript-cleanup',  cb);
 });
 /* ===== eo userscript ===== */
 
@@ -74,7 +77,7 @@ gulp.task('clean', function(cb) {
 		.pipe(rimraf());
 });
 gulp.task('build', function(cb) {
-	return rseq('clean', ['build-chrome', 'build-userscript'], 'userscript-cleanup',  cb);
+	return rseq('clean', ['build-chrome', 'build-userscript'],  cb);
 });
 /* ===== eo build ===== */
 
@@ -95,15 +98,19 @@ gulp.task('watch-userscript', function() {
 
 
 /* ===== deploy ===== */
-gulp.task('chrome-deploy', ['chrome-build'], function () {
+gulp.task('chrome-deploy', ['build-chrome'], function () {
 	gulp.src('./build/chrome/**/*')
 		.pipe(zip('chrome-extension-' + config.version + '.zip'))
-		.pipe(gulp.dest('./deploy/chrome'));
+		.pipe(gulp.dest('./deploy/chrome'))
+		.pipe(concat('chrome-extension.zip'))
+		.pipe(gulp.dest('./dist'))
 });
-gulp.task('userscript-deploy', ['userscript-build'], function () {
+gulp.task('userscript-deploy', ['build-userscript'], function () {
 	gulp.src('./build/userscript/**/*')
 		.pipe(zip('userscript-' + config.version + '.zip'))
-		.pipe(gulp.dest('./deploy/userscript'));
+		.pipe(gulp.dest('./deploy/userscript'))
+		.pipe(concat('userscript.zip'))
+		.pipe(gulp.dest('./dist'))
 });
 gulp.task('deploy', ['chrome-deploy', 'userscript-deploy']);
 /* ===== eo deploy ===== */
