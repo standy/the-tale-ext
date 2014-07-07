@@ -7,6 +7,7 @@
 // @require     http://code.jquery.com/jquery-1.11.1.min.js
 // @run-at      document-end
 // @license     MIT License
+// @grant       GM_addStyle
 // ==/UserScript==
 
 (function (window, undefined) {

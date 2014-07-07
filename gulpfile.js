@@ -59,7 +59,7 @@ gulp.task('userscript-cleanup', function(cb) {
 
 gulp.task('userscript-include', ['userscript-css-merge'], function() {
 	var data = config;
-	data.css = fs.readFileSync('./build/userscript/temp/compiled.min.css', 'utf8');
+	data.css = fs.readFileSync('./build/userscript/temp/compiled.min.css', 'utf8').replace(/\\/g, '\\\\');
 	return es.merge(
 		pipe('./vendor/userscript/main.js', [include(), template(data), concat('the-tale-extension.user.js')], './build/userscript')
 	);
