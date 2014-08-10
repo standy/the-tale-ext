@@ -8,6 +8,7 @@
 // @run-at      document-end
 // @license     MIT License
 // @grant       GM_addStyle
+// @namespace   the-tale-ext
 // ==/UserScript==
 
 (function (window, undefined) {
