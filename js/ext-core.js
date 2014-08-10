@@ -27,7 +27,7 @@ $(document).on('ajaxSuccess.ext', function(event, XMLHttpRequest, setting, resul
 
 _ext.const = {
 	MAX_LOG_LENGTH: 1000,
-	MAX_ARCHIVE_LENGTH: 5000,
+	MAX_ARCHIVE_LENGTH: 2000,
 	FIGHT_START:  ['fight'],
 	FIGHT:        ['hit', 'might', 'fire', 'poisoncloud', 'vamp', 'stunHit', 'crit', 'flame', 'poison', 'slow', 'mush', 'speed', 'ue', 'eva', 'stun', 'heal'],
 	FIGHT_VALUES: ['hit', 'might', 'fire',                'vamp', 'stunHit', 'crit', 'flame', 'poison',                                               'heal'],
