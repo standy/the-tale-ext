@@ -4,12 +4,12 @@
 // @author      ${author}
 // @version     ${version}
 // @include     http://the-tale.org/game/
-// @require     http://code.jquery.com/jquery-1.11.1.min.js
 // @run-at      document-end
 // @license     MIT License
-// @grant       GM_addStyle
 // @namespace   the-tale-ext
 // ==/UserScript==
+// @require     http://code.jquery.com/jquery-1.11.1.min.js
+// @grant       GM_addStyle
 
 (function (window, undefined) {
 
