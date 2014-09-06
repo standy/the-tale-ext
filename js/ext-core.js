@@ -342,9 +342,8 @@ var _settings = (function(_settings) {
 					value: true,
 					inputs: [{
 						type: 'num',
-						addOn: '%',
-						name: 'notifyHeroHpLowerPercent',
-						value: 10
+						name: 'notifyHeroHpLowerValue',
+						value: 200
 					}]
 				}, {
 					label: 'Энергия выше ',
@@ -353,9 +352,8 @@ var _settings = (function(_settings) {
 					value: true,
 					inputs: [{
 						type: 'num',
-						addOn: '%',
-						name: 'notifyHeroEnergyGreaterPercent',
-						value: 80
+						name: 'notifyHeroEnergyGreaterValue',
+						value: 9
 					}]
 				}]
 			}]
@@ -616,20 +614,20 @@ _ext.subscribe('newMessages', function(messagesNew, gameData) {
 	var notifyMessages = [];
 	if (_settingsValues.notifyHeroHp) {
 		var health = hero.base.health;
-		var healthMax = hero.base.max_health;
-		var healthPercent = health / healthMax * 100;
-		var minHp = _settingsValues.notifyHeroHpLowerPercent;
-		if (healthPercent < minHp) {
-			notifyMessages.push('Низкое здоровье: ' + Math.round(healthPercent) + '%');
+//		var healthMax = hero.base.max_health;
+//		var healthPercent = health / healthMax * 100;
+		var minHp = _settingsValues.notifyHeroHpLowerValue;
+		if (health < minHp) {
+			notifyMessages.push('Низкое здоровье: ' + health + ' HP');
 		}
 	}
 	if (_settingsValues.notifyHeroEnergy) {
 		var energy = hero.energy.value;
-		var energyMax = hero.energy.max;
-		var energyPercent = energy / energyMax * 100;
-		var maxEnergy = _settingsValues.notifyHeroEnergyGreaterPercent;
-		if (energyPercent > maxEnergy) {
-			notifyMessages.push('Энергия накопилась: ' + energy + '');
+//		var energyMax = hero.energy.max;
+//		var energyPercent = energy / energyMax * 100;
+		var maxEnergy = _settingsValues.notifyHeroEnergyGreaterValue;
+		if (energy > maxEnergy) {
+			notifyMessages.push('Энергия накопилась: ' + energy);
 		}
 	}
 	if (_settingsValues.notifyHeroIdle) {
