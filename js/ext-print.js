@@ -1303,8 +1303,6 @@ _ext.shortMessages = _shortMessages;
 _ext.towns = _towns;
 _ext.stats = _stats;
 
-_ext.publish('init');
-
 
 /* dom stuff */
 $('.pgf-wait-data .alert-info').clone().attr('class', 'ext-wait').insertAfter('#current-action-block');

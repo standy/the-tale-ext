@@ -933,7 +933,7 @@ _ext.subscribe('newTurn', function(messagesNew) {
 			.find('.value').text(_ext.archive.archiveGroups.length);
 
 		$('#storage-size')
-			.text('(занято ' + Math.round( _ext.log.size() / 1024 / 1024 * 100 )/100 + ' из 5Мб)');
+			.text('(занято ' + Math.round( _ext.log.size() / 1024 / 1024 * 100 )/100 + 'Мб)');
 	}, 10);
 });
 
