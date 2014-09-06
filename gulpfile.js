@@ -114,4 +114,5 @@ gulp.task('userscript-deploy', ['build-userscript'], function () {
 });
 gulp.task('deploy', ['chrome-deploy', 'userscript-deploy']);
 gulp.task('dist', ['deploy']);
+gulp.task('default', ['deploy']);
 /* ===== eo deploy ===== */
