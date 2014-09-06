@@ -2,6 +2,7 @@
 	color: #0088cc;
 	cursor: default;
 	background-image: -webkit-linear-gradient(left, #0088cc, #0088cc 50%, transparent 50%);
+	background-image:    -moz-linear-gradient(left, #0088cc, #0088cc 50%, transparent 50%);
 	background-image:         linear-gradient(left, #0088cc, #0088cc 50%, transparent 50%);
 	background-size: 2px 1px;
 	background-position: 0 95%;
@@ -10,6 +11,7 @@
 .link-ajax:hover {
 	color: #005580;
 	background-image: -webkit-linear-gradient(left, #005580, #005580 50%, transparent 50%);
+	background-image:    -moz-linear-gradient(left, #005580, #005580 50%, transparent 50%);
 	background-image:         linear-gradient(left, #005580, #005580 50%, transparent 50%);
 }
 span[title] { cursor: default; }
