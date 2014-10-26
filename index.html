@@ -93,16 +93,15 @@ $ git checkout gh-pages
 
     </div>
 
-              <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-56094483-1");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
+   <script>
+    (function(s,t,a,n,d,y){s.GoogleAnalyticsObject=n;s[n]||(s[n]=
+    function(){(s[n].q=s[n].q||[]).push(arguments)});s[n].l=+new Date;
+    d=t.createElement(a);y=t.getElementsByTagName(a)[0];
+    d.src='//www.google-analytics.com/analytics.js';
+    y.parentNode.insertBefore(d,y)}(window,document,'script','ga'));
+    ga('create','UA-33261217-4','auto');ga('require', 'linkid', 'linkid.js');ga('send','pageview');
+</script>
+
 
   </body>
 </html>
