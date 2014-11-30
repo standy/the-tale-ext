@@ -94,6 +94,12 @@ gulp.task('watch-userscript', function() {
 
 /* ===== eo watch ===== */
 
+/* ===== dist ===== */
+gulp.task('clean-dist', function(cb) {
+	return gulp.src(['./dist'])
+		.pipe(rimraf());
+});
+/* ===== eo dist ===== */
 
 
 
@@ -102,17 +108,19 @@ gulp.task('chrome-deploy', ['build-chrome'], function () {
 	gulp.src('./build/chrome/**/*')
 		.pipe(zip('chrome-extension-' + config.version + '.zip'))
 		.pipe(gulp.dest('./deploy/chrome'))
-		.pipe(concat('chrome-extension.zip'))
+//		.pipe(concat('chrome-extension.zip'))
 		.pipe(gulp.dest('./dist'))
 });
 gulp.task('userscript-deploy', ['build-userscript'], function () {
 	gulp.src('./build/userscript/**/*')
 		.pipe(zip('userscript-' + config.version + '.zip'))
 		.pipe(gulp.dest('./deploy/userscript'))
-		.pipe(concat('userscript.zip'))
+//		.pipe(concat('userscript.zip'))
 		.pipe(gulp.dest('./dist'))
 });
-gulp.task('deploy', ['chrome-deploy', 'userscript-deploy']);
+gulp.task('deploy', function(cb) {
+	return rseq('clean', 'clean-dist', ['chrome-deploy', 'userscript-deploy'],  cb);
+});
 gulp.task('dist', ['deploy']);
 gulp.task('default', ['deploy']);
 /* ===== eo deploy ===== */
