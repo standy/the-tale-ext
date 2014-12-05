@@ -755,21 +755,21 @@ var _archive = (function(_archive) {
 				if (+mobId) archiveGroup.mobId = +mobId;
 			}
 
+			/* пересчет последней группы */
 			for (var i=0; i<messages.length; i++) {
 				var message = messages[i];
 				var act = message[4];
 				if (!act) continue;
-				var type = act.type;
+				var type = act.type; /* тип фразы */
 				if (isActType('FIGHT', type)) {
 					var isMe = act.isMe;
 					var addTo = archiveGroup[isMe ? 'me' : 'enemy'];
-					var isFightValues = isActType('FIGHT_VALUES', type);
-					if (!addTo[type]) {
-						if (isFightValues) addTo[type] = [act.value];
-						else addTo[type] = 1;
+					if (isActType('FIGHT_VALUES', type)) {
+						addTo[type] = addTo[type] || [];
+						addTo[type].push(act.value);
 					} else {
-						if (isFightValues) addTo[type].push(act.value);
-						else addTo[type]++;
+						addTo[type] = addTo[type] || 0;
+						addTo[type]++;
 					}
 				} else if (isActType('LOOT', type)) {
 					archiveGroup.loot = type;
