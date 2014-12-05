@@ -5,17 +5,18 @@
 [Userscript для firefox](http://userscripts.org:8080/scripts/show/487553)
 
 
-#Требования
+##Требования
 * [Node.js](http://nodejs.org/)
 * [Gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
 * установите все зависимости — это делается автоматически, запуском `npm install` в корне проекта
 
 
-#Сборка
+##Сборка
 Для сборки работает команда:
 ```
-gulp build
+gulp
 ```
+еквивалентно `gulp default`/`gulp dist`/`gulp deploy`  
 
 Для автоматической сборки при изменении в файлах:
 ```
@@ -23,7 +24,7 @@ gulp watch
 ```
 
 
-#Запуск вашего расширения для разработки
+##Запуск вашего расширения для разработки
 Для хрома (расширение)
 * перейдите на страницу расширений chrome://extensions/ (или "Дополнительные инструменты" > "Расширения")
 * поставьте галочку "Режим разработчика"
@@ -36,5 +37,5 @@ gulp watch
 * установите скрипт из папки ./the-tale-ext/build/userscript/
 
 
-#License
+##License
 MIT License
