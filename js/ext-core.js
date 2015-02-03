@@ -1,3 +1,4 @@
+if (window.API_CLIENT >= 'the_tale-v0.3.15.8') return;
 $(document).on('ajaxSuccess.ext', function(event, XMLHttpRequest, setting, result) {
 	"use strict";
 	if (setting.url.indexOf('/game/api/info?api_client=') === 0) {
