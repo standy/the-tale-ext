@@ -1304,9 +1304,4 @@ _ext.towns = _towns;
 _ext.stats = _stats;
 
 
-/* dom stuff */
-$('.pgf-wait-data .alert-info').clone().attr('class', 'ext-wait').insertAfter('#current-action-block');
-jQuery('.pgf-wait-data').toggleClass('pgf-hidden', true);
-jQuery('.pgf-game-data').toggleClass('pgf-hidden', false);
-/* dom stuff */
 

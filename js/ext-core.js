@@ -1,4 +1,5 @@
-if (window.API_CLIENT > 'the_tale-v0.3.15.8') return;
+//if (window.API_CLIENT > 'the_tale-v0.3.15.8') return;
+setTimeout(function() {
 $(document).on('ajaxSuccess.ext', function(event, XMLHttpRequest, setting, result) {
 	"use strict";
 	if (setting.url.indexOf('/game/api/info?api_client=') === 0) {
@@ -24,7 +25,7 @@ $(document).on('ajaxSuccess.ext', function(event, XMLHttpRequest, setting, resul
 		}
 	}
 });
-
+}, 15000)
 
 _ext.const = {
 	MAX_LOG_LENGTH: 1000,
@@ -799,53 +800,40 @@ $('body').on('click', '.group-toggle', function() {
 /* elements */
 var _elements = (function(_elements) {
 	var tabs = {};
-	var $mainRoot = $('#pgf-map-container').parent().parent();
-	var $diaryRoot = $('#pgf-diary-container').parent().parent();
-	var $equipRoot = $('#pgf-equipment-container').parent().parent();
 
-	var $mainTabs = $mainRoot.children('.nav-tabs');
+	var $diaryRoot = $('#pgf-diary-container').parent().parent();
 	var $diaryTabs = $diaryRoot.children('.nav-tabs');
-	var $equipTabs = $equipRoot.children('.nav-tabs');
-	var $mainContainer = $mainRoot.children('.tab-content');
-	var $mainMilldeContainer = $('#log-block').parent();
 	var $diaryContainer = $diaryRoot.children('.tab-content');
+
+	var $equipRoot = $('#pgf-equipment-container').parent().parent();
+	var $equipTabs = $equipRoot.children('.nav-tabs');
 	var $equipContainer = $equipRoot.children('.tab-content');
 
-	$mainTabs.on('click', '.pgf-journal-tab-button', function() {
-		var journal = $(this).data('journal');
-		if (journal) activeTab(journal);
-		else {
-			$('#log-block').show().siblings().hide();
-			$('#pgf-journal-container').addClass('active').siblings().removeClass('active');
+	var zones = {
+		main: {
+			$tabs: $diaryTabs,
+			$container: $diaryContainer
+		},
+		equip: {
+			$tabs: $equipTabs,
+			$container: $equipContainer
 		}
-	});
+	};
+
+
+
 	function addTab(name, opts) {
 		var zone = opts.zone || 'main';
-		var $tabs;
-		var $container;
-		if (zone === 'main') {
-			$tabs = $mainTabs;
-			$container = $mainContainer;
-		} else if (zone === 'mainMiddle') {
-			$tabs = $mainTabs;
-			$container = $mainMilldeContainer;
-		} else if (zone === 'diary') {
-			$tabs = $diaryTabs;
-			$container = $diaryContainer;
-		} else if (zone === 'equip') {
-			$tabs = $equipTabs;
-			$container = $equipContainer;
+		var $tabs = zones[zone].$tabs;
+		var $container = zones[zone].$container;
+
+		var $tab = $('<li class="pull-right"><a href="#pgf-'+name+'-container" class="pgf-'+name+'-tab-button" data-toggle="tab">'+opts.title+'</a></li>');
+		if (zone == 'main') {
+			var $content = $('<div class="tab-pane log-block" id="pgf-'+name+'-container"></div>');
+		} else {
+			var $content = $('<div class="tab-pane" id="pgf-'+name+'-container"></div>');
 		}
 
-		var $tab;
-		var $content;
-		if (zone === 'mainMiddle') {
-			$tab = $('<li class="pull-right"><a href="#pgf-journal-container" class="pgf-journal-tab-button" data-toggle="tab" data-journal="'+name+'">'+opts.title+'</a></li>');
-			$content = $('<div class="block log-block" id="log-block-'+name+'" style="display: none"></div>');
-		} else {
-			$tab = $('<li' + (zone === 'main' ? ' class="pull-right"' : '') + '><a href="#pgf-'+name+'-container" class="pgf-'+name+'-tab-button" data-toggle="tab">'+opts.title+'</a></li>');
-			$content = $('<div class="tab-pane ' + (zone === 'main' ? ' span8' : zone === 'diary' ? 'block log-block' : '') + '" id="pgf-'+name+'-container"></div>');
-		}
 		$tabs.append($tab);
 		$container.append($content);
 
@@ -870,13 +858,13 @@ var _elements = (function(_elements) {
 	}
 
 	function activeTab(name) {
-		tabs[name].$tab.addClass('active').siblings().removeClass('active');
-		if (tabs[name].zone === 'mainMiddle') {
-			$('#pgf-journal-container').addClass('active').siblings().removeClass('active');
-			tabs[name].$content.show().siblings().hide();
-		} else {
-			tabs[name].$content.addClass('active').siblings().removeClass('active');
-		}
+//		tabs[name].$tab.addClass('active').siblings().removeClass('active');
+//		if (tabs[name].zone === 'mainMiddle') {
+//			$('#pgf-journal-container').addClass('active').siblings().removeClass('active');
+//			tabs[name].$content.show().siblings().hide();
+//		} else {
+//			tabs[name].$content.addClass('active').siblings().removeClass('active');
+//		}
 	}
 
 	var controls = {};
@@ -908,11 +896,10 @@ var _elements = (function(_elements) {
 
 /* eo elements */
 
-_elements.addTab('sets', {zone: 'mainMiddle', title: 'настройки'});
-//	_elements.addTab('stats', {zone: 'mainMiddle', title: 'статистика'});
-_elements.addTab('archive', {zone: 'mainMiddle', title: 'архив'});
-_elements.addTab('group', {zone: 'mainMiddle', title: 'кратко'});
-_elements.addTab('towns', {zone: 'diary', title: 'города'});
+_elements.addTab('sets', {zone: 'main', title: '<span class="glyphicon glyphicon-cog" title="Настройки &laquo;The Tale Extended&raquo;"></span>'});
+_elements.addTab('towns', {zone: 'main', title: 'города'});
+_elements.addTab('archive', {zone: 'main', title: 'архив'});
+_elements.addTab('group', {zone: 'main', title: 'кратко'});
 _ext.subscribe('init', function() {
 	_elements.activeTab('group');
 });
@@ -985,10 +972,10 @@ var _notification = (function(_notification) {
 
 /* quests */
 var _quests = (function(_quests) {
-	var lastQusets;
+	var lastQuests;
 	function checkQuests(quests) {
 		var line = quests[1].line;
-		var lineOld = lastQusets && lastQusets[1] && lastQusets[1].line || [];
+		var lineOld = lastQuests && lastQuests[1] && lastQuests[1].line || [];
 		var newLines = [];
 		for (var i=0; i<line.length; i++) {
 			var q = line[i];
@@ -1015,7 +1002,7 @@ var _quests = (function(_quests) {
 		if (newLines.length) {
 			_ext.publish('questUpdate', line);
 		}
-		lastQusets = quests;
+		lastQuests = quests;
 	}
 
 	function isSameQuest(q1,q2) {

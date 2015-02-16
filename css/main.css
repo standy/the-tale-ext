@@ -37,7 +37,7 @@ input[disabled] { cursor: default; }
 .table-stats .stats-average { text-align: right; }
 .table-stats .stats-bonus { text-align: left; padding-left: 10px; padding-right: 5px;  }
 .table-stats th.stats-bonus { text-align: center;  }
-.table-stats .stats-against { border-top: 10px solid whitesmoke; }
+.table-stats .stats-against { border-top: 10px solid #f5fafa; }
 
 .table-stats .stats-row-dmgSum td { font-weight: bold; }
 
@@ -56,11 +56,11 @@ input[disabled] { cursor: default; }
 	max-height: 500px;
 	overflow-y: auto;
 }
-.stats-log .pgf-log-list {
-	padding-top: 10px;
-	border-top: 1px solid #ddd;
-	margin-bottom: 30px;
-}
+/*.stats-log .pgf-log-list {*/
+	/*padding-top: 10px;*/
+	/*border-top: 1px solid #ddd;*/
+	/*margin-bottom: 30px;*/
+/*}*/
 
 
 
@@ -175,7 +175,7 @@ input[disabled] { cursor: default; }
 
 .group-title {
 	cursor: default;
-	margin-right: 5px;
+	margin-right: 0;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -204,7 +204,7 @@ input[disabled] { cursor: default; }
 .group-title.god .group-time { color: darkviolet; text-decoration: underline; }
 .group-time { margin-right: 3px; }
 
-.group-controls { position: absolute; right: -7px; top: 1px; }
+.group-controls { position: absolute; right: 0; top: 1px; }
 .group-controls .glyphicon { position: absolute; right: 0; top: 0; }
 .group-controls .glyphicon:hover { color: #000; }
 .group-stats { margin-bottom: 2px; }
@@ -219,7 +219,7 @@ input[disabled] { cursor: default; }
 	width: 35px;
 	white-space: nowrap;
 }
-.group .pgf-log-list { margin: 0; }
+/*.group .pgf-log-list { margin: 0; }*/
 /* eo group */
 
 

@@ -1,3 +1,4 @@
+//setTimeout(function() {
 window.ext = (function(_ext) {
 	"use strict";
 
@@ -14,5 +15,5 @@ window.ext = (function(_ext) {
 	return _ext;
 })(window.ext || {});
 
+//},4000);
 //= include ../../js/tables.js
-

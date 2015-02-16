@@ -121,6 +121,7 @@ gulp.task('userscript-deploy', ['build-userscript'], function () {
 gulp.task('deploy', function(cb) {
 	return rseq('clean', 'clean-dist', ['chrome-deploy', 'userscript-deploy'],  cb);
 });
+gulp.task('dev', ['deploy', 'watch']);
 gulp.task('dist', ['deploy']);
 gulp.task('default', ['deploy']);
 /* ===== eo deploy ===== */
