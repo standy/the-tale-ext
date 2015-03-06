@@ -2,15 +2,15 @@ var gulp = require('gulp'); // Сообственно Gulp JS
 var csso = require('gulp-csso'); // Минификация CSS
 //var imagemin = require('gulp-imagemin'); // Минификация изображений
 var concat = require('gulp-concat'); // Склейка файлов
-var rimraf = require('gulp-rimraf'); // Удаление файлов
 var template = require('gulp-template'); // Шаблонизатор
 var include = require('gulp-include'); // Шаблонизатор
 var zip = require('gulp-zip');
 var fs = require('fs');
+var rimraf = require('rimraf');
+
 
 var es = require('event-stream');
-var rseq = require('gulp-run-sequence');
-var watch = require('gulp-watch'); // Слежка за кодом
+var runSequence = require('run-sequence');
 
 var config = require('./config.json');
 
@@ -53,8 +53,7 @@ gulp.task('userscript-css-merge', function() {
 		.pipe(gulp.dest('./build/userscript/temp/'));
 });
 gulp.task('userscript-cleanup', function(cb) {
-	return gulp.src(['./build/userscript/temp/'])
-		.pipe(rimraf());
+	rimraf('./build/userscript/temp/', cb);
 });
 
 gulp.task('userscript-include', ['userscript-css-merge'], function() {
@@ -65,7 +64,7 @@ gulp.task('userscript-include', ['userscript-css-merge'], function() {
 	);
 });
 gulp.task('build-userscript', function(cb) {
-	return rseq('userscript-css-merge', 'userscript-include', 'userscript-cleanup',  cb);
+	return runSequence('userscript-css-merge', 'userscript-include', 'userscript-cleanup',  cb);
 });
 /* ===== eo userscript ===== */
 
@@ -73,11 +72,10 @@ gulp.task('build-userscript', function(cb) {
 
 /* ===== build ===== */
 gulp.task('clean', function(cb) {
-	return gulp.src(['./build'])
-		.pipe(rimraf());
+	rimraf('./build/', cb);
 });
 gulp.task('build', function(cb) {
-	return rseq('clean', ['build-chrome', 'build-userscript'],  cb);
+	return runSequence('clean', ['build-chrome', 'build-userscript'],  cb);
 });
 /* ===== eo build ===== */
 
@@ -96,8 +94,7 @@ gulp.task('watch-userscript', function() {
 
 /* ===== dist ===== */
 gulp.task('clean-dist', function(cb) {
-	return gulp.src(['./dist'])
-		.pipe(rimraf());
+	rimraf('./dist/', cb);
 });
 /* ===== eo dist ===== */
 
@@ -113,13 +110,13 @@ gulp.task('chrome-deploy', ['build-chrome'], function () {
 });
 gulp.task('userscript-deploy', ['build-userscript'], function () {
 	gulp.src('./build/userscript/**/*')
+		.pipe(gulp.dest('./dist'))
 		.pipe(zip('userscript-' + config.version + '.zip'))
 		.pipe(gulp.dest('./deploy/userscript'))
 //		.pipe(concat('userscript.zip'))
-		.pipe(gulp.dest('./dist'))
 });
 gulp.task('deploy', function(cb) {
-	return rseq('clean', 'clean-dist', ['chrome-deploy', 'userscript-deploy'],  cb);
+	return runSequence('clean', 'clean-dist', ['chrome-deploy', 'userscript-deploy'],  cb);
 });
 gulp.task('dev', ['deploy', 'watch']);
 gulp.task('dist', ['deploy']);

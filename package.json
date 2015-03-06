@@ -1,31 +1,30 @@
 {
-	"name": "the-tale-extended",
-	"version": "0.0.4",
-	"devDependencies": {
-		"event-stream": "^3.1.5",
-		"glob": "^4.0.3",
-		"gulp": "^3.8.5",
-		"gulp-concat": "^2.2.0",
-		"gulp-csso": "^0.2.9",
-		"gulp-include": "^0.2.3",
-		"gulp-rimraf": "^0.1.0",
-		"gulp-run-sequence": "^0.3.2",
-		"gulp-shell": "^0.2.7",
-		"gulp-template": "^0.1.1",
-		"gulp-util": "^2.2.19",
-		"gulp-watch": "^0.6.8",
-		"gulp-zip": "^0.4.0"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/standys/the-tale-ext"
-	},
-	"bugs": {
-		"url": "https://github.com/standys/the-tale-ext/issues"
-	},
-	"keywords": [
-		"the tale",
-		"the tale extended"
-	],
-	"license": "MIT"
+  "name": "the-tale-extended",
+  "version": "0.0.4",
+  "devDependencies": {
+    "event-stream": "^3.1.5",
+    "gulp": "^3.8.5",
+    "gulp-concat": "^2.2.0",
+    "gulp-csso": "^1.0.0",
+    "gulp-include": "^1.1.1",
+    "gulp-template": "^3.0.0",
+    "gulp-util": "^3.0.4",
+    "gulp-zip": "^2.0.3",
+    "rimraf": "^2.3.1",
+    "run-sequence": "^1.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/standy/the-tale-ext"
+  },
+  "bugs": {
+    "url": "https://github.com/standy/the-tale-ext/issues"
+  },
+  "keywords": [
+    "the tale",
+    "the tale extended",
+    "chrome extension",
+    "userscript"
+  ],
+  "license": "MIT"
 }
