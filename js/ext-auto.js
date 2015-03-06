@@ -50,6 +50,18 @@ var _auto = (function(_auto) {
 					value: true
 				}]
 			}, {
+				label: 'Лечение спутника, если его здоровье меньше',
+				name: 'autohelpСompanion',
+				isToggle: 1,
+				isInline: 1,
+				value: true,
+				inputs: [{
+					type: 'num',
+					name: 'autohelpСompanionHp',
+					isInline: 1,
+					value: 20
+				}]
+			}, {
 				label: 'Энергия выше ',
 				name: 'autohelpEnergy',
 				isToggle: 1,
@@ -237,6 +249,14 @@ var _auto = (function(_auto) {
 			godHelp('Низкое здоровье: ' + hero.base.health);
 			return;
 		}
+
+		var isHeplingСompanion = actionName === 'companionHelp';
+		if (_settingsValues.autohelpСompanion && isHeplingСompanion && hero.companion.health < _settingsValues.autohelpСompanionHp) {
+			godHelp('Низкое здоровье спутника: ' + hero.companion.health);
+
+			return;
+		}
+
 		if (_settingsValues.autohelpEnergy && energy > _settingsValues.autohelpEnergyGreaterValue && (
 				(_settingsValues.autohelpEnergyFight && isFight) ||
 				(_settingsValues.autohelpEnergyRest && isRest) ||
