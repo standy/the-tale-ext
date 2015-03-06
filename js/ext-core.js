@@ -25,7 +25,7 @@ $(document).on('ajaxSuccess.ext', function(event, XMLHttpRequest, setting, resul
 		}
 	}
 });
-}, 15000)
+}, 15000);
 
 _ext.const = {
 	MAX_LOG_LENGTH: 1000,
@@ -46,21 +46,22 @@ _ext.const = {
 	REST: ['rest'],
 	SHORT: ['hit', 'might', 'fire', 'flame', 'poison', 'vamp', 'slow', 'poisoncloud', 'mush', 'ue', 'eva', 'heal', 'godheal', 'rest', 'coins', 'speed', 'stunHit', 'stun', 'pvpeff', 'pvpice', 'pvpflame', 'pvpfail'],
 	ACTION_TYPE_NAMES: {
-		0:  'idle',      //безделие
-		1:  'quest',     //задание
-		2:  'walk',      //путешествие между городами
-		3:  'fight',     //сражение 1x1 с монстром
-		4:  'dead',      //воскрешение
-		5:  'city',      //действия в городе
-		6:  'rest',      //отдых
-		7:  'equip',     //экипировка
-		8:  'trade',     //торговля
-		9:  'nearcity',  //путешествие около города
-		10: 'energy',    //восстановление энергии
-		11: 'noeffect',  //действие без эффекта на игру
-		12: 'proxy',     //прокси-действия для взаимодействия героев
-		13: 'pvp',       //PvP 1x1
-		14: 'test'       //проверочное действие
+		0:  'idle',         //безделие
+		1:  'quest',        //задание
+		2:  'walk',         //путешествие между городами
+		3:  'fight',        //сражение 1x1 с монстром
+		4:  'dead',         //воскрешение
+		5:  'city',         //действия в городе
+		6:  'rest',         //отдых
+		7:  'equip',        //экипировка
+		8:  'trade',        //торговля
+		9:  'nearcity',     //путешествие около города
+		10: 'energy',       //восстановление энергии
+		11: 'noeffect',     //действие без эффекта на игру
+		12: 'proxy',        //прокси-действия для взаимодействия героев
+		13: 'pvp',          //PvP 1x1
+		14: 'test',         //проверочное действие
+		15: 'companionHelp' //уход за спутником
 	},
 	ACTION_TYPE_TEXTS: {
 		idle:       'безделие',
