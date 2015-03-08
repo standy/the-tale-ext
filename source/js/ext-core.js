@@ -1,45 +1,49 @@
+var $ = require('jquery');
+var pgf = require('pgf');
+
+var _ext = window.ext;
+
 //if (window.API_CLIENT > 'the_tale-v0.3.15.8') return;
 setTimeout(function() {
-$(document).on('ajaxSuccess.ext', function(event, XMLHttpRequest, setting, result) {
-	"use strict";
-	if (setting.url.indexOf('/game/api/info?api_client=') === 0) {
-		var game_data = result.data;
+	$(document).on('ajaxSuccess.ext', function(event, XMLHttpRequest, setting, result) {
+		if (setting.url.indexOf('/game/api/info?api_client=') === 0) {
+			var game_data = result.data;
 
-		try {
-			_ext.heroName = game_data.account.hero.base.name;
-			_ext.map_version = game_data.map_version;
-		} catch(e) {}
+			try {
+				_ext.heroName = game_data.account.hero.base.name;
+				_ext.map_version = game_data.map_version;
+			} catch (e) {}
 
 
-		if (!_ext.preloadDone) {
-//			$(document).trigger(pgf.game.events.DATA_REFRESHED, game_data);
-			_ext.publish('preload', game_data);
+			if (!_ext.preloadDone) {
+	//			$(document).trigger(pgf.game.events.DATA_REFRESHED, game_data);
+				_ext.publish('preload', game_data);
+			}
+			_ext.preloadDone = 1;
+
+			if (!game_data.account.is_old) {
+				_ext.publish('load', game_data);
+				$('.ext-wait').hide();
+				$(document).off('ajaxSuccess.ext');
+				delete _ext.preloadDone;
+			}
 		}
-		_ext.preloadDone = 1;
-
-		if (!game_data.account.is_old) {
-			_ext.publish('load', game_data);
-			$('.ext-wait').hide();
-			$(document).off('ajaxSuccess.ext');
-			delete _ext.preloadDone;
-		}
-	}
-});
+	});
 }, 15000);
 
 _ext.const = {
 	MAX_LOG_LENGTH: 1000,
 	MAX_ARCHIVE_LENGTH: 2000,
-	FIGHT_START:  ['fight'],
-	FIGHT:        ['hit', 'might', 'fire', 'poisoncloud', 'vamp', 'stunHit', 'crit', 'flame', 'poison', 'slow', 'mush', 'speed', 'ue', 'eva', 'stun', 'heal'],
-	FIGHT_VALUES: ['hit', 'might', 'fire',                'vamp', 'stunHit', 'crit', 'flame', 'poison',                                               'heal'],
-	FIGHT_COUNTS: [                        'poisoncloud',                                               'slow', 'mush', 'speed', 'ue', 'eva', 'stun'        ],
-	DMG:          ['hit', 'might', 'fire', 'poisoncloud', 'vamp', 'stunHit', 'crit'                                                                         ],
-	DOT:          [                                                                  'flame', 'poison'                                                      ],
-	DEBUFF:       [                                                                                     'slow'                                              ],
-	BUFF:         [                                                                                             'mush', 'speed', 'ue'                       ],
-	ACTIVE:       ['hit', 'might', 'fire', 'poisoncloud', 'vamp', 'stunHit',                                    'mush'         , 'ue'                       ],
-	PASSIVE:      [                                                          'crit', 'flame', 'poison', 'slow',         'speed',       'eva', 'stun', 'heal'],
+	FIGHT_START:  'fight'.split(/",\s*"/),
+	FIGHT:        'hit, might, fire, poisoncloud, vamp, stunHit, crit, flame, poison, slow, mush, speed, ue, eva, stun, heal'.split(/,\s*/),
+	FIGHT_VALUES: 'hit, might, fire,              vamp, stunHit, crit, flame, poison,                                   heal'.split(/,\s*/),
+	FIGHT_COUNTS: '                  poisoncloud,                                     slow, mush, speed, ue, eva, stun      '.split(/,\s*/),
+	DMG:          'hit, might, fire, poisoncloud, vamp, stunHit, crit                                                       '.split(/,\s*/),
+	DOT:          '                                                    flame, poison                                        '.split(/,\s*/),
+	DEBUFF:       '                                                                   slow                                  '.split(/,\s*/),
+	BUFF:         '                                                                         mush, speed, ue                 '.split(/,\s*/),
+	ACTIVE:       'hit, might, fire, poisoncloud, vamp, stunHit,                            mush,        ue                 '.split(/,\s*/),
+	PASSIVE:      '                                              crit, flame, poison, slow,       speed,     eva, stun, heal'.split(/,\s*/),
 
 	SUM_TO_MAIN: {flame: 'fire', poison: 'poisoncloud', crit: 'hit'},
 	LOOT: ['pickup', 'empty', 'drop'],
@@ -158,7 +162,24 @@ _ext.const = {
 		heal: 'Регенерация',
 		dmgSum: 'Всего'
 	},
-	MOBS: [null,"олень","одичавшая одежда","осы","хищный кустик","кабан-секач","бродячий дуб","волк","дух леса","оскорблённая эльфийка","блюститель природы","медведь","аристократ","единорог","призрачный волк","астральный охотник","головастик","домашний поползень","одичавшие светлячки","ползун","пиявка","гигантская росянка","сбежавший эксперимент","слизь","гидра","щупальце","химический мусорник","упырь","кикимора","бесхозный голем","охотник за реагентами","мутировавший гоблин","василиск","ожившее пугало","хищный хомяк","борец за справедливость","саранча","маньяк-извращенец","карточный шулер","богомол","благородный разбойник","одержимый колдун","механический дракончик","дварф-изгнанник","неистовый сектант","механический голем","убийца","полоумный маг","шакал","скорпион","налётчик","огненная лиса","орк-изгнанник","скарабей","гремучая змея","саламандра","пустынный дракончик","джинн","берсерк","смерч","заблудший шаман","шайтан","крыса","бандит","призрак","неупокоенный","гремлин","подыльник","странствующий рыцарь","нага","охотник за головами","суккуб","вирика","див","додо","ангиак","бхут","гвиллион","вилах","вендиго","галд","ачери","земляная даппи","огненная даппи","анчутка","жихарь","йиена","мара","боец Серого Ордена","спятивший лорд","волколак","медвелак","аколит огня","ламия","баргест","вий","гьюнальский паук","дэра","гриндель","грим","кагир","друджи","даса","стая ичетики","кера","куд","ларва","егви","каменный великан","каннибал","ламашту","лахама","наркоман","бывший палач","мародёр","страхолев","злоцвет","варвар","ночная хныка","омерзень","смрадень","глыдень","песчаный холерник","мать анаконд","белая гиена","мраморный бык","язвомор","лишайница","жирница","бульг","костогрыз","каменник","вирница","тигр","барбегаз","бродячий огонек","скальник","пупырник","стогница","куропатка гуанила","пёстробородый","капитан Серых Плащей","аколит льда","семиглаз","гюрза","медвежук","снежная росомаха","койот","горный манул","мастер огня","мастер льда","кобольд","пожиратель плоти","главарь пестробородых","ученик Силы","гомункул","некромант","тагар","стрига","приземник","лесной тролль","вурдалак","болотный тролль","бескуд","атач"]
+	MOBS: [
+		null, 'олень', 'одичавшая одежда', 'осы', 'хищный кустик', 'кабан-секач', 'бродячий дуб', 'волк', 'дух леса', 'оскорблённая эльфийка',
+		'блюститель природы', 'медведь', 'аристократ', 'единорог', 'призрачный волк', 'астральный охотник', 'головастик', 'домашний поползень',
+		'одичавшие светлячки', 'ползун', 'пиявка', 'гигантская росянка', 'сбежавший эксперимент', 'слизь', 'гидра', 'щупальце', 'химический мусорник', 'упырь',
+		'кикимора', 'бесхозный голем', 'охотник за реагентами', 'мутировавший гоблин', 'василиск', 'ожившее пугало', 'хищный хомяк', 'борец за справедливость',
+		'саранча', 'маньяк-извращенец', 'карточный шулер', 'богомол', 'благородный разбойник', 'одержимый колдун', 'механический дракончик', 'дварф-изгнанник',
+		'неистовый сектант', 'механический голем', 'убийца', 'полоумный маг', 'шакал', 'скорпион', 'налётчик', 'огненная лиса', 'орк-изгнанник', 'скарабей',
+		'гремучая змея', 'саламандра', 'пустынный дракончик', 'джинн', 'берсерк', 'смерч', 'заблудший шаман', 'шайтан', 'крыса', 'бандит', 'призрак',
+		'неупокоенный', 'гремлин', 'подыльник', 'странствующий рыцарь', 'нага', 'охотник за головами', 'суккуб', 'вирика', 'див', 'додо', 'ангиак', 'бхут',
+		'гвиллион', 'вилах', 'вендиго', 'галд', 'ачери', 'земляная даппи', 'огненная даппи', 'анчутка', 'жихарь', 'йиена', 'мара', 'боец Серого Ордена',
+		'спятивший лорд', 'волколак', 'медвелак', 'аколит огня', 'ламия', 'баргест', 'вий', 'гьюнальский паук', 'дэра', 'гриндель', 'грим', 'кагир', 'друджи',
+		'даса', 'стая ичетики', 'кера', 'куд', 'ларва', 'егви', 'каменный великан', 'каннибал', 'ламашту', 'лахама', 'наркоман', 'бывший палач', 'мародёр',
+		'страхолев', 'злоцвет', 'варвар', 'ночная хныка', 'омерзень', 'смрадень', 'глыдень', 'песчаный холерник', 'мать анаконд', 'белая гиена',
+		'мраморный бык', 'язвомор', 'лишайница', 'жирница', 'бульг', 'костогрыз', 'каменник', 'вирница', 'тигр', 'барбегаз', 'бродячий огонек', 'скальник',
+		'пупырник', 'стогница', 'куропатка гуанила', 'пёстробородый', 'капитан Серых Плащей', 'аколит льда', 'семиглаз', 'гюрза', 'медвежук',
+		'снежная росомаха', 'койот', 'горный манул', 'мастер огня', 'мастер льда', 'кобольд', 'пожиратель плоти', 'главарь пестробородых', 'ученик Силы',
+		'гомункул', 'некромант', 'тагар', 'стрига', 'приземник', 'лесной тролль', 'вурдалак', 'болотный тролль', 'бескуд', 'атач'
+	]
 };
 
 
@@ -168,7 +189,7 @@ function publish(e) {
 	var sp = e.split('.');
 	var event = sp[0];
 	var namespace = sp[1];
-	for (var i=0; i<_subscribeList.length; i++) {
+	for (var i = 0; i < _subscribeList.length; i++) {
 		var s = _subscribeList[i];
 		if ((!namespace || namespace === s.namespace) && (!event || event === s.event)) {
 			s.fn.apply(_ext, Array.prototype.slice.call(arguments, 1));
@@ -195,11 +216,13 @@ var cacheTimeId = {};
 function cache(name, value, time) {
 	if (arguments.length > 1) {
 		cacheStore[name] = value;
-		if (cacheTimeId[name]) window.clearTimeout(cacheTimeId[name]);
+		if (cacheTimeId[name]) {
+			window.clearTimeout(cacheTimeId[name]);
+		}
 		if (time) {
 			cacheTimeId[name] = window.setTimeout(function() {
 				delete cacheStore[name];
-			}, time)
+			}, time);
 		}
 	} else {
 		return cacheStore[name];
@@ -225,12 +248,12 @@ var _store = (function() {
 		return {
 			get: getStore,
 			set: setStore
-		}
+		};
 	} else {
 		return {
 			get: function() {},
 			set: function() {}
-		}
+		};
 	}
 })({});
 
@@ -269,10 +292,9 @@ var _log = (function() {
 	}
 	function size() {
 		var t = 0;
-		for(var x in localStorage){
+		for (var x in localStorage) if (localStorage.hasOwnProperty(x)) {
 			t += localStorage[x].length * 2;
 		}
-//			console.log(t/1024+ " KB");
 		return t;
 	}
 	if (window.localStorage && window.JSON) {
@@ -432,24 +454,28 @@ var _settings = (function(_settings) {
 	function checkDependences(key, value, isDisabled) {
 		if (deps[key]) {
 			deps[key].forEach(function(keyName) {
-				if (keyName) getSettingInput(keyName).closest('.input-wrap').toggleClass('disabled', isDisabled || !value);//.prop('disabled', !value);
+				if (keyName) {
+					getSettingInput(keyName).closest('.input-wrap').toggleClass('disabled', isDisabled || !value);//.prop('disabled', !value);
+				}
 			});
 		}
 	}
 
 	var deps = {};
 	function addSets(sets) {
-		for (var i=0; i<sets.length;i++) {
+		for (var i = 0; i < sets.length;i++) {
 			settingsDefaults(sets[i].fields);
 		}
 
 		function settingsDefaults(fields) {
 			var childs = [];
-			for (var i=0; i<fields.length;i++) {
+			for (var i = 0; i < fields.length;i++) {
 				var st = fields[i];
 				childs.push(st.name);
 //					console.log('defaults', st.name);
-				if (typeof settingsValues[st.name] === 'undefined') settingsValues[st.name] = st.value;
+				if (typeof settingsValues[st.name] === 'undefined') {
+					settingsValues[st.name] = st.value;
+				}
 				var subsChilds = [];
 				if (st.inputs) {
 					subsChilds = settingsDefaults(st.inputs).concat(subsChilds);
@@ -457,7 +483,9 @@ var _settings = (function(_settings) {
 				if (st.subs) {
 					subsChilds = settingsDefaults(st.subs).concat(subsChilds);
 				}
-				if (st.fields) subsChilds = settingsDefaults(st.fields).concat(subsChilds);
+				if (st.fields) {
+					subsChilds = settingsDefaults(st.fields).concat(subsChilds);
+				}
 
 				if (subsChilds.length && st.name) {
 					deps[st.name] = subsChilds;
@@ -473,11 +501,11 @@ var _settings = (function(_settings) {
 	function drawSets(sets) {
 		var $sets = _elements.getTabInner('sets');
 		var html = '';
-		for (var i=0; i<sets.length;i++) {
+		for (var i = 0; i < sets.length;i++) {
 			var st = sets[i];
 			html +=
 				'<div class="">' +
-					'<div class="sets-header">' + (st.title||'') + '</div>' +
+					'<div class="sets-header">' + (st.title || '') + '</div>' +
 					drawSetsGroup(st.fields) +
 				'</div>';
 		}
@@ -487,7 +515,7 @@ var _settings = (function(_settings) {
 			var $input = $(this);
 			var name = $input.data('name');
 			var value = $input.is('[type="checkbox"]') ? $input.prop('checked') : $input.val();
-			var isDisabled = $input.closest('.input-wrap').hasClass('disabled')//.prop('disabled');
+			var isDisabled = $input.closest('.input-wrap').hasClass('disabled');
 			checkDependences(name, !isDisabled && value);
 		});
 	}
@@ -502,9 +530,9 @@ var _settings = (function(_settings) {
 				var $input = $(this);
 				var name = $input.data('name');
 				var value = $input.is('[type="checkbox"]') ? $input.prop('checked') : $input.val();
-				if ($input.data('type') == 'num') { value =+value; }
+				if ($input.data('type') === 'num') { value = +value; }
 				settingsValues[name] = value;
-				var isDisabled = $input.closest('.input-wrap').hasClass('disabled')//.prop('disabled');
+				var isDisabled = $input.closest('.input-wrap').hasClass('disabled');
 				_ext.publish('settingsChange', name, value, isDisabled);
 				_log.set('settings', settingsValues);
 			})
@@ -515,7 +543,7 @@ var _settings = (function(_settings) {
 					_ext.log.set('archiveGroups', '');
 					_ext.archive.archiveGroups.splice(0, _ext.archive.archiveGroups.length);
 					_ext.stats.drawStatsSide();
-					_ext.elements.getTabInner('group').html('')
+					_ext.elements.getTabInner('group').html('');
 				}
 			});
 	}
@@ -523,7 +551,7 @@ var _settings = (function(_settings) {
 	function drawSetsGroup(fields) {
 //			console.log('drawSetsGroup', sets);
 		var html = '';
-		for (var i=0;i<fields.length;i++) {
+		for (var i = 0;i < fields.length;i++) {
 			var st = fields[i];
 
 			var inputsHtml = '';
@@ -554,7 +582,9 @@ var _settings = (function(_settings) {
 		return html;
 
 		function drawInput(st) {
-			if (typeof settingsValues[st.name] === 'undefined') settingsValues[st.name] = st.value;
+			if (typeof settingsValues[st.name] === 'undefined') {
+				settingsValues[st.name] = st.value;
+			}
 			var html = '';
 			if (st.isToggle || st.type === 'checkbox') {
 				html = '<input type="checkbox" data-name="' + st.name + '""' + (settingsValues[st.name] ? ' checked' : '') + '> ';
@@ -594,15 +624,15 @@ _ext.subscribe('init', function() {
 _ext.subscribe('preload', function() {
 	if (!_settings.settingsValues.heroNameStart) {
 		var heroName = _ext.heroName;
-		_settings.settingsValues.heroNameStart = heroName.substring(0, Math.max(3, heroName.length-2));
+		_settings.settingsValues.heroNameStart = heroName.substring(0, Math.max(3, heroName.length - 2));
 		_settings.getSettingInput('heroNameStart').val(_settings.settingsValues.heroNameStart).trigger('change');
 	}
 });
 
-_ext.subscribe('settingsChange', function(key, value) {
+_ext.subscribe('settingsChange', function(key/*, value*/) {
 	if (key === 'heroNameStart') {
 		_trace.traceInit();
-		_ext.groupMessages.drawMessages( _ext.groupMessages.list );
+		_ext.groupMessages.drawMessages(_ext.groupMessages.list);
 	}
 });
 
@@ -642,7 +672,7 @@ _ext.subscribe('newMessages', function(messagesNew, gameData) {
 
 	if (notifyMessages.length) {
 		var notifyMessagesText = notifyMessages.join('\n');
-		if (notifyMessagesText != lastNonifyMessagesText) {
+		if (notifyMessagesText !== lastNonifyMessagesText) {
 			_notification.sendNotify('The Tale Extended - ' + _ext.heroName, {
 				tag: 'send',
 				body: notifyMessagesText
@@ -661,7 +691,7 @@ var _trace = (function(_trace) {
 
 	var messagesLog = _log.get('messagesLog') || [];
 	function traceInit() {
-		for (var i=0; i<messagesLog.length; i++) {
+		for (var i = 0; i < messagesLog.length; i++) {
 			var messageNew = messagesLog[i];
 			messageNew[4] = _ext.parse.short(messageNew[2]) || false;
 		}
@@ -671,6 +701,7 @@ var _trace = (function(_trace) {
 
 		var hero = game_data.account.hero;
 		if (!hero) return;
+
 		var heroData = {
 			action: {
 				description: hero.action.description,
@@ -701,13 +732,13 @@ var _trace = (function(_trace) {
 			turn: game_data.turn.number
 		};
 
-		var lastLog = messagesLog[messagesLog.length-1] || [];
+		var lastLog = messagesLog[messagesLog.length - 1] || [];
 		var lastTimestamp = lastLog[0];
 		var messagesPack = hero.messages;
-		messagesPack[messagesPack.length-1][3] = heroData;
-		var messagesPackTimestamp = messagesPack[messagesPack.length-1][0];
+		messagesPack[messagesPack.length - 1][3] = heroData;
+		var messagesPackTimestamp = messagesPack[messagesPack.length - 1][0];
 		var messagesNew = [];
-		for (var i=0; i<messagesPack.length; i++) {
+		for (var i = 0; i < messagesPack.length; i++) {
 			if (!lastTimestamp || messagesPack[i][0] > lastTimestamp) {
 				var messageNew = messagesPack[i];
 //					if (messagesPackTimestamp === messageNew[0]) messageNew[3] = heroData;
@@ -727,7 +758,7 @@ var _trace = (function(_trace) {
 		}
 	}
 	function traceStart() {
-		$(document).bind(pgf.game.events.DATA_REFRESHED + '.ext-trace', function(e, game_data){
+		$(document).bind(pgf.game.events.DATA_REFRESHED + '.ext-trace', function(e, game_data) {
 			traceData(game_data);
 		});
 	}
@@ -759,15 +790,15 @@ _ext.subscribe('newMessages', function(messagesNew, gameData, timestamp) {
 	_log.set('game_data', gameData);
 	var hero = gameData.account.hero;
 	var levelsLog = _log.get('levelsLog') || [];
-	var lastLevel = (levelsLog[levelsLog.length-1] || [])[1];
+	var lastLevel = (levelsLog[levelsLog.length - 1] || [])[1];
 	if (hero.base.level !== lastLevel) {
 		console.info('level up!', hero.base.level);
 		levelsLog.push([timestamp, hero.base.level]);
 		_log.set('levelsLog', levelsLog);
 	}
 	var powersLog = _log.get('powersLog') || [];
-	powersLog = powersLog.filter(function(t) { return typeof t[1] === 'number'; } );
-	var lastPower = (powersLog[powersLog.length-1] || [])[1];
+	powersLog = powersLog.filter(function(t) { return typeof t[1] === 'number'; });
+	var lastPower = (powersLog[powersLog.length - 1] || [])[1];
 	var powerSum = hero.secondary.power[0] + hero.secondary.power[1];
 	if (powerSum !== lastPower) {
 		console.info('power up!', powerSum);
@@ -828,11 +859,12 @@ var _elements = (function(_elements) {
 		var $tabs = zones[zone].$tabs;
 		var $container = zones[zone].$container;
 
-		var $tab = $('<li class="pull-right"><a href="#pgf-'+name+'-container" class="pgf-'+name+'-tab-button" data-toggle="tab">'+opts.title+'</a></li>');
-		if (zone == 'main') {
-			var $content = $('<div class="tab-pane log-block" id="pgf-'+name+'-container"></div>');
+		var $tab = $('<li class="pull-right"><a href="#pgf-' + name + '-container" class="pgf-' + name + '-tab-button" data-toggle="tab">' + opts.title + '</a></li>');
+		var $content;
+		if (zone === 'main') {
+			$content = $('<div class="tab-pane log-block" id="pgf-' + name + '-container"></div>');
 		} else {
-			var $content = $('<div class="tab-pane" id="pgf-'+name+'-container"></div>');
+			$content = $('<div class="tab-pane" id="pgf-' + name + '-container"></div>');
 		}
 
 		$tabs.append($tab);
@@ -922,7 +954,7 @@ _ext.subscribe('newTurn', function(messagesNew) {
 			.find('.value').text(_ext.archive.archiveGroups.length);
 
 		$('#storage-size')
-			.text('(занято ' + Math.round( _ext.log.size() / 1024 / 1024 * 100 )/100 + 'Мб)');
+			.text('(занято ' + Math.round(_ext.log.size() / 1024 / 1024 * 100) / 100 + 'Мб)');
 	}, 10);
 });
 
@@ -933,11 +965,11 @@ var _notification = (function(_notification) {
 
 	function request() {
 		if (Notification.permission.toLowerCase() !== 'granted') {
-			Notification.requestPermission( newMessage );
+			Notification.requestPermission(newMessage);
 		}
 		function newMessage(permission) {
-			if( permission !== "granted" ) return false;
-			var notify = new Notification("Thanks for letting notify you");
+			if (permission !== 'granted') return false;
+			var notify = new Notification('Thanks for letting notify you');
 			return true;
 		}
 	}
@@ -951,11 +983,11 @@ var _notification = (function(_notification) {
 		var d = new Date();
 		var h = d.getHours();
 		var m = d.getMinutes();
-		var time = h + ':' + (m<10?'0'+m:m);
+		var time = h + ':' + (m < 10 ? '0' + m : m);
 		var nt = new Notification(name, {
 			tag: options.tag + rndStr,
 			body: options.body + (options.addTime ? '\n' + time : ''),
-			icon: options.icon || (window.extPass + 'img/128.png')
+			icon: options.icon || (window.extPath + 'img/128.png')
 		});
 		nt.onclick = nt.onclose = function() {
 			rndStr = Math.random() + '';
@@ -978,7 +1010,7 @@ var _quests = (function(_quests) {
 		var line = quests[1].line;
 		var lineOld = lastQuests && lastQuests[1] && lastQuests[1].line || [];
 		var newLines = [];
-		for (var i=0; i<line.length; i++) {
+		for (var i = 0; i < line.length; i++) {
 			var q = line[i];
 			var qOld = lineOld[i];
 			if (!qOld || !isSameQuest(q, qOld)) {
@@ -989,12 +1021,10 @@ var _quests = (function(_quests) {
 						_notification.sendNotify(q.name,  {
 							tag: 'quest',
 							body: _ext.heroName + ' ' + q.action + '!',
-							icon: window.extPass + 'img/quest/caravan.png', //window.extPass + 'img/quest/' + q.type + '.png',
+							icon: window.extPath + 'img/quest/caravan.png', //window.extPath + 'img/quest/' + q.type + '.png',
 							addTime: 1
 						});
 					}
-				} else {
-//					console.info('quest.', q.type, q.experience, q.power, _ext.heroName + ' ' + q.action + '!', q);
 				}
 				newLines.push(q);
 
@@ -1006,7 +1036,7 @@ var _quests = (function(_quests) {
 		lastQuests = quests;
 	}
 
-	function isSameQuest(q1,q2) {
+	function isSameQuest(q1, q2) {
 		var tests = ['action', 'choice', 'name', 'type', 'uid'];
 		for (var s in tests) if (tests.hasOwnProperty(s)) {
 			var key = tests[s];
@@ -1028,7 +1058,7 @@ _ext.subscribe('preload', function() {
 		_quests.checkQuests(quests);
 	});
 });
-/* questss */
+/* eo quests */
 
 
 
@@ -1036,17 +1066,17 @@ _ext.subscribe('preload', function() {
 
 var _utils = {};
 _utils.capitalize = function(text) {
-	return text.substring(0,1).toUpperCase() + text.substring(1);
+	return text.substring(0, 1).toUpperCase() + text.substring(1);
 };
-_utils.declenstionByNumber = function(number, titles, addCount) {
-	return (addCount ? number + ' ' : '' ) + titles[ (number%100>4 && number%100<20)? 2 : [2, 0, 1, 1, 1, 2][(number%10<5)?number%10:5] ];
+_utils.declensionByNumber = function(number, titles, addCount) {
+	return (addCount ? number + ' ' : '') + titles[ (number % 100 > 4 && number % 100 < 20) ? 2 : [2, 0, 1, 1, 1, 2][(number % 10 < 5) ? number % 10 : 5] ];
 };
 _utils.timeSpan = function(timeSpan) {
-	timeSpan = timeSpan|0;
-	var h = (timeSpan / 60 / 60)|0;
-	var m = ((timeSpan / 60)|0) % 60;
+	timeSpan = Math.floor(+timeSpan) || 0;
+	var h = Math.floor(timeSpan / 60 / 60);
+	var m = Math.floor(timeSpan / 60) % 60;
 	var s = timeSpan % 60;
-	return (h ? h + ':' : '') + (m<10?'0':'') + m + ':' + (s<10?'0':'') + s ;
+	return (h ? h + ':' : '') + (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
 };
 
 /* eo utils functions */

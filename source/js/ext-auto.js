@@ -1,3 +1,6 @@
+var $ = require('jquery');
+var _ext = window.ext;
+
 var _auto = (function(_auto) {
 	var sets = [{
 		title: 'Помощь герою (<span class="link-ajax" data-auto="rest">миролюбие</span>/<span class="link-ajax" data-auto="fight">агрессия</span>)',
@@ -117,7 +120,8 @@ var _auto = (function(_auto) {
 						addOn: '%',
 						name: 'autohelpEnergyRepairBuildingPercent'
 					}]
-				}*/]
+				}*/
+				]
 			}]
 		}, {
 			label: 'Автоматический выбор в задании',
@@ -181,7 +185,9 @@ var _auto = (function(_auto) {
 			var hero = gameData.account.hero;
 			var energyBonus = hero.energy.bonus;
 			var $inputMax = _ext.settings.getSettingInput('autohelpEnergyBonusMax');
-			if (!+$inputMax.val()) $inputMax.val(Math.max(0, energyBonus-10)).trigger('change');
+			if (isNaN($inputMax.val())) {
+				$inputMax.val(Math.max(0, energyBonus - 10)).trigger('change');
+			}
 		}
 	});
 
@@ -223,7 +229,7 @@ var _auto = (function(_auto) {
 				var $input = _ext.settings.getSettingInput(key);
 				$input.prop('checked', value).trigger('change');
 			}
-		})
+		});
 	}
 
 	function checkHero(gameData) {
@@ -235,7 +241,7 @@ var _auto = (function(_auto) {
 		var actionName = _ext.const.ACTION_TYPE_NAMES[actionType];
 
 		var energy = hero.energy.value;
-		var energyBonus = _settingsValues.autohelpEnergyBonus ? hero.energy.bonus - _settingsValues.autohelpEnergyBonusMax : 0 ;
+		var energyBonus = _settingsValues.autohelpEnergyBonus ? hero.energy.bonus - _settingsValues.autohelpEnergyBonusMax : 0;
 		if (energyBonus < 0) energyBonus = 0;
 
 		if (energy + energyBonus < 4) return;
@@ -293,11 +299,13 @@ var _auto = (function(_auto) {
 			return;
 		}
 
+		return true;
+
 		function godHelp(msg, ability, getParams) {
 			ability = ability || 'help';
 			console.log('god ' + ability + '!', getParams, actionName, msg, $.extend({}, hero));
 			if (_settingsValues.autohelpNotify) {
-				_ext.notification.sendNotify('The Tale Extended - ' + ext.heroName, {
+				_ext.notification.sendNotify('The Tale Extended - ' + _ext.heroName, {
 					tag: 'autohelp',
 					body: 'Сработала автоматическая помощь ' +
 						'\n' + msg + '' +
@@ -306,12 +314,14 @@ var _auto = (function(_auto) {
 				});
 			}
 //				console.log('godHelp! real');
-			if (!_settingsValues.autohelp) return;
+			if (!_settingsValues.autohelp) {
+				return;
+			}
 			var paramsStr = '';
 			for (var key in getParams) if (getParams.hasOwnProperty(key)) {
 				paramsStr += '&' + key + '=' + getParams[key];
 			}
-			var url = '/game/abilities/' + ability + '/api/use?api_version=1.0&api_client='+window.API_CLIENT + paramsStr;
+			var url = '/game/abilities/' + ability + '/api/use?api_version=1.0&api_client=' + window.API_CLIENT + paramsStr;
 //				console.log('url: ', url)
 //				if (!_settingsValues.autohelp) return;
 			hero.energy.value -= 4;
@@ -320,7 +330,7 @@ var _auto = (function(_auto) {
 				dataType: 'json',
 				type: 'post',
 				data: {}
-			})
+			});
 		}
 	}
 
@@ -351,21 +361,21 @@ var _auto = (function(_auto) {
 	function checkQuest(gameData) {
 		var _settingsValues = _ext.settings.settingsValues;
 		var selectChoices = {};
-		if (_settingsValues.autoquestPeacePlus) selectChoices.peacePlus = 1;
-		if (_settingsValues.autoquestPeaceMinus) selectChoices.peaceMinus = 1;
-		if (_settingsValues.autoquestHonorPlus) selectChoices.honorPlus = 1;
-		if (_settingsValues.autoquestHonorMinus) selectChoices.honorMinus = 1;
+		if (_settingsValues.autoquestPeacePlus) { selectChoices.peacePlus = 1; }
+		if (_settingsValues.autoquestPeaceMinus) { selectChoices.peaceMinus = 1; }
+		if (_settingsValues.autoquestHonorPlus) { selectChoices.honorPlus = 1; }
+		if (_settingsValues.autoquestHonorMinus) { selectChoices.honorMinus = 1; }
 
 		var hero = gameData.account.hero;
 		var quests = hero.quests.quests;
 		var line = quests[1].line;
-		for (var i=0; i<line.length; i++) {
+		for (var i = 0; i < line.length; i++) {
 			var q = line[i];
-			for (var choiceIndex=0; choiceIndex < q.choice_alternatives.length; choiceIndex++) {
+			for (var choiceIndex = 0; choiceIndex < q.choice_alternatives.length; choiceIndex++) {
 				var choiceName = q.choice_alternatives[choiceIndex][1];
 				var option_uid = q.choice_alternatives[choiceIndex][0];
-				for (var reward in CHOICES) {
-					if (CHOICES[reward].indexOf(choiceName) >=0 ) {
+				for (var reward in CHOICES) if (CHOICES.hasOwnProperty(reward)) {
+					if (CHOICES[reward].indexOf(choiceName) >= 0) {
 						if (selectChoices[reward]) {
 							chooseQuest(option_uid, choiceName);
 						}
@@ -374,55 +384,57 @@ var _auto = (function(_auto) {
 			}
 		}
 		function chooseQuest(uid, name) {
-			if (_settingsValues.autoquestNotify && lastquest != name) {
+			if (_settingsValues.autoquestNotify && lastquest !== name) {
 				lastquest = name;
-				_ext.notification.sendNotify('The Tale Extended - ' + ext.heroName, {
+				_ext.notification.sendNotify('The Tale Extended - ' + _ext.heroName, {
 					tag: 'autoquest',
 					body: 'Сделан выбор! \n— ' + name + '',
 					addTime: 1,
-					icon: window.extPass + 'img/quest/caravan.png'
+					icon: window.extPath + 'img/quest/caravan.png'
 				});
 			}
 
-			if (!_settingsValues.autoquest) return;
+			if (!_settingsValues.autoquest) {
+				return;
+			}
 			$.ajax({
-				url: '/game/quests/api/choose?api_version=1.0&api_client='+window.API_CLIENT+'&option_uid='+encodeURIComponent(uid),
+				url: '/game/quests/api/choose?api_version=1.0&api_client=' + window.API_CLIENT + '&option_uid=' + encodeURIComponent(uid),
 				dataType: 'json',
 				type: 'post',
 				data: {
 				}
-			})
+			});
 		}
 	}
 
 
 
-	function getBuildingState(x,y) {
+	/*function getBuildingState(x, y) {
 		var dfr = $.Deferred();
 		var name = 'integrity-' + x + '-' + y;
 		if (_ext.cache(name)) {
 			dfr.resolve(_ext.cache(name));
 		} else {
-			requestPlaceHtml(x,y)
+			requestPlaceHtml(x, y)
 				.done(function(html) {
 //					var $info = $(html);
 					var integrityParse = /data-building-integrity="([\d.]+)"/.exec(html);
 					var integrity = integrityParse && integrityParse[1];
 					_ext.cache(name, integrity, 10 * 60 * 1000);
-					console.log('integrity request:', integrity)
+					console.log('integrity request:', integrity);
 					dfr.resolve(integrity);
 				});
 		}
 		return dfr;
 	}
 
-	function requestPlaceHtml(x,y) {
+	function requestPlaceHtml(x, y) {
 		return $.ajax({
-			url: '/game/map/cell-info?x=' + x + '&y=' + y + '&_=' + (+new Date),
+			url: '/game/map/cell-info?x=' + x + '&y=' + y + '&_=' + (+new Date()),
 			method: 'get',
 			dataType: 'html'
-		})
-	}
+		});
+	}*/
 
 
 	$.extend(_auto, {

@@ -1,3 +1,7 @@
+var $ = require('jquery');
+
+var _ext = window.ext;
+
 var _parse = (function(_parse) {
 
 	var parseShortRaw = [
@@ -458,7 +462,7 @@ var _parse = (function(_parse) {
 		'[pickup]«Что-то упало. Я точно видел(а|о), как что-то упало с {}. Да вот только непонятно, куда? О, наш(ел|ла|ло)! {item}!»',
 		'[pickup]Немного постояв над найденн(ым|ой|ыми) {item}, {} аккуратно (его|ее|их) поднял(а|о) и спрятал(а|о) к себе в рюкзак.',
 		'[pickup]«{item}? Возьму. Продам кому-нибудь на рынке».',
-		
+
 
 		/* Пусто */
 		'[empty]«Нет, мешок денег было бы чересчур, но хоть что-то могло достаться в награду?»',
@@ -553,7 +557,7 @@ var _parse = (function(_parse) {
 		'[drop]«Если я возьму с собой ещё и {item}, то спина мне этого не простит.»',
 		'[drop]«Так не достанешься же ты никому, {item}!» — иступлённо крикнул(а|о|и) {} и выбросил(а|о|и) трофей, не поместившийся в рюкзак, в канаву.',
 		'[drop]{} пытается запихнуть трофей в рюкзак, но, потерпев сокрушительное фиаско, решает, что {item} (ему|ей|им) не так уж сильно и нуж(ен|на|но|ны).',
-		
+
 
 		/* Начало боя */
 		'[fight]{} и {} сошлись на узкой дорожке.',
@@ -600,11 +604,11 @@ var _parse = (function(_parse) {
 		'[fight]{} преградил(а|о|и) дорогу. {} вынужден(а|о|и) принять сражение.',
 		'[fight]«Хм, {}. Давно пора очистить от них Пандору!»',
 		'[fight]«В книгах пишут, что нападение это лучшая защита. Как бы проверить?… Ха, {}! Как по заказу».',
-		'[fight]{} бросил(а|о) камень в кусты, чем разозлил(а|о) {}, стоявш(его|ую|ее|их) за ними.', 
+		'[fight]{} бросил(а|о) камень в кусты, чем разозлил(а|о) {}, стоявш(его|ую|ее|их) за ними.',
 		'[fight]«Кажется, я нарушил(а|о) границы территории {}. Сейчас меня будут прогонять».',
 		'[fight]«Ну, кто на меня? {}!»',
 		'[fight]«Ни проехать, ни пройти пока {} сто(ит|ят) на пути!»',
-		
+
 		'[fight]Вовремя заметив {victim}, {actor} подкрал(ся|ась|ось|ись) сзади и сразил(а|о|и) противник(а|ов) одним ударом.',
 		'[fight]{actor} зловеще ухмыльнул(ся|ась|ось), когда {victim} попал(ся|ась|ось|ись) в предусмотрительно установленную на дороге ловушку.'
 //		'[walk]Проезжавший мимо крестьянин узнал {actor} и немного подвёз на своей телеге.'
@@ -626,16 +630,18 @@ var _parse = (function(_parse) {
 	function processHighlightRaw(parseHighlightRaw) {
 		var typeReg = /^\[[a-zA-Z]+\]/g;
 		var result = [];
-		for (var i = 0; i<parseHighlightRaw.length; i++) {
+		for (var i = 0; i < parseHighlightRaw.length; i++) {
 			var cfgString = parseHighlightRaw[i];
 			var parsedCfg = {};
 
 			var p = typeReg.exec(cfgString);
-			if (p && p[0]) parsedCfg.type = p[0].substring(1, p[0].length-1);
+			if (p && p[0]) {
+				parsedCfg.type = p[0].substring(1, p[0].length - 1);
+			}
 			cfgString = cfgString.replace(typeReg, '');
 
 			parsedCfg.regex = new RegExp(cfgString);
-			result.push(parsedCfg)
+			result.push(parsedCfg);
 		}
 		return result;
 	}
@@ -651,7 +657,7 @@ var _parse = (function(_parse) {
 
 		var typeReg = /^\[([a-zA-Z]+)(?:,([a-zA-Z]+))?\]/;
 
-		for(var i = 0; i<cfgRaw.length; i++) {
+		for (var i = 0; i < cfgRaw.length; i++) {
 			var cfgString = cfgRaw[i].replace(/ё/g, 'е');
 			var parsedCfg = {};
 
@@ -662,14 +668,14 @@ var _parse = (function(_parse) {
 //				else parsedCfg.sec = 'vamp';
 				cfgString = cfgString.replace(p[0], '');
 			}
-			if (cfgString.charAt(0) != '~') {
+			if (cfgString.charAt(0) !== '~') {
 				cfgString = '^' + cfgString;
 				cfgString = cfgString + '$';
 			}
 
 			var paramNames = [];
-			do  {
-				var p = paramReg.exec(cfgString);
+			do {
+				p = paramReg.exec(cfgString);
 				if (p) paramNames.push(p[1]);
 			} while (p);
 			parsedCfg.params = paramNames;
@@ -692,7 +698,8 @@ var _parse = (function(_parse) {
 
 	function parseShort(msg) {
 		msg = msg.replace(/ё/g, 'е');
-		for(var i = 0; i<cfgShort.length; i++) {
+		var act;
+		for (var i = 0; i < cfgShort.length; i++) {
 			var cfgParsedLine = cfgShort[i];
 			var paramNames = cfgParsedLine.params;
 			var values = cfgParsedLine.regex.exec(msg);
@@ -700,15 +707,15 @@ var _parse = (function(_parse) {
 			if (values) {
 				values = values.slice(1);
 
-				var act = {};
+				act = {};
 				act.type = cfgParsedLine.type;
 				if (cfgParsedLine.sec) act.sec = cfgParsedLine.sec;
-				for(var paramIndex = 0; paramIndex < paramNames.length; paramIndex++) {
+				for (var paramIndex = 0; paramIndex < paramNames.length; paramIndex++) {
 					var param = paramNames[paramIndex];
 					act[param] = isNaN(values[paramIndex]) ? values[paramIndex] : +values[paramIndex];
 				}
 
-				act.isMe = (act.actor ? _ext.isMyName(act.actor) : (act.victim ? !_ext.isMyName(act.victim) : true ))|0;
+				act.isMe = !!(act.actor ? _ext.isMyName(act.actor) : (act.victim ? !_ext.isMyName(act.victim) : true));
 				if (!_ext.settings.settingsValues.heroNameStart) act.isMe = 0;
 
 			}
@@ -717,15 +724,15 @@ var _parse = (function(_parse) {
 		return act;
 	}
 	function parseHighlight(msg, act) {
-		for (var i = 0; i<cfgHighlight.length; i++) {
+		for (var i = 0; i < cfgHighlight.length; i++) {
 			var regExp = cfgHighlight[i].regex;
 			var type = cfgHighlight[i].type || 'value';
-			msg = msg.replace(regExp, '<span class="' + type + '">$&</span>')
+			msg = msg.replace(regExp, '<span class="' + type + '">$&</span>');
 		}
 		for (var cls in act) if (act.hasOwnProperty(cls)) {
 			var value = act[cls];
-			if (cls != 'value' && cls != 'type') {
-				msg = msg.replace(value, '<span class="'+cls+'">'+value+'</span>')
+			if (cls !== 'value' && cls !== 'type') {
+				msg = msg.replace(value, '<span class="' + cls + '">' + value + '</span>');
 			}
 		}
 		return msg;

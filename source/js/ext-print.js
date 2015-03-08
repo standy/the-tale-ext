@@ -1,3 +1,9 @@
+var $ = require('jquery');
+var pgf = require('pgf');
+
+var widgets = window.widgets;
+var _ext = window.ext;
+
 var _const = _ext.const;
 var _trace = _ext.trace;
 var _elements = _ext.elements;
@@ -85,15 +91,15 @@ var _towns = (function(_towns) {
 
 		_towns.townQuestUpdate = function(quests) {
 			$('.place-row .quest').html('');
-			for (var questsIndex=0;questsIndex<quests.length;questsIndex++) {
+			for (var questsIndex = 0;questsIndex < quests.length;questsIndex++) {
 				var quest = quests[questsIndex];
 				var actors = quest.actors;
-				for (var i=0; i<actors.length; i++) {
+				for (var i = 0; i < actors.length; i++) {
 					var actor = actors[i];
 					var isFrom = i === 0 && actors.length > 1;
 					var actorType = actor[0];
-					var actorTypeId = actor[1];
-					var placeId = actorTypeId == 1 ? actor[2].id : actor[2].place;
+					var actorTypeId = +actor[1];
+					var placeId = actorTypeId === 1 ? actor[2].id : actor[2].place;
 					var $placeRow = $('.place-row[data-place-id="' + placeId + '"]');
 					var $townQuest = $placeRow.find('.quest');
 					var questHtml =
@@ -104,7 +110,7 @@ var _towns = (function(_towns) {
 			}
 		};
 
-		for (var i=0; i<_prevParams.length; i++) {
+		for (i = 0; i < _prevParams.length; i++) {
 			_towns.townQuestUpdate.apply(_towns, _prevParams[i]);
 		}
 
@@ -116,7 +122,7 @@ var _towns = (function(_towns) {
 
 	function townParams(mapData) {
 		var places = mapData.places;
-		for (var i in places) {
+		for (var i in places) if (places.hasOwnProperty(i)) {
 			(function(placeIndex) {
 				var place = places[placeIndex];
 				requestPlace(place.pos.x, place.pos.y)
@@ -154,7 +160,7 @@ var _towns = (function(_towns) {
 		};
 	}
 
-	function requestPlace(x,y) {
+	function requestPlace(x, y) {
 		return $.ajax({
 			url: '/game/map/cell-info?x=' + x + '&y=' + y + '&_=' + (+new Date()),
 			method: 'get',
@@ -168,14 +174,16 @@ var _towns = (function(_towns) {
 		showMapDialog(place.pos.x, place.pos.y);
 	}
 	function showMapDialog(x, y) {
-		pgf.ui.dialog.Create({ fromUrl: pgf.urls['game:map:cell_info'](x, y),
+		pgf.ui.dialog.Create({
+			fromUrl: pgf.urls['game:map:cell_info'](x, y),
 			OnOpened: function(dialog) {
+				var jQuery = $;
 				pgf.base.InitializeTabs('game-map-cell-info', 'map',
 					[[jQuery('.pgf-cell-description-button', dialog), 'description'],
 						[jQuery('.pgf-cell-persons-button', dialog), 'persons'],
-						[jQuery('.pgf-cell-place-parameters-button', dialog),'place-parameters'],
-						[jQuery('.pgf-cell-place-demographics-button', dialog),'place-demographics'],
-						[jQuery('.pgf-cell-place-bills-button', dialog),'place-bills'],
+						[jQuery('.pgf-cell-place-parameters-button', dialog), 'place-parameters'],
+						[jQuery('.pgf-cell-place-demographics-button', dialog), 'place-demographics'],
+						[jQuery('.pgf-cell-place-bills-button', dialog), 'place-bills'],
 						[jQuery('.pgf-cell-place-modifiers-button', dialog), 'place-modifiers'],
 						[jQuery('.pgf-cell-place-chronicle-button', dialog), 'place-chronicle'],
 						[jQuery('.pgf-cell-building-button', dialog), 'building'],
@@ -197,9 +205,9 @@ var _towns = (function(_towns) {
 	}
 
 	$.extend(_towns, {
-		init : init,
-		mapDataUpdate : mapDataUpdate,
-		showMapDialogById : showMapDialogById
+		init: init,
+		mapDataUpdate: mapDataUpdate,
+		showMapDialogById: showMapDialogById
 	});
 	return _towns;
 })({});
@@ -222,7 +230,7 @@ var _shortMessages = (function(_shortMessages) {
 //		var $shortContainer = _elements.getTabInner('short');
 	function htmlMessages(messages) {
 		var html = '';
-		for (var i=0; i<messages.length; i++) {
+		for (var i = 0; i < messages.length; i++) {
 			var message = messages[i];
 //				var m = JSON.stringify(message);  data-m=\''+ m +'\'
 			var htmlShortMsg = htmlMessage(message);
@@ -230,16 +238,16 @@ var _shortMessages = (function(_shortMessages) {
 			var time = message[1];
 			var htmlMsg;
 			if (htmlShortMsg) {
-				while (messages[i+1] && messages[i+1][1] === time) {
-					var htmlShortMsg2 = htmlMessage(messages[i+1]);
+				while (messages[i + 1] && messages[i + 1][1] === time) {
+					var htmlShortMsg2 = htmlMessage(messages[i + 1]);
 					if (!htmlShortMsg2) break;
 					htmlShortMsg += htmlShortMsg2;
 					i++;
 				}
-				htmlMsg = '<li data-ts="'+timestamp+'" class="log-record-short">' + htmlShortMsg + '</li>';
+				htmlMsg = '<li data-ts="' + timestamp + '" class="log-record-short">' + htmlShortMsg + '</li>';
 			} else {
 				var htmlLongMsg = htmlLongMessage(message);
-				htmlMsg = '<li data-ts="'+timestamp+'" class="log-record">' + htmlLongMsg + '</li>';
+				htmlMsg = '<li data-ts="' + timestamp + '" class="log-record">' + htmlLongMsg + '</li>';
 			}
 			html = htmlMsg + html;
 		}
@@ -260,12 +268,20 @@ var _shortMessages = (function(_shortMessages) {
 		var val = act.value || '';
 		var icon = _icons[type];
 //			if (sec) console.log(sec, message[3], time)
-		if (sec) icon += '<span class="sub-icon">' + _icons[sec] + '</span>';
-		if (type === 'hit') t = val;
-		else if (type === 'vamp') t = val + icon + '<span class="vamp">' + act.vamp + '</span>';
-		else if (isActType('SHORT', type)) t = val + icon;
+		if (sec) {
+			icon += '<span class="sub-icon">' + _icons[sec] + '</span>';
+		}
+		if (type === 'hit') {
+			t = val;
+		} else if (type === 'vamp') {
+			t = val + icon + '<span class="vamp">' + act.vamp + '</span>';
+		} else if (isActType('SHORT', type)) {
+			t = val + icon;
+		}
 
-		if (t) htmlMsg = '<span class="submessage act act-' + act.type + (isMe ? ' me' : ' enemy') + '" title="' + time + '> ' + msg + '">' + t + '</span>';
+		if (t) {
+			htmlMsg = '<span class="submessage act act-' + act.type + (isMe ? ' me' : ' enemy') + '" title="' + time + '> ' + msg + '">' + t + '</span>';
+		}
 		return htmlMsg || '';
 	}
 
@@ -311,7 +327,7 @@ var _groupMessages = (function(_groupMessages) {
 	var messagesGrouped = [];
 
 	function addMessages(messagesList) {
-		for (var i=0; i<messagesList.length; i++) {
+		for (var i = 0; i < messagesList.length; i++) {
 			addMessage(messagesList[i]);
 		}
 		return messagesGrouped;
@@ -328,25 +344,31 @@ var _groupMessages = (function(_groupMessages) {
 		var hero = message[3];
 		var act = message[4];
 		var action = hero.action || false;
+		var currActionName;
+		var currType;
+		var currInfoLink;
+		var currTypeId;
+		var grData;
+		var actionName;
 
-		var currGr = messagesGrouped[messagesGrouped.length-1];
+		var currGr = messagesGrouped[messagesGrouped.length - 1];
 		var isFirstGrouop = !currGr;
 
 		if (isFirstGrouop) {
 			/* самая первая группа */
-			currGr = { /* заглушка */
+			currGr = {
 				data: {}
-			}
+			};
 		} else {
-			var currActionName = currGr.data.actionName;
-			var currType = currGr.data.type;
-			var currInfoLink = currGr.data.info_link;
-			var currTypeId = currGr.data.typeId;
+			currActionName = currGr.data.actionName;
+			currType = currGr.data.type;
+			currInfoLink = currGr.data.info_link;
+			currTypeId = currGr.data.typeId;
 		}
 
 
 		if (action) {
-			var actionName = action.description;
+			actionName = action.description;
 			var actionTypeId = action.type;
 			var actionType = _const.ACTION_TYPE_NAMES[actionTypeId];
 			var actionInfoLink = action.info_link;
@@ -355,13 +377,15 @@ var _groupMessages = (function(_groupMessages) {
 			if (!currType) currGr.data.type = currType = actionType;
 			if (!currInfoLink) currGr.data.info_link = currInfoLink = actionInfoLink;
 			if (!currTypeId) currGr.data.typeId = currTypeId = actionTypeId;
-			var grData = {
+			grData = {
 				actionName: actionName,
 				type: actionType,
 				info_link: actionInfoLink,
 				typeId: actionTypeId
 			};
-			if (isFirstGrouop) grData.isBroken = 1; // first group
+			if (isFirstGrouop) {
+				grData.isBroken = 1;
+			}
 		}
 
 
@@ -374,13 +398,15 @@ var _groupMessages = (function(_groupMessages) {
 			}
 
 			if (isFightStart) {
-				if (!isFirstGrouop) finishGroup();
+				if (!isFirstGrouop) {
+					finishGroup();
+				}
 				newGroup(message, {fightStarted: 1}); //fight started, not finished
 				return;
 			}
 			if (isFightEnd) {
 				if (isFirstGrouop) {
-					newGroup(message, grData)
+					newGroup(message, grData);
 				} else {
 					var lastG = addToLastGroup(message, {
 						actionName: 'в бою',
@@ -417,50 +443,61 @@ var _groupMessages = (function(_groupMessages) {
 			return;
 		}
 		if (isFirstGrouop) {
-			newGroup(message, grData)
+			newGroup(message, grData);
 		} else {
 			addToLastGroup(message, grData);
 		}
 
 		function addToLastGroup(message, data) {
-			var lastG = messagesGrouped[messagesGrouped.length-1];
-			if (data) lastG.data = $.extend(data, lastG.data);
+			var lastG = messagesGrouped[messagesGrouped.length - 1];
+			if (data) {
+				lastG.data = $.extend(data, lastG.data);
+			}
 			if (lastG.messages.length) {
-				var prevMsg = lastG.messages[lastG.messages.length-1];
-				if (message[0] - prevMsg[0] > 1200) lastG.data.isBroken = 4; // hole in messages 20 min
+				var prevMsg = lastG.messages[lastG.messages.length - 1];
+				if (message[0] - prevMsg[0] > 1200) {
+					// hole in messages 20 min
+					lastG.data.isBroken = 4;
+				}
 			}
 			lastG.messages.push(message);
 			return lastG;
 		}
 
 		function finishGroup(data) {
-			var lastG = messagesGrouped[messagesGrouped.length-1];
+			var lastG = messagesGrouped[messagesGrouped.length - 1];
 			delete lastG.data.unfinished;
 			if (lastG.data.fightStarted) {
 				lastG.data.isBroken = 3; // fight started, not ended
 			}
-			if (data) lastG.data = $.extend(data, lastG.data);
-			_ext.publish('groupFinished', lastG, messagesGrouped.length-1);
+			if (data) {
+				lastG.data = $.extend(data, lastG.data);
+			}
+			_ext.publish('groupFinished', lastG, messagesGrouped.length - 1);
 		}
 		function newGroup(message, data) {
 			var newG = {
 				data: {unfinished: 1},
 				messages: []
 			};
-			if (data) newG.data = $.extend(data, newG.data);
-			if (message) newG.messages.push(message);
+			if (data) {
+				newG.data = $.extend(data, newG.data);
+			}
+			if (message) {
+				newG.messages.push(message);
+			}
 			messagesGrouped[messagesGrouped.length] = newG;
-			_ext.publish('groupStarted', newG, messagesGrouped.length-1);
+			_ext.publish('groupStarted', newG, messagesGrouped.length - 1);
 		}
 	}
 
 	function redrawGroup(index, isOpen) {
-		var $group = $groupsContent.children('.group[data-index="'+index+'"]');
+		var $group = $groupsContent.children('.group[data-index="' + index + '"]');
 		if ($group.length) {
 			if (typeof isOpen !== 'undefined') {
 				$group.toggleClass('open', isOpen);
 			}
-			$group.html(drawGroupInner(messagesGrouped[index], messagesGrouped[index+1]));
+			$group.html(drawGroupInner(messagesGrouped[index], messagesGrouped[index + 1]));
 		} else {
 			$groupsContent.prepend(drawGroup(messagesGrouped[index], index, isOpen));
 		}
@@ -471,7 +508,7 @@ var _groupMessages = (function(_groupMessages) {
 		isOpen = isOpen || _ext.settings.settingsValues.groupOpenOnDefault;
 		var html =
 			'<div class="group' + (isOpen ? ' open' : '') + '" data-index="' + index + '">' +
-				drawGroupInner(group, messagesGrouped[index+1]) +
+				drawGroupInner(group, messagesGrouped[index + 1]) +
 			'</div>';
 		return html;
 	}
@@ -481,7 +518,7 @@ var _groupMessages = (function(_groupMessages) {
 		var groupData = group.data;
 
 		var messageFirst = messages[0];
-		var messageLast = messages[messages.length-1];
+		var messageLast = messages[messages.length - 1];
 
 		var groupType = groupData.type;
 		var groupLink = (groupData.info_link || '').replace('/info', '');
@@ -489,12 +526,12 @@ var _groupMessages = (function(_groupMessages) {
 		var iconAttr = 'class="action-icon ' + groupType + '" title="' + _const.ACTION_TYPE_TEXTS[groupType] + '"';
 
 		if (groupData.isBroken && !groupData.unfinished) {
-			htmlGroupIcon = _const.ACTION_TYPE_ICONS['broken'];
+			htmlGroupIcon = _const.ACTION_TYPE_ICONS.broken;
 			var title = _const.ERROR_CODES[groupData.isBroken || 1];
 			iconAttr = 'class="action-icon broken" title="' + title + '"';
 		}
 		if (groupLink) {
-			htmlGroupIcon = '<a ' + iconAttr + ' href="'+groupLink+'" target="_blank">' + htmlGroupIcon + '</a>';
+			htmlGroupIcon = '<a ' + iconAttr + ' href="' + groupLink + '" target="_blank">' + htmlGroupIcon + '</a>';
 		} else {
 			htmlGroupIcon = '<span ' + iconAttr + '">' + htmlGroupIcon + '</span>';
 		}
@@ -506,7 +543,10 @@ var _groupMessages = (function(_groupMessages) {
 		var timeEnd = messageLast[0];
 		if (groupType !== 'fight' && groupNext && groupNext.messages[0]) {
 			var timeStartNext = groupNext.messages[0] && groupNext.messages[0][0];
-			if (timeStartNext - timeEnd < 120) timeEnd = timeStartNext; // проверка на случай сломанной группы
+			if (timeStartNext - timeEnd < 120) {
+				// проверка на случай сломанной группы
+				timeEnd = timeStartNext;
+			}
 		}
 		var timeSpan = timeEnd - timeStart;
 		var htmlTime = /*'<span class="glyphicon glyphicon-time"></span> ' +*/
@@ -519,7 +559,7 @@ var _groupMessages = (function(_groupMessages) {
 		var htmlGroupList = _shortMessages.htmlMessages(messages);
 
 		var html =
-				'<div class="group-title on-close' + (groupData.god ? ' god' : '') + '">' + htmlGroupIcon + htmlTime + htmlTitle +'</div>' +
+				'<div class="group-title on-close' + (groupData.god ? ' god' : '') + '">' + htmlGroupIcon + htmlTime + htmlTitle + '</div>' +
 //					'<div class="group-stats on-close">' + htmlStats + '</div>' +
 				'<div class="group-controls">' +
 					'<span class="group-toggle on-close text-muted glyphicon glyphicon-chevron-up"></span>' +
@@ -531,7 +571,7 @@ var _groupMessages = (function(_groupMessages) {
 	}
 	function drawMessages(messagesGrouped) {
 		var html = '';
-		for (var i=0; i<messagesGrouped.length; i++) {
+		for (var i = 0; i < messagesGrouped.length; i++) {
 			html = drawGroup(messagesGrouped[i], i) + html;
 		}
 		$groupsContent.html(html);
@@ -558,16 +598,16 @@ var _groupMessages = (function(_groupMessages) {
 
 _ext.subscribe('init', function() {
 	_groupMessages.addMessages(_trace.messagesLog);
-	_groupMessages.drawMessages( _groupMessages.list );
+	_groupMessages.drawMessages(_groupMessages.list);
 //		_ext.subscribe('groupFinished', function(group, index) {
 //			_groupMessages.redrawGroup(index);
 //		});
 	_ext.subscribe('groupStarted', function(group, index) {
-		_groupMessages.redrawGroup(index-1);
+		_groupMessages.redrawGroup(index - 1);
 	});
 	_ext.subscribe('newTurn', function(messagesNew) {
 		_groupMessages.addMessages(messagesNew);
-		_groupMessages.redrawGroup(_groupMessages.list.length-1);
+		_groupMessages.redrawGroup(_groupMessages.list.length - 1);
 	});
 
 });
@@ -602,7 +642,9 @@ var _archive = (function(_archive) {
 		if (key === 'showArchive') {
 			showArchive = value;
 			$archiveTab.toggle(showArchive);
-			if (!showArchive) $archiveContent.html('');
+			if (!showArchive) {
+				$archiveContent.html('');
+			}
 		}
 	});
 
@@ -621,7 +663,7 @@ var _archive = (function(_archive) {
 	function drawArchiveGroups(archiveGroups) {
 		var levelIndex = 0;
 		var levelsLog = _ext.log.get('levelsLog') || [];
-		for (var i=0; i<archiveGroups.length; i++) {
+		for (var i = 0; i < archiveGroups.length; i++) {
 			var group = archiveGroups[i];
 			var ts = group.ts[1];
 			var lv = levelsLog[levelIndex] || [];
@@ -629,7 +671,7 @@ var _archive = (function(_archive) {
 				levelIndex++;
 				var lvlHtml = '<div class="level">' + lv[1] + ' уровень!</div>';
 				$archiveContent.prepend(lvlHtml);
-				var lv = levelsLog[levelIndex] || [];
+				lv = levelsLog[levelIndex] || [];
 			}
 			drawArchiveGroup(archiveGroups[i], i, archiveGroups);
 		}
@@ -638,12 +680,13 @@ var _archive = (function(_archive) {
 	function drawArchiveGroup(archiveGroup, index, archiveGroups) {
 		var isOpen =  _ext.settings.settingsValues.groupOpenOnDefault;
 		var groupType = archiveGroup.broken ? 'broken' : archiveGroup.type;
+		var groupLink;
 		if (archiveGroup.mobId) {
-			var groupLink = '/guide/mobs/' + archiveGroup.mobId;
+			groupLink = '/guide/mobs/' + archiveGroup.mobId;
 		}
 		var htmlGroupIcon = _const.ACTION_TYPE_ICONS[groupType] || '';
 		if (groupLink) {
-			htmlGroupIcon = '<a class="action-icon ' + groupType + '" href="'+groupLink+'" target="_blank">' + htmlGroupIcon + '</a>';
+			htmlGroupIcon = '<a class="action-icon ' + groupType + '" href="' + groupLink + '" target="_blank">' + htmlGroupIcon + '</a>';
 		} else {
 			htmlGroupIcon = '<span class="action-icon ' + groupType + '">' + htmlGroupIcon + '</span>';
 		}
@@ -653,10 +696,13 @@ var _archive = (function(_archive) {
 
 		var timeStart = archiveGroup.ts[0];
 		var timeEnd = archiveGroup.ts[1];
-		var archiveGroupNext = archiveGroups[index+1];
+		var archiveGroupNext = archiveGroups[index + 1];
 		if (groupType !== 'fight' && archiveGroupNext && archiveGroupNext.ts) {
 			var timeStartNext = archiveGroupNext.ts[0];
-			if (timeStartNext - timeEnd < 120) timeEnd = timeStartNext; // проверка на случай сломанной группы (3)
+			if (timeStartNext - timeEnd < 120) {
+				// проверка на случай сломанной группы (3)
+				timeEnd = timeStartNext;
+			}
 		}
 		var timeSpan = timeEnd - timeStart;
 
@@ -678,12 +724,12 @@ var _archive = (function(_archive) {
 		} else {
 			var actName = _const.ACTION_TYPE_TEXTS[archiveGroup.type || 'undefined'];
 			if (archiveGroup.broken) {
-				actName = _const.ERROR_CODES[archiveGroup.broken || 1]
+				actName = _const.ERROR_CODES[archiveGroup.broken || 1];
 			}
 			htmlGroupList = '<span class="stats-archive">' + actName + '</span>';
 		}
 		var html =
-				'<div class="group-title">' + htmlGroupIcon + htmlTime + htmlTitle +'</div>' +
+				'<div class="group-title">' + htmlGroupIcon + htmlTime + htmlTitle + '</div>' +
 				'<div class="group-controls">' +
 					'<span class="group-toggle on-close text-muted glyphicon glyphicon-chevron-up"></span>' +
 					'<span class="group-toggle on-open text-muted glyphicon glyphicon-chevron-down"></span>' +
@@ -704,7 +750,7 @@ var _archive = (function(_archive) {
 		var types = ['dmgSum'].concat(_const.FIGHT);
 		var html = '';
 //			html += JSON.stringify(stats)
-		for (var i=0; i<types.length; i++) {
+		for (var i = 0; i < types.length; i++) {
 			var type = types[i];
 			if (stats[type]) {
 				var stat = stats[type];
@@ -735,11 +781,11 @@ var _archive = (function(_archive) {
 	function countArchiveFromGroup(group) {
 		var groupData = group.data;
 		var messages = group.messages;
-		if (!messages.length) return false;
+		if (!messages.length) { return false; }
 		var isBroken = groupData.isBroken;
 		var dataType = groupData.type;
 		var first = messages[0];
-		var last = messages[messages.length-1];
+		var last = messages[messages.length - 1];
 		var archiveGroup = $.extend({}, {
 			ts: [first[0], last[0]],
 			type: dataType,
@@ -752,11 +798,13 @@ var _archive = (function(_archive) {
 			archiveGroup.enemy = {};
 			if (groupData.info_link) {
 				var mobId = groupData.info_link.replace('/guide/mobs/', '').replace('/info', '');
-				if (+mobId) archiveGroup.mobId = +mobId;
+				if (+mobId) {
+					archiveGroup.mobId = +mobId;
+				}
 			}
 
 			/* пересчет последней группы */
-			for (var i=0; i<messages.length; i++) {
+			for (var i = 0; i < messages.length; i++) {
 				var message = messages[i];
 				var act = message[4];
 				if (!act) continue;
@@ -785,12 +833,14 @@ var _archive = (function(_archive) {
 
 	/* добавляет к архивам поле total */
 	function upgradeArchiveGroup(archiveGroup, index) {
-		if (!archiveGroup || !archiveGroup.ts) return archiveGroup;
+		if (!archiveGroup || !archiveGroup.ts) {
+			return archiveGroup;
+		}
 		if (archiveGroup.me) {
 			$.extend(archiveGroup, {
 				total:{
 					me: countTotalFromArchive(archiveGroup.me, 'me'),
-					enemy: countTotalFromArchive(archiveGroup.enemy, 'enemy', archiveGroup.mobId == 66)
+					enemy: countTotalFromArchive(archiveGroup.enemy, 'enemy', archiveGroup.mobId === 66)
 				}
 			});
 		}
@@ -820,14 +870,14 @@ var _archive = (function(_archive) {
 				var critCount = 0;
 				addTo[type] = addTo[type] || {sum: 0, count: 0};
 				if (type === 'hit' && sum) {
-					av = sum/count;
+					av = sum / count;
 					critMin = av * 1.35;
 					critVals = vals.filter(function(item) { return item > critMin;});
 					critCount = critVals.length;
 				}
 				if (critCount) {
 					addTo.crit = addTo.crit || {sum: 0, count: 0};
-					var critSum = critVals.reduce(function(pv, cv) { return pv + cv; }, 0)||0;
+					var critSum = critVals.reduce(function(pv, cv) { return pv + cv; }, 0) || 0;
 					addTo.crit.count += critCount;
 					addTo.crit.sum += critSum;
 				}
@@ -864,15 +914,15 @@ var _archive = (function(_archive) {
 
 		if (!archiveGroup) return;
 
-		var lastStatGroup = _archiveGroups[_archiveGroups.length-1];
+		var lastStatGroup = _archiveGroups[_archiveGroups.length - 1];
 		if (!lastStatGroup || lastStatGroup.ts[0] === archiveGroup.ts[0]) {
 			/* последняя группа обновляется каждый ход*/
-			_archiveGroups[_archiveGroups.length-1] = archiveGroup;
+			_archiveGroups[_archiveGroups.length - 1] = archiveGroup;
 		} else if (lastStatGroup.ts[0] < archiveGroup.ts[0]) {
 			_archiveGroups.push(archiveGroup);
 		} else {
 			var isInArr = false;
-			for (var i=0; i<_archiveGroups.length; i++) {
+			for (var i = 0; i < _archiveGroups.length; i++) {
 				var sg = _archiveGroups[i];
 				if (sg.ts[0] === archiveGroup.ts[0]) {
 					_archiveGroups[i] = archiveGroup;
@@ -882,7 +932,7 @@ var _archive = (function(_archive) {
 			}
 			if (!isInArr) {
 				_archiveGroups.push(archiveGroup);
-				_archiveGroups.sort(function(a,b) {
+				_archiveGroups.sort(function(a, b) {
 					return a.ts[0] - b.ts[0];
 				});
 //					console.log('add to millde', archiveGroup);
@@ -891,11 +941,11 @@ var _archive = (function(_archive) {
 	}
 	function loadArchiveGroups() {
 		var _archiveGroups = _ext.log.get('archiveGroups') || [];
-		_archiveGroups.sort(function(a,b) {
+		_archiveGroups.sort(function(a, b) {
 			return a.ts[0] - b.ts[0];
 		});
-		for (var i=0; i<_archiveGroups.length-1; i++) { /* remove doubles */
-			if (_archiveGroups[i].ts[0] === _archiveGroups[i+1].ts[0]) {
+		for (var i = 0; i < _archiveGroups.length - 1; i++) { /* remove doubles */
+			if (_archiveGroups[i].ts[0] === _archiveGroups[i + 1].ts[0]) {
 				_archiveGroups.splice(i, 1);
 				i--;
 			}
@@ -907,7 +957,7 @@ var _archive = (function(_archive) {
 		var _archiveGroups = _archive.archiveGroups;
 		var max = _ext.settings.settingsValues.maxArchiveLength || _const.MAX_ARCHIVE_LENGTH;
 
-		_archiveGroups = _archiveGroups.slice(_archiveGroups.length-max);
+		_archiveGroups = _archiveGroups.slice(_archiveGroups.length - max);
 		var toSave = _archiveGroups.map(downgradeArchiveGroup);
 		_ext.log.set('archiveGroups', toSave);
 	}
@@ -923,7 +973,7 @@ var _archive = (function(_archive) {
 })({});
 _ext.subscribe('init', function() {
 	_archive.loadArchiveGroups();
-	for (var i=1; i<_groupMessages.list.length; i++) {
+	for (var i = 1; i < _groupMessages.list.length; i++) {
 		var gr = _groupMessages.list[i];
 		_archive.addArchiveGroup(gr);
 	}
@@ -978,7 +1028,7 @@ var _stats = (function(_stats) {
 		var me = {};
 		var enemy = {};
 		var fights = 0;
-		var loot = { pickup: 0, empty: 0, drop: 0};
+		var loot = {pickup: 0, empty: 0, drop: 0};
 		var meByMob = {};
 		var enemyByMob = {};
 		var actionsTimes = {};
@@ -989,13 +1039,15 @@ var _stats = (function(_stats) {
 		var otherTime = 0;
 		var mobId;
 
-		for (var i=Math.max(archiveGroups.length-count, 0); i<archiveGroups.length; i++) {
+		for (var i = Math.max(archiveGroups.length - count, 0); i < archiveGroups.length; i++) {
 			var fullStats = archiveGroups[i];
 			var type = fullStats.broken ? 'broken' : fullStats.type;
-			if (!fullStats.ts || type==='broken') continue;
+			if (!fullStats.ts || type === 'broken') {
+				continue;
+			}
 			if (type === 'fight') {
 				mobId = fullStats.mobId;
-				addToStats(me, fullStats.total.me );
+				addToStats(me, fullStats.total.me);
 				addToStats(enemy, fullStats.total.enemy);
 				meByMob[mobId] = meByMob[mobId] || {};
 				addToStats(meByMob[mobId], fullStats.total.me);
@@ -1008,12 +1060,15 @@ var _stats = (function(_stats) {
 					loot[lt]++;
 				}
 			}
-			var nextFullStats = archiveGroups[i+1];
+			var nextFullStats = archiveGroups[i + 1];
 			var timeStart = fullStats.ts[0];
 			var timeEnd = fullStats.ts[1];
 			if (type !== 'fight' && nextFullStats && nextFullStats.ts) {
 				var timeStartNext = nextFullStats.ts[0];
-				if (timeStartNext - timeEnd < 120) timeEnd = timeStartNext; // проверка на случай сломанной группы (2)
+				if (timeStartNext - timeEnd < 120) {
+					// проверка на случай сломанной группы (2)
+					timeEnd = timeStartNext;
+				}
 			}
 			var time = timeEnd - timeStart;
 //				lastTimeEnd = fullStats.ts[1];
@@ -1024,7 +1079,7 @@ var _stats = (function(_stats) {
 			}
 			type = type || 'undefined';
 			actionsTimes[type] = (actionsTimes[type] || 0) + time;
-			actionsCounts[type] = (actionsCounts[type] | 0) + 1;
+			actionsCounts[type] = (actionsCounts[type] || 0) + 1;
 			actionsTime += time;
 			actionsSum++;
 		}
@@ -1045,12 +1100,14 @@ var _stats = (function(_stats) {
 			meByMob: meByMob,
 			enemyByMob: enemyByMob
 		};
-		if (mobId) statsTotal.lastMobId = mobId;
+		if (mobId) {
+			statsTotal.lastMobId = mobId;
+		}
 		return statsTotal;
 	}
 
 	_ext.subscribe('settingsChange', function(key, value) {
-		if (key==='statsByMob' || key==='statsByMobId' || key==='myStatsByMob' || key==='statsActionsCount' || key==='statsByLevel' || key==='statsByLevelValue') {
+		if (['statsByMob', 'statsByMobId', 'myStatsByMob', 'statsActionsCount', 'statsByLevel', 'statsByLevelValue'].indexOf('key') > 0) {
 			drawStatsSide();
 		}
 	});
@@ -1058,24 +1115,26 @@ var _stats = (function(_stats) {
 //		var statsByMob = _ext.settings.settingsValues.statsByMob;
 	function groupsByLevel(archiveGroups, level) {
 		var levelsLog = _ext.log.get('levelsLog') || [];
+		var lv1;
+		var lv2;
 		if (level) {
-			var lv1 = levelsLog.filter(function(item) { return item[1] === level;})[0] || [];
-			var lv2 = levelsLog.filter(function(item) { return item[1] === level+1;})[0] || [];
+			lv1 = levelsLog.filter(function(item) { return item[1] === level;})[0] || [];
+			lv2 = levelsLog.filter(function(item) { return item[1] === level + 1;})[0] || [];
 		} else {
-			lv1 = levelsLog[levelsLog.length-1];
+			lv1 = levelsLog[levelsLog.length - 1];
 			lv2 = [];
 		}
 		var time1 = lv1[0];
 		var time2 = lv2[0];
 		var i1 = null;
 		var i2 = null;
-		for (var i=0; i<archiveGroups.length; i++) {
+		for (var i = 0; i < archiveGroups.length; i++) {
 			var ts1 = archiveGroups[i].ts[0];
 			var ts2 = archiveGroups[archiveGroups.length - 1 - i].ts[0];
-			if (i1===null && ts1>time1) i1 = i;
-			if (i2===null && ts2<time2) i2 = archiveGroups.length - 1 - i;
+			if (i1 === null && ts1 > time1) { i1 = i; }
+			if (i2 === null && ts2 < time2) { i2 = archiveGroups.length - 1 - i; }
 		}
-		return (i1!==null && !time2) ? archiveGroups.slice(i1) : archiveGroups.slice(i1|0, i2|0);
+		return (i1 !== null && !time2) ? archiveGroups.slice(i1) : archiveGroups.slice(i1 || 0, i2 || 0);
 	}
 	function drawStatsSide(archiveGroups) {
 		archiveGroups = archiveGroups || _archive.archiveGroups;
@@ -1086,7 +1145,7 @@ var _stats = (function(_stats) {
 
 		var html = '';
 		var htmlMe;
-		if(_ext.settings.settingsValues.myStatsByMob && mobId) {
+		if (_ext.settings.settingsValues.myStatsByMob && mobId) {
 			htmlMe = drawStatsSideByActor(statsTotal.meByMob[mobId]);
 		} else {
 			htmlMe = drawStatsSideByActor(statsTotal.me);
@@ -1129,7 +1188,7 @@ var _stats = (function(_stats) {
 
 
 		var htmlTime =
-			'<b>' + statsTotal.actionsSum + '</b> ' + _ext.utils.declenstionByNumber(statsTotal.actionsSum, ['действие', 'действия', 'действий']) + ' за ' + _ext.utils.timeSpan(statsTotal.actionsTime) + '<br />';
+			'<b>' + statsTotal.actionsSum + '</b> ' + _ext.utils.declensionByNumber(statsTotal.actionsSum, ['действие', 'действия', 'действий']) + ' за ' + _ext.utils.timeSpan(statsTotal.actionsTime) + '<br />';
 		var interestAverageActions = [{
 			type: 'fight,rest',
 			text: 'бой/отдых',
@@ -1172,7 +1231,7 @@ var _stats = (function(_stats) {
 			countAverage: 1,
 			text: 'на отдых'
 		}];
-		for (var i=0; i<interestAverageActions.length; i++) {
+		for (var i = 0; i < interestAverageActions.length; i++) {
 			var act = interestAverageActions[i];
 			if (act.title) {
 				htmlTime += act.title + '<br />';
@@ -1180,19 +1239,20 @@ var _stats = (function(_stats) {
 			}
 
 			var types = act.type.split(',');
+			var type;
 			var count = 0;
 			var countTotal = 0;
 			var time = 0;
-			for (var j=0; j<types.length; j++) {
-				var type = types[j];
-				time += statsTotal.actionsTimes[type]||0;
-				countTotal += statsTotal.actionsCounts[type]||0;
+			for (var j = 0; j < types.length; j++) {
+				type = types[j];
+				time += statsTotal.actionsTimes[type] || 0;
+				countTotal += statsTotal.actionsCounts[type] || 0;
 				if (!act.countType) count += statsTotal.actionsCounts[type];
 			}
 			type = types[0];
 			if (act.countType) count = statsTotal.actionsCounts[act.countType];
 			var timePercent = Math.round(time / statsTotal.actionsTime * 1000) / 10;
-			if (act.countAverage) time = time/count;
+			if (act.countAverage) time = time / count;
 
 
 			if (time) {
@@ -1217,7 +1277,7 @@ var _stats = (function(_stats) {
 		var html = '';
 		if (!stats) return html;
 		var types = [].concat(_const.ACTIVE, ['dmgSum'], _const.PASSIVE);
-		for (var i=0; i<types.length; i++) {
+		for (var i = 0; i < types.length; i++) {
 			var type = types[i];
 			var isDot = isActType('DOT', type);
 			var isPassive = isActType('PASSIVE', type);
@@ -1229,21 +1289,21 @@ var _stats = (function(_stats) {
 				var stat = stats[type];
 				var title = _const.ACTION_TRANSLATE[type] +
 					(sumTo ? ', включено в ' + _const.ACTION_TRANSLATE[sumTo] :
-						(isPassive ? ', не учитывается в сумме' : '' )
+						(isPassive ? ', не учитывается в сумме' : '')
 					);
 				var htmlStat = '<td class="stats-name" title="' + title + '">' + _icons[type] + '</td> ';
 
 				var count = stat.count;
 				var sum = stat.sum;
-				var average = (Math.round(sum / count * 100) / 100)||0;
+				var average = (Math.round(sum / count * 100) / 100) || 0;
 				var hitCount = hit.count;
 				var hitSum = hit.sum;
 				var totalSum = dmgSum.sum;
 
-				var chance = type === 'dmgSum' ? 100 : count/(hitCount + count) * 100;
-				var chanceText = type === 'hit' ? '-' : chance>=100 ? Math.round(chance * 10)/10  : chance.toFixed(2);
+				var chance = type === 'dmgSum' ? 100 : count / (hitCount + count) * 100;
+				var chanceText = type === 'hit' ? '-' : chance >= 100 ? Math.round(chance * 10) / 10  : chance.toFixed(2);
 
-				var countText = 'сработал ' + _ext.utils.declenstionByNumber(count, ['раз', 'раза', 'раз'], 1);
+				var countText = 'сработал ' + _ext.utils.declensionByNumber(count, ['раз', 'раза', 'раз'], 1);
 
 				if (!sum) {
 					htmlStat += '<td class="stats-average"></td>';
@@ -1251,18 +1311,19 @@ var _stats = (function(_stats) {
 					htmlStat += '<td class="stats-count"></td>';
 					htmlStat += '<td class="stats-sum"></td>';
 				} else {
-					var averagePercents = sum/count * hitCount/hitSum * 100;
-					var averagePercentsText = Math.round(averagePercents * 100)/100 + '';
+					var averagePercents = sum / count * hitCount / hitSum * 100;
+					var averagePercentsText = Math.round(averagePercents * 100) / 100 + '';
 
-					var dmgPercents = sum/totalSum * 100;
-					var dmgPercentsText = '' + (dmgPercents<100 ? dmgPercents.toFixed(1) : Math.round(dmgPercents)) + '%';
-					var sumText = 'всего ' + _ext.utils.declenstionByNumber(sum, ['урон', 'урона', 'урона'], 1);
+					var dmgPercents = sum / totalSum * 100;
+					var dmgPercentsText = '' + (dmgPercents < 100 ? dmgPercents.toFixed(1) : Math.round(dmgPercents)) + '%';
+					var sumText = 'всего ' + _ext.utils.declensionByNumber(sum, ['урон', 'урона', 'урона'], 1);
 
 					var bonusPercent = Math.round((averagePercents - 100) * chance) / 100;
 					var bonusPercentText = bonusPercent && !isDot ?
 						(bonusPercent >= 0 ? '+' : '&ndash;') + Math.abs(bonusPercent) + '%' :
 						'';
-					var bpTranslateText = (averagePercentsText >= 100 ? '+' : '&ndash;') + Math.abs(Math.round(averagePercentsText*100 - 10000)/100) + '% x ' + chanceText;
+					var bpTranslateText = (averagePercentsText >= 100 ? '+' : '&ndash;') +
+						Math.abs(Math.round(averagePercentsText * 100 - 10000) / 100) + '% x ' + chanceText;
 
 					htmlStat += '<td class="stats-average" title="' + averagePercentsText + '%">' + average.toFixed(2) + '</td>';
 					htmlStat += '<td class="stats-count" title="' + countText + '">' + chanceText + '</td>';
