@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 
-	"name": "${name}",
+	"name": "${fullName}",
 	"description": "${description}",
 	"version": "${version}",
 	"author": "${author}",
@@ -33,7 +33,7 @@
 				"http://the-tale.org/game/pvp/"
 			],
 			"css": ["css/glyphicons.css"],
-			"js": ["js/injector.js"]
+			"js": ["injector.js"]
 		}
 	]
 }

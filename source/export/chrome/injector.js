@@ -21,8 +21,10 @@
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', file, true);
 		xhr.onreadystatechange = function() {
-			if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-				if (callback) callback(xhr.responseText);
+			if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+				if (callback) {
+					callback(xhr.responseText);
+				}
 			}
 		};
 		xhr.send();
@@ -30,21 +32,20 @@
 
 	var filesText = [];
 	var count = 0;
-	for (var i=0;i<files.length;i++) {
-		getFileText(chrome.extension.getURL(files[i]), function(index) {
+	for (var i = 0; i < files.length;i++) {
+		getFileText(chrome.extension.getURL(files[i]), (function(index) {
 			return function(text) {
 				filesText[index] = text;
 				count++;
-				if (count == files.length) {
-					var pass = chrome.extension.getURL('');
-					filesText.push('if (window.injectDone) injectDone();window.extPass="' + pass + '";');
+				if (count === files.length) {
+					filesText.push('if (window.injectDone) injectDone();window.extPath="' + chrome.extension.getURL('') + '";');
 //					filesText.push('console.timeEnd("ext");')
 					injectCode(filesText.join(';\n'));
 				}
-			}
-		}(i) );
+			};
+		}(i)));
 	}
-	for (var j=0;j<styles.length;j++) {
+	for (var j = 0; j < styles.length; j++) {
 		injectStyle(styles[j]);
 
 	}
