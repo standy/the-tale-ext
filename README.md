@@ -1,7 +1,7 @@
 #The Tale Extended 
 Исходный код для расширения браузерной игры "[Сказка](http://the-tale.org)"
 
-Установить как расширение из [Chrome Strore](https://chrome.google.com/webstore/detail/the-tale-extended/hafakbhcckdligdjpghlofaplaajpaje?gl=001)  
+Установить как расширение из [Chrome Store](https://chrome.google.com/webstore/detail/the-tale-extended/hafakbhcckdligdjpghlofaplaajpaje?gl=001)
 Установить как userscript из [Greasy Fork](https://greasyfork.org/ru/scripts/4016-the-tale-extended)  
 
 
@@ -31,11 +31,10 @@ gulp watch-userscript
 * поставьте галочку "Режим разработчика"
 * "Загрузить распакованное расширение"
 * выберите папку `dist/chrome`
-* не забудьте отключить версию из chrome strore, если она у вас установлена
-* при изменениях в коде нажмите "Обновить" на chrome://extensions/
+* не забудьте отключить версию из chrome store, если она у вас установлена
 
 ###Запуск юзерскрипта для FireFox в режиме разработки 
-1. установите Greasemonkey
+1. установите GreaseMonkey
 * перетащите скрипт из папки `dist/userscript` в браузер
 * при изменениях в коде, повторить второй пункт
 
