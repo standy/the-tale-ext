@@ -1,0 +1,29 @@
+{
+	"preset": "yandex",
+	"requireSpacesInAnonymousFunctionExpression": {
+		"beforeOpeningCurlyBrace": true
+	},
+	"disallowMixedSpacesAndTabs": "smart",
+	"validateIndentation": "\t",
+	"requireSpaceAfterLineComment": null,
+	"requireCurlyBraces": [
+		"else",
+		"while",
+		"do",
+		"try",
+		"catch",
+		"case",
+		"default"
+	],
+	"disallowImplicitTypeConversion": null,
+	"disallowMultipleLineBreaks": null,
+	"maximumLineLength": null,
+	"validateLineBreaks": null,
+
+	"excludeFiles": [
+		"dist",
+		"node_modules",
+		"test",
+		"coverage"
+	]
+}
