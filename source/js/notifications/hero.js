@@ -1,47 +1,9 @@
-var _subscribe = require('./pubsub').subscribe;
-var _settings = require('./settings');
-var $ = require('jquery');
+var utils = require('./../utils/');
+var _settings = utils.settings;
+//var _publish = utils.publish;
+var _subscribe = utils.subscribe;
 
-
-var rndStr = Math.random() + '';
-
-function request() {
-	if (Notification.permission.toLowerCase() !== 'granted') {
-		Notification.requestPermission(newMessage);
-	}
-	function newMessage(permission) {
-		if (permission !== 'granted') return false;
-		var notify = new Notification('Thanks for letting notify you');
-		return true;
-	}
-}
-$('body').one('click', request);
-
-
-
-function sendNotify(name, options) {
-//	if (!_settings.settingsValues.notify) return;
-
-	var d = new Date();
-	var h = d.getHours();
-	var m = d.getMinutes();
-	var time = h + ':' + (m < 10 ? '0' + m : m);
-	var nt = new Notification(name, {
-		tag: options.tag + rndStr,
-		body: options.body + (options.addTime ? '\n' + time : ''),
-		icon: options.icon || (window.extPath + 'img/128.png')
-	});
-	nt.onclick = nt.onclose = function() {
-		rndStr = Math.random() + '';
-	};
-}
-
-
-var _notification = {
-	sendNotify: sendNotify
-};
-
-module.exports = _notification;
+var sendNotify = require('./sendNotify');
 
 
 
@@ -79,7 +41,7 @@ _subscribe('newMessages', function(messagesNew, gameData) {
 	if (notifyMessages.length) {
 		var notifyMessagesText = notifyMessages.join('\n');
 		if (notifyMessagesText !== lastNotifyMessagesText) {
-			_notification.sendNotify('The Tale Extended - ' + this.heroName, {
+			sendNotify('The Tale Extended - ' + utils.heroName, {
 				tag: 'send',
 				body: notifyMessagesText
 			});
@@ -87,4 +49,3 @@ _subscribe('newMessages', function(messagesNew, gameData) {
 		lastNotifyMessagesText = notifyMessagesText;
 	}
 });
-

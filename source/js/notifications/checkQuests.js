@@ -1,8 +1,7 @@
-var heroName = require('./heroName.js'); /* todo heroName */
-var _settings = require('./settings');
-var _publish = require('./pubsub').publish;
-var _subscribe = require('./pubsub').subscribe;
-var _notification = require('./notifications');
+var utils = require('./../utils/');
+var _settings = utils.settings;
+var _publish = utils.publish;
+var sendNotify = require('./sendNotify');
 
 var lastQuests;
 function checkQuests(quests) {
@@ -17,9 +16,9 @@ function checkQuests(quests) {
 			if (_settings.settingsValues.notifyQuestChoose && q.choice_alternatives && q.choice_alternatives.length) {
 //					console.info('quest!', q.type, _ext.heroName + ' ' + q.action + '!', q);
 				if (_settings.settingsValues.notify) {
-					_notification.sendNotify(q.name,  {
+					sendNotify(q.name,  {
 						tag: 'quest',
-						body: heroName + ' ' + q.action + '!',
+						body: utils.heroName + ' ' + q.action + '!',
 						icon: window.extPath + 'img/quest/caravan.png', //window.extPath + 'img/quest/' + q.type + '.png',
 						addTime: 1
 					});
@@ -44,18 +43,6 @@ function isSameQuest(q1, q2) {
 	return true;
 }
 
-var _quests = {
-	checkQuests: checkQuests
-};
+module.exports = checkQuests;
 
-module.exports = _quests;
-
-
-_subscribe('preload', function() {
-	_subscribe('newMessages', function(messagesNew, game_data) {
-		var hero = game_data.account.hero;
-		var quests = hero.quests.quests;
-		_quests.checkQuests(quests);
-	});
-});
 

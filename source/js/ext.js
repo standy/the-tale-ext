@@ -5,6 +5,7 @@ ext.utils = require('./utils/');
 ext.parse = require('./parse/');
 ext.trace = require('./trace/');
 ext.draw = require('./draw/');
+ext.notifications = require('./notifications/');
 ext.auto = require('./auto/');
 
 window.ext = ext;
