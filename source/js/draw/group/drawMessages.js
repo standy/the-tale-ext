@@ -1,6 +1,6 @@
-var utils = require('../../utils/index.js');
+var utils = require('../../utils/');
 var _elements = utils.elements;
-var drawGroup = require('./drawGroup.js');
+var drawGroup = require('./drawGroup');
 
 
 var $groupsContent = _elements.getTabInner('group');

@@ -7,19 +7,19 @@
  * */
 
 var _archive = module.exports = {};
-_archive.drawArchiveGroups = require('./drawArchiveGroups.js');
-_archive.loadArchiveGroups = require('./loadArchiveGroups.js');
-_archive.saveArchiveGroups = require('./saveArchiveGroups.js');
-_archive.addArchiveGroup = require('./addArchiveGroup.js');
-_archive.archiveGroups = require('./archiveGroups.js');
+_archive.drawArchiveGroups = require('./drawArchiveGroups');
+_archive.loadArchiveGroups = require('./loadArchiveGroups');
+_archive.saveArchiveGroups = require('./saveArchiveGroups');
+_archive.addArchiveGroup = require('./addArchiveGroup');
+_archive.archiveGroups = require('./archiveGroups');
 
 
 var $ = require('jquery');
-var utils = require('../../utils/index.js');
+var utils = require('../../utils/');
 var _subscribe = utils.subscribe;
 var _elements = utils.elements;
 var _settings = utils.settings;
-var _groupMessages = require('./../group/index.js');
+var _groupMessages = require('../group/');
 
 _subscribe('init', function() {
 	_archive.loadArchiveGroups();

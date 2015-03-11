@@ -1,10 +1,10 @@
-var utils = require('../utils/index.js');
-var _parse = require('../parse/index.js');
+var utils = require('../utils/');
+var _parse = require('../parse/');
 var _publish = utils.publish;
 var _subscribe = utils.subscribe;
 var _log = utils.log;
 var _settings = utils.settings;
-var messagesLog = require('./messagesLog.js');
+var messagesLog = require('./messagesLog');
 
 
 function traceData(game_data) {

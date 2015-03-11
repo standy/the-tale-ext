@@ -4,7 +4,7 @@
 
 var gulp = require('gulp');
 
-var config = require('./config.js');
+var config = require('./config');
 
 var SRC = ['./source/export/chrome/injector.js'];
 var DEST = config.dist;

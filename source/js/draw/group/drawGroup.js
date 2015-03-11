@@ -1,7 +1,7 @@
-var utils = require('../../utils/index.js');
+var utils = require('../../utils/');
 var _settings = utils.settings;
-var drawGroupInner = require('./drawGroupInner.js');
-var messagesGrouped = require('./list.js');
+var drawGroupInner = require('./drawGroupInner');
+var messagesGrouped = require('./list');
 
 
 function drawGroup(group, index, isOpen) {

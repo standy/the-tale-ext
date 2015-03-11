@@ -2,7 +2,7 @@ var gulp = require('gulp');
 
 var tasks = ['styles', 'images', 'manifest', 'misc'];
 var options = tasks.map(function(name) {
-	return require('./' + name + '.js');
+	return require('./' + name + '');
 });
 
 gulp.task('chrome:tasks', options.map(function(opt) { return opt.task; }));

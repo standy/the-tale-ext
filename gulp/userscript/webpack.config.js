@@ -1,6 +1,6 @@
 var path = require('path');
 
-var root = path.join(__dirname, './../../');
+var root = path.join(__dirname, '../../');
 var sourceDir = path.join(root, 'source');
 
 

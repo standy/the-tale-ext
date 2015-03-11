@@ -1,8 +1,8 @@
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
 
-require('./clean.js');
-require('./webpack.js');
+require('./clean');
+require('./webpack');
 
 
 gulp.task('userscript', function(callback) {

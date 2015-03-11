@@ -5,7 +5,7 @@ var header = require('gulp-header');
 var gulpWebpack = require('gulp-webpack');
 var fs = require('fs');
 
-var webpackConfig = require('./webpack.config.js');
+var webpackConfig = require('./webpack.config');
 
 var SRC = [
 	'./source/export/userscript/*.js',

@@ -1,5 +1,5 @@
 var $ = require('jquery');
-var utils = require('../../utils/index.js');
+var utils = require('../../utils/');
 var _subscribe = utils.subscribe;
 var _const = utils.const;
 var _icons = _const.ICONS;
@@ -8,7 +8,7 @@ var _utils = utils.utils;
 var _settings = utils.settings;
 var _log = utils.log;
 var isActType = utils.isActType;
-var archiveGroups = require('./archiveGroups.js');
+var archiveGroups = require('./archiveGroups');
 
 
 var showArchive = _settings.settingsValues.showArchive;

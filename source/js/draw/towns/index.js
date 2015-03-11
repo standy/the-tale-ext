@@ -1,16 +1,16 @@
 var _towns = module.exports = {};
-_towns.init = require('./init.js');
-_towns.mapDataUpdate = require('./mapDataUpdate.js');
-_towns.showMapDialogById = require('./showMapDialogById.js');
-_towns.townQuestUpdate = require('./townQuestUpdate.js');
-_towns.townParams = require('./townParams.js');
-_towns.mapData = require('./mapData.js');
+_towns.init = require('./init');
+_towns.mapDataUpdate = require('./mapDataUpdate');
+_towns.showMapDialogById = require('./showMapDialogById');
+_towns.townQuestUpdate = require('./townQuestUpdate');
+_towns.townParams = require('./townParams');
+_towns.mapData = require('./mapData');
 
 var $ = require('jquery');
 var pgf = require('pgf');
 
 
-var utils = require('../../utils/index.js');
+var utils = require('../../utils/');
 var _elements = utils.elements;
 var _subscribe = utils.subscribe;
 

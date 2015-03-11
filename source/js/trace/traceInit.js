@@ -1,5 +1,5 @@
-var _parse = require('../parse/index.js');
-var messagesLog = require('./messagesLog.js');
+var _parse = require('../parse/');
+var messagesLog = require('./messagesLog');
 var _utils = require('../utils');
 var _subscribe = _utils.subscribe;
 

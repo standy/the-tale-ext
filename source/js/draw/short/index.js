@@ -1,4 +1,4 @@
 var _short = module.exports = {};
-_short.htmlMessage = require('./htmlMessage.js');
-_short.htmlMessages = require('./htmlMessages.js');
-_short.htmlLongMessage = require('./htmlLongMessage.js');
+_short.htmlMessage = require('./htmlMessage');
+_short.htmlMessages = require('./htmlMessages');
+_short.htmlLongMessage = require('./htmlLongMessage');

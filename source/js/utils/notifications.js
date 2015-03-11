@@ -1,5 +1,5 @@
-var _subscribe = require('./pubsub.js').subscribe;
-var _settings = require('./settings.js');
+var _subscribe = require('./pubsub').subscribe;
+var _settings = require('./settings');
 var $ = require('jquery');
 
 
@@ -79,7 +79,6 @@ _subscribe('newMessages', function(messagesNew, gameData) {
 	if (notifyMessages.length) {
 		var notifyMessagesText = notifyMessages.join('\n');
 		if (notifyMessagesText !== lastNotifyMessagesText) {
-			/* todo is `this` correct _ext */
 			_notification.sendNotify('The Tale Extended - ' + this.heroName, {
 				tag: 'send',
 				body: notifyMessagesText

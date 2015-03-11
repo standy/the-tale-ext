@@ -7,7 +7,7 @@ var gulp = require('gulp');
 //var cache = require('gulp-cache');
 //var imagemin = require('gulp-imagemin');
 
-var config = require('./config.js');
+var config = require('./config');
 
 var SRC = ['./source/img/**/*.*'];
 var DEST = config.dist + '/img';

@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 
-require('./gulp/chrome-extension/index.js');
-require('./gulp/userscript/index.js');
+require('./gulp/chrome-extension/');
+require('./gulp/userscript/');
 
 
 gulp.task('watch', ['watch-chrome', 'watch-userscript']);

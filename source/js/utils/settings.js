@@ -1,9 +1,9 @@
-var _subscribe = require('./pubsub.js').subscribe;
-var _publish = require('./pubsub.js').publish;
-var _const = require('./const.js');
+var _subscribe = require('./pubsub').subscribe;
+var _publish = require('./pubsub').publish;
+var _const = require('./const');
 var $ = require('jquery');
-var _log = require('./log.js');
-var _elements = require('./elements.js');
+var _log = require('./log');
+var _elements = require('./elements');
 
 
 function getSettingInput(key) {

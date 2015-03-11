@@ -7,7 +7,7 @@ var gulp = require('gulp');
 //var watchLess = require('gulp-watch-less');
 var autoprefixer = require('gulp-autoprefixer');
 
-var config = require('./config.js');
+var config = require('./config');
 
 var SRC = [
 	'./source/css/**/*.css'

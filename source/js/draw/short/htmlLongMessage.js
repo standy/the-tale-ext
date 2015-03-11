@@ -1,6 +1,6 @@
 var $ = require('jquery');
-var utils = require('../../utils/index.js');
-var _parse = require('../../parse/index.js');
+var utils = require('../../utils/');
+var _parse = require('../../parse/');
 
 
 

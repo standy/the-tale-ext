@@ -3,7 +3,7 @@ var gutil = require('gulp-util');
 require('es6-promise').polyfill(); //not required for iojs
 
 var webpack = require('webpack');
-var webpackConfig = require('./webpack.config.js');
+var webpackConfig = require('./webpack.config');
 
 
 var outputOptions = {

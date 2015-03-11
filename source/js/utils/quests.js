@@ -1,8 +1,8 @@
-var _settings = require('./settings.js');
-var _publish = require('./pubsub.js').publish;
-var _subscribe = require('./pubsub.js').subscribe;
-var _notification = require('./notifications.js');
 var heroName = require('./heroName.js'); /* todo heroName */
+var _settings = require('./settings');
+var _publish = require('./pubsub').publish;
+var _subscribe = require('./pubsub').subscribe;
+var _notification = require('./notifications');
 
 var lastQuests;
 function checkQuests(quests) {

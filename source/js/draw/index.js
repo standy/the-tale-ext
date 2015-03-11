@@ -1,8 +1,8 @@
 var _print = module.exports = {};
 
-_print.towns = require('./towns/index.js');
-_print.shortMessages = require('./short/index.js');
-_print.groupMessages = require('./group/index.js');
-_print.archive = require('./archive/index.js');
-_print.stats = require('./stats/index.js');
+_print.towns = require('./towns/');
+_print.shortMessages = require('./short/');
+_print.groupMessages = require('./group/');
+_print.archive = require('./archive/');
+_print.stats = require('./stats/');
 

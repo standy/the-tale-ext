@@ -4,11 +4,11 @@
  * */
 
 var _stats = module.exports = {};
-_stats.drawStatsSide = require('./drawStatsSide.js');
-_stats.countStatsTotal = require('./countStatsTotal.js');
+_stats.drawStatsSide = require('./drawStatsSide');
+_stats.countStatsTotal = require('./countStatsTotal');
 
 
-var utils = require('../../utils/index.js');
+var utils = require('../../utils/');
 var _subscribe = utils.subscribe;
 
 _subscribe('settingsChange', function(key, value) {

@@ -1,4 +1,4 @@
-var phrasesHighlight = require('./journalPhrasesHighlight.js');
+var phrasesHighlight = require('./journalPhrasesHighlight');
 var cfgHighlight = processHighlightRaw(phrasesHighlight);
 
 module.exports = parseHighlight;

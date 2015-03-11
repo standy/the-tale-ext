@@ -1,6 +1,6 @@
 var $ = require('jquery');
 var pgf = require('pgf');
-var core = require('./../utils/index.js');
+var core = require('../utils/');
 
 
 var _log = core.log;
@@ -8,11 +8,11 @@ var _subscribe = core.subscribe;
 
 
 var _trace = module.exports = {};
-_trace.messagesLog = require('./messagesLog.js');
-_trace.traceInit = require('./traceInit.js');
-_trace.traceData = require('./traceData.js');
-_trace.traceStart = require('./traceStart.js');
-_trace.traceStop = require('./traceStop.js');
+_trace.messagesLog = require('./messagesLog');
+_trace.traceInit = require('./traceInit');
+_trace.traceData = require('./traceData');
+_trace.traceStart = require('./traceStart');
+_trace.traceStop = require('./traceStop');
 
 
 

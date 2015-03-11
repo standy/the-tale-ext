@@ -1,5 +1,5 @@
-var archiveGroups = require('./archiveGroups.js');
-var countArchiveFromGroup = require('./countArchiveFromGroup.js');
+var archiveGroups = require('./archiveGroups');
+var countArchiveFromGroup = require('./countArchiveFromGroup');
 
 function addArchiveGroup(group) {
 	if (!group) return;

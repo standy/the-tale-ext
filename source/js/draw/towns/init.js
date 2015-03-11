@@ -1,11 +1,11 @@
 var $ = require('jquery');
-var utils = require('../../utils/index.js');
+var utils = require('../../utils/');
 var _subscribe = utils.subscribe;
 var _const = utils.const;
 var _elements = utils.elements;
 var _log = utils.log;
 
-var mapData = require('./mapData.js');
+var mapData = require('./mapData');
 
 var $townsContent = _elements.getTabInner('towns');
 

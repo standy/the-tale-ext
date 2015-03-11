@@ -1,5 +1,5 @@
 var pgf = require('pgf');
-var _const = require('./const.js');
+var _const = require('./const');
 
 
 function setLog(name, messages) {

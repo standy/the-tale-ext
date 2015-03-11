@@ -2,7 +2,7 @@ var $ = require('jquery');
 var pgf = require('pgf');
 var widgets = window.widgets;
 
-var mapData = require('./mapData.js');
+var mapData = require('./mapData');
 
 function showMapDialogById(id) {
 	var place = mapData.places[id];

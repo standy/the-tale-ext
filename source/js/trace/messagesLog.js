@@ -1,4 +1,4 @@
-var core = require('./../utils/index.js');
+var core = require('../utils/');
 var _log = core.log;
 
 

@@ -1,9 +1,9 @@
 var $ = require('jquery');
-var utils = require('../../utils/index.js');
+var utils = require('../../utils/');
 var _publish = utils.publish;
 
 
-var mapData = require('./mapData.js');
+var mapData = require('./mapData');
 
 function mapDataUpdate(map_version) {
 	return $.ajax({

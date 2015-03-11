@@ -1,4 +1,4 @@
-var _archive = require('../archive/index.js');
+var _archive = require('../archive/');
 
 function countStatsTotal(archiveGroups, count) {
 	archiveGroups = archiveGroups || _archive.archiveGroups;

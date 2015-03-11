@@ -1,1 +1,1 @@
-require('../../js/ext.js');
+require('../../js/ext');

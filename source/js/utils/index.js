@@ -1,19 +1,19 @@
 var utils = module.exports = {};
-utils.const = require('./const.js');
-utils.subscribeList = require('./pubsub.js').subscribeList;
-utils.publish = require('./pubsub.js').publish;
-utils.subscribe = require('./pubsub.js').subscribe;
-utils.cacheStore = require('./cache.js').cacheStore;
-utils.cache = require('./cache.js').cache;
-utils.store = require('./store.js');
-utils.log = require('./log.js');
-utils.settings = require('./settings.js');
-utils.notification = require('./notifications.js');
-utils.quests = require('./quests.js');
-utils.utils = require('./utils.js');
-utils.elements = require('./elements.js');
-utils.isMyName = require('./isMyName.js');
-utils.isActType = require('./isActType.js');
+utils.const = require('./const');
+utils.subscribeList = require('./pubsub').subscribeList;
+utils.publish = require('./pubsub').publish;
+utils.subscribe = require('./pubsub').subscribe;
+utils.cacheStore = require('./cache').cacheStore;
+utils.cache = require('./cache').cache;
+utils.store = require('./store');
+utils.log = require('./log');
+utils.settings = require('./settings');
+utils.notification = require('./notifications');
+utils.quests = require('./quests');
+utils.utils = require('./utils');
+utils.elements = require('./elements');
+utils.isMyName = require('./isMyName');
+utils.isActType = require('./isActType');
 
 
 /* todo разнести эту логику */

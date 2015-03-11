@@ -1,5 +1,5 @@
 var $ = require('jquery');
-var _subscribe = require('./pubsub.js').subscribe;
+var _subscribe = require('./pubsub').subscribe;
 
 var tabs = {};
 

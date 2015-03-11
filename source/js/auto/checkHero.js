@@ -1,5 +1,5 @@
 var $ = require('jquery');
-var utils = require('../utils/index.js');
+var utils = require('../utils/');
 var _subscribe = utils.subscribe;
 var _const = utils.const;
 var _settings = utils.settings;

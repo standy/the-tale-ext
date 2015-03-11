@@ -1,6 +1,6 @@
-var utils = require('../../utils/index.js');
+var utils = require('../../utils/');
 var _elements = utils.elements;
-var _shortMessages = require('./../short/index.js');
+var _shortMessages = require('../short/');
 
 var $groupsContent = _elements.getTabInner('group');
 

@@ -1,15 +1,15 @@
 /** пересчет группы в архив */
 
 var $ = require('jquery');
-var utils = require('../../utils/index.js');
+var utils = require('../../utils/');
 var _subscribe = utils.subscribe;
 var _const = utils.const;
 var _elements = utils.elements;
 var _settings = utils.settings;
 var _log = utils.log;
 var isActType = utils.isActType;
-var archiveGroups = require('./archiveGroups.js');
-var upgradeArchiveGroup = require('./upgradeArchiveGroup.js');
+var archiveGroups = require('./archiveGroups');
+var upgradeArchiveGroup = require('./upgradeArchiveGroup');
 
 function countArchiveFromGroup(group) {
 	var groupData = group.data;

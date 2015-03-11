@@ -5,7 +5,7 @@
 var gulp = require('gulp');
 var template = require('gulp-template');
 
-var config = require('./config.js');
+var config = require('./config');
 var data = require('../../../package.json');
 
 var SRC = ['./source/export/chrome/manifest.json'];

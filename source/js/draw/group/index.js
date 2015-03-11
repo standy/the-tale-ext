@@ -1,14 +1,14 @@
 var _groupMessages = module.exports = {};
-_groupMessages.list = require('./list.js');
-_groupMessages.addMessages = require('./addMessages.js');
-_groupMessages.drawFakeMessage = require('./drawFakeMessage.js');
-_groupMessages.drawMessages = require('./drawMessages.js');
-_groupMessages.redrawGroup = require('./redrawGroup.js');
+_groupMessages.list = require('./list');
+_groupMessages.addMessages = require('./addMessages');
+_groupMessages.drawFakeMessage = require('./drawFakeMessage');
+_groupMessages.drawMessages = require('./drawMessages');
+_groupMessages.redrawGroup = require('./redrawGroup');
 
 
 var $ = require('jquery');
-var _trace = require('../../trace/index.js');
-var utils = require('../../utils/index.js');
+var _trace = require('../../trace/');
+var utils = require('../../utils/');
 var _subscribe = utils.subscribe;
 var _elements = utils.elements;
 var _settings = utils.settings;

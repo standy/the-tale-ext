@@ -1,5 +1,5 @@
 var utils = require('../utils');
-var phrases = require('./journalPhrases.js');
+var phrases = require('./journalPhrases');
 
 var cfgShort = processShortRaw(phrases);
 

@@ -1,10 +1,10 @@
 var $ = require('jquery');
-var utils = require('../../utils/index.js');
+var utils = require('../../utils/');
 var _const = utils.const;
 var _publish = utils.publish;
 var isActType = utils.isActType;
 
-var messagesGrouped = require('./list.js');
+var messagesGrouped = require('./list');
 
 function addMessages(messagesList) {
 	for (var i = 0; i < messagesList.length; i++) {

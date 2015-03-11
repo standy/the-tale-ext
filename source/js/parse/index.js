@@ -1,5 +1,5 @@
-var parseShort = require('./parseShort.js');
-var parseHighlight = require('./parseHighlight.js');
+var parseShort = require('./parseShort');
+var parseHighlight = require('./parseHighlight');
 
 var _parse = module.exports = {};
 _parse.short = parseShort;

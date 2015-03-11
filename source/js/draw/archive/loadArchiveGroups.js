@@ -1,8 +1,8 @@
 var $ = require('jquery');
-var utils = require('./../../utils/index.js');
+var utils = require('../../utils/');
 var _log = utils.log;
-var archiveGroups = require('./archiveGroups.js');
-var upgradeArchiveGroup = require('./upgradeArchiveGroup.js');
+var archiveGroups = require('./archiveGroups');
+var upgradeArchiveGroup = require('./upgradeArchiveGroup');
 
 function loadArchiveGroups() {
 	var _archiveGroups = _log.get('archiveGroups') || [];

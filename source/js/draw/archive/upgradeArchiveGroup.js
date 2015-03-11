@@ -1,9 +1,9 @@
 /** добавляет к архивам поле total */
 
 var $ = require('jquery');
-var utils = require('../../utils/index.js');
+var utils = require('../../utils/');
 var _const = utils.const;
-var archiveGroups = require('./archiveGroups.js');
+var archiveGroups = require('./archiveGroups');
 var isActType = utils.isActType;
 
 function upgradeArchiveGroup(archiveGroup, index) {

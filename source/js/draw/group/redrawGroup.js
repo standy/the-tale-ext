@@ -1,9 +1,9 @@
-var utils = require('../../utils/index.js');
+var utils = require('../../utils/');
 var _elements = utils.elements;
 
-var messagesGrouped = require('./list.js');
-var drawGroup = require('./drawGroup.js');
-var drawGroupInner = require('./drawGroupInner.js');
+var messagesGrouped = require('./list');
+var drawGroup = require('./drawGroup');
+var drawGroupInner = require('./drawGroupInner');
 
 var $groupsContent = _elements.getTabInner('group');
 

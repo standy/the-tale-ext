@@ -1,15 +1,15 @@
 var ext = {};
 
-ext.utils = require('./utils/index.js');
+ext.utils = require('./utils/');
 
-ext.parse = require('./parse/index.js');
-ext.trace = require('./trace/index.js');
-ext.draw = require('./draw/index.js');
-ext.auto = require('./auto/index.js');
+ext.parse = require('./parse/');
+ext.trace = require('./trace/');
+ext.draw = require('./draw/');
+ext.auto = require('./auto/');
 
 window.ext = ext;
 
-require('./tables.js');
+require('./tables');
 
 
 /* todo разнести эту логику */

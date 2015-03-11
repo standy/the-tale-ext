@@ -1,5 +1,5 @@
 var $ = require('jquery');
-var utils = require('../../utils/index.js');
+var utils = require('../../utils/');
 var _const = utils.const;
 var _icons = _const.ICONS;
 var _elements = utils.elements;
@@ -7,9 +7,9 @@ var _utils = utils.utils;
 var _settings = utils.settings;
 var _log = utils.log;
 var isActType = utils.isActType;
-var _archive = require('../archive/index.js');
+var _archive = require('../archive/');
 
-var countStatsTotal = require('./countStatsTotal.js');
+var countStatsTotal = require('./countStatsTotal');
 
 
 _elements.addTab('stats-side', {

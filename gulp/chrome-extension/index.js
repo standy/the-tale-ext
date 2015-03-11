@@ -1,10 +1,10 @@
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
 
-require('./clean.js');
-require('./tasks/index.js');
-require('./webpack.js');
-require('./deploy.js');
+require('./clean');
+require('./tasks/');
+require('./webpack');
+require('./deploy');
 
 
 gulp.task('chrome', function(callback) {
