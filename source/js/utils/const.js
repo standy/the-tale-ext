@@ -1,7 +1,7 @@
 module.exports = {
 	MAX_LOG_LENGTH: 1000,
 	MAX_ARCHIVE_LENGTH: 2000,
-	FIGHT_START:  'fight'.split(/",\s*"/),
+	FIGHT_START:  'fight'.split(/,\s*/),
 	FIGHT:        'hit, might, fire, poisoncloud, vamp, stunHit, crit, flame, poison, slow, mush, speed, ue, eva, stun, heal'.split(/,\s*/),
 	FIGHT_VALUES: 'hit, might, fire,              vamp, stunHit, crit, flame, poison,                                   heal'.split(/,\s*/),
 	FIGHT_COUNTS: '                  poisoncloud,                                     slow, mush, speed, ue, eva, stun      '.split(/,\s*/),
@@ -108,7 +108,8 @@ module.exports = {
 		pvpeff:     '<span class="glyphicon glyphicon-flash"></span>',
 		pvpice:     '<span class="glyphicon glyphicon-cloud-upload"></span>',
 		pvpflame:   '<span class="glyphicon glyphicon-cloud-download"></span>',
-		pvpfail:    '<span class="glyphicon glyphicon-cloud"></span>'
+		pvpfail:    '<span class="glyphicon glyphicon-cloud"></span>',
+		companion:  '<span class="glyphicon glyphicon-user"></span>'
 	},
 	ACTION_TRANSLATE: {
 		hit: 'Удар',
