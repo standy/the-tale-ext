@@ -128,12 +128,15 @@ input[disabled] { cursor: default; }
 .act-pvpfail .glyphicon { font-size: 15px; }
 
 
+.sub-icon {
+	margin-left: -2px;
+}
 .sub-icon .glyphicon {
 	font-size: 10px;
 	vertical-align: sub;
 	margin-left: -1px;
 }
-.act.me .sub-icon .glyphicon { color: darkred; }
+.act.me .sub-icon .glyphicon { color: #444; }
 .act.enemy .sub-icon .glyphicon { color: #005000; }
 /* eo short */
 
@@ -312,4 +315,6 @@ input.input-tiny-num { width: 30px; }
 /* eo sets */
 
 
-
+div.easy-block {
+	clear: right;
+}
