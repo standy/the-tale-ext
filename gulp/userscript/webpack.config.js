@@ -5,7 +5,6 @@ var sourceDir = path.join(root, 'source');
 
 
 module.exports = {
-	watch: true,
 	context: sourceDir, // исходная директория
 	entry: {
 		'the-tale-extension.user': './export/userscript/the-tale-extension.user.js'

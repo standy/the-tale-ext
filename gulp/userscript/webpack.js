@@ -84,6 +84,7 @@ gulp.task('userscript:webpack', function() {
 
 
 gulp.task('watch-userscript:webpack', function() {
+	webpackConfig.watch = true;
 	return gulp.src(SRC)
 		.pipe(gulpWebpack(
 			webpackConfig,

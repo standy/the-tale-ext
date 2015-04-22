@@ -5,7 +5,6 @@ var root = path.join(__dirname, '../../');
 var sourceDir = path.join(root, 'source');
 
 module.exports = {
-	watch: true,
 	context: sourceDir, // исходная директория
 	entry: {
 		'chrome/js/ext': './export/chrome/ext.js'

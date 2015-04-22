@@ -28,10 +28,9 @@ var outputOptions = {
 };
 
 
-var compiler = webpack(webpackConfig);
-
 
 gulp.task('chrome:webpack', function (callback) {
+	var compiler = webpack(webpackConfig);
 	compiler.run(function(err, stats) {
 		if (err) throw new gutil.PluginError('[chrome:webpack]', err);
 		gutil.log('[chrome:webpack]', stats.toString(outputOptions));
@@ -40,6 +39,8 @@ gulp.task('chrome:webpack', function (callback) {
 });
 
 gulp.task('watch-chrome:webpack', function () {
+	webpackConfig.watch = true;
+	var compiler = webpack(webpackConfig);
 	return new Promise(function(resolve, reject) {
 		compiler.watch(200, function(err, stats) {
 			if (err) return reject(new gutil.PluginError('[watch-chrome:webpack]', err));
