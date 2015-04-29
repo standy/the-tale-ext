@@ -15,7 +15,7 @@ module.exports = {
 	SUM_TO_MAIN: {flame: 'fire', poison: 'poisoncloud', crit: 'hit'},
 	LOOT: ['pickup', 'empty', 'drop'],
 	REST: ['rest'],
-	SHORT: ['hit', 'might', 'fire', 'flame', 'poison', 'vamp', 'slow', 'poisoncloud', 'mush', 'ue', 'eva', 'heal', 'godheal', 'rest', 'coins', 'speed', 'stunHit', 'stun', 'pvpeff', 'pvpice', 'pvpflame', 'pvpfail'],
+	SHORT: ['hit', 'might', 'fire', 'flame', 'poison', 'vamp', 'slow', 'poisoncloud', 'mush', 'ue', 'eva', 'heal', 'godheal', 'rest', 'coins', 'speed', 'stunHit', 'stun', 'pvpeff', 'pvpice', 'pvpflame', 'pvpfail', 'companion'],
 	ACTION_TYPE_NAMES: {
 		0:  'idle',         //безделие
 		1:  'quest',        //задание
