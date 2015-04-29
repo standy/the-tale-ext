@@ -18,7 +18,7 @@ module.exports = parseShort;
  * @return {string} act.value - значение из фигурных скобок
  * */
 function parseShort(msg) {
-	msg = msg.replace(/ё/g, 'е');
+	msg = msg.replace(/ё/g, 'е').replace(/\s\s+/g, ' ');
 	var act;
 	for (var i = 0; i < cfgShort.length; i++) {
 		var cfgParsedLine = cfgShort[i];
