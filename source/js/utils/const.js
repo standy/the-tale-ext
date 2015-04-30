@@ -13,7 +13,7 @@ module.exports = {
 	PASSIVE:      '                                              crit, flame, poison, slow,       speed,     eva, stun, heal'.split(/,\s*/),
 
 	SUM_TO_MAIN: {flame: 'fire', poison: 'poisoncloud', crit: 'hit'},
-	LOOT: ['pickup', 'empty', 'drop'],
+	LOOT: ['pickup', 'empty', 'drop', 'death'],
 	REST: ['rest'],
 	SHORT: ['hit', 'might', 'fire', 'flame', 'poison', 'vamp', 'slow', 'poisoncloud', 'mush', 'ue', 'eva', 'heal', 'godheal', 'rest', 'coins', 'speed', 'stunHit', 'stun', 'pvpeff', 'pvpice', 'pvpflame', 'pvpfail', 'companion'],
 	ACTION_TYPE_NAMES: {
@@ -104,6 +104,7 @@ module.exports = {
 		pickup:    '<span class="glyphicon glyphicon-ok-circle"></span>',
 		empty:     '<span class="glyphicon glyphicon-remove-circle"></span>',
 		drop:      '<span class="glyphicon glyphicon-ban-circle"></span>',
+		death:     '<span class="glyphicon glyphicon-remove-sign"></span>',
 
 		pvpeff:     '<span class="glyphicon glyphicon-flash"></span>',
 		pvpice:     '<span class="glyphicon glyphicon-cloud-upload"></span>',

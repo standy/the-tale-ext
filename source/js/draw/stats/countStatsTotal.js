@@ -6,7 +6,7 @@ function countStatsTotal(archiveGroups, count) {
 	var me = {};
 	var enemy = {};
 	var fights = 0;
-	var loot = {pickup: 0, empty: 0, drop: 0};
+	var loot = {pickup: 0, empty: 0, drop: 0, death: 0};
 	var meByMob = {};
 	var enemyByMob = {};
 	var actionsTimes = {};
