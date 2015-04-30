@@ -3,7 +3,7 @@ var utils = require('../utils/');
 var _subscribe = utils.subscribe;
 var _const = utils.const;
 var _settings = utils.settings;
-var _notification = utils.notification;
+var _notification = require('../notifications/');
 var _heroName = utils.heroName;
 
 
