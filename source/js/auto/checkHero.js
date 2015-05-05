@@ -31,7 +31,7 @@ function checkHero(gameData) {
 		return;
 	}
 
-	var isHeplingСompanion = actionName === 'companionHelp';
+	var isHeplingСompanion = actionName === 'companionHeal';
 	if (_settingsValues.autohelpСompanion && isHeplingСompanion && hero.companion.health < _settingsValues.autohelpСompanionHp) {
 		godHelp('Низкое здоровье спутника: ' + hero.companion.health);
 

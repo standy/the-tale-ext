@@ -93,6 +93,9 @@ function drawStatsSide(archiveGroups) {
 		type: 'energy',
 		text: 'восстановление'
 	}, {
+		type: 'companionHeal',
+		text: 'уход на спутником'
+	}, {
 		type: 'trade,equip',
 		text: 'торговля и экипировка'
 	}, {

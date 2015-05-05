@@ -198,6 +198,7 @@ input[disabled] { cursor: default; }
 .action-icon.energy { color: dodgerblue; }
 .action-icon.rest { color: #005000; }
 .action-icon.dead { color: darkred; }
+.action-icon.companionHeal { color: #008000; }
 .action-icon.broken { color: red; }
 
 .action-icon {
