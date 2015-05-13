@@ -68,7 +68,7 @@ function drawStatsSide(archiveGroups) {
 
 	var loot = statsTotal.loot;
 	var htmlLoot = '<span class="stats-name" title="Поднял/Пусто/Выбросил">' + _icons.pickup + '</span> ' +
-		'<span title="Поднял">' + loot.pickup + '</span> / <span title="Пусто">' + loot.empty + '</span> / <span title="Выбросил">' + loot.drop + '</span>';
+		'<span title="Поднял">' + loot.pickup + '</span> / <span title="Пусто">' + loot.empty + '</span> / <span title="Выбросил">' + loot.drop + '</span> / <span title="Выбросил">' + loot.death + '</span>';
 
 
 	var htmlTime =
@@ -92,6 +92,9 @@ function drawStatsSide(archiveGroups) {
 	}, {
 		type: 'energy',
 		text: 'восстановление'
+	}, {
+		type: 'companionHeal',
+		text: 'уход на спутником'
 	}, {
 		type: 'trade,equip',
 		text: 'торговля и экипировка'

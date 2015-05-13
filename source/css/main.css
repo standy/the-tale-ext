@@ -151,6 +151,7 @@ input[disabled] { cursor: default; }
 .msg-pickup .item { color: darkgoldenrod; }
 .msg-empty { color: darkgoldenrod; text-decoration: line-through; }
 .msg-drop { color: darkgoldenrod; text-decoration: line-through; }
+.msg-death { color: darkred; text-decoration: line-through; }
 
 .submessage .energy { color: dodgerblue; }
 .submessage .coins { color: darkgoldenrod; }
@@ -197,6 +198,7 @@ input[disabled] { cursor: default; }
 .action-icon.energy { color: dodgerblue; }
 .action-icon.rest { color: #005000; }
 .action-icon.dead { color: darkred; }
+.action-icon.companionHeal { color: #008000; }
 .action-icon.broken { color: red; }
 
 .action-icon {
