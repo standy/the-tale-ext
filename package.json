@@ -3,7 +3,7 @@
   "fullName": "The Tale Extended",
   "author": "standy <mostovoyav@gmail.com>",
   "description": "Расширение базового функционала в браузерной игре Сказка",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "devDependencies": {
     "css-loader": "^0.9.1",
     "es6-promise": "^2.0.1",
