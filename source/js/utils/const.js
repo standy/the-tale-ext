@@ -15,7 +15,7 @@ module.exports = {
 	SUM_TO_MAIN: {flame: 'fire', poison: 'poisoncloud', crit: 'hit'},
 	LOOT: ['pickup', 'empty', 'drop', 'death'],
 	REST: ['rest'],
-	SHORT: ['hit', 'might', 'fire', 'flame', 'poison', 'vamp', 'slow', 'poisoncloud', 'mush', 'ue', 'eva', 'heal', 'godheal', 'rest', 'coins', 'speed', 'stunHit', 'stun', 'pvpeff', 'pvpice', 'pvpflame', 'pvpfail', 'companion'],
+	SHORT: ['hit', 'might', 'fire', 'flame', 'poison', 'vamp', 'slow', 'poisoncloud', 'mush', 'ue', 'eva', 'heal', 'godheal', 'rest', 'coins', 'godcoins', 'speed', 'stunHit', 'stun', 'pvpeff', 'pvpice', 'pvpflame', 'pvpfail', 'companion'],
 	ACTION_TYPE_NAMES: {
 		0:  'idle',         //безделие
 		1:  'quest',        //задание
@@ -102,6 +102,7 @@ module.exports = {
 
 		godheal:    '<span class="glyphicon glyphicon-heart-empty"></span>',
 		coins:      '<span class="glyphicon glyphicon-copyright-mark"></span>',
+		godcoins:   '<span class="glyphicon glyphicon-copyright-mark"></span>',
 
 		pickup:    '<span class="glyphicon glyphicon-ok-circle"></span>',
 		empty:     '<span class="glyphicon glyphicon-remove-circle"></span>',
