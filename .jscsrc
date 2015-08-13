@@ -4,7 +4,10 @@
 		"beforeOpeningCurlyBrace": true
 	},
 	"disallowMixedSpacesAndTabs": "smart",
-	"validateIndentation": "\t",
+	"validateIndentation": {
+		"value": "\t",
+		"allExcept": ["comments"]
+	},
 	"requireSpaceAfterLineComment": null,
 	"requireCurlyBraces": [
 		"else",
