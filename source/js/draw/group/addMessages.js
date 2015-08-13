@@ -73,7 +73,7 @@ function addMessage(message) {
 		var actType = act.type;
 		var isFightStart = isActType('FIGHT_START', actType);
 		var isFightEnd = isActType('LOOT', actType);
-		if (actType === 'godheal' || actType === 'godhit') {
+		if (actType === 'godheal' || actType === 'godhit' || actType === 'godcoins') {
 			grData = $.extend(grData, {god: 1});
 		}
 

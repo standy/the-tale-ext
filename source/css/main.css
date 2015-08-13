@@ -114,6 +114,8 @@ input[disabled] { cursor: default; }
 .act-coins.me { color: darkgoldenrod; }
 .act-coins.enemy { color: darkgoldenrod; text-decoration: line-through; }
 .act-coins .glyphicon { font-size: 9px; }
+.act-godcoins.act .glyphicon,
+.act-godcoins.act { color: darkmagenta; text-decoration: underline; }
 
 .act-pvpeff.me { color: dodgerblue; }
 .act-pvpeff.enemy { color: dodgerblue; text-decoration: line-through; }
@@ -155,6 +157,7 @@ input[disabled] { cursor: default; }
 
 .submessage .energy { color: dodgerblue; }
 .submessage .coins { color: darkgoldenrod; }
+.submessage .godcoins { color: darkmagenta; }
 
 .submessage .level,
 .submessage .exp { color: darkviolet; text-decoration: underline; }
