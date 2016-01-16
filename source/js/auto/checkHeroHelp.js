@@ -7,7 +7,7 @@ var _notification = require('../notifications/');
 var _heroName = utils.heroName;
 
 
-function checkHero(gameData) {
+function checkHeroHelp(gameData) {
 	var _settingsValues = _settings.settingsValues;
 
 	var hero = gameData.account.hero;
@@ -109,11 +109,11 @@ function checkHero(gameData) {
 	}
 }
 
-module.exports = checkHero;
+module.exports = checkHeroHelp;
 
 _subscribe('newTurn', function(messagesNew, gameData) {
 	window.setTimeout(function() {
-		checkHero(gameData);
+		checkHeroHelp(gameData);
 	}, 1000);
 });
 

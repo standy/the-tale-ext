@@ -35,7 +35,7 @@ function traceData(game_data) {
 		secondary: {
 //			initiative: hero.secondary.initiative,
 			loot_items_count: hero.secondary.loot_items_count,
-//			max_bag_size: hero.secondary.max_bag_size,
+			max_bag_size: hero.secondary.max_bag_size,
 //			move_speed: hero.secondary.move_speed,
 			power: hero.secondary.power
 		},
