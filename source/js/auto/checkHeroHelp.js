@@ -5,7 +5,7 @@ var _const = utils.const;
 var _settings = utils.settings;
 var _notification = require('../notifications/');
 var _heroName = utils.heroName;
-
+var _baseEnergyCost = 4;
 
 function checkHeroHelp(gameData) {
 	var _settingsValues = _settings.settingsValues;
@@ -19,7 +19,15 @@ function checkHeroHelp(gameData) {
 	var energyBonus = _settingsValues.autohelpEnergyBonus ? hero.energy.bonus - _settingsValues.autohelpEnergyBonusMax : 0;
 	if (energyBonus < 0) energyBonus = 0;
 
-	if (energy + energyBonus < 4) return;
+	var energyCost = _baseEnergyCost;
+	for (var eq_item in hero.equipment) {
+		if (hero.equipment[eq_item].effect === 1014 && hero.equipment[eq_item].equipped) {
+			energyCost -= 1;
+			break;
+		}
+	}
+
+	if (energy + energyBonus < energyCost) return;
 
 
 	var isFight = actionName === 'fight';
@@ -99,7 +107,7 @@ function checkHeroHelp(gameData) {
 		var url = '/game/abilities/' + ability + '/api/use?api_version=1.0&api_client=' + window.API_CLIENT + paramsStr;
 //				console.log('url: ', url)
 //				if (!_settingsValues.autohelp) return;
-		hero.energy.value -= 4;
+		hero.energy.value -= energyCost;
 		$.ajax({
 			url: url,
 			dataType: 'json',

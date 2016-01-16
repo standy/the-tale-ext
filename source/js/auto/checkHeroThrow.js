@@ -5,7 +5,7 @@ var _const = utils.const;
 var _settings = utils.settings;
 var _notification = require('../notifications/');
 var _heroName = utils.heroName;
-
+var _baseEnergyCost = 3;
 
 function checkHeroThrow(gameData) {
 	var _settingsValues = _settings.settingsValues;
@@ -19,13 +19,24 @@ function checkHeroThrow(gameData) {
 	var energyBonus = _settingsValues.autothrowEnergyBonus ? hero.energy.bonus - _settingsValues.autothrowEnergyBonusMax : 0;
 	if (energyBonus < 0) energyBonus = 0;
 
+	var energyCost = _baseEnergyCost;
+	for (var eq_item in hero.equipment) {
+		if (hero.equipment[eq_item].effect === 1014 && hero.equipment[eq_item].equipped) {
+			energyCost -= 1;
+			break;
+		}
+	}
+
 	if (energy + energyBonus < 3) return;
 
 	if ((hero.secondary.loot_items_count === 0) || (hero.secondary.loot_items_count < hero.secondary.max_bag_size && !(_settingsValues.autothrowNotFull))) return;
 
 	var has_garbage = false;
 	for (var item in hero.bag) {
-		if (hero.bag[item].type === 0) has_garbage = true;
+		if (hero.bag[item].type === 0) {
+			has_garbage = true;
+			break;
+		}
 	}
 
 	if (_settingsValues.autothrowEnergy && energy > _settingsValues.autothrowEnergyGreaterValue && (has_garbage || _settingsValues.autothrowEquipment) && (actionName !== 'trade' && actionName !== 'energy')) {
@@ -59,7 +70,7 @@ function checkHeroThrow(gameData) {
 			paramsStr += '&' + key + '=' + getParams[key];
 		}
 		var url = '/game/abilities/' + ability + '/api/use?api_version=1.0&api_client=' + window.API_CLIENT + paramsStr;
-		hero.energy.value -= 3;
+		hero.energy.value -= energyCost;
 		$.ajax({
 			url: url,
 			dataType: 'json',
