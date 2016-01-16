@@ -23,7 +23,12 @@ function checkHeroThrow(gameData) {
 
 	if ((hero.secondary.loot_items_count === 0) || (hero.secondary.loot_items_count < hero.secondary.max_bag_size && !(_settingsValues.autothrowNotFull))) return;
 
-	if (_settingsValues.autothrowEnergy && energy > _settingsValues.autothrowEnergyGreaterValue && (actionName !== 'trade' && actionName !== 'energy')) {
+	var has_garbage = false;
+	for (var item in hero.bag) {
+		if (hero.bag[item].type === 0) has_garbage = true;
+	}
+
+	if (_settingsValues.autothrowEnergy && energy > _settingsValues.autothrowEnergyGreaterValue && (has_garbage || _settingsValues.autothrowEquipment) && (actionName !== 'trade' && actionName !== 'energy')) {
 
 		godThrow('Накопилась энергия: ' + energy);
 

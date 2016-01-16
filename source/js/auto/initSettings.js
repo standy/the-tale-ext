@@ -127,7 +127,7 @@ var sets = [{
 			]
 		}]
 	}, {
-		label: 'Автоматическое выбрасывание',
+		label: 'Автоматическое выбрасывание хлама',
 		note: 'Внимание! Настройки применяются в момент нажатия',
 		name: 'autothrow',
 		isToggle: 1,
@@ -150,6 +150,11 @@ var sets = [{
 		}, {
 			label: 'Даже если рюкзак не полный',
 			name: 'autothrowNotFull',
+			isToggle: 1,
+			value: false
+		}, {
+			label: 'Выбрасывать экипировку',
+			name: 'autothrowEquipment',
 			isToggle: 1,
 			value: false
 		}, {
