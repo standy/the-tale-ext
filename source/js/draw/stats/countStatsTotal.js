@@ -31,7 +31,8 @@ function countStatsTotal(archiveGroups, count) {
 			addToStats(meByMob[mobId], fullStats.total.me);
 			enemyByMob[mobId] = enemyByMob[mobId] || {};
 			addToStats(enemyByMob[mobId], fullStats.total.enemy);
-
+			// Счетчик боев с мобом
+			meByMob[mobId].fightsCount = enemyByMob[mobId].fightsCount = (meByMob[mobId].fightsCount || 0) + 1;
 			fights++;
 			var lt = fullStats.loot;
 			if (lt) {
@@ -61,9 +62,8 @@ function countStatsTotal(archiveGroups, count) {
 		actionsTime += time;
 		actionsSum++;
 	}
-
-
-
+	// проброс счетчика боев для отценки шанса пассивного скил
+	me.fightsCount  = fights;
 	var statsTotal = {
 		fights: fights,
 		fightRestTime: fightRestTime,

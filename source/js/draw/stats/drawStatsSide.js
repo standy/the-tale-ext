@@ -53,7 +53,7 @@ function drawStatsSide(archiveGroups) {
 			'<tr class="unhover">' +
 				'<th class="stats-name"></th>' +
 				'<th class="stats-average" title="среднее значение">средн</th>' +
-				'<th class="stats-count" title="количество срабатываний из 100 ударов">шанс</th>' +
+				'<th class="stats-count" title="количество срабатываний в боях">шанс(%)</th>' +
 				'<th class="stats-sum" title="доля от общего урона">урон</th>' +
 				'<th class="stats-bonus" title="прибавка к урону от умения">эфф</th>' +
 			'</tr>' +
@@ -189,12 +189,20 @@ function drawStatsSideByActor(stats) {
 			var count = stat.count;
 			var sum = stat.sum;
 			var average = (Math.round(sum / count * 100) / 100) || 0;
-			var hitCount = hit.count;
-			var hitSum = hit.sum;
 			var totalSum = dmgSum.sum;
+			var hitCount = 0;
+			var hitSum = hit.sum || 0;
+			var chance = 0;
 
-			var chance = type === 'dmgSum' ? 100 : count / (hitCount + count) * 100;
-			var chanceText = type === 'hit' ? '-' : chance >= 100 ? Math.round(chance * 10) / 10  : chance.toFixed(2);
+			if (isPassive) {
+				// Если скилл пассивный, берем % срабатываний от кол-ва общих боев (боев с мобом)
+				hitCount = stats.fightsCount;
+				chance = count / hitCount * 100;
+			} else {
+				hitCount = hit.count || 0;
+				chance = type === 'dmgSum' ? 100 : count / (hitCount + count) * 100;
+			}
+			var chanceText = type === 'hit' ? '-' : chance >= 100 ? Math.round(chance * 10) / 10 : chance.toFixed(2);
 
 			var countText = 'сработал ' + _utils.declensionByNumber(count, ['раз', 'раза', 'раз'], 1);
 
