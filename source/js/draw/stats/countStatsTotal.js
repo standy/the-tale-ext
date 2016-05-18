@@ -63,7 +63,7 @@ function countStatsTotal(archiveGroups, count) {
 		actionsSum++;
 	}
 	// проброс счетчика боев для отценки шанса пассивного скил
-	me.fightsCount  = fights;
+	me.fightsCount  = enemy.fightsCount = fights;
 	var statsTotal = {
 		fights: fights,
 		fightRestTime: fightRestTime,
