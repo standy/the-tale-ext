@@ -127,6 +127,48 @@ var sets = [{
 			]
 		}]
 	}, {
+		label: 'Автоматическое выбрасывание хлама',
+		note: 'Внимание! Настройки применяются в момент нажатия',
+		name: 'autothrow',
+		isToggle: 1,
+		value: false,
+		subs: [{
+			label: 'Уведомлять о выбрасывании',
+			name: 'autothrowNotify',
+			isToggle: 1,
+			value: false
+		}, {
+			label: 'Использовать бонусную энергию, оставить',
+			note: 'Указанный запас энергии тратиться не будет',
+			name: 'autothrowEnergyBonus',
+			isToggle: 1,
+			value: false,
+			inputs: [{
+				name: 'autothrowEnergyBonusMax',
+				type: 'num'
+			}]
+		}, {
+			label: 'Даже если рюкзак не полный',
+			name: 'autothrowNotFull',
+			isToggle: 1,
+			value: false
+		}, {
+			label: 'Выбрасывать экипировку',
+			name: 'autothrowEquipment',
+			isToggle: 1,
+			value: false
+		}, {
+			label: 'Энергия выше ',
+			name: 'autothrowEnergy',
+			isToggle: 1,
+			value: true,
+			inputs: [{
+				type: 'num',
+				name: 'autothrowEnergyGreaterValue',
+				value: 10
+			}]
+		}]
+	}, {
 		label: 'Автоматический выбор в задании',
 		name: 'autoquest',
 		isToggle: 1,
