@@ -113,8 +113,8 @@ function checkHero(gameData) {
 		});
 	}
 }
-
-setInterval(widgets.map.CenterOnHero(), 10000);
+//map autofocus
+//setInterval(widgets.map.CenterOnHero(), 10000);
 
 module.exports = checkHero;
 
@@ -124,4 +124,3 @@ _subscribe('newTurn', function(messagesNew, gameData) {
 	}, 1000);
 });
 
-/*global widgets*/
