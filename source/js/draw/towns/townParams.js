@@ -3,21 +3,22 @@ var $ = require('jquery');
 
 function townParams(mapData) {
 	var places = mapData.places;
-	for (var i in places) if (places.hasOwnProperty(i)) {
-		(function(placeIndex) {
-			var place = places[placeIndex];
-			requestPlace(place.pos.x, place.pos.y)
-				.done(function(html) {
-					var parsed = parsePlaceHtml(html);
-					var $placeRow = $('.place-row[data-place-id="' + placeIndex + '"]');
-					parsed.cityParams.forEach(function(item) {
-						var val = item.value;
-						if (val < 100) val = '&nbsp;' + val;
-						$placeRow.children('[data-city-param="' + item.name + '"]').html(val);
+	for (var i in places)
+		if (places.hasOwnProperty(i)) {
+			(function(placeIndex) {
+				var place = places[placeIndex];
+				requestPlace(place.pos.x, place.pos.y)
+					.done(function(html) {
+						var parsed = parsePlaceHtml(html);
+						var $placeRow = $('.place-row[data-place-id="' + placeIndex + '"]');
+						parsed.cityParams.forEach(function(item) {
+							var val = item.value;
+							if (val < 100) val = '&nbsp;' + val;
+							$placeRow.children('[data-city-param="' + item.name + '"]').html(val);
+						});
 					});
-				});
-		})(i);
-	}
+			})(i);
+		}
 }
 
 
@@ -45,7 +46,7 @@ function requestPlace(x, y) {
 	return $.ajax({
 		url: '/game/map/cell-info?x=' + x + '&y=' + y + '&_=' + (+new Date()),
 		method: 'get',
-		dataType: 'html'
+		dataType: 'html',
 	});
 }
 
