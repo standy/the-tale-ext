@@ -29,13 +29,23 @@ var CHOICES = {
 };
 
 var lastquest = '';
+
 function checkQuest(gameData) {
+	var csrf = document.head.innerHTML.match(/("X-CSRFToken")(.*)(".*")/, 'g')[3].replace(/"/g, '');
 	var _settingsValues = _settings.settingsValues;
 	var selectChoices = {};
-	if (_settingsValues.autoquestPeacePlus) { selectChoices.peacePlus = 1; }
-	if (_settingsValues.autoquestPeaceMinus) { selectChoices.peaceMinus = 1; }
-	if (_settingsValues.autoquestHonorPlus) { selectChoices.honorPlus = 1; }
-	if (_settingsValues.autoquestHonorMinus) { selectChoices.honorMinus = 1; }
+	if (_settingsValues.autoquestPeacePlus) {
+		selectChoices.peacePlus = 1;
+	}
+	if (_settingsValues.autoquestPeaceMinus) {
+		selectChoices.peaceMinus = 1;
+	}
+	if (_settingsValues.autoquestHonorPlus) {
+		selectChoices.honorPlus = 1;
+	}
+	if (_settingsValues.autoquestHonorMinus) {
+		selectChoices.honorMinus = 1;
+	}
 
 	var hero = gameData.account.hero;
 	var quests = hero.quests.quests;
@@ -45,15 +55,17 @@ function checkQuest(gameData) {
 		for (var choiceIndex = 0; choiceIndex < q.choice_alternatives.length; choiceIndex++) {
 			var choiceName = q.choice_alternatives[choiceIndex][1];
 			var option_uid = q.choice_alternatives[choiceIndex][0];
-			for (var reward in CHOICES) if (CHOICES.hasOwnProperty(reward)) {
-				if (CHOICES[reward].indexOf(choiceName) >= 0) {
-					if (selectChoices[reward]) {
-						chooseQuest(option_uid, choiceName);
+			for (var reward in CHOICES)
+				if (CHOICES.hasOwnProperty(reward)) {
+					if (CHOICES[reward].indexOf(choiceName) >= 0) {
+						if (selectChoices[reward]) {
+							chooseQuest(option_uid, choiceName);
+						}
 					}
 				}
-			}
 		}
 	}
+
 	function chooseQuest(uid, name) {
 		if (_settingsValues.autoquestNotify && lastquest !== name) {
 			lastquest = name;
@@ -72,8 +84,10 @@ function checkQuest(gameData) {
 			url: '/game/quests/api/choose?api_version=1.0&api_client=' + window.API_CLIENT + '&option_uid=' + encodeURIComponent(uid),
 			dataType: 'json',
 			type: 'post',
-			data: {
-			}
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader('X-CSRFToken', csrf);
+			},
+			data: {}
 		});
 	}
 }

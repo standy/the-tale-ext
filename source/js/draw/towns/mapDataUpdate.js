@@ -7,14 +7,15 @@ var mapData = require('./mapData');
 
 function mapDataUpdate(map_version) {
 	return $.ajax({
-		url: '/dcont/map/region-' + map_version + '.js',
-		dataType: 'json',
-		type: 'get'
-	})
+			url: '/game/map/region-' + map_version,
+			dataType: 'json',
+			type: 'get',
+		})
 		.done(function(map_data) {
-			for (var key in mapData) if (mapData.hasOwnProperty(key)) {
-				delete mapData[key];
-			}
+			for (var key in mapData)
+				if (mapData.hasOwnProperty(key)) {
+					delete mapData[key];
+				}
 			$.extend(mapData, map_data);
 			_publish('townsInit', map_data);
 		});

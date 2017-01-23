@@ -45,16 +45,16 @@ function checkHero(gameData) {
 			(_settingsValues.autohelpEnergyTradeMed && (actionName === 'trade' || actionName === 'energy'))
 		)) {
 		//console.log('check passed', energy, _settingsValues.autohelpEnergyGreaterValue)
-//			if (_settingsValues.autohelpEnergyRepairBuilding && _settingsValues.autohelpEnergyRepairBuildingID) {
-//				var x = _settingsValues.autohelpEnergyRepairBuildingX;
-//				var y = _settingsValues.autohelpEnergyRepairBuildingY;
-//				getBuildingState(x,y)
-//					.done(function(integrity) {
-//						if (integrity && integrity < (_settingsValues.autohelpEnergyRepairBuildingPercent/100 || 0.982)) {
-//							godHelp('repair', 'building_repair', {building: _settingsValues.autohelpEnergyRepairBuildingID});
-//						}
-//					});
-//			} else {
+		//			if (_settingsValues.autohelpEnergyRepairBuilding && _settingsValues.autohelpEnergyRepairBuildingID) {
+		//				var x = _settingsValues.autohelpEnergyRepairBuildingX;
+		//				var y = _settingsValues.autohelpEnergyRepairBuildingY;
+		//				getBuildingState(x,y)
+		//					.done(function(integrity) {
+		//						if (integrity && integrity < (_settingsValues.autohelpEnergyRepairBuildingPercent/100 || 0.982)) {
+		//							godHelp('repair', 'building_repair', {building: _settingsValues.autohelpEnergyRepairBuildingID});
+		//						}
+		//					});
+		//			} else {
 		godHelp('Накопилась энергия: ' + energy);
 
 		return;
@@ -77,6 +77,7 @@ function checkHero(gameData) {
 	return true;
 
 	function godHelp(msg, ability, getParams) {
+		var csrf = document.head.innerHTML.match(/("X-CSRFToken")(.*)(".*")/, 'g')[3].replace(/"/g, '');
 		ability = ability || 'help';
 		console.log('god ' + ability + '!', getParams, actionName, msg, $.extend({}, hero));
 		if (_settingsValues.autohelpNotify) {
@@ -88,26 +89,32 @@ function checkHero(gameData) {
 				addTime: 1
 			});
 		}
-//				console.log('godHelp! real');
+		//				console.log('godHelp! real');
 		if (!_settingsValues.autohelp) {
 			return;
 		}
 		var paramsStr = '';
-		for (var key in getParams) if (getParams.hasOwnProperty(key)) {
-			paramsStr += '&' + key + '=' + getParams[key];
-		}
+		for (var key in getParams)
+			if (getParams.hasOwnProperty(key)) {
+				paramsStr += '&' + key + '=' + getParams[key];
+			}
 		var url = '/game/abilities/' + ability + '/api/use?api_version=1.0&api_client=' + window.API_CLIENT + paramsStr;
-//				console.log('url: ', url)
-//				if (!_settingsValues.autohelp) return;
+		//				console.log('url: ', url)
+		//				if (!_settingsValues.autohelp) return;
 		hero.energy.value -= 4;
 		$.ajax({
 			url: url,
 			dataType: 'json',
 			type: 'post',
-			data: {}
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader('X-CSRFToken', csrf);
+			},
+			data: {},
 		});
 	}
 }
+//map autofocus
+//setInterval(widgets.map.CenterOnHero(), 10000);
 
 module.exports = checkHero;
 
