@@ -7,11 +7,11 @@ var mapData = require('./mapData');
 
 function mapDataUpdate(map_version) {
 	return $.ajax({
-			url: '/game/map/region-' + map_version,
+			url: '/game/map/api/region?api_version=0.1&api_client=' + window.API_CLIENT,
 			dataType: 'json',
 			type: 'get',
 		})
-		.done(function(map_data) {
+		.done(function (map_data) {
 			for (var key in mapData)
 				if (mapData.hasOwnProperty(key)) {
 					delete mapData[key];

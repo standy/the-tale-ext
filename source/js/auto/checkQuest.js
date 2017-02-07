@@ -84,7 +84,7 @@ function checkQuest(gameData) {
 			url: '/game/quests/api/choose?api_version=1.0&api_client=' + window.API_CLIENT + '&option_uid=' + encodeURIComponent(uid),
 			dataType: 'json',
 			type: 'post',
-			beforeSend: function(xhr) {
+			beforeSend: function (xhr) {
 				xhr.setRequestHeader('X-CSRFToken', csrf);
 			},
 			data: {}
@@ -94,8 +94,8 @@ function checkQuest(gameData) {
 
 module.exports = checkQuest;
 
-_subscribe('newMessages', function(messagesNew, gameData) {
-	window.setTimeout(function() {
+_subscribe('newMessages', function (messagesNew, gameData) {
+	window.setTimeout(function () {
 		checkQuest(gameData);
 	}, 1000);
 });
