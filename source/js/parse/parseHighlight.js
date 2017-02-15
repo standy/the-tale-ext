@@ -12,10 +12,12 @@ function parseHighlight(msg, act) {
 		var type = cfgHighlight[i].type || 'value';
 		msg = msg.replace(regExp, '<span class="' + type + '">$&</span>');
 	}
-	for (var cls in act) if (act.hasOwnProperty(cls)) {
-		var value = act[cls];
-		if (cls !== 'value' && cls !== 'type') {
-			msg = msg.replace(value, '<span class="' + cls + '">' + value + '</span>');
+	for (var cls in act) {
+		if (act.hasOwnProperty(cls)) {
+			var value = act[cls];
+			if (cls !== 'value' && cls !== 'type') {
+				msg = msg.replace(value, '<span class="' + cls + '">' + value + '</span>');
+			}
 		}
 	}
 	return msg;

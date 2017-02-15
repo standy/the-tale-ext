@@ -1,4 +1,3 @@
-var $ = require('jquery');
 var utils = require('../../utils/');
 var _const = utils.const;
 var _icons = _const.ICONS;

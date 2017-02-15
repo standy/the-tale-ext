@@ -9,7 +9,7 @@ function request() {
 	function newMessage(permission) {
 		if (permission !== 'granted') return false;
 		var notify = new Notification('Thanks for letting notify you');
-		return true;
+		return !!notify;
 	}
 }
 

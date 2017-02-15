@@ -1,5 +1,4 @@
 var $ = require('jquery');
-var pgf = require('pgf');
 var core = require('../utils/');
 
 

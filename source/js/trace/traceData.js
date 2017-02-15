@@ -1,14 +1,11 @@
 var utils = require('../utils/');
 var _parse = require('../parse/');
 var _publish = utils.publish;
-var _subscribe = utils.subscribe;
 var _log = utils.log;
-var _settings = utils.settings;
 var messagesLog = require('./messagesLog');
 
 
 function traceData(game_data) {
-
 	var hero = game_data.account.hero;
 	if (!hero) return;
 

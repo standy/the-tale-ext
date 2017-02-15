@@ -73,7 +73,7 @@ function activeTab(name) {
 var controls = {};
 var $controls = $('<div class="ext-controls pull-right"></div>').insertAfter('#current-action-block, #pvp-info-block');
 function addControl(name, opts) {
-	var html = '<span class="ext-control link-ajax" id="ext-' +  name + '" title="' + opts.title + '">' + (opts.content || '') + '</span>';
+	var html = '<span class="ext-control link-ajax" id="ext-' + name + '" title="' + opts.title + '">' + (opts.content || '') + '</span>';
 
 	var $el = $(html).appendTo($controls);
 	controls[name] = {

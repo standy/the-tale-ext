@@ -67,7 +67,8 @@ var sets = [
 				}]
 			}]
 		}]
-	}, {
+	},
+	{
 		title: 'Статистика',
 		fields: [{
 			label: 'Уровень героя: последний, или',
@@ -101,7 +102,8 @@ var sets = [
 				type: 'num'
 			}]
 		}]
-	}, {
+	},
+	{
 		title: 'Отображение',
 		fields: [{
 			label: 'Выводить подробности действий',
@@ -114,21 +116,22 @@ var sets = [
 			isToggle: 1,
 			value: false
 		}]
-	}, {
+	},
+	{
 		title: 'Хранилище <span id="storage-size"></span>',
 		fields: [{
 			label: 'Сообщений в кратком журнале:',
 			inputs: [{
 				name: 'maxLogLength',
 				type: 'num',
-				value:  _const.MAX_LOG_LENGTH
+				value: _const.MAX_LOG_LENGTH
 			}]
 		}, {
 			label: 'Действий в архиве:',
 			inputs: [{
 				name: 'maxArchiveLength',
 				type: 'num',
-				value:  _const.MAX_ARCHIVE_LENGTH
+				value: _const.MAX_ARCHIVE_LENGTH
 			}]
 		}, {
 			label: '<span class="link-ajax" id="reset-stats">Очистить хранилище</span>'
@@ -148,13 +151,13 @@ function checkDependences(key, value, isDisabled) {
 
 var deps = {};
 function addSets(sets) {
-	for (var i = 0; i < sets.length;i++) {
+	for (var i = 0; i < sets.length; i++) {
 		settingsDefaults(sets[i].fields);
 	}
 
 	function settingsDefaults(fields) {
 		var childs = [];
-		for (var i = 0; i < fields.length;i++) {
+		for (var i = 0; i < fields.length; i++) {
 			var st = fields[i];
 			childs.push(st.name);
 //					console.log('defaults', st.name);
@@ -186,7 +189,7 @@ addSets(sets);
 function drawSets(sets) {
 	var $sets = _elements.getTabInner('sets');
 	var html = '';
-	for (var i = 0; i < sets.length;i++) {
+	for (var i = 0; i < sets.length; i++) {
 		var st = sets[i];
 		html +=
 			'<div class="">' +
@@ -226,7 +229,7 @@ function init() {
 function drawSetsGroup(fields) {
 //			console.log('drawSetsGroup', sets);
 	var html = '';
-	for (var i = 0;i < fields.length;i++) {
+	for (var i = 0; i < fields.length; i++) {
 		var st = fields[i];
 
 		var inputsHtml = '';

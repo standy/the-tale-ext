@@ -1,32 +1,32 @@
 module.exports = {
 	MAX_LOG_LENGTH: 1000,
 	MAX_ARCHIVE_LENGTH: 2000,
-	FIGHT_START:  'fight'.split(/,\s*/),
-	FIGHT:        'hit, might, fire, poisoncloud, vamp, stunHit, crit, flame, poison, slow, mush, speed, ue, eva, stun, heal'.split(/,\s*/),
+	FIGHT_START: 'fight'.split(/,\s*/),
+	FIGHT: 'hit, might, fire, poisoncloud, vamp, stunHit, crit, flame, poison, slow, mush, speed, ue, eva, stun, heal'.split(/,\s*/),
 	FIGHT_VALUES: 'hit, might, fire,              vamp, stunHit, crit, flame, poison,                                   heal'.split(/,\s*/),
 	FIGHT_COUNTS: '                  poisoncloud,                                     slow, mush, speed, ue, eva, stun      '.split(/,\s*/),
-	DMG:          'hit, might, fire, poisoncloud, vamp, stunHit, crit                                                       '.split(/,\s*/),
-	DOT:          '                                                    flame, poison                                        '.split(/,\s*/),
-	DEBUFF:       '                                                                   slow                                  '.split(/,\s*/),
-	BUFF:         '                                                                         mush, speed, ue                 '.split(/,\s*/),
-	ACTIVE:       'hit, might, fire, poisoncloud, vamp, stunHit,                            mush,        ue                 '.split(/,\s*/),
-	PASSIVE:      '                                              crit, flame, poison, slow,       speed,     eva, stun, heal'.split(/,\s*/),
+	DMG: 'hit, might, fire, poisoncloud, vamp, stunHit, crit                                                       '.split(/,\s*/),
+	DOT: '                                                    flame, poison                                        '.split(/,\s*/),
+	DEBUFF: '                                                                   slow                                  '.split(/,\s*/),
+	BUFF: '                                                                         mush, speed, ue                 '.split(/,\s*/),
+	ACTIVE: 'hit, might, fire, poisoncloud, vamp, stunHit,                            mush,        ue                 '.split(/,\s*/),
+	PASSIVE: '                                              crit, flame, poison, slow,       speed,     eva, stun, heal'.split(/,\s*/),
 
 	SUM_TO_MAIN: {flame: 'fire', poison: 'poisoncloud', crit: 'hit'},
 	LOOT: ['pickup', 'empty', 'drop', 'death'],
 	REST: ['rest'],
 	SHORT: ['hit', 'might', 'fire', 'flame', 'poison', 'vamp', 'slow', 'poisoncloud', 'mush', 'ue', 'eva', 'heal', 'godheal', 'rest', 'coins', 'godcoins', 'speed', 'stunHit', 'stun', 'pvpeff', 'pvpice', 'pvpflame', 'pvpfail', 'companion'],
 	ACTION_TYPE_NAMES: {
-		0:  'idle',         //безделие
-		1:  'quest',        //задание
-		2:  'walk',         //путешествие между городами
-		3:  'fight',        //сражение 1x1 с монстром
-		4:  'dead',         //воскрешение
-		5:  'city',         //действия в городе
-		6:  'rest',         //отдых
-		7:  'equip',        //экипировка
-		8:  'trade',        //торговля
-		9:  'nearcity',     //путешествие около города
+		0: 'idle',         //безделие
+		1: 'quest',        //задание
+		2: 'walk',         //путешествие между городами
+		3: 'fight',        //сражение 1x1 с монстром
+		4: 'dead',         //воскрешение
+		5: 'city',         //действия в городе
+		6: 'rest',         //отдых
+		7: 'equip',        //экипировка
+		8: 'trade',        //торговля
+		9: 'nearcity',     //путешествие около города
 		10: 'energy',       //восстановление энергии
 		11: 'noeffect',     //действие без эффекта на игру
 		12: 'proxy',        //прокси-действия для взаимодействия героев
@@ -35,39 +35,39 @@ module.exports = {
 		15: 'companionHeal' //уход за спутником
 	},
 	ACTION_TYPE_TEXTS: {
-		idle:           'безделие',
-		quest:          'задание',
-		walk:           'путешествие между городами',
-		fight:          'сражение 1x1 с монстром',
-		dead:           'воскрешение',
-		city:           'действия в городе',
-		rest:           'отдых',
-		equip:          'экипировка',
-		trade:          'торговля',
-		nearcity:       'путешествие около города',
-		energy:         'восстановление энергии',
-		noeffect:       'действие без эффекта на игру',
-		proxy:          'прокси-действия для взаимодействия героев',
-		pvp:            'PvP 1x1',
-		undefined:      'неизвестное действие',
-		companionHeal:  'уход за спутником',
-		broken:         'неразобранное действие'
+		idle: 'безделие',
+		quest: 'задание',
+		walk: 'путешествие между городами',
+		fight: 'сражение 1x1 с монстром',
+		dead: 'воскрешение',
+		city: 'действия в городе',
+		rest: 'отдых',
+		equip: 'экипировка',
+		trade: 'торговля',
+		nearcity: 'путешествие около города',
+		energy: 'восстановление энергии',
+		noeffect: 'действие без эффекта на игру',
+		proxy: 'прокси-действия для взаимодействия героев',
+		pvp: 'PvP 1x1',
+		undefined: 'неизвестное действие',
+		companionHeal: 'уход за спутником',
+		broken: 'неразобранное действие'
 	},
 	ACTION_TYPE_ICONS: {
-		idle:          '<span class="glyphicon glyphicon-home"></span>',
-		quest:         '<span class="glyphicon glyphicon-globe"></span>',
-		walk:          '<span class="glyphicon glyphicon-road"></span>',
-		fight:         '<span class="glyphicon glyphicon-leaf"></span>',
-		dead:          '<span class="glyphicon glyphicon-remove"></span>',
-		city:          '<span class="glyphicon glyphicon-home"></span>',
-		rest:          '<span class="glyphicon glyphicon-heart-empty"></span>',
-		equip:         '<span class="glyphicon glyphicon-collapse-down"></span>',
-		trade:         '<span class="glyphicon glyphicon-copyright-mark"></span>',
-		nearcity:      '<span class="glyphicon glyphicon-globe"></span>',
-		energy:        '<span class="glyphicon glyphicon-flash"></span>',
-		noeffect:      '<span class="glyphicon glyphicon-music"></span>',
+		idle: '<span class="glyphicon glyphicon-home"></span>',
+		quest: '<span class="glyphicon glyphicon-globe"></span>',
+		walk: '<span class="glyphicon glyphicon-road"></span>',
+		fight: '<span class="glyphicon glyphicon-leaf"></span>',
+		dead: '<span class="glyphicon glyphicon-remove"></span>',
+		city: '<span class="glyphicon glyphicon-home"></span>',
+		rest: '<span class="glyphicon glyphicon-heart-empty"></span>',
+		equip: '<span class="glyphicon glyphicon-collapse-down"></span>',
+		trade: '<span class="glyphicon glyphicon-copyright-mark"></span>',
+		nearcity: '<span class="glyphicon glyphicon-globe"></span>',
+		energy: '<span class="glyphicon glyphicon-flash"></span>',
+		noeffect: '<span class="glyphicon glyphicon-music"></span>',
 		companionHeal: '<span class="glyphicon glyphicon-user"></span>',
-		broken:        '<span class="glyphicon glyphicon-ban-circle"></span>'
+		broken: '<span class="glyphicon glyphicon-ban-circle"></span>'
 	},
 	ERROR_CODES: {
 		1: 'Неполное действие',
@@ -77,43 +77,43 @@ module.exports = {
 		5: 'Запись обрывается'
 	},
 	ICONS: {
-		hit:        '<span class="glyphicon glyphicon-leaf"></span>',
-		crit:       '<span class="glyphicon glyphicon-star"></span>',
-		might:      '<span class="glyphicon glyphicon-tower"></span>',
-		fire:       '<span class="glyphicon glyphicon-fire"></span>',
-		flame:      '<span class="glyphicon glyphicon-fire small"></span>',
-		poisoncloud:'<span class="glyphicon glyphicon-tint"></span>',
-		poison:     '<span class="glyphicon glyphicon-tint small"></span>',
-		vamp:       '<span class="glyphicon glyphicon-cutlery"></span>',
+		hit: '<span class="glyphicon glyphicon-leaf"></span>',
+		crit: '<span class="glyphicon glyphicon-star"></span>',
+		might: '<span class="glyphicon glyphicon-tower"></span>',
+		fire: '<span class="glyphicon glyphicon-fire"></span>',
+		flame: '<span class="glyphicon glyphicon-fire small"></span>',
+		poisoncloud: '<span class="glyphicon glyphicon-tint"></span>',
+		poison: '<span class="glyphicon glyphicon-tint small"></span>',
+		vamp: '<span class="glyphicon glyphicon-cutlery"></span>',
 
-		ue:         '<span class="glyphicon glyphicon-refresh"></span> ',
-		eva:        '<span class="glyphicon glyphicon-transfer"></span> ',
-		slow:       '<span class="glyphicon glyphicon-link"></span>',
-		mush:       '<span class="glyphicon glyphicon-arrow-up"></span>',
-		speed:      '<span class="glyphicon glyphicon-forward"></span>',
+		ue: '<span class="glyphicon glyphicon-refresh"></span> ',
+		eva: '<span class="glyphicon glyphicon-transfer"></span> ',
+		slow: '<span class="glyphicon glyphicon-link"></span>',
+		mush: '<span class="glyphicon glyphicon-arrow-up"></span>',
+		speed: '<span class="glyphicon glyphicon-forward"></span>',
 
-		stunHit:    '<span class="glyphicon glyphicon-step-forward"></span>',
-		stun:       '<span class="glyphicon glyphicon-bell"></span>',
+		stunHit: '<span class="glyphicon glyphicon-step-forward"></span>',
+		stun: '<span class="glyphicon glyphicon-bell"></span>',
 
-		rest:       '<span class="glyphicon glyphicon-heart-empty"></span>',
-		heal:       '<span class="glyphicon glyphicon-heart"></span>',
+		rest: '<span class="glyphicon glyphicon-heart-empty"></span>',
+		heal: '<span class="glyphicon glyphicon-heart"></span>',
 
-		dmgSum:    '<span class="glyphicon glyphicon-asterisk"></span>',
+		dmgSum: '<span class="glyphicon glyphicon-asterisk"></span>',
 
-		godheal:    '<span class="glyphicon glyphicon-heart-empty"></span>',
-		coins:      '<span class="glyphicon glyphicon-copyright-mark"></span>',
-		godcoins:   '<span class="glyphicon glyphicon-copyright-mark"></span>',
+		godheal: '<span class="glyphicon glyphicon-heart-empty"></span>',
+		coins: '<span class="glyphicon glyphicon-copyright-mark"></span>',
+		godcoins: '<span class="glyphicon glyphicon-copyright-mark"></span>',
 
-		pickup:    '<span class="glyphicon glyphicon-ok-circle"></span>',
-		empty:     '<span class="glyphicon glyphicon-remove-circle"></span>',
-		drop:      '<span class="glyphicon glyphicon-ban-circle"></span>',
-		death:     '<span class="glyphicon glyphicon-remove-sign"></span>',
+		pickup: '<span class="glyphicon glyphicon-ok-circle"></span>',
+		empty: '<span class="glyphicon glyphicon-remove-circle"></span>',
+		drop: '<span class="glyphicon glyphicon-ban-circle"></span>',
+		death: '<span class="glyphicon glyphicon-remove-sign"></span>',
 
-		pvpeff:     '<span class="glyphicon glyphicon-flash"></span>',
-		pvpice:     '<span class="glyphicon glyphicon-cloud-upload"></span>',
-		pvpflame:   '<span class="glyphicon glyphicon-cloud-download"></span>',
-		pvpfail:    '<span class="glyphicon glyphicon-cloud"></span>',
-		companion:  '<span class="glyphicon glyphicon-user"></span>'
+		pvpeff: '<span class="glyphicon glyphicon-flash"></span>',
+		pvpice: '<span class="glyphicon glyphicon-cloud-upload"></span>',
+		pvpflame: '<span class="glyphicon glyphicon-cloud-download"></span>',
+		pvpfail: '<span class="glyphicon glyphicon-cloud"></span>',
+		companion: '<span class="glyphicon glyphicon-user"></span>'
 	},
 	ACTION_TRANSLATE: {
 		hit: 'Удар',

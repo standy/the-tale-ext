@@ -1,5 +1,3 @@
-var $ = require('jquery');
-var utils = require('../../utils/');
 var _parse = require('../../parse/');
 
 
@@ -11,7 +9,7 @@ function htmlLongMessage(message) {
 
 	var actType = '';
 	if (act && act.type) {
-		var isMe = act.isMe ;
+		var isMe = act.isMe;
 		actType = ' msg msg-' + act.type + (isMe ? ' me' : ' enemy');
 	}
 	var messageHighlight = _parse.highlight(msg, act);

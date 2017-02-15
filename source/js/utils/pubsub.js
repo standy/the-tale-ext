@@ -14,7 +14,7 @@ function publish(e) {
 function subscribe(e, fn) {
 	var events = e.split(',');
 	if (events.length > 1) {
-		events.forEach(function(ev) {subscribe(ev, fn);});
+		events.forEach(function(ev) { subscribe(ev, fn); });
 		return;
 	}
 	var sp = e.split('.');

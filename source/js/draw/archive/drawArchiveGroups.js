@@ -47,7 +47,7 @@ function drawArchiveGroups(archiveGroups) {
 
 
 function drawArchiveGroup(archiveGroup, index, archiveGroups) {
-	var isOpen =  _settings.settingsValues.groupOpenOnDefault;
+	var isOpen = _settings.settingsValues.groupOpenOnDefault;
 	var groupType = archiveGroup.broken ? 'broken' : archiveGroup.type;
 	var groupLink;
 	if (archiveGroup.mobId) {
@@ -115,7 +115,6 @@ function drawArchiveGroup(archiveGroup, index, archiveGroups) {
 
 
 function drawArchiveActStat(stats) {
-
 	var types = ['dmgSum'].concat(_const.FIGHT);
 	var html = '';
 //			html += JSON.stringify(stats)
@@ -133,7 +132,7 @@ function drawArchiveActStat(stats) {
 				if (type === 'dmgSum') {
 					htmlStat += htmlStatName + '=<b>' + sum + '</b> ';
 				} else {
-					htmlStat +=  count + 'x' + htmlStatName;
+					htmlStat += count + 'x' + htmlStatName;
 					htmlStat += '=' + sum + ' ';
 				}
 			}
@@ -142,13 +141,11 @@ function drawArchiveActStat(stats) {
 		}
 	}
 	return html;
-
 }
 
 
 
 module.exports = drawArchiveGroups;
-
 
 
 

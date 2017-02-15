@@ -7,7 +7,6 @@ _towns.townParams = require('./townParams');
 _towns.mapData = require('./mapData');
 
 var $ = require('jquery');
-var pgf = require('pgf');
 
 
 var utils = require('../../utils/');

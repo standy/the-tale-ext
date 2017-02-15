@@ -38,7 +38,6 @@ function parseShort(msg) {
 
 			act.isMe = !!(act.actor ? utils.isMyName(act.actor) : (act.victim ? !utils.isMyName(act.victim) : true));
 			if (!utils.settings.settingsValues.heroNameStart) act.isMe = 0;
-
 		}
 	}
 	return act;

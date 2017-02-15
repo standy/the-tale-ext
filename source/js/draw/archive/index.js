@@ -18,7 +18,6 @@ var $ = require('jquery');
 var utils = require('../../utils/');
 var _subscribe = utils.subscribe;
 var _elements = utils.elements;
-var _settings = utils.settings;
 var _groupMessages = require('../group/');
 
 _subscribe('init', function() {

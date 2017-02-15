@@ -35,8 +35,10 @@ function toStr(messages) {
 }
 function size() {
 	var t = 0;
-	for (var x in localStorage) if (localStorage.hasOwnProperty(x)) {
-		t += localStorage[x].length * 2;
+	for (var x in localStorage) {
+		if (localStorage.hasOwnProperty(x)) {
+			t += localStorage[x].length * 2;
+		}
 	}
 	return t;
 }

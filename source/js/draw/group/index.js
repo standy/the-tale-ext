@@ -26,7 +26,6 @@ _subscribe('init', function() {
 		_groupMessages.addMessages(messagesNew);
 		_groupMessages.redrawGroup(_groupMessages.list.length - 1);
 	});
-
 });
 
 _elements.getTabInner('group').on('click', '.group-title', function() {
@@ -37,9 +36,9 @@ _elements.getTabInner('group').on('click', '.group-title', function() {
 
 
 _elements.addControl('group-toggle', {
-		title: 'Только действия / Подробности',
-		content: '<span class="glyphicon glyphicon-chevron-' + (_settings.settingsValues.groupOpenOnDefault ? 'down' : 'up') + '"></span>'
-	})
+	title: 'Только действия / Подробности',
+	content: '<span class="glyphicon glyphicon-chevron-' + (_settings.settingsValues.groupOpenOnDefault ? 'down' : 'up') + '"></span>'
+})
 	.on('click', function() {
 //		_elements.activeTab('group');
 		var $icon = $(this).children('.glyphicon');

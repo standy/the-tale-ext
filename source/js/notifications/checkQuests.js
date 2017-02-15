@@ -12,11 +12,10 @@ function checkQuests(quests) {
 		var q = line[i];
 		var qOld = lineOld[i];
 		if (!qOld || !isSameQuest(q, qOld)) {
-
 			if (_settings.settingsValues.notifyQuestChoose && q.choice_alternatives && q.choice_alternatives.length) {
 //					console.info('quest!', q.type, _ext.heroName + ' ' + q.action + '!', q);
 				if (_settings.settingsValues.notify) {
-					sendNotify(q.name,  {
+					sendNotify(q.name, {
 						tag: 'quest',
 						body: utils.heroName + ' ' + q.action + '!',
 						icon: window.extPath + 'img/quest/caravan.png', //window.extPath + 'img/quest/' + q.type + '.png',
@@ -25,7 +24,6 @@ function checkQuests(quests) {
 				}
 			}
 			newLines.push(q);
-
 		}
 	}
 	if (newLines.length) {
@@ -36,9 +34,11 @@ function checkQuests(quests) {
 
 function isSameQuest(q1, q2) {
 	var tests = ['action', 'choice', 'name', 'type', 'uid'];
-	for (var s in tests) if (tests.hasOwnProperty(s)) {
-		var key = tests[s];
-		if (q1[key] !== q2[key]) return false;
+	for (var s in tests) {
+		if (tests.hasOwnProperty(s)) {
+			var key = tests[s];
+			if (q1[key] !== q2[key]) return false;
+		}
 	}
 	return true;
 }

@@ -55,7 +55,7 @@ function checkQuest(gameData) {
 		for (var choiceIndex = 0; choiceIndex < q.choice_alternatives.length; choiceIndex++) {
 			var choiceName = q.choice_alternatives[choiceIndex][1];
 			var option_uid = q.choice_alternatives[choiceIndex][0];
-			for (var reward in CHOICES)
+			for (var reward in CHOICES)				{
 				if (CHOICES.hasOwnProperty(reward)) {
 					if (CHOICES[reward].indexOf(choiceName) >= 0) {
 						if (selectChoices[reward]) {
@@ -63,6 +63,7 @@ function checkQuest(gameData) {
 						}
 					}
 				}
+			}
 		}
 	}
 

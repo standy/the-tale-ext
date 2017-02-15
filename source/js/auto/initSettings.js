@@ -227,10 +227,12 @@ function initSettings() {
 			}
 		};
 		var conf = types[type];
-		for (var key in conf) if (conf.hasOwnProperty(key)) {
-			var value = !!conf[key];
-			var $input = _settings.getSettingInput(key);
-			$input.prop('checked', value).trigger('change');
+		for (var key in conf) {
+			if (conf.hasOwnProperty(key)) {
+				var value = !!conf[key];
+				var $input = _settings.getSettingInput(key);
+				$input.prop('checked', value).trigger('change');
+			}
 		}
 	});
 }

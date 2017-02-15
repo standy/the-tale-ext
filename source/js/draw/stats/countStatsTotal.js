@@ -63,7 +63,7 @@ function countStatsTotal(archiveGroups, count) {
 		actionsSum++;
 	}
 	// проброс счетчика боев для отценки шанса пассивного скил
-	me.fightsCount  = enemy.fightsCount = fights;
+	me.fightsCount = enemy.fightsCount = fights;
 	var statsTotal = {
 		fights: fights,
 		fightRestTime: fightRestTime,
@@ -86,14 +86,16 @@ function countStatsTotal(archiveGroups, count) {
 
 
 function addToStats(addTo, addFrom) {
-	for (var type in addFrom) if (addFrom.hasOwnProperty(type)) {
-		var st = addFrom[type];
-		addTo[type] = addTo[type] || {sum: 0, count: 0};
-		if (typeof st === 'number') {
-			addTo[type].count += st;
-		} else {
-			addTo[type].count += st.count;
-			addTo[type].sum += st.sum;
+	for (var type in addFrom) {
+		if (addFrom.hasOwnProperty(type)) {
+			var st = addFrom[type];
+			addTo[type] = addTo[type] || {sum: 0, count: 0};
+			if (typeof st === 'number') {
+				addTo[type].count += st;
+			} else {
+				addTo[type].count += st.count;
+				addTo[type].sum += st.sum;
+			}
 		}
 	}
 }

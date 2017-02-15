@@ -113,7 +113,6 @@ function addMessage(message) {
 		if (currGr.messages && currGr.messages.length && !currGr.data.fightStarted && isActType('FIGHT', act.type)) {
 			grData = $.extend(grData, {isBroken: 5});
 		}
-
 	}
 
 

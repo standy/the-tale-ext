@@ -3,7 +3,7 @@ var $ = require('jquery');
 
 function townParams(mapData) {
 	var places = mapData.places;
-	for (var i in places)
+	for (var i in places) {
 		if (places.hasOwnProperty(i)) {
 			(function(placeIndex) {
 				var place = places[placeIndex];
@@ -19,6 +19,7 @@ function townParams(mapData) {
 					});
 			})(i);
 		}
+	}
 }
 
 
@@ -46,7 +47,7 @@ function requestPlace(x, y) {
 	return $.ajax({
 		url: '/game/map/cell-info?x=' + x + '&y=' + y + '&_=' + (+new Date()),
 		method: 'get',
-		dataType: 'html',
+		dataType: 'html'
 	});
 }
 

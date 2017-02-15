@@ -1,4 +1,5 @@
-//console.time('ext');
+/* global chrome */
+
 ;(function(files, styles) {
 	function injectStyle(href) {
 		var th = document.getElementsByTagName('head')[0];
@@ -32,7 +33,7 @@
 
 	var filesText = [];
 	var count = 0;
-	for (var i = 0; i < files.length;i++) {
+	for (var i = 0; i < files.length; i++) {
 		getFileText(chrome.extension.getURL(files[i]), (function(index) {
 			return function(text) {
 				filesText[index] = text;
@@ -47,6 +48,5 @@
 	}
 	for (var j = 0; j < styles.length; j++) {
 		injectStyle(styles[j]);
-
 	}
 })(['/js/ext.js'], ['/css/main.css']);

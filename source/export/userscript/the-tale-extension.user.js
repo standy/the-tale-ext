@@ -1,4 +1,4 @@
-﻿
+
 
 require('../../css/global.css');
 require('../../css/glyphicons.css');

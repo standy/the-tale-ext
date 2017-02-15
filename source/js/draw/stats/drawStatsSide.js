@@ -1,4 +1,3 @@
-var $ = require('jquery');
 var utils = require('../../utils/');
 var _const = utils.const;
 var _icons = _const.ICONS;
@@ -22,7 +21,7 @@ var $stats = _elements.getTabInner('stats-side');
 
 function drawStatsSide(archiveGroups) {
 	archiveGroups = archiveGroups || _archive.archiveGroups;
-	var groups =  _settings.settingsValues.statsByLevel ? groupsByLevel(archiveGroups, _settings.settingsValues.statsByLevelValue) : archiveGroups;
+	var groups = _settings.settingsValues.statsByLevel ? groupsByLevel(archiveGroups, _settings.settingsValues.statsByLevelValue) : archiveGroups;
 
 	var statsTotal = countStatsTotal(groups, _settings.settingsValues.statsActionsCount);
 	var mobId = _settings.settingsValues.statsByMob && (_settings.settingsValues.statsByMobId || statsTotal.lastMobId);
@@ -153,7 +152,7 @@ function drawStatsSide(archiveGroups) {
 			} else {
 				htmlTime += _utils.timeSpan(time);
 			}
-			htmlTime +=  ' ' + act.text + ' (' + countTotal + ')<br />';
+			htmlTime += ' ' + act.text + ' (' + countTotal + ')<br />';
 		}
 	}
 
@@ -181,8 +180,8 @@ function drawStatsSideByActor(stats) {
 		if (stats[type]) {
 			var stat = stats[type];
 			var title = _const.ACTION_TRANSLATE[type] +
-				(sumTo ? ', включено в ' + _const.ACTION_TRANSLATE[sumTo] :
-					(isPassive ? ', не учитывается в сумме' : '')
+				(sumTo ? ', включено в ' + _const.ACTION_TRANSLATE[sumTo]
+					: (isPassive ? ', не учитывается в сумме' : '')
 				);
 			var htmlStat = '<td class="stats-name" title="' + title + '">' + _icons[type] + '</td> ';
 
@@ -220,9 +219,9 @@ function drawStatsSideByActor(stats) {
 				var sumText = 'всего ' + _utils.declensionByNumber(sum, ['урон', 'урона', 'урона'], 1);
 
 				var bonusPercent = Math.round((averagePercents - 100) * chance) / 100;
-				var bonusPercentText = bonusPercent && !isDot ?
-					(bonusPercent >= 0 ? '+' : '&ndash;') + Math.abs(bonusPercent) + '%' :
-					'';
+				var bonusPercentText = bonusPercent && !isDot
+					? (bonusPercent >= 0 ? '+' : '&ndash;') + Math.abs(bonusPercent) + '%'
+					: '';
 				var bpTranslateText = (averagePercentsText >= 100 ? '+' : '&ndash;') +
 					Math.abs(Math.round(averagePercentsText * 100 - 10000) / 100) + '% x ' + chanceText;
 
@@ -243,8 +242,8 @@ function groupsByLevel(archiveGroups, level) {
 	var lv1;
 	var lv2;
 	if (level) {
-		lv1 = levelsLog.filter(function(item) { return item[1] === level;})[0] || [];
-		lv2 = levelsLog.filter(function(item) { return item[1] === level + 1;})[0] || [];
+		lv1 = levelsLog.filter(function(item) { return item[1] === level; })[0] || [];
+		lv2 = levelsLog.filter(function(item) { return item[1] === level + 1; })[0] || [];
 	} else {
 		lv1 = levelsLog[levelsLog.length - 1];
 		lv2 = [];

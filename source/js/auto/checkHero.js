@@ -94,10 +94,11 @@ function checkHero(gameData) {
 			return;
 		}
 		var paramsStr = '';
-		for (var key in getParams)
+		for (var key in getParams) {
 			if (getParams.hasOwnProperty(key)) {
 				paramsStr += '&' + key + '=' + getParams[key];
 			}
+		}
 		var url = '/game/abilities/' + ability + '/api/use?api_version=1.0&api_client=' + window.API_CLIENT + paramsStr;
 		//				console.log('url: ', url)
 		//				if (!_settingsValues.autohelp) return;
@@ -109,7 +110,7 @@ function checkHero(gameData) {
 			beforeSend: function(xhr) {
 				xhr.setRequestHeader('X-CSRFToken', csrf);
 			},
-			data: {},
+			data: {}
 		});
 	}
 }

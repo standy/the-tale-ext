@@ -32,7 +32,6 @@ function showMapDialog(x, y) {
 				widgets.abilities.RenderAbility(pgf.game.constants.abilities.building_repair);
 				jQuery('.angel-ability', dialog).toggleClass('pgf-hidden', false);
 			}
-
 		},
 		OnClosed: function(dialog) {
 			pgf.base.HideTooltips(dialog);

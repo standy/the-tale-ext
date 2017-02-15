@@ -11,7 +11,6 @@ window.tables = (function(_tables) {
 		$head.children('th')
 			.wrapInner('<span class="sort" />')
 			.each(function() {
-
 				var $th = $(this);
 				var thIndex = $th.index();
 
@@ -36,15 +35,14 @@ window.tables = (function(_tables) {
 						if (a.value === b.value) {
 							return 0;
 						}
-						return a.value > b.value ?
-							inverse ? 1 : -1
+						return a.value > b.value
+							? inverse ? 1 : -1
 							: inverse ? -1 : 1;
 					});
 					arr.forEach(function(item) {
 						$table.append(item.$item);
 					});
 				});
-
 			});
 	}
 
@@ -58,7 +56,7 @@ window.tables = (function(_tables) {
 	});
 
 	function parseDate(str) { //02.04.2014 10:50
-		var p = /(\d{2})\.(\d{2})\.(\d{4})\s(\d{1,2})\:(\d{2})/.exec(str);
+		var p = /(\d{2})\.(\d{2})\.(\d{4})\s(\d{1,2}):(\d{2})/.exec(str);
 		if (!p) {
 			return 0;
 		}

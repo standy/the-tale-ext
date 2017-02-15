@@ -1,7 +1,5 @@
-var $ = require('jquery');
 var utils = require('../../utils/');
 var _log = utils.log;
-var archiveGroups = require('./archiveGroups');
 var upgradeArchiveGroup = require('./upgradeArchiveGroup');
 
 function loadArchiveGroups() {
@@ -16,7 +14,8 @@ function loadArchiveGroups() {
 		}
 	}
 	_archiveGroups.map(upgradeArchiveGroup);
-	archiveGroups = _archiveGroups;
+	/* FIXME результат не используется? */
+	return _archiveGroups;
 }
 
 module.exports = loadArchiveGroups;
