@@ -4,6 +4,8 @@
 	"browser": true
   },
   "rules": {
+	"prefer-const": "error",
+	"no-var": "error",
 	"camelcase": "off",
 	"indent": ["error", "tab"],
 	"no-tabs": "off",

@@ -1,4 +1,4 @@
-var prefix = 'ext-';
+const prefix = 'ext-';
 function setStore(key, value) {
 	localStorage.setItem(prefix + key, JSON.stringify(value));
 }
@@ -6,7 +6,7 @@ function getStore(key) {
 	return JSON.parse(localStorage.getItem(prefix + key) || localStorage.getItem(key));
 }
 
-var store;
+let store;
 if (typeof window === 'object' && window.localStorage && window.JSON) {
 	store = {
 		get: getStore,

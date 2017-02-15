@@ -1,13 +1,13 @@
-var utils = require('../../utils/');
-var _elements = utils.elements;
-var _shortMessages = require('../short/');
+const utils = require('../../utils/');
+const _elements = utils.elements;
+const _shortMessages = require('../short/');
 
-var $groupsContent = _elements.getTabInner('group');
+const $groupsContent = _elements.getTabInner('group');
 
 function drawFakeMessage(message) {
-	var $lastGroup = $groupsContent.children('.group').first();
+	const $lastGroup = $groupsContent.children('.group').first();
 
-	var html = _shortMessages.htmlLongMessage(message);
+	const html = _shortMessages.htmlLongMessage(message);
 	$lastGroup.prepend(html);
 }
 

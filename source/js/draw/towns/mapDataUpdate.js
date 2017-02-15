@@ -1,9 +1,9 @@
-var $ = require('jquery');
-var utils = require('../../utils/');
-var _publish = utils.publish;
+const $ = require('jquery');
+const utils = require('../../utils/');
+const _publish = utils.publish;
 
 
-var mapData = require('./mapData');
+const mapData = require('./mapData');
 
 function mapDataUpdate(map_version) {
 	return $.ajax({
@@ -12,7 +12,7 @@ function mapDataUpdate(map_version) {
 		type: 'get'
 	})
 		.done(function(map_data) {
-			for (var key in mapData) {
+			for (const key in mapData) {
 				if (mapData.hasOwnProperty(key)) {
 					delete mapData[key];
 				}

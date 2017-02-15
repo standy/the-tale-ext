@@ -1,16 +1,16 @@
-var utils = require('./../utils/');
-var _settings = utils.settings;
-var _publish = utils.publish;
-var sendNotify = require('./sendNotify');
+const utils = require('./../utils/');
+const _settings = utils.settings;
+const _publish = utils.publish;
+const sendNotify = require('./sendNotify');
 
-var lastQuests;
+let lastQuests;
 function checkQuests(quests) {
-	var line = quests[1].line;
-	var lineOld = lastQuests && lastQuests[1] && lastQuests[1].line || [];
-	var newLines = [];
-	for (var i = 0; i < line.length; i++) {
-		var q = line[i];
-		var qOld = lineOld[i];
+	const line = quests[1].line;
+	const lineOld = lastQuests && lastQuests[1] && lastQuests[1].line || [];
+	const newLines = [];
+	for (let i = 0; i < line.length; i++) {
+		const q = line[i];
+		const qOld = lineOld[i];
 		if (!qOld || !isSameQuest(q, qOld)) {
 			if (_settings.settingsValues.notifyQuestChoose && q.choice_alternatives && q.choice_alternatives.length) {
 //					console.info('quest!', q.type, _ext.heroName + ' ' + q.action + '!', q);
@@ -33,10 +33,10 @@ function checkQuests(quests) {
 }
 
 function isSameQuest(q1, q2) {
-	var tests = ['action', 'choice', 'name', 'type', 'uid'];
-	for (var s in tests) {
+	const tests = ['action', 'choice', 'name', 'type', 'uid'];
+	for (const s in tests) {
 		if (tests.hasOwnProperty(s)) {
-			var key = tests[s];
+			const key = tests[s];
 			if (q1[key] !== q2[key]) return false;
 		}
 	}

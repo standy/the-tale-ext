@@ -1,11 +1,11 @@
-var $ = require('jquery');
-var pgf = require('pgf');
-var widgets = window.widgets;
+const $ = require('jquery');
+const pgf = require('pgf');
+const widgets = window.widgets;
 
-var mapData = require('./mapData');
+const mapData = require('./mapData');
 
 function showMapDialogById(id) {
-	var place = mapData.places[id];
+	const place = mapData.places[id];
 	showMapDialog(place.pos.x, place.pos.y);
 }
 
@@ -13,7 +13,7 @@ function showMapDialog(x, y) {
 	pgf.ui.dialog.Create({
 		fromUrl: pgf.urls['game:map:cell_info'](x, y),
 		OnOpened: function(dialog) {
-			var jQuery = $;
+			const jQuery = $;
 			pgf.base.InitializeTabs('game-map-cell-info', 'map',
 				[[jQuery('.pgf-cell-description-button', dialog), 'description'],
 					[jQuery('.pgf-cell-persons-button', dialog), 'persons'],

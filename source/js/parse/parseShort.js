@@ -1,7 +1,7 @@
-var utils = require('../utils');
-var phrases = require('./journalPhrases');
+const utils = require('../utils');
+const phrases = require('./journalPhrases');
 
-var cfgShort = processShortRaw(phrases);
+const cfgShort = processShortRaw(phrases);
 
 module.exports = parseShort;
 
@@ -19,11 +19,11 @@ module.exports = parseShort;
  * */
 function parseShort(msg) {
 	msg = msg.replace(/ё/g, 'е').replace(/\s\s+/g, ' ');
-	var act;
-	for (var i = 0; i < cfgShort.length; i++) {
-		var cfgParsedLine = cfgShort[i];
-		var paramNames = cfgParsedLine.params;
-		var values = cfgParsedLine.regex.exec(msg);
+	let act;
+	for (let i = 0; i < cfgShort.length; i++) {
+		const cfgParsedLine = cfgShort[i];
+		const paramNames = cfgParsedLine.params;
+		let values = cfgParsedLine.regex.exec(msg);
 
 		if (values) {
 			values = values.slice(1);
@@ -31,8 +31,8 @@ function parseShort(msg) {
 			act = {};
 			act.type = cfgParsedLine.type;
 			if (cfgParsedLine.sec) act.sec = cfgParsedLine.sec;
-			for (var paramIndex = 0; paramIndex < paramNames.length; paramIndex++) {
-				var param = paramNames[paramIndex];
+			for (let paramIndex = 0; paramIndex < paramNames.length; paramIndex++) {
+				const param = paramNames[paramIndex];
 				act[param] = isNaN(values[paramIndex]) ? values[paramIndex] : +values[paramIndex];
 			}
 
@@ -47,22 +47,22 @@ function parseShort(msg) {
  * Прекомпиляция конфига фраз для разбора
  * */
 function processShortRaw(phrases) {
-	var ESCAPE = /[?.]/g;
-	var anyRegExp = new RegExp('({})', 'g');
-	var numbersRegExp = new RegExp('({value})', 'g');
-	var paramsRegExp = new RegExp('({[a-zA-Z]+})', 'g');
-	var namesRegExp = '([а-яА-ЯёЁa-zA-Z\\d _\\-\']+)';
+	const ESCAPE = /[?.]/g;
+	const anyRegExp = new RegExp('({})', 'g');
+	const numbersRegExp = new RegExp('({value})', 'g');
+	const paramsRegExp = new RegExp('({[a-zA-Z]+})', 'g');
+	const namesRegExp = '([а-яА-ЯёЁa-zA-Z\\d _\\-\']+)';
 
-	var paramReg = /{([a-zA-Z]+)}/g;
-	var result = [];
+	const paramReg = /{([a-zA-Z]+)}/g;
+	const result = [];
 
-	var typeReg = /^\[([a-zA-Z]+)(?:,([a-zA-Z]+))?\]/;
+	const typeReg = /^\[([a-zA-Z]+)(?:,([a-zA-Z]+))?\]/;
 
-	for (var i = 0; i < phrases.length; i++) {
-		var cfgString = phrases[i].replace(/ё/g, 'е');
-		var parsedCfg = {};
+	for (let i = 0; i < phrases.length; i++) {
+		let cfgString = phrases[i].replace(/ё/g, 'е');
+		const parsedCfg = {};
 
-		var p = typeReg.exec(cfgString);
+		let p = typeReg.exec(cfgString);
 		if (p) {
 			if (p[1]) parsedCfg.type = p[1];
 			if (p[2]) parsedCfg.sec = p[2];
@@ -74,7 +74,7 @@ function processShortRaw(phrases) {
 			cfgString = cfgString + '$';
 		}
 
-		var paramNames = [];
+		const paramNames = [];
 		do {
 			p = paramReg.exec(cfgString);
 			if (p) paramNames.push(p[1]);

@@ -1,30 +1,27 @@
-var $ = require('jquery');
+const $ = require('jquery');
 
 //console.log('tables.js')
 window.tables = (function(_tables) {
 	'use strict';
 
 	function makeSortable($table) {
-		var $head = $table.find('thead tr').first();
-		var $rows = $table.find('tbody tr');
+		const $head = $table.find('thead tr').first();
+		const $rows = $table.find('tbody tr');
 
 		$head.children('th')
 			.wrapInner('<span class="sort" />')
 			.each(function() {
-				var $th = $(this);
-				var thIndex = $th.index();
+				const $th = $(this);
+				const thIndex = $th.index();
 
 				$th.children('.sort').click(function() {
 					$th.siblings('th').children('.sort').attr('class', 'sort');
-					var inverse = $(this).hasClass('sort-up');
+					const inverse = $(this).hasClass('sort-up');
 					$(this).attr('class', 'sort sort-' + (inverse ? 'down' : 'up'));
-					var arr = [];
+					const arr = [];
 					$rows.each(function() {
-						var valueText = $.trim($(this).children('td').eq(thIndex).text());
-						var value;
-
-						value = (-valueText) || parseDate(valueText) || valueText;
-
+						const valueText = $.trim($(this).children('td').eq(thIndex).text());
+						const value = (-valueText) || parseDate(valueText) || valueText;
 
 						arr.push({
 							$item: this,
@@ -56,7 +53,7 @@ window.tables = (function(_tables) {
 	});
 
 	function parseDate(str) { //02.04.2014 10:50
-		var p = /(\d{2})\.(\d{2})\.(\d{4})\s(\d{1,2}):(\d{2})/.exec(str);
+		const p = /(\d{2})\.(\d{2})\.(\d{4})\s(\d{1,2}):(\d{2})/.exec(str);
 		if (!p) {
 			return 0;
 		}

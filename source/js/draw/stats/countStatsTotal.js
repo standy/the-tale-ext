@@ -1,25 +1,25 @@
-var _archive = require('../archive/');
+const _archive = require('../archive/');
 
 function countStatsTotal(archiveGroups, count) {
 	archiveGroups = archiveGroups || _archive.archiveGroups;
 	count = count || archiveGroups.length;
-	var me = {};
-	var enemy = {};
-	var fights = 0;
-	var loot = {pickup: 0, empty: 0, drop: 0, death: 0};
-	var meByMob = {};
-	var enemyByMob = {};
-	var actionsTimes = {};
-	var actionsCounts = {};
-	var actionsSum = 0;
-	var actionsTime = 0;
-	var fightRestTime = 0;
-	var otherTime = 0;
-	var mobId;
+	const me = {};
+	const enemy = {};
+	let fights = 0;
+	const loot = {pickup: 0, empty: 0, drop: 0, death: 0};
+	const meByMob = {};
+	const enemyByMob = {};
+	const actionsTimes = {};
+	const actionsCounts = {};
+	let actionsSum = 0;
+	let actionsTime = 0;
+	let fightRestTime = 0;
+	let otherTime = 0;
+	let mobId;
 
-	for (var i = Math.max(archiveGroups.length - count, 0); i < archiveGroups.length; i++) {
-		var fullStats = archiveGroups[i];
-		var type = fullStats.broken ? 'broken' : fullStats.type;
+	for (let i = Math.max(archiveGroups.length - count, 0); i < archiveGroups.length; i++) {
+		const fullStats = archiveGroups[i];
+		let type = fullStats.broken ? 'broken' : fullStats.type;
 		if (!fullStats.ts || type === 'broken') {
 			continue;
 		}
@@ -34,22 +34,22 @@ function countStatsTotal(archiveGroups, count) {
 			// Счетчик боев с мобом
 			meByMob[mobId].fightsCount = enemyByMob[mobId].fightsCount = (meByMob[mobId].fightsCount || 0) + 1;
 			fights++;
-			var lt = fullStats.loot;
+			const lt = fullStats.loot;
 			if (lt) {
 				loot[lt]++;
 			}
 		}
-		var nextFullStats = archiveGroups[i + 1];
-		var timeStart = fullStats.ts[0];
-		var timeEnd = fullStats.ts[1];
+		const nextFullStats = archiveGroups[i + 1];
+		const timeStart = fullStats.ts[0];
+		let timeEnd = fullStats.ts[1];
 		if (type !== 'fight' && nextFullStats && nextFullStats.ts) {
-			var timeStartNext = nextFullStats.ts[0];
+			const timeStartNext = nextFullStats.ts[0];
 			if (timeStartNext - timeEnd < 120) {
 				// проверка на случай сломанной группы (2)
 				timeEnd = timeStartNext;
 			}
 		}
-		var time = timeEnd - timeStart;
+		const time = timeEnd - timeStart;
 //				lastTimeEnd = fullStats.ts[1];
 		if (type === 'fight' || type === 'rest') {
 			fightRestTime += time;
@@ -64,7 +64,7 @@ function countStatsTotal(archiveGroups, count) {
 	}
 	// проброс счетчика боев для отценки шанса пассивного скил
 	me.fightsCount = enemy.fightsCount = fights;
-	var statsTotal = {
+	const statsTotal = {
 		fights: fights,
 		fightRestTime: fightRestTime,
 		otherTime: otherTime,
@@ -86,9 +86,9 @@ function countStatsTotal(archiveGroups, count) {
 
 
 function addToStats(addTo, addFrom) {
-	for (var type in addFrom) {
+	for (const type in addFrom) {
 		if (addFrom.hasOwnProperty(type)) {
-			var st = addFrom[type];
+			const st = addFrom[type];
 			addTo[type] = addTo[type] || {sum: 0, count: 0};
 			if (typeof st === 'number') {
 				addTo[type].count += st;

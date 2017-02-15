@@ -1,9 +1,9 @@
 /** добавляет к архивам поле total */
 
-var $ = require('jquery');
-var utils = require('../../utils/');
-var _const = utils.const;
-var isActType = utils.isActType;
+const $ = require('jquery');
+const utils = require('../../utils/');
+const _const = utils.const;
+const isActType = utils.isActType;
 
 function upgradeArchiveGroup(archiveGroup, index) {
 	if (!archiveGroup || !archiveGroup.ts) {
@@ -21,15 +21,15 @@ function upgradeArchiveGroup(archiveGroup, index) {
 
 	/* подсчет всех сумм из архива */
 	function countTotalFromArchive(archiveGroupFrom) {
-		var addTo = {dmgSum: {count: 0, sum: 0}};
-		for (var type in archiveGroupFrom) {
+		const addTo = {dmgSum: {count: 0, sum: 0}};
+		for (const type in archiveGroupFrom) {
 			if (archiveGroupFrom.hasOwnProperty(type)) {
-				var vals = archiveGroupFrom[type];
-				var isPassive = isActType('PASSIVE', type);
-				var isHeal = type === 'heal';
+				const vals = archiveGroupFrom[type];
+				const isPassive = isActType('PASSIVE', type);
+				const isHeal = type === 'heal';
 
-				var count;
-				var sum;
+				let count;
+				let sum;
 				if (typeof vals === 'number') {
 					count = vals;
 					sum = 0;
@@ -38,10 +38,10 @@ function upgradeArchiveGroup(archiveGroup, index) {
 					sum = vals.reduce(function(pv, cv) { return pv + cv; }, 0) || 0;
 				}
 
-				var av;
-				var critMin;
-				var critVals;
-				var critCount = 0;
+				let av;
+				let critMin;
+				let critVals;
+				let critCount = 0;
 				addTo[type] = addTo[type] || {sum: 0, count: 0};
 				if (type === 'hit' && sum) {
 					av = sum / count;
@@ -51,7 +51,7 @@ function upgradeArchiveGroup(archiveGroup, index) {
 				}
 				if (critCount) {
 					addTo.crit = addTo.crit || {sum: 0, count: 0};
-					var critSum = critVals.reduce(function(pv, cv) { return pv + cv; }, 0) || 0;
+					const critSum = critVals.reduce(function(pv, cv) { return pv + cv; }, 0) || 0;
 					addTo.crit.count += critCount;
 					addTo.crit.sum += critSum;
 				}
@@ -59,7 +59,7 @@ function upgradeArchiveGroup(archiveGroup, index) {
 				addTo[type].sum += sum;
 
 
-				var typeSumTo = _const.SUM_TO_MAIN[type];
+				const typeSumTo = _const.SUM_TO_MAIN[type];
 				if (typeSumTo) {
 					addTo[typeSumTo] = addTo[typeSumTo] || {sum: 0, count: 0};
 					addTo[typeSumTo].sum += sum;

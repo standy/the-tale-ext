@@ -1,13 +1,13 @@
-var utils = require('../../utils/');
-var _elements = utils.elements;
-var drawGroup = require('./drawGroup');
+const utils = require('../../utils/');
+const _elements = utils.elements;
+const drawGroup = require('./drawGroup');
 
 
-var $groupsContent = _elements.getTabInner('group');
+const $groupsContent = _elements.getTabInner('group');
 
 function drawMessages(messagesGrouped) {
-	var html = '';
-	for (var i = 0; i < messagesGrouped.length; i++) {
+	let html = '';
+	for (let i = 0; i < messagesGrouped.length; i++) {
 		html = drawGroup(messagesGrouped[i], i) + html;
 	}
 	$groupsContent.html(html);

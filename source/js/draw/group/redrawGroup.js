@@ -1,14 +1,14 @@
-var utils = require('../../utils/');
-var _elements = utils.elements;
+const utils = require('../../utils/');
+const _elements = utils.elements;
 
-var messagesGrouped = require('./list');
-var drawGroup = require('./drawGroup');
-var drawGroupInner = require('./drawGroupInner');
+const messagesGrouped = require('./list');
+const drawGroup = require('./drawGroup');
+const drawGroupInner = require('./drawGroupInner');
 
-var $groupsContent = _elements.getTabInner('group');
+const $groupsContent = _elements.getTabInner('group');
 
 function redrawGroup(index, isOpen) {
-	var $group = $groupsContent.children('.group[data-index="' + index + '"]');
+	const $group = $groupsContent.children('.group[data-index="' + index + '"]');
 	if ($group.length) {
 		if (typeof isOpen !== 'undefined') {
 			$group.toggleClass('open', isOpen);

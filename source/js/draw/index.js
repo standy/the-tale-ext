@@ -1,4 +1,4 @@
-var _print = module.exports = {};
+const _print = module.exports = {};
 
 _print.towns = require('./towns/');
 _print.shortMessages = require('./short/');

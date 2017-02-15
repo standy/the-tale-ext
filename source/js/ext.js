@@ -1,4 +1,4 @@
-var ext = {};
+const ext = {};
 
 ext.utils = require('./utils/');
 
@@ -14,13 +14,13 @@ require('./tables');
 
 
 /* todo разнести эту логику */
-var utils = ext.utils;
-var _draw = ext.draw;
-var _trace = ext.trace;
-var _log = utils.log;
-var _elements = utils.elements;
-var _stats = _draw.stats;
-var _archive = _draw.archive;
+const utils = ext.utils;
+const _draw = ext.draw;
+const _trace = ext.trace;
+const _log = utils.log;
+const _elements = utils.elements;
+const _stats = _draw.stats;
+const _archive = _draw.archive;
 
 utils.publish('init');
 _elements.getTabInner('sets')

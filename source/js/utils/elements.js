@@ -1,17 +1,17 @@
-var $ = require('jquery');
-var _subscribe = require('./pubsub').subscribe;
+const $ = require('jquery');
+const _subscribe = require('./pubsub').subscribe;
 
-var tabs = {};
+const tabs = {};
 
-var $diaryRoot = $('#pgf-diary-container').parent().parent();
-var $diaryTabs = $diaryRoot.children('.nav-tabs');
-var $diaryContainer = $diaryRoot.children('.tab-content');
+const $diaryRoot = $('#pgf-diary-container').parent().parent();
+const $diaryTabs = $diaryRoot.children('.nav-tabs');
+const $diaryContainer = $diaryRoot.children('.tab-content');
 
-var $equipRoot = $('#pgf-equipment-container').parent().parent();
-var $equipTabs = $equipRoot.children('.nav-tabs');
-var $equipContainer = $equipRoot.children('.tab-content');
+const $equipRoot = $('#pgf-equipment-container').parent().parent();
+const $equipTabs = $equipRoot.children('.nav-tabs');
+const $equipContainer = $equipRoot.children('.tab-content');
 
-var zones = {
+const zones = {
 	main: {
 		$tabs: $diaryTabs,
 		$container: $diaryContainer
@@ -25,12 +25,12 @@ var zones = {
 
 
 function addTab(name, opts) {
-	var zone = opts.zone || 'main';
-	var $tabs = zones[zone].$tabs;
-	var $container = zones[zone].$container;
+	const zone = opts.zone || 'main';
+	const $tabs = zones[zone].$tabs;
+	const $container = zones[zone].$container;
 
-	var $tab = $('<li class="pull-right"><a href="#pgf-' + name + '-container" class="pgf-' + name + '-tab-button" data-toggle="tab">' + opts.title + '</a></li>');
-	var $content;
+	const $tab = $('<li class="pull-right"><a href="#pgf-' + name + '-container" class="pgf-' + name + '-tab-button" data-toggle="tab">' + opts.title + '</a></li>');
+	let $content;
 	if (zone === 'main') {
 		$content = $('<div class="tab-pane log-block" id="pgf-' + name + '-container"></div>');
 	} else {
@@ -40,7 +40,7 @@ function addTab(name, opts) {
 	$tabs.append($tab);
 	$container.append($content);
 
-	var $inner = $content;
+	let $inner = $content;
 	if (opts.content) {
 		$inner = $(opts.content).appendTo($content);
 	}
@@ -70,12 +70,12 @@ function activeTab(name) {
 //		}
 }
 
-var controls = {};
-var $controls = $('<div class="ext-controls pull-right"></div>').insertAfter('#current-action-block, #pvp-info-block');
+const controls = {};
+const $controls = $('<div class="ext-controls pull-right"></div>').insertAfter('#current-action-block, #pvp-info-block');
 function addControl(name, opts) {
-	var html = '<span class="ext-control link-ajax" id="ext-' + name + '" title="' + opts.title + '">' + (opts.content || '') + '</span>';
+	const html = '<span class="ext-control link-ajax" id="ext-' + name + '" title="' + opts.title + '">' + (opts.content || '') + '</span>';
 
-	var $el = $(html).appendTo($controls);
+	const $el = $(html).appendTo($controls);
 	controls[name] = {
 		$el: $el
 	};
@@ -85,7 +85,7 @@ function getControl(name) {
 	return controls[name].$el;
 }
 
-var _elements = {
+const _elements = {
 	addTab: addTab,
 	activeTab: activeTab,
 	getTab: getTab,

@@ -1,7 +1,7 @@
-var $ = require('jquery');
+const $ = require('jquery');
 
 function downgradeArchiveGroup(fullStats) {
-	var archiveGroup = $.extend({}, fullStats);
+	const archiveGroup = $.extend({}, fullStats);
 	delete archiveGroup.total;
 	delete archiveGroup.level;
 	return archiveGroup;

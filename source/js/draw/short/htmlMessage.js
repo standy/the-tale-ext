@@ -1,22 +1,22 @@
-var utils = require('../../utils/');
-var _const = utils.const;
-var _icons = _const.ICONS;
-var isActType = utils.isActType;
+const utils = require('../../utils/');
+const _const = utils.const;
+const _icons = _const.ICONS;
+const isActType = utils.isActType;
 
 
 function htmlMessage(message) {
-	var time = message[1];
-	var msg = message[2];
-	var act = message[4]; //_parse.message(message, 'message');
+	const time = message[1];
+	const msg = message[2];
+	const act = message[4]; //_parse.message(message, 'message');
 
-	var htmlMsg;
+	let htmlMsg;
 	if (!act || !act.type) return '';
-	var isMe = act.isMe;
-	var type = act.type;
-	var sec = act.sec;
-	var t = '';
-	var val = act.value || '';
-	var icon = _icons[type];
+	const isMe = act.isMe;
+	const type = act.type;
+	const sec = act.sec;
+	let t = '';
+	const val = act.value || '';
+	let icon = _icons[type];
 //	if (sec) console.log(sec, message[3], time)
 	if (sec) {
 		icon += '<span class="sub-icon">' + _icons[sec] + '</span>';

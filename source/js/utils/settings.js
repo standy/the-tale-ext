@@ -1,16 +1,16 @@
-var _subscribe = require('./pubsub').subscribe;
-var _publish = require('./pubsub').publish;
-var _const = require('./const');
-var $ = require('jquery');
-var _log = require('./log');
-var _elements = require('./elements');
+const _subscribe = require('./pubsub').subscribe;
+const _publish = require('./pubsub').publish;
+const _const = require('./const');
+const $ = require('jquery');
+const _log = require('./log');
+const _elements = require('./elements');
 
 
 function getSettingInput(key) {
 	return $('input[data-name="' + key + '"]');
 }
 
-var sets = [
+const sets = [
 	{
 		title: 'Персонаж',
 		fields: [{
@@ -139,6 +139,7 @@ var sets = [
 	}
 ];
 _subscribe('settingsChange', checkDependences);
+const deps = {};
 function checkDependences(key, value, isDisabled) {
 	if (deps[key]) {
 		deps[key].forEach(function(keyName) {
@@ -149,22 +150,23 @@ function checkDependences(key, value, isDisabled) {
 	}
 }
 
-var deps = {};
+const settingsValues = _log.get('settings') || {};
+
 function addSets(sets) {
-	for (var i = 0; i < sets.length; i++) {
+	for (let i = 0; i < sets.length; i++) {
 		settingsDefaults(sets[i].fields);
 	}
 
 	function settingsDefaults(fields) {
-		var childs = [];
-		for (var i = 0; i < fields.length; i++) {
-			var st = fields[i];
+		let childs = [];
+		for (let i = 0; i < fields.length; i++) {
+			const st = fields[i];
 			childs.push(st.name);
 //					console.log('defaults', st.name);
 			if (typeof settingsValues[st.name] === 'undefined') {
 				settingsValues[st.name] = st.value;
 			}
-			var subsChilds = [];
+			let subsChilds = [];
 			if (st.inputs) {
 				subsChilds = settingsDefaults(st.inputs).concat(subsChilds);
 			}
@@ -184,13 +186,12 @@ function addSets(sets) {
 	}
 }
 
-var settingsValues = _log.get('settings') || {};
 addSets(sets);
 function drawSets(sets) {
-	var $sets = _elements.getTabInner('sets');
-	var html = '';
-	for (var i = 0; i < sets.length; i++) {
-		var st = sets[i];
+	const $sets = _elements.getTabInner('sets');
+	let html = '';
+	for (let i = 0; i < sets.length; i++) {
+		const st = sets[i];
 		html +=
 			'<div class="">' +
 				'<div class="sets-header">' + (st.title || '') + '</div>' +
@@ -200,27 +201,27 @@ function drawSets(sets) {
 	html = '<div class="settings-form form-horizontal">' + html + '</div>';
 	$sets.append(html);
 	$sets.find('input').each(function() {
-		var $input = $(this);
-		var name = $input.data('name');
-		var value = $input.is('[type="checkbox"]') ? $input.prop('checked') : $input.val();
-		var isDisabled = $input.closest('.input-wrap').hasClass('disabled');
+		const $input = $(this);
+		const name = $input.data('name');
+		const value = $input.is('[type="checkbox"]') ? $input.prop('checked') : $input.val();
+		const isDisabled = $input.closest('.input-wrap').hasClass('disabled');
 		checkDependences(name, !isDisabled && value);
 	});
 }
 
 function init() {
-	var $sets = _elements.getTabInner('sets');
+	const $sets = _elements.getTabInner('sets');
 
 	drawSets(sets);
 
 	$sets
 		.on('change', 'input', function() {
-			var $input = $(this);
-			var name = $input.data('name');
-			var value = $input.is('[type="checkbox"]') ? $input.prop('checked') : $input.val();
+			const $input = $(this);
+			const name = $input.data('name');
+			let value = $input.is('[type="checkbox"]') ? $input.prop('checked') : $input.val();
 			if ($input.data('type') === 'num') { value = +value; }
 			settingsValues[name] = value;
-			var isDisabled = $input.closest('.input-wrap').hasClass('disabled');
+			const isDisabled = $input.closest('.input-wrap').hasClass('disabled');
 			_publish('settingsChange', name, value, isDisabled);
 			_log.set('settings', settingsValues);
 		});
@@ -228,15 +229,15 @@ function init() {
 
 function drawSetsGroup(fields) {
 //			console.log('drawSetsGroup', sets);
-	var html = '';
-	for (var i = 0; i < fields.length; i++) {
-		var st = fields[i];
+	let html = '';
+	for (let i = 0; i < fields.length; i++) {
+		const st = fields[i];
 
-		var inputsHtml = '';
+		let inputsHtml = '';
 		if (st.inputs) {
 			inputsHtml = ' ' + st.inputs.map(drawInput).join('');
 		}
-		var label =
+		const label =
 			'<div class="input-wrap ' + (st.isToggle ? 'checkbox' : '') + '">' +
 				'<label>' +
 					drawInput(st) +
@@ -263,7 +264,7 @@ function drawSetsGroup(fields) {
 		if (typeof settingsValues[st.name] === 'undefined') {
 			settingsValues[st.name] = st.value;
 		}
-		var html = '';
+		let html = '';
 		if (st.isToggle || st.type === 'checkbox') {
 			html = '<input type="checkbox" data-name="' + st.name + '""' + (settingsValues[st.name] ? ' checked' : '') + '> ';
 		} else if (st.type === 'text' || st.type === 'num') {
@@ -283,7 +284,7 @@ function drawSetsGroup(fields) {
 
 
 
-var _settings = {
+const _settings = {
 	init: init,
 	addSets: addSets,
 	drawSets: drawSets,
@@ -301,7 +302,7 @@ _subscribe('init', function() {
 _subscribe('preload', function() {
 	if (!_settings.settingsValues.heroNameStart) {
 		/* todo is `this` correct _ext */
-		var heroName = this.heroName;
+		const heroName = this.heroName;
 		_settings.settingsValues.heroNameStart = heroName.substring(0, Math.max(3, heroName.length - 2));
 		_settings.getSettingInput('heroNameStart').val(_settings.settingsValues.heroNameStart).trigger('change');
 	}

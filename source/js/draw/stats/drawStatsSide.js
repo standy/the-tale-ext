@@ -1,14 +1,14 @@
-var utils = require('../../utils/');
-var _const = utils.const;
-var _icons = _const.ICONS;
-var _elements = utils.elements;
-var _utils = utils.utils;
-var _settings = utils.settings;
-var _log = utils.log;
-var isActType = utils.isActType;
-var _archive = require('../archive/');
+const utils = require('../../utils/');
+const _const = utils.const;
+const _icons = _const.ICONS;
+const _elements = utils.elements;
+const _utils = utils.utils;
+const _settings = utils.settings;
+const _log = utils.log;
+const isActType = utils.isActType;
+const _archive = require('../archive/');
 
-var countStatsTotal = require('./countStatsTotal');
+const countStatsTotal = require('./countStatsTotal');
 
 
 _elements.addTab('stats-side', {
@@ -17,23 +17,23 @@ _elements.addTab('stats-side', {
 	content: '<div class="stats" />'
 });
 _elements.activeTab('stats-side');
-var $stats = _elements.getTabInner('stats-side');
+const $stats = _elements.getTabInner('stats-side');
 
 function drawStatsSide(archiveGroups) {
 	archiveGroups = archiveGroups || _archive.archiveGroups;
-	var groups = _settings.settingsValues.statsByLevel ? groupsByLevel(archiveGroups, _settings.settingsValues.statsByLevelValue) : archiveGroups;
+	const groups = _settings.settingsValues.statsByLevel ? groupsByLevel(archiveGroups, _settings.settingsValues.statsByLevelValue) : archiveGroups;
 
-	var statsTotal = countStatsTotal(groups, _settings.settingsValues.statsActionsCount);
-	var mobId = _settings.settingsValues.statsByMob && (_settings.settingsValues.statsByMobId || statsTotal.lastMobId);
+	const statsTotal = countStatsTotal(groups, _settings.settingsValues.statsActionsCount);
+	const mobId = _settings.settingsValues.statsByMob && (_settings.settingsValues.statsByMobId || statsTotal.lastMobId);
 
-	var html = '';
-	var htmlMe;
+	let html = '';
+	let htmlMe;
 	if (_settings.settingsValues.myStatsByMob && mobId) {
 		htmlMe = drawStatsSideByActor(statsTotal.meByMob[mobId]);
 	} else {
 		htmlMe = drawStatsSideByActor(statsTotal.me);
 	}
-	var htmlEnemy;
+	let htmlEnemy;
 	if (mobId) {
 		htmlEnemy =
 			'<tr class="unhover">' +
@@ -47,7 +47,7 @@ function drawStatsSide(archiveGroups) {
 			'</tr>' +
 			drawStatsSideByActor(statsTotal.enemy);
 	}
-	var statsTable =
+	const statsTable =
 		'<table class="table table-condensed table-noborder table-hover-dark table-stats">' +
 			'<tr class="unhover">' +
 				'<th class="stats-name"></th>' +
@@ -65,8 +65,8 @@ function drawStatsSide(archiveGroups) {
 		'</table>';
 
 
-	var loot = statsTotal.loot;
-	var htmlLoot =
+	const loot = statsTotal.loot;
+	const htmlLoot =
 		'<span class="stats-name" title="Поднял/Пусто/Выбросил/Умер">' + _icons.pickup + '</span> ' +
 		'<span title="Поднял">' + loot.pickup + '</span> / ' +
 		'<span title="Пусто">' + loot.empty + '</span> / ' +
@@ -74,9 +74,9 @@ function drawStatsSide(archiveGroups) {
 		'<span title="Умер">' + loot.death + '</span>';
 
 
-	var htmlTime =
+	let htmlTime =
 		'<b>' + statsTotal.actionsSum + '</b> ' + _utils.declensionByNumber(statsTotal.actionsSum, ['действие', 'действия', 'действий']) + ' за ' + _utils.timeSpan(statsTotal.actionsTime) + '<br />';
-	var interestAverageActions = [{
+	const interestAverageActions = [{
 		type: 'fight,rest',
 		text: 'бой/отдых',
 		icon: '<span class="glyphicon glyphicon-flag"></span>'
@@ -121,32 +121,35 @@ function drawStatsSide(archiveGroups) {
 		countAverage: 1,
 		text: 'на отдых'
 	}];
-	for (var i = 0; i < interestAverageActions.length; i++) {
-		var act = interestAverageActions[i];
+	for (let i = 0; i < interestAverageActions.length; i++) {
+		const act = interestAverageActions[i];
 		if (act.title) {
 			htmlTime += act.title + '<br />';
 			continue;
 		}
 
-		var types = act.type.split(',');
-		var type;
-		var count = 0;
-		var countTotal = 0;
-		var time = 0;
-		for (var j = 0; j < types.length; j++) {
-			type = types[j];
+		const types = act.type.split(',');
+		let count = 0;
+		let countTotal = 0;
+		let time = 0;
+		for (let j = 0; j < types.length; j++) {
+			const type = types[j];
 			time += statsTotal.actionsTimes[type] || 0;
 			countTotal += statsTotal.actionsCounts[type] || 0;
 			if (!act.countType) count += statsTotal.actionsCounts[type];
 		}
-		type = types[0];
 		if (act.countType) count = statsTotal.actionsCounts[act.countType];
-		var timePercent = Math.round(time / statsTotal.actionsTime * 1000) / 10;
+		const timePercent = Math.round(time / statsTotal.actionsTime * 1000) / 10;
 		if (act.countAverage) time = time / count;
 
 
 		if (time) {
-			htmlTime += '<span class="action-icon ' + (act.countType || type) + '" title="' + types.map(function(item) { return _const.ACTION_TYPE_TEXTS[item]; }).join(', ') + '">' + (act.icon || _const.ACTION_TYPE_ICONS[type]) + '</span>';
+			const type = types[0];
+			htmlTime +=
+				'<span class="action-icon ' + (act.countType || type) + '" ' +
+				'title="' + types.map(function(item) { return _const.ACTION_TYPE_TEXTS[item]; }).join(', ') + '">' +
+				(act.icon || _const.ACTION_TYPE_ICONS[type]) +
+				'</span>';
 			if (!act.countAverage) {
 				htmlTime += '<span title="' + _utils.timeSpan(time) + '">' + timePercent.toFixed(1) + '%</span> - ';
 			} else {
@@ -166,32 +169,32 @@ function drawStatsSide(archiveGroups) {
 
 
 function drawStatsSideByActor(stats) {
-	var html = '';
+	let html = '';
 	if (!stats) return html;
-	var types = [].concat(_const.ACTIVE, ['dmgSum'], _const.PASSIVE);
-	for (var i = 0; i < types.length; i++) {
-		var type = types[i];
-		var isDot = isActType('DOT', type);
-		var isPassive = isActType('PASSIVE', type);
-		var sumTo = _const.SUM_TO_MAIN[type];
-		var dmgSum = stats.dmgSum || {};
-		var hit = stats.hit || {};
+	const types = [].concat(_const.ACTIVE, ['dmgSum'], _const.PASSIVE);
+	for (let i = 0; i < types.length; i++) {
+		const type = types[i];
+		const isDot = isActType('DOT', type);
+		const isPassive = isActType('PASSIVE', type);
+		const sumTo = _const.SUM_TO_MAIN[type];
+		const dmgSum = stats.dmgSum || {};
+		const hit = stats.hit || {};
 
 		if (stats[type]) {
-			var stat = stats[type];
-			var title = _const.ACTION_TRANSLATE[type] +
+			const stat = stats[type];
+			const title = _const.ACTION_TRANSLATE[type] +
 				(sumTo ? ', включено в ' + _const.ACTION_TRANSLATE[sumTo]
 					: (isPassive ? ', не учитывается в сумме' : '')
 				);
-			var htmlStat = '<td class="stats-name" title="' + title + '">' + _icons[type] + '</td> ';
+			let htmlStat = '<td class="stats-name" title="' + title + '">' + _icons[type] + '</td> ';
 
-			var count = stat.count;
-			var sum = stat.sum;
-			var average = (Math.round(sum / count * 100) / 100) || 0;
-			var totalSum = dmgSum.sum;
-			var hitCount = 0;
-			var hitSum = hit.sum || 0;
-			var chance = 0;
+			const count = stat.count;
+			const sum = stat.sum;
+			const average = (Math.round(sum / count * 100) / 100) || 0;
+			const totalSum = dmgSum.sum;
+			let hitCount = 0;
+			const hitSum = hit.sum || 0;
+			let chance = 0;
 
 			if (isPassive) {
 				// Если скилл пассивный, берем % срабатываний от кол-ва общих боев (боев с мобом)
@@ -201,9 +204,9 @@ function drawStatsSideByActor(stats) {
 				hitCount = hit.count || 0;
 				chance = type === 'dmgSum' ? 100 : count / (hitCount + count) * 100;
 			}
-			var chanceText = type === 'hit' ? '-' : chance >= 100 ? Math.round(chance * 10) / 10 : chance.toFixed(2);
+			const chanceText = type === 'hit' ? '-' : chance >= 100 ? Math.round(chance * 10) / 10 : chance.toFixed(2);
 
-			var countText = 'сработал ' + _utils.declensionByNumber(count, ['раз', 'раза', 'раз'], 1);
+			const countText = 'сработал ' + _utils.declensionByNumber(count, ['раз', 'раза', 'раз'], 1);
 
 			if (!sum) {
 				htmlStat += '<td class="stats-average"></td>';
@@ -211,18 +214,18 @@ function drawStatsSideByActor(stats) {
 				htmlStat += '<td class="stats-count"></td>';
 				htmlStat += '<td class="stats-sum"></td>';
 			} else {
-				var averagePercents = sum / count * hitCount / hitSum * 100;
-				var averagePercentsText = Math.round(averagePercents * 100) / 100 + '';
+				const averagePercents = sum / count * hitCount / hitSum * 100;
+				const averagePercentsText = Math.round(averagePercents * 100) / 100 + '';
 
-				var dmgPercents = sum / totalSum * 100;
-				var dmgPercentsText = '' + (dmgPercents < 100 ? dmgPercents.toFixed(1) : Math.round(dmgPercents)) + '%';
-				var sumText = 'всего ' + _utils.declensionByNumber(sum, ['урон', 'урона', 'урона'], 1);
+				const dmgPercents = sum / totalSum * 100;
+				const dmgPercentsText = '' + (dmgPercents < 100 ? dmgPercents.toFixed(1) : Math.round(dmgPercents)) + '%';
+				const sumText = 'всего ' + _utils.declensionByNumber(sum, ['урон', 'урона', 'урона'], 1);
 
-				var bonusPercent = Math.round((averagePercents - 100) * chance) / 100;
-				var bonusPercentText = bonusPercent && !isDot
+				const bonusPercent = Math.round((averagePercents - 100) * chance) / 100;
+				const bonusPercentText = bonusPercent && !isDot
 					? (bonusPercent >= 0 ? '+' : '&ndash;') + Math.abs(bonusPercent) + '%'
 					: '';
-				var bpTranslateText = (averagePercentsText >= 100 ? '+' : '&ndash;') +
+				const bpTranslateText = (averagePercentsText >= 100 ? '+' : '&ndash;') +
 					Math.abs(Math.round(averagePercentsText * 100 - 10000) / 100) + '% x ' + chanceText;
 
 				htmlStat += '<td class="stats-average" title="' + averagePercentsText + '%">' + average.toFixed(2) + '</td>';
@@ -238,9 +241,9 @@ function drawStatsSideByActor(stats) {
 }
 
 function groupsByLevel(archiveGroups, level) {
-	var levelsLog = _log.get('levelsLog') || [];
-	var lv1;
-	var lv2;
+	const levelsLog = _log.get('levelsLog') || [];
+	let lv1;
+	let lv2;
 	if (level) {
 		lv1 = levelsLog.filter(function(item) { return item[1] === level; })[0] || [];
 		lv2 = levelsLog.filter(function(item) { return item[1] === level + 1; })[0] || [];
@@ -248,13 +251,13 @@ function groupsByLevel(archiveGroups, level) {
 		lv1 = levelsLog[levelsLog.length - 1];
 		lv2 = [];
 	}
-	var time1 = lv1[0];
-	var time2 = lv2[0];
-	var i1 = null;
-	var i2 = null;
-	for (var i = 0; i < archiveGroups.length; i++) {
-		var ts1 = archiveGroups[i].ts[0];
-		var ts2 = archiveGroups[archiveGroups.length - 1 - i].ts[0];
+	const time1 = lv1[0];
+	const time2 = lv2[0];
+	let i1 = null;
+	let i2 = null;
+	for (let i = 0; i < archiveGroups.length; i++) {
+		const ts1 = archiveGroups[i].ts[0];
+		const ts2 = archiveGroups[archiveGroups.length - 1 - i].ts[0];
 		if (i1 === null && ts1 > time1) { i1 = i; }
 		if (i2 === null && ts2 < time2) { i2 = archiveGroups.length - 1 - i; }
 	}

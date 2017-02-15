@@ -1,18 +1,18 @@
-var $ = require('jquery');
-var utils = require('../../utils/');
-var _elements = utils.elements;
+const $ = require('jquery');
+const utils = require('../../utils/');
+const _elements = utils.elements;
 
-var mapData = require('./mapData');
+const mapData = require('./mapData');
 
-var $townsContent = _elements.getTabInner('towns');
+const $townsContent = _elements.getTabInner('towns');
 
 
-var init = function() {
-	var places = mapData.places;
-	var html = '';
-	for (var i in places) {
+const init = function() {
+	const places = mapData.places;
+	let html = '';
+	for (const i in places) {
 		if (places.hasOwnProperty(i)) {
-			var place = places[i];
+			const place = places[i];
 			html +=
 			'<tr class="place-row" data-place-id="' + place.id + '">' +
 				'<td class="size"><span class="badge">' + place.size + '</span></td>' +
@@ -43,7 +43,7 @@ var init = function() {
 				html +
 			'</tbody>' +
 		'</table>';
-	var $table = $(html).appendTo($townsContent);
+	const $table = $(html).appendTo($townsContent);
 	window.tables.makeSortable($table);
 };
 

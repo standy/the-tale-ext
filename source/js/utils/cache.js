@@ -1,5 +1,5 @@
-var cacheStore = {};
-var cacheTimeId = {};
+const cacheStore = {};
+const cacheTimeId = {};
 function cache(name, value, time) {
 	if (arguments.length > 1) {
 		cacheStore[name] = value;

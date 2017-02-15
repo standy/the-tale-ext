@@ -1,37 +1,37 @@
-var $ = require('jquery');
-var utils = require('../utils/');
-var _subscribe = utils.subscribe;
-var _const = utils.const;
-var _settings = utils.settings;
-var _notification = require('../notifications/');
-var _heroName = utils.heroName;
+const $ = require('jquery');
+const utils = require('../utils/');
+const _subscribe = utils.subscribe;
+const _const = utils.const;
+const _settings = utils.settings;
+const _notification = require('../notifications/');
+const _heroName = utils.heroName;
 
 
 function checkHero(gameData) {
-	var _settingsValues = _settings.settingsValues;
+	const _settingsValues = _settings.settingsValues;
 
-	var hero = gameData.account.hero;
-	var actionType = hero.action.type;
-	var actionPercent = hero.action.percents;
-	var actionName = _const.ACTION_TYPE_NAMES[actionType];
+	const hero = gameData.account.hero;
+	const actionType = hero.action.type;
+	const actionPercent = hero.action.percents;
+	const actionName = _const.ACTION_TYPE_NAMES[actionType];
 
-	var energy = hero.energy.value;
-	var energyBonus = _settingsValues.autohelpEnergyBonus ? hero.energy.bonus - _settingsValues.autohelpEnergyBonusMax : 0;
+	const energy = hero.energy.value;
+	let energyBonus = _settingsValues.autohelpEnergyBonus ? hero.energy.bonus - _settingsValues.autohelpEnergyBonusMax : 0;
 	if (energyBonus < 0) energyBonus = 0;
 
 	if (energy + energyBonus < 4) return;
 
 
-	var isFight = actionName === 'fight';
-	var isRest = actionType < 10 && actionName !== 'fight';
+	const isFight = actionName === 'fight';
+	const isRest = actionType < 10 && actionName !== 'fight';
 
-	var isBoss = !!hero.action.is_boss;
+	const isBoss = !!hero.action.is_boss;
 	if (_settingsValues.autohelpHp && hero.base.health < _settingsValues.autohelpHpLowerValue && isFight && (!_settingsValues.autohelpHpBoss || isBoss)) {
 		godHelp('Низкое здоровье: ' + hero.base.health);
 		return;
 	}
 
-	var isHeplingСompanion = actionName === 'companionHeal';
+	const isHeplingСompanion = actionName === 'companionHeal';
 	if (_settingsValues.autohelpСompanion && isHeplingСompanion && hero.companion.health < _settingsValues.autohelpСompanionHp) {
 		godHelp('Низкое здоровье спутника: ' + hero.companion.health);
 
@@ -68,7 +68,7 @@ function checkHero(gameData) {
 		return;
 	}
 
-	var hasCard = !$('.pgf-get-card-button').hasClass('pgf-hidden');
+	const hasCard = !$('.pgf-get-card-button').hasClass('pgf-hidden');
 	if (_settingsValues.autocard && hasCard) {
 		$('.pgf-get-card-button a').trigger('click');
 		return;
@@ -77,7 +77,7 @@ function checkHero(gameData) {
 	return true;
 
 	function godHelp(msg, ability, getParams) {
-		var csrf = document.head.innerHTML.match(/("X-CSRFToken")(.*)(".*")/, 'g')[3].replace(/"/g, '');
+		const csrf = document.head.innerHTML.match(/("X-CSRFToken")(.*)(".*")/, 'g')[3].replace(/"/g, '');
 		ability = ability || 'help';
 		console.log('god ' + ability + '!', getParams, actionName, msg, $.extend({}, hero));
 		if (_settingsValues.autohelpNotify) {
@@ -93,13 +93,13 @@ function checkHero(gameData) {
 		if (!_settingsValues.autohelp) {
 			return;
 		}
-		var paramsStr = '';
-		for (var key in getParams) {
+		let paramsStr = '';
+		for (const key in getParams) {
 			if (getParams.hasOwnProperty(key)) {
 				paramsStr += '&' + key + '=' + getParams[key];
 			}
 		}
-		var url = '/game/abilities/' + ability + '/api/use?api_version=1.0&api_client=' + window.API_CLIENT + paramsStr;
+		const url = '/game/abilities/' + ability + '/api/use?api_version=1.0&api_client=' + window.API_CLIENT + paramsStr;
 		//				console.log('url: ', url)
 		//				if (!_settingsValues.autohelp) return;
 		hero.energy.value -= 4;

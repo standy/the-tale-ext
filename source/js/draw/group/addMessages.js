@@ -1,13 +1,13 @@
-var $ = require('jquery');
-var utils = require('../../utils/');
-var _const = utils.const;
-var _publish = utils.publish;
-var isActType = utils.isActType;
+const $ = require('jquery');
+const utils = require('../../utils/');
+const _const = utils.const;
+const _publish = utils.publish;
+const isActType = utils.isActType;
 
-var messagesGrouped = require('./list');
+const messagesGrouped = require('./list');
 
 function addMessages(messagesList) {
-	for (var i = 0; i < messagesList.length; i++) {
+	for (let i = 0; i < messagesList.length; i++) {
 		addMessage(messagesList[i]);
 	}
 	return messagesGrouped;
@@ -21,18 +21,18 @@ data: {
 	typeId: 3
 }*/
 function addMessage(message) {
-	var hero = message[3];
-	var act = message[4];
-	var action = hero.action || false;
-	var currActionName;
-	var currType;
-	var currInfoLink;
-	var currTypeId;
-	var grData;
-	var actionName;
+	const hero = message[3];
+	const act = message[4];
+	const action = hero.action || false;
+	let currActionName;
+	let currType;
+	let currInfoLink;
+	let currTypeId;
+	let grData;
+	let actionName;
 
-	var currGr = messagesGrouped[messagesGrouped.length - 1];
-	var isFirstGrouop = !currGr;
+	let currGr = messagesGrouped[messagesGrouped.length - 1];
+	const isFirstGrouop = !currGr;
 
 	if (isFirstGrouop) {
 		/* самая первая группа */
@@ -49,9 +49,9 @@ function addMessage(message) {
 
 	if (action) {
 		actionName = action.description;
-		var actionTypeId = action.type;
-		var actionType = _const.ACTION_TYPE_NAMES[actionTypeId];
-		var actionInfoLink = action.info_link;
+		const actionTypeId = action.type;
+		const actionType = _const.ACTION_TYPE_NAMES[actionTypeId];
+		const actionInfoLink = action.info_link;
 
 		if (!currActionName) currGr.data.actionName = currActionName = actionName;
 		if (!currType) currGr.data.type = currType = actionType;
@@ -70,9 +70,9 @@ function addMessage(message) {
 
 
 	if (act) {
-		var actType = act.type;
-		var isFightStart = isActType('FIGHT_START', actType);
-		var isFightEnd = isActType('LOOT', actType);
+		const actType = act.type;
+		const isFightStart = isActType('FIGHT_START', actType);
+		const isFightEnd = isActType('LOOT', actType);
 		if (actType === 'godheal' || actType === 'godhit' || actType === 'godcoins') {
 			grData = $.extend(grData, {god: 1});
 		}
@@ -88,7 +88,7 @@ function addMessage(message) {
 			if (isFirstGrouop) {
 				newGroup(message, grData);
 			} else {
-				var lastG = addToLastGroup(message, {
+				const lastG = addToLastGroup(message, {
 					actionName: 'в бою',
 					type: 'fight',
 					info_link: '',
@@ -128,12 +128,12 @@ function addMessage(message) {
 	}
 
 	function addToLastGroup(message, data) {
-		var lastG = messagesGrouped[messagesGrouped.length - 1];
+		const lastG = messagesGrouped[messagesGrouped.length - 1];
 		if (data) {
 			lastG.data = $.extend(data, lastG.data);
 		}
 		if (lastG.messages.length) {
-			var prevMsg = lastG.messages[lastG.messages.length - 1];
+			const prevMsg = lastG.messages[lastG.messages.length - 1];
 			if (message[0] - prevMsg[0] > 1200) {
 				// hole in messages 20 min
 				lastG.data.isBroken = 4;
@@ -144,7 +144,7 @@ function addMessage(message) {
 	}
 
 	function finishGroup(data) {
-		var lastG = messagesGrouped[messagesGrouped.length - 1];
+		const lastG = messagesGrouped[messagesGrouped.length - 1];
 		delete lastG.data.unfinished;
 		if (lastG.data.fightStarted) {
 			lastG.data.isBroken = 3; // fight started, not ended
@@ -155,7 +155,7 @@ function addMessage(message) {
 		_publish('groupFinished', lastG, messagesGrouped.length - 1);
 	}
 	function newGroup(message, data) {
-		var newG = {
+		const newG = {
 			data: {unfinished: 1},
 			messages: []
 		};

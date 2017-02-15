@@ -1,12 +1,12 @@
-var $ = require('jquery');
-var core = require('../utils/');
+const $ = require('jquery');
+const core = require('../utils/');
 
 
-var _log = core.log;
-var _subscribe = core.subscribe;
+const _log = core.log;
+const _subscribe = core.subscribe;
 
 
-var _trace = module.exports = {};
+const _trace = module.exports = {};
 _trace.messagesLog = require('./messagesLog');
 _trace.traceInit = require('./traceInit');
 _trace.traceData = require('./traceData');
@@ -23,18 +23,18 @@ _subscribe('init', function(game_data) {
 
 _subscribe('newMessages', function(messagesNew, gameData, timestamp) {
 	_log.set('game_data', gameData);
-	var hero = gameData.account.hero;
-	var levelsLog = _log.get('levelsLog') || [];
-	var lastLevel = (levelsLog[levelsLog.length - 1] || [])[1];
+	const hero = gameData.account.hero;
+	const levelsLog = _log.get('levelsLog') || [];
+	const lastLevel = (levelsLog[levelsLog.length - 1] || [])[1];
 	if (hero.base.level !== lastLevel) {
 		console.info('level up!', hero.base.level);
 		levelsLog.push([timestamp, hero.base.level]);
 		_log.set('levelsLog', levelsLog);
 	}
-	var powersLog = _log.get('powersLog') || [];
+	let powersLog = _log.get('powersLog') || [];
 	powersLog = powersLog.filter(function(t) { return typeof t[1] === 'number'; });
-	var lastPower = (powersLog[powersLog.length - 1] || [])[1];
-	var powerSum = hero.secondary.power[0] + hero.secondary.power[1];
+	const lastPower = (powersLog[powersLog.length - 1] || [])[1];
+	const powerSum = hero.secondary.power[0] + hero.secondary.power[1];
 	if (powerSum !== lastPower) {
 		console.info('power up!', powerSum);
 		powersLog.push([timestamp, powerSum]);
@@ -47,7 +47,7 @@ _subscribe('newMessages', function(messagesNew, gameData, timestamp) {
 _subscribe('init', function() {
 	$('#pgf-journal-container')
 		.on('click', '[data-ts]', function() {
-			var timestamp = $(this).data('ts');
+			const timestamp = $(this).data('ts');
 			_trace.messagesLog.forEach(function(message) {
 				if (message[0] === timestamp) {
 					console.log(message);

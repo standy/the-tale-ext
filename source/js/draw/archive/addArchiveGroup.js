@@ -1,22 +1,22 @@
-var archiveGroups = require('./archiveGroups');
-var countArchiveFromGroup = require('./countArchiveFromGroup');
+const archiveGroups = require('./archiveGroups');
+const countArchiveFromGroup = require('./countArchiveFromGroup');
 
 function addArchiveGroup(group) {
 	if (!group) return;
-	var archiveGroup = countArchiveFromGroup(group);
+	const archiveGroup = countArchiveFromGroup(group);
 
 	if (!archiveGroup) return;
 
-	var lastStatGroup = archiveGroups[archiveGroups.length - 1];
+	const lastStatGroup = archiveGroups[archiveGroups.length - 1];
 	if (!lastStatGroup || lastStatGroup.ts[0] === archiveGroup.ts[0]) {
 		/* последняя группа обновляется каждый ход*/
 		archiveGroups[archiveGroups.length - 1] = archiveGroup;
 	} else if (lastStatGroup.ts[0] < archiveGroup.ts[0]) {
 		archiveGroups.push(archiveGroup);
 	} else {
-		var isInArr = false;
-		for (var i = 0; i < archiveGroups.length; i++) {
-			var sg = archiveGroups[i];
+		let isInArr = false;
+		for (let i = 0; i < archiveGroups.length; i++) {
+			const sg = archiveGroups[i];
 			if (sg.ts[0] === archiveGroup.ts[0]) {
 				archiveGroups[i] = archiveGroup;
 				isInArr = true;

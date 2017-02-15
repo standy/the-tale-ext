@@ -1,21 +1,21 @@
-var _parse = require('../../parse/');
+const _parse = require('../../parse/');
 
 
 
 function htmlLongMessage(message) {
-	var time = message[1];
-	var msg = message[2];
-	var act = message[4];
+	const time = message[1];
+	const msg = message[2];
+	const act = message[4];
 
-	var actType = '';
+	let actType = '';
 	if (act && act.type) {
-		var isMe = act.isMe;
+		const isMe = act.isMe;
 		actType = ' msg msg-' + act.type + (isMe ? ' me' : ' enemy');
 	}
-	var messageHighlight = _parse.highlight(msg, act);
+	const messageHighlight = _parse.highlight(msg, act);
 
 
-	var htmlLongMsg =
+	const htmlLongMsg =
 		'<div class="pgf-time time">' + time + '</div>' +
 			'<div class="pgf-message message">' +
 			'<div class="submessage' + actType + '">' + messageHighlight + '</div>' +

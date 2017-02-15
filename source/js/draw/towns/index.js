@@ -1,4 +1,4 @@
-var _towns = module.exports = {};
+const _towns = module.exports = {};
 _towns.init = require('./init');
 _towns.mapDataUpdate = require('./mapDataUpdate');
 _towns.showMapDialogById = require('./showMapDialogById');
@@ -6,25 +6,25 @@ _towns.townQuestUpdate = require('./townQuestUpdate');
 _towns.townParams = require('./townParams');
 _towns.mapData = require('./mapData');
 
-var $ = require('jquery');
+const $ = require('jquery');
 
 
-var utils = require('../../utils/');
-var _elements = utils.elements;
-var _subscribe = utils.subscribe;
+const utils = require('../../utils/');
+const _elements = utils.elements;
+const _subscribe = utils.subscribe;
 
 
 
-var $townsContent = _elements.getTabInner('towns');
+const $townsContent = _elements.getTabInner('towns');
 $('body')
 	.on('click.town', '.town', function() {
 		console.log('click .town');
 		if (!_towns.mapData) return;
-		var id = $(this).data('place-id');
+		const id = $(this).data('place-id');
 		_towns.showMapDialogById(id);
 	})
 	.on('click.town', '.reload', function() {
-		var map_version = utils.map_version;
+		const map_version = utils.map_version;
 		if (map_version) {
 			_towns.mapDataUpdate(map_version)
 				.done(function(mapData) {
@@ -38,7 +38,7 @@ $townsContent.html('<span class="link-ajax pull-right reload glyphicon glyphicon
 
 
 _subscribe('preload', function() {
-	var map_version = utils.map_version;
+	const map_version = utils.map_version;
 	if (!map_version) return;
 	_towns.mapDataUpdate(map_version)
 		.done(function() {

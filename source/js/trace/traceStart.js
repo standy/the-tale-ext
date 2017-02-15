@@ -1,7 +1,7 @@
-var $ = require('jquery');
-var pgf = require('pgf');
+const $ = require('jquery');
+const pgf = require('pgf');
 
-var traceData = require('./traceData');
+const traceData = require('./traceData');
 
 function traceStart() {
 	$(document).bind(pgf.game.events.DATA_REFRESHED + '.ext-trace', function(e, game_data) {

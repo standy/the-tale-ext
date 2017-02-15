@@ -1,12 +1,12 @@
-var _parse = require('../parse/');
-var messagesLog = require('./messagesLog');
-var _utils = require('../utils');
-var _subscribe = _utils.subscribe;
+const _parse = require('../parse/');
+const messagesLog = require('./messagesLog');
+const _utils = require('../utils');
+const _subscribe = _utils.subscribe;
 
 
 function traceInit() {
-	for (var i = 0; i < messagesLog.length; i++) {
-		var messageNew = messagesLog[i];
+	for (let i = 0; i < messagesLog.length; i++) {
+		const messageNew = messagesLog[i];
 		messageNew[4] = _parse.short(messageNew[2]) || false;
 	}
 }

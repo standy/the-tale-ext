@@ -1,4 +1,4 @@
-var _utils = {};
+const _utils = {};
 _utils.capitalize = function(text) {
 	return text.substring(0, 1).toUpperCase() + text.substring(1);
 };
@@ -7,9 +7,9 @@ _utils.declensionByNumber = function(number, titles, addCount) {
 };
 _utils.timeSpan = function(timeSpan) {
 	timeSpan = Math.floor(+timeSpan) || 0;
-	var h = Math.floor(timeSpan / 60 / 60);
-	var m = Math.floor(timeSpan / 60) % 60;
-	var s = timeSpan % 60;
+	const h = Math.floor(timeSpan / 60 / 60);
+	const m = Math.floor(timeSpan / 60) % 60;
+	const s = timeSpan % 60;
 	return (h ? h + ':' : '') + (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
 };
 

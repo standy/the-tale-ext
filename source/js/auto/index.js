@@ -1,4 +1,4 @@
-var _auto = module.exports = {};
+const _auto = module.exports = {};
 
 _auto.initSets = require('./initSettings');
 _auto.checkHero = require('./checkHero');

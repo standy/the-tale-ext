@@ -1,11 +1,11 @@
-var pgf = require('pgf');
-var _const = require('./const');
+const pgf = require('pgf');
+const _const = require('./const');
 
 
 function setLog(name, messages) {
 	try {
 		if (name === 'messagesLog') {
-			var max = /*_settings.settingsValues.maxLogLength || */_const.MAX_LOG_LENGTH;
+			const max = /*_settings.settingsValues.maxLogLength || */_const.MAX_LOG_LENGTH;
 			pgf.base.settings.set(name, JSON.stringify(messages.slice(messages.length - max)));
 		} else {
 			pgf.base.settings.set(name, JSON.stringify(messages));
@@ -15,27 +15,27 @@ function setLog(name, messages) {
 	}
 }
 function getLog(name) {
-	var g = pgf.base.settings.get(name);
+	const g = pgf.base.settings.get(name);
 	return g ? JSON.parse(g) : '';
 }
 function logToConsole(name) {
-	var strLog = pgf.base.settings.get(name);
-	var s = strLog
+	const strLog = pgf.base.settings.get(name);
+	const s = strLog
 		.replace(/\],\[/g, '],\n\t[')
 		.replace(/\},{/g, '},\n\t{')
 		.replace(/"(action|base|energy|habits|secondary|turn)"/g, '\n\t\t"$1"');
 	console.log(s);
 }
 function toStr(messages) {
-	var strLog = JSON.stringify(messages);
-	var s = strLog
+	const strLog = JSON.stringify(messages);
+	const s = strLog
 		.replace(/\],\[/g, '],\n\t[')
 		.replace(/"(action|base|energy|habits|secondary|turn)"/g, '\n\t\t"$1"');
 	return s;
 }
 function size() {
-	var t = 0;
-	for (var x in localStorage) {
+	let t = 0;
+	for (const x in localStorage) {
 		if (localStorage.hasOwnProperty(x)) {
 			t += localStorage[x].length * 2;
 		}

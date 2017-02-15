@@ -1,12 +1,12 @@
-var $ = require('jquery');
-var utils = require('../utils/');
-var _subscribe = utils.subscribe;
-var _settings = utils.settings;
-var _notification = require('../notifications/');
-var _heroName = utils.heroName;
+const $ = require('jquery');
+const utils = require('../utils/');
+const _subscribe = utils.subscribe;
+const _settings = utils.settings;
+const _notification = require('../notifications/');
+const _heroName = utils.heroName;
 
 
-var CHOICES = {
+const CHOICES = {
 	/* peacefullnes */
 	peacePlus: [
 		'прибегнуть к дипломатии' /* collect_debt */
@@ -28,12 +28,12 @@ var CHOICES = {
 	]
 };
 
-var lastquest = '';
+let lastquest = '';
 
 function checkQuest(gameData) {
-	var csrf = document.head.innerHTML.match(/("X-CSRFToken")(.*)(".*")/, 'g')[3].replace(/"/g, '');
-	var _settingsValues = _settings.settingsValues;
-	var selectChoices = {};
+	const csrf = document.head.innerHTML.match(/("X-CSRFToken")(.*)(".*")/, 'g')[3].replace(/"/g, '');
+	const _settingsValues = _settings.settingsValues;
+	const selectChoices = {};
 	if (_settingsValues.autoquestPeacePlus) {
 		selectChoices.peacePlus = 1;
 	}
@@ -47,15 +47,15 @@ function checkQuest(gameData) {
 		selectChoices.honorMinus = 1;
 	}
 
-	var hero = gameData.account.hero;
-	var quests = hero.quests.quests;
-	var line = quests[1].line;
-	for (var i = 0; i < line.length; i++) {
-		var q = line[i];
-		for (var choiceIndex = 0; choiceIndex < q.choice_alternatives.length; choiceIndex++) {
-			var choiceName = q.choice_alternatives[choiceIndex][1];
-			var option_uid = q.choice_alternatives[choiceIndex][0];
-			for (var reward in CHOICES)				{
+	const hero = gameData.account.hero;
+	const quests = hero.quests.quests;
+	const line = quests[1].line;
+	for (let i = 0; i < line.length; i++) {
+		const q = line[i];
+		for (let choiceIndex = 0; choiceIndex < q.choice_alternatives.length; choiceIndex++) {
+			const choiceName = q.choice_alternatives[choiceIndex][1];
+			const option_uid = q.choice_alternatives[choiceIndex][0];
+			for (const reward in CHOICES)				{
 				if (CHOICES.hasOwnProperty(reward)) {
 					if (CHOICES[reward].indexOf(choiceName) >= 0) {
 						if (selectChoices[reward]) {

@@ -1,12 +1,12 @@
-var utils = require('../../utils/');
-var _settings = utils.settings;
-var drawGroupInner = require('./drawGroupInner');
-var messagesGrouped = require('./list');
+const utils = require('../../utils/');
+const _settings = utils.settings;
+const drawGroupInner = require('./drawGroupInner');
+const messagesGrouped = require('./list');
 
 
 function drawGroup(group, index, isOpen) {
 	isOpen = isOpen || _settings.settingsValues.groupOpenOnDefault;
-	var html =
+	const html =
 		'<div class="group' + (isOpen ? ' open' : '') + '" data-index="' + index + '">' +
 			drawGroupInner(group, messagesGrouped[index + 1]) +
 		'</div>';

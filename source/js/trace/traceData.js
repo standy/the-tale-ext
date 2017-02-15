@@ -1,15 +1,15 @@
-var utils = require('../utils/');
-var _parse = require('../parse/');
-var _publish = utils.publish;
-var _log = utils.log;
-var messagesLog = require('./messagesLog');
+const utils = require('../utils/');
+const _parse = require('../parse/');
+const _publish = utils.publish;
+const _log = utils.log;
+const messagesLog = require('./messagesLog');
 
 
 function traceData(game_data) {
-	var hero = game_data.account.hero;
+	const hero = game_data.account.hero;
 	if (!hero) return;
 
-	var heroData = {
+	const heroData = {
 		action: {
 			description: hero.action.description,
 			type: hero.action.type,
@@ -39,15 +39,15 @@ function traceData(game_data) {
 		turn: game_data.turn.number
 	};
 
-	var lastLog = messagesLog[messagesLog.length - 1] || [];
-	var lastTimestamp = lastLog[0];
-	var messagesPack = hero.messages;
+	const lastLog = messagesLog[messagesLog.length - 1] || [];
+	const lastTimestamp = lastLog[0];
+	const messagesPack = hero.messages;
 	messagesPack[messagesPack.length - 1][3] = heroData;
-	var messagesPackTimestamp = messagesPack[messagesPack.length - 1][0];
-	var messagesNew = [];
-	for (var i = 0; i < messagesPack.length; i++) {
+	const messagesPackTimestamp = messagesPack[messagesPack.length - 1][0];
+	const messagesNew = [];
+	for (let i = 0; i < messagesPack.length; i++) {
 		if (!lastTimestamp || messagesPack[i][0] > lastTimestamp) {
-			var messageNew = messagesPack[i];
+			const messageNew = messagesPack[i];
 //					if (messagesPackTimestamp === messageNew[0]) messageNew[3] = heroData;
 			messageNew[3] = messageNew[3] || false;
 			messageNew[4] = _parse.short(messageNew[2]) || false;

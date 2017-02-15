@@ -1,4 +1,4 @@
-var _groupMessages = module.exports = {};
+const _groupMessages = module.exports = {};
 _groupMessages.list = require('./list');
 _groupMessages.addMessages = require('./addMessages');
 _groupMessages.drawFakeMessage = require('./drawFakeMessage');
@@ -6,12 +6,12 @@ _groupMessages.drawMessages = require('./drawMessages');
 _groupMessages.redrawGroup = require('./redrawGroup');
 
 
-var $ = require('jquery');
-var _trace = require('../../trace/');
-var utils = require('../../utils/');
-var _subscribe = utils.subscribe;
-var _elements = utils.elements;
-var _settings = utils.settings;
+const $ = require('jquery');
+const _trace = require('../../trace/');
+const utils = require('../../utils/');
+const _subscribe = utils.subscribe;
+const _elements = utils.elements;
+const _settings = utils.settings;
 
 _subscribe('init', function() {
 	_groupMessages.addMessages(_trace.messagesLog);
@@ -29,8 +29,8 @@ _subscribe('init', function() {
 });
 
 _elements.getTabInner('group').on('click', '.group-title', function() {
-	var $group = $(this).closest('.group');
-	var index = $group.data('index');
+	const $group = $(this).closest('.group');
+	const index = $group.data('index');
 	console.log('group>', _groupMessages.list[index]);
 });
 
@@ -41,8 +41,8 @@ _elements.addControl('group-toggle', {
 })
 	.on('click', function() {
 //		_elements.activeTab('group');
-		var $icon = $(this).children('.glyphicon');
-		var isOpen = $icon.hasClass('glyphicon-chevron-up');
+		const $icon = $(this).children('.glyphicon');
+		const isOpen = $icon.hasClass('glyphicon-chevron-up');
 		_elements.getTabInner('group')
 			.children('.group').toggleClass('open', isOpen);
 		_elements.getTabInner('archive')

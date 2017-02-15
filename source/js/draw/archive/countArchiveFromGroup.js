@@ -1,19 +1,19 @@
 /** пересчет группы в архив */
 
-var $ = require('jquery');
-var utils = require('../../utils/');
-var isActType = utils.isActType;
-var upgradeArchiveGroup = require('./upgradeArchiveGroup');
+const $ = require('jquery');
+const utils = require('../../utils/');
+const isActType = utils.isActType;
+const upgradeArchiveGroup = require('./upgradeArchiveGroup');
 
 function countArchiveFromGroup(group) {
-	var groupData = group.data;
-	var messages = group.messages;
+	const groupData = group.data;
+	const messages = group.messages;
 	if (!messages.length) { return false; }
-	var isBroken = groupData.isBroken;
-	var dataType = groupData.type;
-	var first = messages[0];
-	var last = messages[messages.length - 1];
-	var archiveGroup = $.extend({}, {
+	const isBroken = groupData.isBroken;
+	const dataType = groupData.type;
+	const first = messages[0];
+	const last = messages[messages.length - 1];
+	const archiveGroup = $.extend({}, {
 		ts: [first[0], last[0]],
 		type: dataType,
 		text: groupData.actionName,
@@ -24,21 +24,21 @@ function countArchiveFromGroup(group) {
 		archiveGroup.me = {};
 		archiveGroup.enemy = {};
 		if (groupData.info_link) {
-			var mobId = groupData.info_link.replace('/guide/mobs/', '').replace('/info', '');
+			const mobId = groupData.info_link.replace('/guide/mobs/', '').replace('/info', '');
 			if (+mobId) {
 				archiveGroup.mobId = +mobId;
 			}
 		}
 
 		/* пересчет последней группы */
-		for (var i = 0; i < messages.length; i++) {
-			var message = messages[i];
-			var act = message[4];
+		for (let i = 0; i < messages.length; i++) {
+			const message = messages[i];
+			const act = message[4];
 			if (!act) continue;
-			var type = act.type; /* тип фразы */
+			const type = act.type; /* тип фразы */
 			if (isActType('FIGHT', type)) {
-				var isMe = act.isMe;
-				var addTo = archiveGroup[isMe ? 'me' : 'enemy'];
+				const isMe = act.isMe;
+				const addTo = archiveGroup[isMe ? 'me' : 'enemy'];
 				if (isActType('FIGHT_VALUES', type)) {
 					addTo[type] = addTo[type] || [];
 					addTo[type].push(act.value);

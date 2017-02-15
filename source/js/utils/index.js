@@ -1,4 +1,4 @@
-var utils = module.exports = {};
+const utils = module.exports = {};
 utils.const = require('./const');
 utils.subscribeList = require('./pubsub').subscribeList;
 utils.publish = require('./pubsub').publish;
@@ -15,12 +15,12 @@ utils.isActType = require('./isActType');
 
 
 /* todo разнести эту логику */
-var $ = require('jquery');
+const $ = require('jquery');
 
 setTimeout(function() {
 	$(document).on('ajaxSuccess.ext', function(event, XMLHttpRequest, setting, result) {
 		if (setting.url.indexOf('/game/api/info?api_client=') === 0) {
-			var game_data = result.data;
+			const game_data = result.data;
 
 			try {
 				utils.heroName = game_data.account.hero.base.name;

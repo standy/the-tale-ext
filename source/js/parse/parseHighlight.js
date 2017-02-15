@@ -1,5 +1,5 @@
-var phrasesHighlight = require('./journalPhrasesHighlight');
-var cfgHighlight = processHighlightRaw(phrasesHighlight);
+const phrasesHighlight = require('./journalPhrasesHighlight');
+const cfgHighlight = processHighlightRaw(phrasesHighlight);
 
 module.exports = parseHighlight;
 
@@ -7,14 +7,14 @@ module.exports = parseHighlight;
 * Метод выделяет ключевые слова в строке действия в журнале
 * */
 function parseHighlight(msg, act) {
-	for (var i = 0; i < cfgHighlight.length; i++) {
-		var regExp = cfgHighlight[i].regex;
-		var type = cfgHighlight[i].type || 'value';
+	for (let i = 0; i < cfgHighlight.length; i++) {
+		const regExp = cfgHighlight[i].regex;
+		const type = cfgHighlight[i].type || 'value';
 		msg = msg.replace(regExp, '<span class="' + type + '">$&</span>');
 	}
-	for (var cls in act) {
+	for (const cls in act) {
 		if (act.hasOwnProperty(cls)) {
-			var value = act[cls];
+			const value = act[cls];
 			if (cls !== 'value' && cls !== 'type') {
 				msg = msg.replace(value, '<span class="' + cls + '">' + value + '</span>');
 			}
@@ -29,13 +29,13 @@ function parseHighlight(msg, act) {
  * Прекомпилящия конфига фраз для выделения
  * */
 function processHighlightRaw(phrasesHighlight) {
-	var typeReg = /^\[[a-zA-Z]+\]/g;
-	var result = [];
-	for (var i = 0; i < phrasesHighlight.length; i++) {
-		var cfgString = phrasesHighlight[i];
-		var parsedCfg = {};
+	const typeReg = /^\[[a-zA-Z]+\]/g;
+	const result = [];
+	for (let i = 0; i < phrasesHighlight.length; i++) {
+		let cfgString = phrasesHighlight[i];
+		const parsedCfg = {};
 
-		var p = typeReg.exec(cfgString);
+		const p = typeReg.exec(cfgString);
 		if (p && p[0]) {
 			parsedCfg.type = p[0].substring(1, p[0].length - 1);
 		}
