@@ -7,6 +7,10 @@
   "devDependencies": {
     "css-loader": "^0.9.1",
     "es6-promise": "^2.0.1",
+    "eslint": "^3.15.0",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.1",
+    "eslint-plugin-standard": "^2.0.1",
     "gulp": "^3.8.5",
     "gulp-autoprefixer": "^2.1.0",
     "gulp-header": "^1.2.2",
