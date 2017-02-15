@@ -57,13 +57,13 @@ const sets = [{
 			}]
 		}, {
 			label: 'Лечение спутника, если его здоровье меньше',
-			name: 'autohelpСompanion',
+			name: 'autohelpCompanion',
 			isToggle: 1,
 			isInline: 1,
 			value: true,
 			inputs: [{
 				type: 'num',
-				name: 'autohelpСompanionHp',
+				name: 'autohelpCompanionHp',
 				isInline: 1,
 				value: 20
 			}]
