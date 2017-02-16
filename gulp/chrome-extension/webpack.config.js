@@ -15,20 +15,6 @@ module.exports = {
 		filename: '[name].js',
 		chunkFilename: '[name].chunk.[id].js'
 	},
-	module: {
-		preLoaders: [
-			{
-				test: /\.js$/,
-				exclude: /node_modules/,
-				loader: 'jshint-loader'
-			},
-			{
-				test: /\.js$/,
-				exclude: /node_modules/,
-				loader: 'jscs-loader'
-			}
-		]
-	},
 	externals: {
 		// require('jquery') is external and available
 		//  on the global var jQuery
