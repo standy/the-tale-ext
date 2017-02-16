@@ -19,7 +19,7 @@ function checkQuests(quests) {
 						tag: 'quest',
 						body: utils.heroName + ' ' + q.action + '!',
 						icon: window.extPath + 'img/quest/caravan.png', //window.extPath + 'img/quest/' + q.type + '.png',
-						addTime: 1
+						addTime: 1,
 					});
 				}
 			}

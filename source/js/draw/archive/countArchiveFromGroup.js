@@ -17,7 +17,7 @@ function countArchiveFromGroup(group) {
 		ts: [first[0], last[0]],
 		type: dataType,
 		text: groupData.actionName,
-		broken: isBroken
+		broken: isBroken,
 	});
 
 	if (dataType === 'fight' && !isBroken) {

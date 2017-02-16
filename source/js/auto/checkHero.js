@@ -86,7 +86,7 @@ function checkHero(gameData) {
 				body: 'Сработала автоматическая помощь ' +
 					'\n' + msg + '' +
 					'\nТекущее действие: ' + _const.ACTION_TYPE_TEXTS[actionName] + '',
-				addTime: 1
+				addTime: 1,
 			});
 		}
 		//				console.log('godHelp! real');
@@ -110,7 +110,7 @@ function checkHero(gameData) {
 			beforeSend: function(xhr) {
 				xhr.setRequestHeader('X-CSRFToken', csrf);
 			},
-			data: {}
+			data: {},
 		});
 	}
 }

@@ -13,8 +13,8 @@ function upgradeArchiveGroup(archiveGroup, index) {
 		$.extend(archiveGroup, {
 			total: {
 				me: countTotalFromArchive(archiveGroup.me, 'me'),
-				enemy: countTotalFromArchive(archiveGroup.enemy, 'enemy', archiveGroup.mobId === 66)
-			}
+				enemy: countTotalFromArchive(archiveGroup.enemy, 'enemy', archiveGroup.mobId === 66),
+			},
 		});
 	}
 	return archiveGroup;

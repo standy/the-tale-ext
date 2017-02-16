@@ -17,5 +17,5 @@ function cache(name, value, time) {
 }
 module.exports = {
 	cacheStore: cacheStore,
-	cache: cache
+	cache: cache,
 };

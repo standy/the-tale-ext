@@ -43,7 +43,7 @@ _subscribe('newMessages', function(messagesNew, gameData) {
 		if (notifyMessagesText !== lastNotifyMessagesText) {
 			sendNotify('The Tale Extended - ' + utils.heroName, {
 				tag: 'send',
-				body: notifyMessagesText
+				body: notifyMessagesText,
 			});
 		}
 		lastNotifyMessagesText = notifyMessagesText;

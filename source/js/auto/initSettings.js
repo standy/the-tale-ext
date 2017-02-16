@@ -17,7 +17,7 @@ const sets = [{
 			label: 'Уведомлять о помощи',
 			name: 'autohelpNotify',
 			isToggle: 1,
-			value: false
+			value: false,
 		}, {
 			label: 'Использовать бонусную энергию, оставить',
 			note: 'Указанный запас энергии тратиться не будет',
@@ -26,18 +26,18 @@ const sets = [{
 			value: false,
 			inputs: [{
 				name: 'autohelpEnergyBonusMax',
-				type: 'num'
-			}]
+				type: 'num',
+			}],
 		}, {
 			label: 'Герой бездействует',
 			name: 'autohelpIdle',
 			isToggle: 1,
-			value: true
+			value: true,
 		}, {
 			label: 'Герой воскресает',
 			name: 'autohelpDead',
 			isToggle: 1,
-			value: true
+			value: true,
 		}, {
 			label: 'Здоровье в бою ниже ',
 			name: 'autohelpHp',
@@ -46,15 +46,15 @@ const sets = [{
 			inputs: [{
 				type: 'num',
 				name: 'autohelpHpLowerValue',
-				value: 200
+				value: 200,
 			}],
 			subs: [{
 				label: 'только против босса',
 				name: 'autohelpHpBoss',
 				isToggle: 1,
 				isInline: 1,
-				value: true
-			}]
+				value: true,
+			}],
 		}, {
 			label: 'Лечение спутника, если его здоровье меньше',
 			name: 'autohelpCompanion',
@@ -65,8 +65,8 @@ const sets = [{
 				type: 'num',
 				name: 'autohelpCompanionHp',
 				isInline: 1,
-				value: 20
-			}]
+				value: 20,
+			}],
 		}, {
 			label: 'Энергия выше ',
 			name: 'autohelpEnergy',
@@ -75,33 +75,33 @@ const sets = [{
 			inputs: [{
 				type: 'num',
 				name: 'autohelpEnergyGreaterValue',
-				value: 10
+				value: 10,
 			}],
 			subs: [{
 				label: 'в бою',
 				name: 'autohelpEnergyFight',
 				isToggle: 1,
 				isInline: 1,
-				value: false
+				value: false,
 			}, {
 				label: 'вне боя',
 				name: 'autohelpEnergyRest',
 				isToggle: 1,
 				isInline: 1,
-				value: false
+				value: false,
 			}, {
 				label: 'в пути',
 				name: 'autohelpEnergyWalk',
 				isToggle: 1,
 				isInline: 1,
-				value: true
+				value: true,
 			}, {
 				label: 'торг/медитация',
 				name: 'autohelpEnergyTradeMed',
 				isToggle: 1,
 				isInline: 1,
-				value: true
-			}/*, {
+				value: true,
+			}, /*, {
 				label: 'Починка',
 				name: 'autohelpEnergyRepairBuilding',
 				isToggle: 1,
@@ -124,8 +124,8 @@ const sets = [{
 					name: 'autohelpEnergyRepairBuildingPercent'
 				}]
 			}*/
-			]
-		}]
+			],
+		}],
 	}, {
 		label: 'Автоматический выбор в задании',
 		name: 'autoquest',
@@ -135,7 +135,7 @@ const sets = [{
 			label: 'Уведомлять о выборе',
 			name: 'autoquestNotify',
 			isToggle: 1,
-			value: false
+			value: false,
 		}, {
 			label: 'Задания, влияющие на честь',
 //					note: 'Доставка, сопроводить караван, пошпионить',
@@ -147,14 +147,14 @@ const sets = [{
 				name: 'autoquestHonorPlus',
 				isToggle: 1,
 				isInline: 1,
-				value: true
+				value: true,
 			}, {
 				label: 'бесчестно',
 				name: 'autoquestHonorMinus',
 				isToggle: 1,
 				isInline: 1,
-				value: false
-			}]
+				value: false,
+			}],
 		}, {
 			label: 'Задания, влияющие на миролюбие',
 //					note: 'Выбить долг',
@@ -166,21 +166,21 @@ const sets = [{
 				name: 'autoquestPeacePlus',
 				isToggle: 1,
 				isInline: 1,
-				value: true
+				value: true,
 			}, {
 				label: 'воинственно',
 				name: 'autoquestPeaceMinus',
 				isToggle: 1,
 				isInline: 1,
-				value: false
-			}]
-		}]
+				value: false,
+			}],
+		}],
 	}, {
 		label: 'Брать карты',
 		name: 'autocard',
 		isToggle: 1,
-		value: false
-	}]
+		value: false,
+	}],
 }];
 
 _subscribe('preload', function(gameData) {
@@ -212,7 +212,7 @@ function initSettings() {
 				autohelpEnergyFight: 0,
 				autohelpEnergyRest: 0,
 				autohelpEnergyWalk: 1,
-				autohelpEnergyTradeMed: 1
+				autohelpEnergyTradeMed: 1,
 			},
 			fight: {
 				autohelpIdle: 0,
@@ -223,8 +223,8 @@ function initSettings() {
 				autohelpEnergyFight: 1,
 				autohelpEnergyRest: 0,
 				autohelpEnergyWalk: 0,
-				autohelpEnergyTradeMed: 0
-			}
+				autohelpEnergyTradeMed: 0,
+			},
 		};
 		const conf = types[type];
 		for (const key in conf) {

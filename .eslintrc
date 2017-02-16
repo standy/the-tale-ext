@@ -4,6 +4,7 @@
 	"browser": true
   },
   "rules": {
+	"comma-dangle": ["error", "always-multiline"],
 	"prefer-const": "error",
 	"no-var": "error",
 	"camelcase": "off",

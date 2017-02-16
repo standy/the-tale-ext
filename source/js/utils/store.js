@@ -10,12 +10,12 @@ let store;
 if (typeof window === 'object' && window.localStorage && window.JSON) {
 	store = {
 		get: getStore,
-		set: setStore
+		set: setStore,
 	};
 } else {
 	store = {
 		get: function() {},
-		set: function() {}
+		set: function() {},
 	};
 }
 

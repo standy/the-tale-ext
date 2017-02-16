@@ -18,10 +18,10 @@ const sets = [
 			note: 'Общая часть имени для всех падежей',
 			inputs: [{
 				name: 'heroNameStart',
-				type: 'text'
-			}]
+				type: 'text',
+			}],
 
-		}]
+		}],
 	},
 	{
 		title: 'Уведомления',
@@ -34,12 +34,12 @@ const sets = [
 				label: 'Выбор в задании',
 				name: 'notifyQuestChoose',
 				isToggle: 1,
-				value: true
+				value: true,
 			}, {
 				label: 'Герой бездействует',
 				name: 'notifyHeroIdle',
 				isToggle: 1,
-				value: true
+				value: true,
 			/*}, {
 				label: 'Герой воскресает',
 				name: 'notifyHeroDead',
@@ -53,8 +53,8 @@ const sets = [
 				inputs: [{
 					type: 'num',
 					name: 'notifyHeroHpLowerValue',
-					value: 200
-				}]
+					value: 200,
+				}],
 			}, {
 				label: 'Энергия выше ',
 				name: 'notifyHeroEnergy',
@@ -63,10 +63,10 @@ const sets = [
 				inputs: [{
 					type: 'num',
 					name: 'notifyHeroEnergyGreaterValue',
-					value: 9
-				}]
-			}]
-		}]
+					value: 9,
+				}],
+			}],
+		}],
 	},
 	{
 		title: 'Статистика',
@@ -77,8 +77,8 @@ const sets = [
 			value: true,
 			inputs: [{
 				type: 'num',
-				name: 'statsByLevelValue'
-			}]
+				name: 'statsByLevelValue',
+			}],
 		}, {
 			label: 'Монстр: последний, или',
 			name: 'statsByMob',
@@ -87,21 +87,21 @@ const sets = [
 			inputs: [{
 				type: 'num',
 				name: 'statsByMobId',
-				addOn: 'ID'
+				addOn: 'ID',
 			}],
 			subs: [{
 				label: 'Статистика героя против монстра',
 				name: 'myStatsByMob',
 				isToggle: 1,
-				value: false
-			}]
+				value: false,
+			}],
 		}, {
 			label: 'Количество действий в статистике:',
 			inputs: [{
 				name: 'statsActionsCount',
-				type: 'num'
-			}]
-		}]
+				type: 'num',
+			}],
+		}],
 	},
 	{
 		title: 'Отображение',
@@ -109,13 +109,13 @@ const sets = [
 			label: 'Выводить подробности действий',
 			name: 'groupOpenOnDefault',
 			isToggle: 1,
-			value: true
+			value: true,
 		}, {
 			label: 'Показывать архив',
 			name: 'showArchive',
 			isToggle: 1,
-			value: false
-		}]
+			value: false,
+		}],
 	},
 	{
 		title: 'Хранилище <span id="storage-size"></span>',
@@ -124,19 +124,19 @@ const sets = [
 			inputs: [{
 				name: 'maxLogLength',
 				type: 'num',
-				value: _const.MAX_LOG_LENGTH
-			}]
+				value: _const.MAX_LOG_LENGTH,
+			}],
 		}, {
 			label: 'Действий в архиве:',
 			inputs: [{
 				name: 'maxArchiveLength',
 				type: 'num',
-				value: _const.MAX_ARCHIVE_LENGTH
-			}]
+				value: _const.MAX_ARCHIVE_LENGTH,
+			}],
 		}, {
-			label: '<span class="link-ajax" id="reset-stats">Очистить хранилище</span>'
-		}]
-	}
+			label: '<span class="link-ajax" id="reset-stats">Очистить хранилище</span>',
+		}],
+	},
 ];
 _subscribe('settingsChange', checkDependences);
 const deps = {};
@@ -289,7 +289,7 @@ const _settings = {
 	addSets: addSets,
 	drawSets: drawSets,
 	getSettingInput: getSettingInput,
-	settingsValues: settingsValues
+	settingsValues: settingsValues,
 };
 
 module.exports = _settings;

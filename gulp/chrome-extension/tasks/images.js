@@ -30,5 +30,5 @@ gulp.task(TASK, function() {
 module.exports = {
 	task: TASK,
 	watchSrc: SRC,
-	watchTask: TASK
+	watchTask: TASK,
 };

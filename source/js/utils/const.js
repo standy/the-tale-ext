@@ -32,7 +32,7 @@ module.exports = {
 		12: 'proxy',        //прокси-действия для взаимодействия героев
 		13: 'pvp',          //PvP 1x1
 		14: 'test',         //проверочное действие
-		15: 'companionHeal' //уход за спутником
+		15: 'companionHeal', //уход за спутником
 	},
 	ACTION_TYPE_TEXTS: {
 		idle: 'безделие',
@@ -51,7 +51,7 @@ module.exports = {
 		pvp: 'PvP 1x1',
 		undefined: 'неизвестное действие',
 		companionHeal: 'уход за спутником',
-		broken: 'неразобранное действие'
+		broken: 'неразобранное действие',
 	},
 	ACTION_TYPE_ICONS: {
 		idle: '<span class="glyphicon glyphicon-home"></span>',
@@ -67,14 +67,14 @@ module.exports = {
 		energy: '<span class="glyphicon glyphicon-flash"></span>',
 		noeffect: '<span class="glyphicon glyphicon-music"></span>',
 		companionHeal: '<span class="glyphicon glyphicon-user"></span>',
-		broken: '<span class="glyphicon glyphicon-ban-circle"></span>'
+		broken: '<span class="glyphicon glyphicon-ban-circle"></span>',
 	},
 	ERROR_CODES: {
 		1: 'Неполное действие',
 		2: 'Не найдено начало боя',
 		3: 'Не найден конец боя',
 		4: 'Дыра в середине действия',
-		5: 'Запись обрывается'
+		5: 'Запись обрывается',
 	},
 	ICONS: {
 		hit: '<span class="glyphicon glyphicon-leaf"></span>',
@@ -113,7 +113,7 @@ module.exports = {
 		pvpice: '<span class="glyphicon glyphicon-cloud-upload"></span>',
 		pvpflame: '<span class="glyphicon glyphicon-cloud-download"></span>',
 		pvpfail: '<span class="glyphicon glyphicon-cloud"></span>',
-		companion: '<span class="glyphicon glyphicon-user"></span>'
+		companion: '<span class="glyphicon glyphicon-user"></span>',
 	},
 	ACTION_TRANSLATE: {
 		hit: 'Удар',
@@ -132,7 +132,7 @@ module.exports = {
 		poison: 'Отравление',
 		vamp: 'Удар вампира',
 		heal: 'Регенерация',
-		dmgSum: 'Всего'
+		dmgSum: 'Всего',
 	},
 	MOBS: [
 		null, 'олень', 'одичавшая одежда', 'осы', 'хищный кустик', 'кабан-секач', 'бродячий дуб', 'волк', 'дух леса', 'оскорблённая эльфийка',
@@ -150,6 +150,6 @@ module.exports = {
 		'мраморный бык', 'язвомор', 'лишайница', 'жирница', 'бульг', 'костогрыз', 'каменник', 'вирница', 'тигр', 'барбегаз', 'бродячий огонек', 'скальник',
 		'пупырник', 'стогница', 'куропатка гуанила', 'пёстробородый', 'капитан Серых Плащей', 'аколит льда', 'семиглаз', 'гюрза', 'медвежук',
 		'снежная росомаха', 'койот', 'горный манул', 'мастер огня', 'мастер льда', 'кобольд', 'пожиратель плоти', 'главарь пестробородых', 'ученик Силы',
-		'гомункул', 'некромант', 'тагар', 'стрига', 'приземник', 'лесной тролль', 'вурдалак', 'болотный тролль', 'бескуд', 'атач'
-	]
+		'гомункул', 'некромант', 'тагар', 'стрига', 'приземник', 'лесной тролль', 'вурдалак', 'болотный тролль', 'бескуд', 'атач',
+	],
 };

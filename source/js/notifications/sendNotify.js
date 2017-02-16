@@ -28,7 +28,7 @@ function sendNotify(name, options) {
 	const nt = new Notification(name, {
 		tag: options.tag + rndStr,
 		body: options.body + (options.addTime ? '\n' + time : ''),
-		icon: options.icon || (window.extPath + 'img/128.png')
+		icon: options.icon || (window.extPath + 'img/128.png'),
 	});
 	nt.onclick = nt.onclose = function() {
 		rndStr = generateRandomString();

@@ -23,12 +23,12 @@ function subscribe(e, fn) {
 	_subscribeList.push({
 		event: event,
 		namespace: namespace,
-		fn: fn
+		fn: fn,
 	});
 }
 
 module.exports = {
 	subscribeList: _subscribeList,
 	publish: publish,
-	subscribe: subscribe
+	subscribe: subscribe,
 };

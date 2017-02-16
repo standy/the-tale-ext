@@ -14,7 +14,7 @@ const countStatsTotal = require('./countStatsTotal');
 _elements.addTab('stats-side', {
 	zone: 'equip',
 	title: 'стат',
-	content: '<div class="stats" />'
+	content: '<div class="stats" />',
 });
 _elements.activeTab('stats-side');
 const $stats = _elements.getTabInner('stats-side');
@@ -79,47 +79,47 @@ function drawStatsSide(archiveGroups) {
 	const interestAverageActions = [{
 		type: 'fight,rest',
 		text: 'бой/отдых',
-		icon: '<span class="glyphicon glyphicon-flag"></span>'
+		icon: '<span class="glyphicon glyphicon-flag"></span>',
 	}, {
 		type: 'walk',
-		text: 'в пути'
+		text: 'в пути',
 	}, {
 		type: 'quest,city,nearcity,noeffect',
-		text: 'задания'
+		text: 'задания',
 	}, {
 		type: 'idle',
-		text: 'безделье'
+		text: 'безделье',
 	}, {
 		type: 'dead',
-		text: 'воскресание'
+		text: 'воскресание',
 	}, {
 		type: 'energy',
-		text: 'восстановление'
+		text: 'восстановление',
 	}, {
 		type: 'companionHeal',
-		text: 'уход на спутником'
+		text: 'уход на спутником',
 	}, {
 		type: 'trade,equip',
-		text: 'торговля и экипировка'
+		text: 'торговля и экипировка',
 	}, {
 		type: 'broken,proxy,pvp,undefined',
-		text: 'остальное'
+		text: 'остальное',
 	}, {
-		title: '<br/><b>В среднем:</b>'
+		title: '<br/><b>В среднем:</b>',
 	}, {
 		type: 'fight,rest',
 		countType: 'fight',
 		countAverage: 1,
 		icon: '<span class="glyphicon glyphicon-flag"></span>',
-		text: 'на бой с учетом отдыха'
+		text: 'на бой с учетом отдыха',
 	}, {
 		type: 'fight',
 		countAverage: 1,
-		text: 'на бой'
+		text: 'на бой',
 	}, {
 		type: 'rest',
 		countAverage: 1,
-		text: 'на отдых'
+		text: 'на отдых',
 	}];
 	for (let i = 0; i < interestAverageActions.length; i++) {
 		const act = interestAverageActions[i];

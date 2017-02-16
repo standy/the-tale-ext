@@ -49,5 +49,5 @@ module.exports = {
 	toStr: toStr,
 	get: getLog,
 	size: size,
-	set: setLog
+	set: setLog,
 };

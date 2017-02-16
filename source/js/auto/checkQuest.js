@@ -9,23 +9,23 @@ const _heroName = utils.heroName;
 const CHOICES = {
 	/* peacefullnes */
 	peacePlus: [
-		'прибегнуть к дипломатии' /* collect_debt */
+		'прибегнуть к дипломатии', /* collect_debt */
 	],
 	peaceMinus: [
-		'задействовать грубую силу' /* collect_debt */
+		'задействовать грубую силу', /* collect_debt */
 	],
 	honorPlus: [
 		'довести дело до конца', /* spying */
 		'защищать торговца', /* caravan */
-		'честно выполнить свои обязательства' /* delivery */
+		'честно выполнить свои обязательства', /* delivery */
 	],
 	honorMinus: [
 		'поддаться укорам совести и раскрыться', /* spying */
 		'шантажировать самостоятельно', /* spying */
 		'присвоить письмо и продать', /* delivery */
 		'украсть-украсть-украсть', /* delivery */
-		'подделать письмо' /* delivery */
-	]
+		'подделать письмо', /* delivery */
+	],
 };
 
 let lastquest = '';
@@ -74,7 +74,7 @@ function checkQuest(gameData) {
 				tag: 'autoquest',
 				body: 'Сделан выбор! \n— ' + name + '',
 				addTime: 1,
-				icon: window.extPath + 'img/quest/caravan.png'
+				icon: window.extPath + 'img/quest/caravan.png',
 			});
 		}
 
@@ -88,7 +88,7 @@ function checkQuest(gameData) {
 			beforeSend: function(xhr) {
 				xhr.setRequestHeader('X-CSRFToken', csrf);
 			},
-			data: {}
+			data: {},
 		});
 	}
 }

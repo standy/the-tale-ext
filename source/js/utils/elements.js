@@ -14,12 +14,12 @@ const $equipContainer = $equipRoot.children('.tab-content');
 const zones = {
 	main: {
 		$tabs: $diaryTabs,
-		$container: $diaryContainer
+		$container: $diaryContainer,
 	},
 	equip: {
 		$tabs: $equipTabs,
-		$container: $equipContainer
-	}
+		$container: $equipContainer,
+	},
 };
 
 
@@ -49,7 +49,7 @@ function addTab(name, opts) {
 		zone: zone,
 		$tab: $tab,
 		$content: $content,
-		$inner: $inner
+		$inner: $inner,
 	};
 	return $inner;
 }
@@ -77,7 +77,7 @@ function addControl(name, opts) {
 
 	const $el = $(html).appendTo($controls);
 	controls[name] = {
-		$el: $el
+		$el: $el,
 	};
 	return $el;
 }
@@ -92,7 +92,7 @@ const _elements = {
 	getTabInner: getTabInner,
 
 	addControl: addControl,
-	getControl: getControl
+	getControl: getControl,
 };
 
 module.exports = _elements;

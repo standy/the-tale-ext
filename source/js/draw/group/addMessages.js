@@ -37,7 +37,7 @@ function addMessage(message) {
 	if (isFirstGrouop) {
 		/* самая первая группа */
 		currGr = {
-			data: {}
+			data: {},
 		};
 	} else {
 		currActionName = currGr.data.actionName;
@@ -61,7 +61,7 @@ function addMessage(message) {
 			actionName: actionName,
 			type: actionType,
 			info_link: actionInfoLink,
-			typeId: actionTypeId
+			typeId: actionTypeId,
 		};
 		if (isFirstGrouop) {
 			grData.isBroken = 1;
@@ -92,7 +92,7 @@ function addMessage(message) {
 					actionName: 'в бою',
 					type: 'fight',
 					info_link: '',
-					typeId: 3
+					typeId: 3,
 				});
 				if (lastG.data.fightStarted) {
 					delete lastG.data.fightStarted;
@@ -157,7 +157,7 @@ function addMessage(message) {
 	function newGroup(message, data) {
 		const newG = {
 			data: {unfinished: 1},
-			messages: []
+			messages: [],
 		};
 		if (data) {
 			newG.data = $.extend(data, newG.data);

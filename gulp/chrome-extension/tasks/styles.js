@@ -10,7 +10,7 @@ const autoprefixer = require('gulp-autoprefixer');
 const config = require('./config');
 
 const SRC = [
-	'./source/css/**/*.css'
+	'./source/css/**/*.css',
 ];
 const DEST = config.dist + '/css';
 const TASK = config.prefix + 'styles';
@@ -20,7 +20,7 @@ gulp.task(TASK, function() {
 //		.pipe(watchLess(SRC))
 //		.pipe(less())
 		.pipe(autoprefixer({
-			browsers: ['last 4 Chrome versions']
+			browsers: ['last 4 Chrome versions'],
 		}))
 //		.pipe(base64({
 //			extensions: ['jpg', 'png'],
@@ -35,5 +35,5 @@ gulp.task(TASK, function() {
 module.exports = {
 	task: TASK,
 	watchSrc: SRC,
-	watchTask: TASK
+	watchTask: TASK,
 };

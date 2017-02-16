@@ -35,7 +35,7 @@ function showMapDialog(x, y) {
 		},
 		OnClosed: function(dialog) {
 			pgf.base.HideTooltips(dialog);
-		}
+		},
 	});
 }
 

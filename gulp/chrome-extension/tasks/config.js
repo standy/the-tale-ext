@@ -1,4 +1,4 @@
 module.exports = {
 	dist: './dist/chrome',
-	prefix: 'chrome:tasks:'
+	prefix: 'chrome:tasks:',
 };

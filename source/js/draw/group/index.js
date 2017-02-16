@@ -37,7 +37,7 @@ _elements.getTabInner('group').on('click', '.group-title', function() {
 
 _elements.addControl('group-toggle', {
 	title: 'Только действия / Подробности',
-	content: '<span class="glyphicon glyphicon-chevron-' + (_settings.settingsValues.groupOpenOnDefault ? 'down' : 'up') + '"></span>'
+	content: '<span class="glyphicon glyphicon-chevron-' + (_settings.settingsValues.groupOpenOnDefault ? 'down' : 'up') + '"></span>',
 })
 	.on('click', function() {
 //		_elements.activeTab('group');

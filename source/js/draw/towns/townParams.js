@@ -35,11 +35,11 @@ function parsePlaceHtml(html) {
 		const value = parseFloat(valueText);
 		cityParams.push({
 			name: paramName,
-			value: value
+			value: value,
 		});
 	});
 	return {
-		cityParams: cityParams
+		cityParams: cityParams,
 	};
 }
 
@@ -47,7 +47,7 @@ function requestPlace(x, y) {
 	return $.ajax({
 		url: '/game/map/cell-info?x=' + x + '&y=' + y + '&_=' + (+new Date()),
 		method: 'get',
-		dataType: 'html'
+		dataType: 'html',
 	});
 }
 

@@ -24,7 +24,7 @@ const outputOptions = {
 //	assetsSort:  false, //(string) sort the assets by that field
 	children: false,
 	verbose: false,
-	colors: true
+	colors: true,
 };
 
 

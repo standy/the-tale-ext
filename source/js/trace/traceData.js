@@ -15,28 +15,28 @@ function traceData(game_data) {
 			type: hero.action.type,
 			info_link: hero.action.info_link,
 			is_boss: hero.action.is_boss,
-			percents: hero.action.percents
+			percents: hero.action.percents,
 		},
 		base: {
 			health: hero.base.health,
 			max_health: hero.base.max_health,
 			level: hero.base.level,
 			alive: hero.base.alive,
-			money: hero.base.money
+			money: hero.base.money,
 		},
 		energy: {
 			bonus: hero.energy.bonus,
 			max: hero.energy.max,
-			value: hero.energy.value
+			value: hero.energy.value,
 		},
 		secondary: {
 //			initiative: hero.secondary.initiative,
 			loot_items_count: hero.secondary.loot_items_count,
 //			max_bag_size: hero.secondary.max_bag_size,
 //			move_speed: hero.secondary.move_speed,
-			power: hero.secondary.power
+			power: hero.secondary.power,
 		},
-		turn: game_data.turn.number
+		turn: game_data.turn.number,
 	};
 
 	const lastLog = messagesLog[messagesLog.length - 1] || [];

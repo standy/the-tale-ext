@@ -76,7 +76,7 @@ function countStatsTotal(archiveGroups, count) {
 		me: me,
 		enemy: enemy,
 		meByMob: meByMob,
-		enemyByMob: enemyByMob
+		enemyByMob: enemyByMob,
 	};
 	if (mobId) {
 		statsTotal.lastMobId = mobId;

@@ -9,7 +9,7 @@ const webpackConfig = require('./webpack.config');
 const SRC = [
 	'./source/export/userscript/*.js',
 	'./source/css/**/*.*',
-	'./source/js/**/*.*'
+	'./source/js/**/*.*',
 ];
 const DEST = './dist/userscript/';
 
@@ -32,7 +32,7 @@ const outputOptions = {
 //	assetsSort:  false, //(string) sort the assets by that field
 	children: false,
 	verbose: false,
-	colors: true
+	colors: true,
 };
 
 
