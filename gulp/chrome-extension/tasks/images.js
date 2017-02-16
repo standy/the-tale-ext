@@ -2,19 +2,19 @@
  *  обработка изображений
  *  */
 
-var gulp = require('gulp');
+const gulp = require('gulp');
 //var size = require('gulp-size');
 //var cache = require('gulp-cache');
 //var imagemin = require('gulp-imagemin');
 
-var config = require('./config');
+const config = require('./config');
 
-var SRC = ['./source/img/**/*.*'];
-var DEST = config.dist + '/img';
-var TASK = config.prefix + 'images';
+const SRC = ['./source/img/**/*.*'];
+const DEST = config.dist + '/img';
+const TASK = config.prefix + 'images';
 
 
-gulp.task(TASK, function () {
+gulp.task(TASK, function() {
 	return gulp.src(SRC)
 //		.pipe(/*cache*/(imagemin({
 //			optimizationLevel: 5,

@@ -1,14 +1,14 @@
-var gulp = require('gulp');
-var zip = require('gulp-zip');
-var fs = require('fs');
-var rimraf = require('rimraf');
+const gulp = require('gulp');
+const zip = require('gulp-zip');
+const fs = require('fs');
+const rimraf = require('rimraf');
 
-var SRC = './dist/chrome/**/*';
-var DEST = './dist';
-var TASK = 'chrome:deploy';
+const SRC = './dist/chrome/**/*';
+const DEST = './dist';
+const TASK = 'chrome:deploy';
 
-var DATA_SRC = './package.json';
-var data = JSON.parse(fs.readFileSync(DATA_SRC, 'utf8'));
+const DATA_SRC = './package.json';
+const data = JSON.parse(fs.readFileSync(DATA_SRC, 'utf8'));
 
 
 gulp.task('chrome:deploy:clean', function(cb) {

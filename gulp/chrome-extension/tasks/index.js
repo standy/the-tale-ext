@@ -1,7 +1,7 @@
-var gulp = require('gulp');
+const gulp = require('gulp');
 
-var tasks = ['styles', 'images', 'manifest', 'misc'];
-var options = tasks.map(function(name) {
+const tasks = ['styles', 'images', 'manifest', 'misc'];
+const options = tasks.map(function(name) {
 	return require('./' + name + '');
 });
 

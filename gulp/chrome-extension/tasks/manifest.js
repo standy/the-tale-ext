@@ -2,18 +2,18 @@
  * обработка монифеста шаблонизатором
  *  */
 
-var gulp = require('gulp');
-var template = require('gulp-template');
+const gulp = require('gulp');
+const template = require('gulp-template');
 
-var config = require('./config');
-var data = require('../../../package.json');
+const config = require('./config');
+const data = require('../../../package.json');
 
-var SRC = ['./source/export/chrome/manifest.json'];
-var DEST = config.dist;
-var TASK = config.prefix + 'manifest';
+const SRC = ['./source/export/chrome/manifest.json'];
+const DEST = config.dist;
+const TASK = config.prefix + 'manifest';
 
 
-gulp.task(TASK, function () {
+gulp.task(TASK, function() {
 	return gulp.src(SRC)
 		.pipe(template(data))
 		.pipe(gulp.dest(DEST));

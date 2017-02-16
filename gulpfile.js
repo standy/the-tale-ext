@@ -1,4 +1,4 @@
-var gulp = require('gulp');
+const gulp = require('gulp');
 
 require('./gulp/chrome-extension/');
 require('./gulp/userscript/');

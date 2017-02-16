@@ -2,25 +2,25 @@
 * обработка стилей
 * */
 
-var gulp = require('gulp');
+const gulp = require('gulp');
 //var less = require('gulp-less');
 //var watchLess = require('gulp-watch-less');
-var autoprefixer = require('gulp-autoprefixer');
+const autoprefixer = require('gulp-autoprefixer');
 
-var config = require('./config');
+const config = require('./config');
 
-var SRC = [
+const SRC = [
 	'./source/css/**/*.css'
 ];
-var DEST = config.dist + '/css';
-var TASK = config.prefix + 'styles';
+const DEST = config.dist + '/css';
+const TASK = config.prefix + 'styles';
 
 gulp.task(TASK, function() {
 	return gulp.src(SRC)
 //		.pipe(watchLess(SRC))
 //		.pipe(less())
 		.pipe(autoprefixer({
-			browsers: ['last 4 Chrome versions'],
+			browsers: ['last 4 Chrome versions']
 		}))
 //		.pipe(base64({
 //			extensions: ['jpg', 'png'],

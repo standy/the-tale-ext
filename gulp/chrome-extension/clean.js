@@ -1,7 +1,7 @@
-var gulp = require('gulp');
-var rimraf = require('rimraf');
+const gulp = require('gulp');
+const rimraf = require('rimraf');
 
-var TASK = 'chrome:clean';
+const TASK = 'chrome:clean';
 
 gulp.task(TASK, function(cb) {
 	rimraf('./dist/chrome/', cb);

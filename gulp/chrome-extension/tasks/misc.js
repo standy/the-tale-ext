@@ -2,15 +2,15 @@
  *  копирует все что не попало в сборку
  *  */
 
-var gulp = require('gulp');
+const gulp = require('gulp');
 
-var config = require('./config');
+const config = require('./config');
 
-var SRC = ['./source/export/chrome/injector.js'];
-var DEST = config.dist;
-var TASK = config.prefix + 'misc';
+const SRC = ['./source/export/chrome/injector.js'];
+const DEST = config.dist;
+const TASK = config.prefix + 'misc';
 
-gulp.task(TASK, function () {
+gulp.task(TASK, function() {
 	return gulp.src(SRC)
 		.pipe(gulp.dest(DEST));
 });

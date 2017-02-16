@@ -1,8 +1,8 @@
-var gulp = require('gulp');
-var rimraf = require('rimraf');
+const gulp = require('gulp');
+const rimraf = require('rimraf');
 
-var TASK = 'userscript:clean';
+const TASK = 'userscript:clean';
 
-gulp.task(TASK, function (cb) {
+gulp.task(TASK, function(cb) {
 	rimraf('./dist/userscript', cb);
 });

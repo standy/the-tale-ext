@@ -1,7 +1,7 @@
-var path = require('path');
+const path = require('path');
 
-var root = path.join(__dirname, '../../');
-var sourceDir = path.join(root, 'source');
+const root = path.join(__dirname, '../../');
+const sourceDir = path.join(root, 'source');
 
 
 module.exports = {

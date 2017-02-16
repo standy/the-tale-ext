@@ -1,8 +1,6 @@
-var path = require('path');
-var fs = require('fs');
-
-var root = path.join(__dirname, '../../');
-var sourceDir = path.join(root, 'source');
+const path = require('path');
+const root = path.join(__dirname, '../../');
+const sourceDir = path.join(root, 'source');
 
 module.exports = {
 	context: sourceDir, // исходная директория
