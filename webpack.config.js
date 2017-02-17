@@ -1,3 +1,4 @@
-const chromeConfig = require('./webpack.chrome.config.js');
-
-module.exports = [chromeConfig];
+module.exports = [
+	require('./webpack.chrome.config.js'),
+	require('./webpack.userscript.config.js'),
+];
