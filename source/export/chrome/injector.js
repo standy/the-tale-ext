@@ -49,4 +49,4 @@
 	for (let j = 0; j < styles.length; j++) {
 		injectStyle(styles[j]);
 	}
-})(['/js/ext.js'], ['/css/main.css']);
+})(['/ext.js'], ['/ext.css']);

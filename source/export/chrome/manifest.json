@@ -1,39 +1,34 @@
 {
-	"manifest_version": 2,
-
-	"name": "${fullName}",
-	"description": "${description}",
-	"version": "${version}",
-	"author": "${author}",
-
-
-	"icons": {
-		"16": "img/16.png",
-		"32": "img/32.png",
-		"64": "img/64.png",
-		"128": "img/128.png"
-	},
-
-	"permissions": [
-		"http://the-tale.org/game/*",
-		"unlimitedStorage",
-		"notifications"
-	],
-	"web_accessible_resources" : [
-		"js/ext.js",
-		"css/main.css",
-		"img/quest/caravan.png",
-		"img/128.png"
-	],
-	"content_scripts": [
-		{
-			"run_at": "document_end",
-			"matches": [
-				"http://the-tale.org/game/",
-				"http://the-tale.org/game/pvp/"
-			],
-			"css": ["css/glyphicons.css"],
-			"js": ["injector.js"]
-		}
-	]
+  "manifest_version": 2,
+  "name": null,
+  "description": null,
+  "version": null,
+  "author": null,
+  "icons": {
+    "16": "img/16.png",
+    "32": "img/32.png",
+    "64": "img/64.png",
+    "128": "img/128.png"
+  },
+  "permissions": [
+    "http://the-tale.org/game/*",
+    "unlimitedStorage",
+    "notifications"
+  ],
+  "web_accessible_resources": [
+    "ext.js",
+    "ext.css",
+    "img/quest/caravan.png",
+    "img/128.png"
+  ],
+  "content_scripts": [
+    {
+      "run_at": "document_end",
+      "matches": [
+        "http://the-tale.org/game/",
+        "http://the-tale.org/game/pvp/"
+      ],
+      "js": ["injector.js"]
+    }
+  ]
 }
