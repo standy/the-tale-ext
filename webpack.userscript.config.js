@@ -1,6 +1,6 @@
 const {resolve} = require('path');
 const packageJson = require('./package.json');
-const SmartBannerPlugin = require('smart-banner-webpack-plugin');
+const {BannerPlugin} = require('webpack');
 
 const DIST = resolve(__dirname, './dist/userscript');
 const SOURCE = resolve(__dirname, './source');
@@ -60,7 +60,7 @@ module.exports = {
 		],
 	},
 	plugins: [
-		new SmartBannerPlugin({
+		new BannerPlugin({
 			banner: HEADER,
 			raw: true,
 			entryOnly: true,
