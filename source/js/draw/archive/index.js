@@ -1,3 +1,13 @@
+import $ from 'jquery';
+import {loadArchiveGroups} from './loadArchiveGroups';
+import {saveArchiveGroups} from './saveArchiveGroups';
+import {archiveGroups} from './archiveGroups';
+import {elements} from '../../utils/elements';
+import {addArchiveGroup} from './addArchiveGroup';
+import {initArchiveGroups} from './initArchiveGroups';
+import {subscribe} from '../../utils/pubsub';
+import {messagesGrouped} from '../group/messagesGrouped';
+
 /**
  * Этот модуль сохраняет данные из сообщения в архив
  * само сообщение не сохраняется
@@ -6,49 +16,37 @@
  * Так же есть возможность посмотреть архив, переключатель в настройках
  * */
 
-const _archive = module.exports = {};
-_archive.drawArchiveGroups = require('./drawArchiveGroups');
-_archive.loadArchiveGroups = require('./loadArchiveGroups');
-_archive.saveArchiveGroups = require('./saveArchiveGroups');
-_archive.addArchiveGroup = require('./addArchiveGroup');
-_archive.archiveGroups = require('./archiveGroups');
 
-
-const $ = require('jquery');
-const utils = require('../../utils/');
-const _subscribe = utils.subscribe;
-const _elements = utils.elements;
-const _groupMessages = require('../group/');
-
-_subscribe('init', function() {
-	_archive.loadArchiveGroups();
-	for (let i = 1; i < _groupMessages.list.length; i++) {
-		const gr = _groupMessages.list[i];
-		_archive.addArchiveGroup(gr);
+subscribe('init', function() {
+	loadArchiveGroups();
+	for (let i = 1; i < messagesGrouped.length; i++) {
+		const gr = messagesGrouped[i];
+		addArchiveGroup(gr);
 	}
-	_archive.saveArchiveGroups();
+	saveArchiveGroups();
 
 
-	_subscribe('newMessages', function() {
-		const group = _groupMessages.list[_groupMessages.list.length - 1];
-		_archive.addArchiveGroup(group);
+	subscribe('newMessages', function() {
+		const group = messagesGrouped[messagesGrouped.length - 1];
+		addArchiveGroup(group);
 	});
-	_subscribe('groupFinished', function(group, index) {
-		_archive.addArchiveGroup(group);
-		_archive.saveArchiveGroups();
+	subscribe('groupFinished', function(group, index) {
+		addArchiveGroup(group);
+		saveArchiveGroups();
 	});
 });
-_elements.getTabInner('archive').on('click', '.group-title', function() {
+elements.getTabInner('archive').on('click', '.group-title', function() {
 	const $group = $(this).closest('.group');
 	const index = $group.data('index');
-	const ts = _archive.archiveGroups[index].ts || [];
-	console.log('archive>', _archive.archiveGroups[index], index, new Date(ts[0] * 1000));
+	const ts = archiveGroups[index].ts || [];
+	console.log('archive>', archiveGroups[index], index, new Date(ts[0] * 1000));
 });
 
-_subscribe('newTurn', function(messagesNew) {
+subscribe('newTurn', function(messagesNew) {
 	window.setTimeout(function() {
-		_elements.getControl('archive-log')
-			.find('.value').text(_archive.archiveGroups.length);
+		elements.getControl('archive-log')
+			.find('.value').text(archiveGroups.length);
 	}, 10);
 });
 
+initArchiveGroups();

@@ -1,12 +1,10 @@
-const $ = require('jquery');
-const utils = require('../../utils/');
-const _const = utils.const;
-const _publish = utils.publish;
-const isActType = utils.isActType;
+import $ from 'jquery';
+import {messagesGrouped} from './messagesGrouped';
+import CONST from '../../utils/const';
+import {publish} from '../../utils/pubsub';
+import {isActType} from '../../utils/isActType';
 
-const messagesGrouped = require('./list');
-
-function addMessages(messagesList) {
+export function addMessages(messagesList) {
 	for (let i = 0; i < messagesList.length; i++) {
 		addMessage(messagesList[i]);
 	}
@@ -50,13 +48,13 @@ function addMessage(message) {
 	if (action) {
 		actionName = action.description;
 		const actionTypeId = action.type;
-		const actionType = _const.ACTION_TYPE_NAMES[actionTypeId];
+		const actionType = CONST.ACTION_TYPE_NAMES[actionTypeId];
 		const actionInfoLink = action.info_link;
 
 		if (!currActionName) currGr.data.actionName = currActionName = actionName;
-		if (!currType) currGr.data.type = currType = actionType;
-		if (!currInfoLink) currGr.data.info_link = currInfoLink = actionInfoLink;
-		if (!currTypeId) currGr.data.typeId = currTypeId = actionTypeId;
+		if (!currType) currGr.data.type = actionType;
+		if (!currInfoLink) currGr.data.info_link = actionInfoLink;
+		if (!currTypeId) currGr.data.typeId = actionTypeId;
 		grData = {
 			actionName: actionName,
 			type: actionType,
@@ -152,7 +150,7 @@ function addMessage(message) {
 		if (data) {
 			lastG.data = $.extend(data, lastG.data);
 		}
-		_publish('groupFinished', lastG, messagesGrouped.length - 1);
+		publish('groupFinished', lastG, messagesGrouped.length - 1);
 	}
 	function newGroup(message, data) {
 		const newG = {
@@ -166,8 +164,6 @@ function addMessage(message) {
 			newG.messages.push(message);
 		}
 		messagesGrouped[messagesGrouped.length] = newG;
-		_publish('groupStarted', newG, messagesGrouped.length - 1);
+		publish('groupStarted', newG, messagesGrouped.length - 1);
 	}
 }
-
-module.exports = addMessages;

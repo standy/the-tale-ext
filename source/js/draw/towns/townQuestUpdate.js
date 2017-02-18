@@ -1,11 +1,8 @@
-const $ = require('jquery');
-const utils = require('../../utils/');
-const _subscribe = utils.subscribe;
-
-const init = require('./init');
+import $ from 'jquery';
+import {init} from './init';
 
 let _prevArguments = [];
-function townQuestUpdate(quests) {
+export function townQuestUpdate(quests) {
 	if (init.isInited) {
 		_prevArguments.forEach(function(args) {
 			doJob.apply(this, args);
@@ -41,17 +38,12 @@ function doJob(quests) {
 			const $placeRow = $('.place-row[data-place-id="' + placeId + '"]');
 			const $townQuest = $placeRow.find('.quest');
 			const questHtml =
-				(isFrom ? '<span class="glyphicon glyphicon-arrow-right"></span>' : '<span class="glyphicon glyphicon-arrow-left"></span>') +
+				(isFrom
+					? '<span class="glyphicon glyphicon-arrow-right"></span>'
+					: '<span class="glyphicon glyphicon-arrow-left"></span>'
+				) +
 				'<span class="quest-icon-mini pgf-quest-icon ' + quest.type + '" title="' + actorType + '"></span> ';
 			$townQuest.append(questHtml);
 		}
 	}
 }
-
-
-_subscribe('questUpdate', function(quest) {
-	townQuestUpdate(quest);
-});
-
-
-module.exports = townQuestUpdate;

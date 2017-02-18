@@ -1,4 +1,4 @@
-module.exports = [
+export const journalPhrasesHighlight = [
 	'[value]\\d+ звездоч(?:ка|ки|ек)?',
 	'[value]\\d+ HP',
 	'[value]\\d+ единиц(:?у|а|ы)? урона',

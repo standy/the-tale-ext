@@ -1,13 +1,11 @@
-const $ = require('jquery');
-const utils = require('../../utils/');
-const _elements = utils.elements;
+import $ from 'jquery';
+import {elements} from '../../utils/elements';
+import {mapData} from './mapData';
 
-const mapData = require('./mapData');
-
-const $townsContent = _elements.getTabInner('towns');
+const $townsContent = elements.getTabInner('towns');
 
 
-const init = function() {
+export const init = function() {
 	const places = mapData.places;
 	let html = '';
 	for (const i in places) {
@@ -48,6 +46,3 @@ const init = function() {
 };
 
 init.isInited = true;
-
-module.exports = init;
-

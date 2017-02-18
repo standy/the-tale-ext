@@ -1,4 +1,4 @@
-const $ = require('jquery');
+import $ from 'jquery';
 
 //console.log('tables.js')
 window.tables = (function(_tables) {

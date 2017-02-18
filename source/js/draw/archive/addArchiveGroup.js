@@ -1,7 +1,7 @@
-const archiveGroups = require('./archiveGroups');
-const countArchiveFromGroup = require('./countArchiveFromGroup');
+import {archiveGroups} from './archiveGroups';
+import {countArchiveFromGroup} from './countArchiveFromGroup';
 
-function addArchiveGroup(group) {
+export function addArchiveGroup(group) {
 	if (!group) return;
 	const archiveGroup = countArchiveFromGroup(group);
 
@@ -32,5 +32,3 @@ function addArchiveGroup(group) {
 		}
 	}
 }
-
-module.exports = addArchiveGroup;

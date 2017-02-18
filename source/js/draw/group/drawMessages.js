@@ -1,16 +1,13 @@
-const utils = require('../../utils/');
-const _elements = utils.elements;
-const drawGroup = require('./drawGroup');
+import {drawGroup} from './drawGroup';
+import {elements} from '../../utils/elements';
 
 
-const $groupsContent = _elements.getTabInner('group');
+const $groupsContent = elements.getTabInner('group');
 
-function drawMessages(messagesGrouped) {
+export function drawMessages(messagesGrouped) {
 	let html = '';
 	for (let i = 0; i < messagesGrouped.length; i++) {
 		html = drawGroup(messagesGrouped[i], i) + html;
 	}
 	$groupsContent.html(html);
 }
-
-module.exports = drawMessages;

@@ -1,36 +1,21 @@
-const $ = require('jquery');
-const utils = require('../../utils/');
-const _subscribe = utils.subscribe;
-const _const = utils.const;
-const _icons = _const.ICONS;
-const _elements = utils.elements;
-const _utils = utils.utils;
-const _settings = utils.settings;
-const _log = utils.log;
-const isActType = utils.isActType;
-const archiveGroups = require('./archiveGroups');
+import $ from 'jquery';
+import {settingsValues} from '../../settings/settings';
+import {elements} from '../../utils/elements';
+import {archiveGroups} from './archiveGroups';
+import {timeSpan} from '../../utils/utils';
+import {subscribe} from '../../utils/pubsub';
+import log from '../../utils/log';
+import {isActType} from '../../utils/isActType';
+import CONST from '../../utils/const';
+const ICONS = CONST.ICONS;
 
-
-let showArchive = _settings.settingsValues.showArchive;
-const $archiveTab = _elements.getTab('archive').toggle(showArchive);
-
-const $archiveTabContent = _elements.getTabInner('archive');
-
-$('<span class="link-ajax archive-renew">обновить</span>').appendTo($archiveTabContent)
-	.on('click', function() {
-		drawArchiveGroups(archiveGroups);
-	});
-
+const $archiveTabContent = elements.getTabInner('archive');
 const $archiveContent = $('<div class="archive-content"></div>').appendTo($archiveTabContent);
-$archiveContent.on('click', '.group-toggle', function() {
-	$(this).closest('.group').toggleClass('open');
-});
-
 
 
 function drawArchiveGroups(archiveGroups) {
 	let levelIndex = 0;
-	const levelsLog = _log.get('levelsLog') || [];
+	const levelsLog = log.get('levelsLog') || [];
 	for (let i = 0; i < archiveGroups.length; i++) {
 		const group = archiveGroups[i];
 		const ts = group.ts[1];
@@ -47,13 +32,13 @@ function drawArchiveGroups(archiveGroups) {
 
 
 function drawArchiveGroup(archiveGroup, index, archiveGroups) {
-	const isOpen = _settings.settingsValues.groupOpenOnDefault;
+	const isOpen = settingsValues.groupOpenOnDefault;
 	const groupType = archiveGroup.broken ? 'broken' : archiveGroup.type;
 	let groupLink;
 	if (archiveGroup.mobId) {
 		groupLink = '/guide/mobs/' + archiveGroup.mobId;
 	}
-	let htmlGroupIcon = _const.ACTION_TYPE_ICONS[groupType] || '';
+	let htmlGroupIcon = CONST.ACTION_TYPE_ICONS[groupType] || '';
 	if (groupLink) {
 		htmlGroupIcon = '<a class="action-icon ' + groupType + '" href="' + groupLink + '" target="_blank">' + htmlGroupIcon + '</a>';
 	} else {
@@ -73,11 +58,11 @@ function drawArchiveGroup(archiveGroup, index, archiveGroups) {
 			timeEnd = timeStartNext;
 		}
 	}
-	const timeSpan = timeEnd - timeStart;
+	const timeDiff = timeEnd - timeStart;
 
 	const htmlTime = /*'<span class="glyphicon glyphicon-time"></span> ' +*/
-		'<span class="group-time ' + (timeSpan > 600 ? 'bad' : timeSpan > 300 ? 'average' : '') + '">' +
-			_utils.timeSpan(timeSpan) +
+		'<span class="group-time ' + (timeDiff > 600 ? 'bad' : timeDiff > 300 ? 'average' : '') + '">' +
+		timeSpan(timeDiff) +
 		'</span> ';
 
 
@@ -85,29 +70,29 @@ function drawArchiveGroup(archiveGroup, index, archiveGroups) {
 	if (archiveGroup.total && (archiveGroup.type === 'fight' || archiveGroup.type === 'fight-god')) {
 		htmlGroupList =
 			'<span class="stats-archive stats-archive-me">' +
-				drawArchiveActStat(archiveGroup.total.me) +
+			drawArchiveActStat(archiveGroup.total.me) +
 			'</span>' +
 			'<span class="stats-archive stats-archive-enemy">' +
-				drawArchiveActStat(archiveGroup.total.enemy) +
+			drawArchiveActStat(archiveGroup.total.enemy) +
 			'</span>';
 	} else {
-		let actName = _const.ACTION_TYPE_TEXTS[archiveGroup.type || 'undefined'];
+		let actName = CONST.ACTION_TYPE_TEXTS[archiveGroup.type || 'undefined'];
 		if (archiveGroup.broken) {
-			actName = _const.ERROR_CODES[archiveGroup.broken || 1];
+			actName = CONST.ERROR_CODES[archiveGroup.broken || 1];
 		}
 		htmlGroupList = '<span class="stats-archive">' + actName + '</span>';
 	}
 	let html =
-			'<div class="group-title">' + htmlGroupIcon + htmlTime + htmlTitle + '</div>' +
-			'<div class="group-controls">' +
-				'<span class="group-toggle on-close text-muted glyphicon glyphicon-chevron-up"></span>' +
-				'<span class="group-toggle on-open text-muted glyphicon glyphicon-chevron-down"></span>' +
-			'</div>' +
-			'<div class="archive-log-list on-open">' + htmlGroupList + '</div>';
+		'<div class="group-title">' + htmlGroupIcon + htmlTime + htmlTitle + '</div>' +
+		'<div class="group-controls">' +
+		'<span class="group-toggle on-close text-muted glyphicon glyphicon-chevron-up"></span>' +
+		'<span class="group-toggle on-open text-muted glyphicon glyphicon-chevron-down"></span>' +
+		'</div>' +
+		'<div class="archive-log-list on-open">' + htmlGroupList + '</div>';
 
 	html =
 		'<div class="group' + (isOpen ? ' open' : '') + '" data-index="' + index + '">' +
-			html +
+		html +
 		'</div>';
 
 	$archiveContent.prepend(html);
@@ -115,7 +100,7 @@ function drawArchiveGroup(archiveGroup, index, archiveGroups) {
 
 
 function drawArchiveActStat(stats) {
-	const types = ['dmgSum'].concat(_const.FIGHT);
+	const types = ['dmgSum'].concat(CONST.FIGHT);
 	let html = '';
 //			html += JSON.stringify(stats)
 	for (let i = 0; i < types.length; i++) {
@@ -123,7 +108,7 @@ function drawArchiveActStat(stats) {
 		if (stats[type]) {
 			const stat = stats[type];
 			let htmlStat = '';
-			const htmlStatName = _icons[type];
+			const htmlStatName = ICONS[type];
 			const count = stat.count;
 			const sum = stat.sum;
 			if (isActType('FIGHT_COUNTS', type)) {
@@ -144,19 +129,26 @@ function drawArchiveActStat(stats) {
 }
 
 
+export function initArchiveGroups() {
+	let showArchive = settingsValues.showArchive;
+	const $archiveTab = elements.getTab('archive').toggle(showArchive);
 
-module.exports = drawArchiveGroups;
+	$('<span class="link-ajax archive-renew">обновить</span>').appendTo($archiveTabContent)
+		.on('click', function() {
+			drawArchiveGroups(archiveGroups);
+		});
 
+	$archiveContent.on('click', '.group-toggle', function() {
+		$(this).closest('.group').toggleClass('open');
+	});
 
-
-_subscribe('settingsChange', function(key, value) {
-	if (key === 'showArchive') {
-		showArchive = value;
-		$archiveTab.toggle(showArchive);
-		if (!showArchive) {
-			$archiveContent.html('');
+	subscribe('settingsChange', function(key, value) {
+		if (key === 'showArchive') {
+			showArchive = value;
+			$archiveTab.toggle(showArchive);
+			if (!showArchive) {
+				$archiveContent.html('');
+			}
 		}
-	}
-});
-
-
+	});
+}

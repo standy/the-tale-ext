@@ -1,5 +1,5 @@
-const _settings = require('./settings');
+import {settingsValues} from '../settings/settings';
 
-module.exports = function(str) {
-	return str.indexOf(_settings.settingsValues.heroNameStart) >= 0;
-};
+export function isMyName(str) {
+	return str.indexOf(settingsValues.heroNameStart) >= 0;
+}

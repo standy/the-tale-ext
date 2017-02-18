@@ -1,9 +1,8 @@
-const utils = require('../../utils/');
-const _log = utils.log;
-const upgradeArchiveGroup = require('./upgradeArchiveGroup');
+import {upgradeArchiveGroup} from './upgradeArchiveGroup';
+import log from '../../utils/log';
 
-function loadArchiveGroups() {
-	const _archiveGroups = _log.get('archiveGroups') || [];
+export function loadArchiveGroups() {
+	const _archiveGroups = log.get('archiveGroups') || [];
 	_archiveGroups.sort(function(a, b) {
 		return a.ts[0] - b.ts[0];
 	});
@@ -14,9 +13,4 @@ function loadArchiveGroups() {
 		}
 	}
 	_archiveGroups.map(upgradeArchiveGroup);
-	/* FIXME результат не используется? */
-	return _archiveGroups;
 }
-
-module.exports = loadArchiveGroups;
-

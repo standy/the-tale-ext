@@ -1,11 +1,10 @@
-const utils = require('../utils/');
-const _parse = require('../parse/');
-const _publish = utils.publish;
-const _log = utils.log;
-const messagesLog = require('./messagesLog');
+import log from '../utils/log';
+import {parseShort} from '../parse/parseShort';
+import {messagesLog} from './messagesLog';
+import {publish} from '../utils/pubsub';
 
 
-function traceData(game_data) {
+export function traceData(game_data) {
 	const hero = game_data.account.hero;
 	if (!hero) return;
 
@@ -50,20 +49,17 @@ function traceData(game_data) {
 			const messageNew = messagesPack[i];
 //					if (messagesPackTimestamp === messageNew[0]) messageNew[3] = heroData;
 			messageNew[3] = messageNew[3] || false;
-			messageNew[4] = _parse.short(messageNew[2]) || false;
+			messageNew[4] = parseShort(messageNew[2]) || false;
 
 			messagesLog.push(messageNew);
 			messagesNew.push(messageNew);
 		}
 	}
-	_log.set('messagesLog', messagesLog.map(function(item) { return [item[0], item[1], item[2], item[3]]; }));
+	log.set('messagesLog', messagesLog.map(function(item) { return [item[0], item[1], item[2], item[3]]; }));
 //	_trace.heroData = heroData;
 
-	_publish('newTurn', messagesNew, game_data, messagesPackTimestamp);
+	publish('newTurn', messagesNew, game_data, messagesPackTimestamp);
 	if (messagesNew.length) {
-		_publish('newMessages', messagesNew, game_data, messagesPackTimestamp);
+		publish('newMessages', messagesNew, game_data, messagesPackTimestamp);
 	}
 }
-
-module.exports = traceData;
-

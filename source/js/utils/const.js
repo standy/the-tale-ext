@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	MAX_LOG_LENGTH: 1000,
 	MAX_ARCHIVE_LENGTH: 2000,
 	FIGHT_START: 'fight'.split(/,\s*/),

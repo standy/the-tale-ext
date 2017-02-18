@@ -1,12 +1,9 @@
-const $ = require('jquery');
-const pgf = require('pgf');
+import $ from 'jquery';
+import pgf from 'pgf';
+import {traceData} from './traceData';
 
-const traceData = require('./traceData');
-
-function traceStart() {
+export function traceStart() {
 	$(document).bind(pgf.game.events.DATA_REFRESHED + '.ext-trace', function(e, game_data) {
 		traceData(game_data);
 	});
 }
-
-module.exports = traceStart;

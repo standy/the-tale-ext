@@ -1,37 +1,32 @@
-const utils = require('./../utils/');
-const _settings = utils.settings;
-//var _publish = utils.publish;
-const _subscribe = utils.subscribe;
-
-const sendNotify = require('./sendNotify');
-
-
+import {utils} from '../utils/initUtils';
+import {settingsValues} from '../settings/settings';
+import {subscribe} from '../utils/pubsub';
+import {sendNotify} from './sendNotify';
 
 let lastNotifyMessagesText = '';
-_subscribe('newMessages', function(messagesNew, gameData) {
+subscribe('newMessages', function(messagesNew, gameData) {
 	const hero = gameData.account.hero;
-	const _settingsValues = _settings.settingsValues;
-	if (!_settingsValues.notify) return;
+	if (!settingsValues.notify) return;
 	const notifyMessages = [];
-	if (_settingsValues.notifyHeroHp) {
+	if (settingsValues.notifyHeroHp) {
 		const health = hero.base.health;
 //		var healthMax = hero.base.max_health;
 //		var healthPercent = health / healthMax * 100;
-		const minHp = _settingsValues.notifyHeroHpLowerValue;
+		const minHp = settingsValues.notifyHeroHpLowerValue;
 		if (health < minHp) {
 			notifyMessages.push('Низкое здоровье: ' + health + ' HP');
 		}
 	}
-	if (_settingsValues.notifyHeroEnergy) {
+	if (settingsValues.notifyHeroEnergy) {
 		const energy = hero.energy.value;
 //		var energyMax = hero.energy.max;
 //		var energyPercent = energy / energyMax * 100;
-		const maxEnergy = _settingsValues.notifyHeroEnergyGreaterValue;
+		const maxEnergy = settingsValues.notifyHeroEnergyGreaterValue;
 		if (energy > maxEnergy) {
 			notifyMessages.push('Энергия накопилась: ' + energy);
 		}
 	}
-	if (_settingsValues.notifyHeroIdle) {
+	if (settingsValues.notifyHeroIdle) {
 		const actionType = hero.action.type;
 		if (actionType === 0) {
 			notifyMessages.push('Герой бездействует');

@@ -1,11 +1,10 @@
 /** добавляет к архивам поле total */
 
-const $ = require('jquery');
-const utils = require('../../utils/');
-const _const = utils.const;
-const isActType = utils.isActType;
+import $ from 'jquery';
+import CONST from '../../utils/const';
+import {isActType} from '../../utils/isActType';
 
-function upgradeArchiveGroup(archiveGroup, index) {
+export function upgradeArchiveGroup(archiveGroup, index) {
 	if (!archiveGroup || !archiveGroup.ts) {
 		return archiveGroup;
 	}
@@ -59,7 +58,7 @@ function upgradeArchiveGroup(archiveGroup, index) {
 				addTo[type].sum += sum;
 
 
-				const typeSumTo = _const.SUM_TO_MAIN[type];
+				const typeSumTo = CONST.SUM_TO_MAIN[type];
 				if (typeSumTo) {
 					addTo[typeSumTo] = addTo[typeSumTo] || {sum: 0, count: 0};
 					addTo[typeSumTo].sum += sum;
@@ -75,6 +74,4 @@ function upgradeArchiveGroup(archiveGroup, index) {
 		return addTo;
 	}
 }
-
-module.exports = upgradeArchiveGroup;
 

@@ -1,11 +1,10 @@
-const $ = require('jquery');
-const utils = require('../../utils/');
-const _publish = utils.publish;
+import $ from 'jquery';
 
 
-const mapData = require('./mapData');
+import {mapData} from './mapData';
+import {publish} from '../../utils/pubsub';
 
-function mapDataUpdate(map_version) {
+export function mapDataUpdate(map_version) {
 	return $.ajax({
 		url: '/game/map/api/region?api_version=0.1&api_client=' + window.API_CLIENT,
 		dataType: 'json',
@@ -18,9 +17,6 @@ function mapDataUpdate(map_version) {
 				}
 			}
 			$.extend(mapData, map_data);
-			_publish('townsInit', map_data);
+			publish('townsInit', map_data);
 		});
 }
-
-
-module.exports = mapDataUpdate;

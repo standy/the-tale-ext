@@ -1,10 +1,10 @@
-const utils = require('./../utils/');
-const _settings = utils.settings;
-const _publish = utils.publish;
-const sendNotify = require('./sendNotify');
+import {utils} from '../utils/initUtils';
+import {settingsValues} from '../settings/settings';
+import {publish} from '../utils/pubsub';
+import {sendNotify} from './sendNotify';
 
 let lastQuests;
-function checkQuests(quests) {
+export function checkQuests(quests) {
 	const line = quests[1].line;
 	const lineOld = lastQuests && lastQuests[1] && lastQuests[1].line || [];
 	const newLines = [];
@@ -12,9 +12,9 @@ function checkQuests(quests) {
 		const q = line[i];
 		const qOld = lineOld[i];
 		if (!qOld || !isSameQuest(q, qOld)) {
-			if (_settings.settingsValues.notifyQuestChoose && q.choice_alternatives && q.choice_alternatives.length) {
+			if (settingsValues.notifyQuestChoose && q.choice_alternatives && q.choice_alternatives.length) {
 //					console.info('quest!', q.type, _ext.heroName + ' ' + q.action + '!', q);
-				if (_settings.settingsValues.notify) {
+				if (settingsValues.notify) {
 					sendNotify(q.name, {
 						tag: 'quest',
 						body: utils.heroName + ' ' + q.action + '!',
@@ -27,7 +27,7 @@ function checkQuests(quests) {
 		}
 	}
 	if (newLines.length) {
-		_publish('questUpdate', line);
+		publish('questUpdate', line);
 	}
 	lastQuests = quests;
 }
@@ -42,7 +42,3 @@ function isSameQuest(q1, q2) {
 	}
 	return true;
 }
-
-module.exports = checkQuests;
-
-

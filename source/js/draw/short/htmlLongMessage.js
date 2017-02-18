@@ -1,8 +1,6 @@
-const _parse = require('../../parse/');
+import {parseHighlight} from '../../parse/parseHighlight';
 
-
-
-function htmlLongMessage(message) {
+export function htmlLongMessage(message) {
 	const time = message[1];
 	const msg = message[2];
 	const act = message[4];
@@ -12,7 +10,7 @@ function htmlLongMessage(message) {
 		const isMe = act.isMe;
 		actType = ' msg msg-' + act.type + (isMe ? ' me' : ' enemy');
 	}
-	const messageHighlight = _parse.highlight(msg, act);
+	const messageHighlight = parseHighlight(msg, act);
 
 
 	const htmlLongMsg =
@@ -23,6 +21,3 @@ function htmlLongMessage(message) {
 
 	return htmlLongMsg;
 }
-
-
-module.exports = htmlLongMessage;

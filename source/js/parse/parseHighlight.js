@@ -1,12 +1,12 @@
-const phrasesHighlight = require('./journalPhrasesHighlight');
-const cfgHighlight = processHighlightRaw(phrasesHighlight);
+import {journalPhrasesHighlight} from './journalPhrasesHighlight';
 
-module.exports = parseHighlight;
+const cfgHighlight = processHighlightRaw(journalPhrasesHighlight);
+
 
 /**
 * Метод выделяет ключевые слова в строке действия в журнале
 * */
-function parseHighlight(msg, act) {
+export function parseHighlight(msg, act) {
 	for (let i = 0; i < cfgHighlight.length; i++) {
 		const regExp = cfgHighlight[i].regex;
 		const type = cfgHighlight[i].type || 'value';

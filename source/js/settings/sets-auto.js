@@ -1,11 +1,4 @@
-const $ = require('jquery');
-const utils = require('../utils/');
-const _subscribe = utils.subscribe;
-const _elements = utils.elements;
-const _settings = utils.settings;
-
-
-const sets = [{
+export const setsAuto = [{
 	title: 'Помощь герою (<span class="link-ajax" data-auto="rest">миролюбие</span>/<span class="link-ajax" data-auto="fight">агрессия</span>)',
 	fields: [{
 		label: 'Автоматическая помощь',
@@ -182,64 +175,3 @@ const sets = [{
 		value: false,
 	}],
 }];
-
-_subscribe('preload', function(gameData) {
-	if (gameData) {
-		const hero = gameData.account.hero;
-		const energyBonus = hero.energy.bonus;
-		const $inputMax = _settings.getSettingInput('autohelpEnergyBonusMax');
-		if (isNaN($inputMax.val())) {
-			$inputMax.val(Math.max(0, energyBonus - 10)).trigger('change');
-		}
-	}
-});
-
-function initSettings() {
-	_settings.addSets(sets);
-	_settings.drawSets(sets);
-
-	const $sets = _elements.getTabInner('sets');
-	$sets.on('click', '[data-auto]', function(e) {
-		e.preventDefault();
-		const type = $(this).data('auto');
-		const types = {
-			rest: {
-				autohelpIdle: 1,
-				autohelpDead: 1,
-				autohelpHp: 1,
-				autohelpHpBoss: 1,
-				autohelpEnergy: 1,
-				autohelpEnergyFight: 0,
-				autohelpEnergyRest: 0,
-				autohelpEnergyWalk: 1,
-				autohelpEnergyTradeMed: 1,
-			},
-			fight: {
-				autohelpIdle: 0,
-				autohelpDead: 0,
-				autohelpHp: 1,
-				autohelpHpBoss: 0,
-				autohelpEnergy: 1,
-				autohelpEnergyFight: 1,
-				autohelpEnergyRest: 0,
-				autohelpEnergyWalk: 0,
-				autohelpEnergyTradeMed: 0,
-			},
-		};
-		const conf = types[type];
-		for (const key in conf) {
-			if (conf.hasOwnProperty(key)) {
-				const value = !!conf[key];
-				const $input = _settings.getSettingInput(key);
-				$input.prop('checked', value).trigger('change');
-			}
-		}
-	});
-}
-
-module.exports = initSettings;
-
-_subscribe('init', function() {
-	initSettings();
-});
-

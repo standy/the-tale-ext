@@ -1,10 +1,9 @@
-const utils = require('../../utils/');
-const _const = utils.const;
-const _icons = _const.ICONS;
-const isActType = utils.isActType;
+import CONST from '../../utils/const';
+import {isActType} from '../../utils/isActType';
+const ICONS = CONST.ICONS;
 
 
-function htmlMessage(message) {
+export function htmlMessage(message) {
 	const time = message[1];
 	const msg = message[2];
 	const act = message[4]; //_parse.message(message, 'message');
@@ -16,10 +15,10 @@ function htmlMessage(message) {
 	const sec = act.sec;
 	let t = '';
 	const val = act.value || '';
-	let icon = _icons[type];
+	let icon = ICONS[type];
 //	if (sec) console.log(sec, message[3], time)
 	if (sec) {
-		icon += '<span class="sub-icon">' + _icons[sec] + '</span>';
+		icon += '<span class="sub-icon">' + ICONS[sec] + '</span>';
 	}
 	if (type === 'hit') {
 		t = val;
@@ -34,6 +33,4 @@ function htmlMessage(message) {
 	}
 	return htmlMsg || '';
 }
-
-module.exports = htmlMessage;
 

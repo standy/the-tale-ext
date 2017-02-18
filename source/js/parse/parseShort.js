@@ -1,9 +1,9 @@
-const utils = require('../utils');
-const phrases = require('./journalPhrases');
+import {journalPhrases} from './journalPhrases';
+import {isMyName} from '../utils/isMyName';
+import {settingsValues} from '../settings/settings';
 
-const cfgShort = processShortRaw(phrases);
+const cfgShort = processShortRaw(journalPhrases);
 
-module.exports = parseShort;
 
 /**
  * Метод разбирает действие из журнала
@@ -17,7 +17,7 @@ module.exports = parseShort;
  * @return {string} act.item - значение из фигурных скобок
  * @return {string} act.value - значение из фигурных скобок
  * */
-function parseShort(msg) {
+export function parseShort(msg) {
 	msg = msg.replace(/ё/g, 'е').replace(/\s\s+/g, ' ');
 	let act;
 	for (let i = 0; i < cfgShort.length; i++) {
@@ -36,8 +36,13 @@ function parseShort(msg) {
 				act[param] = isNaN(values[paramIndex]) ? values[paramIndex] : +values[paramIndex];
 			}
 
-			act.isMe = !!(act.actor ? utils.isMyName(act.actor) : (act.victim ? !utils.isMyName(act.victim) : true));
-			if (!utils.settings.settingsValues.heroNameStart) act.isMe = 0;
+			act.isMe = act.actor
+				? isMyName(act.actor)
+				: (act.victim
+					? !isMyName(act.victim)
+					: true
+				);
+			if (!settingsValues.heroNameStart) act.isMe = 0;
 		}
 	}
 	return act;

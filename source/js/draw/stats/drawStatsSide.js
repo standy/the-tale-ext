@@ -1,34 +1,33 @@
-const utils = require('../../utils/');
-const _const = utils.const;
-const _icons = _const.ICONS;
-const _elements = utils.elements;
-const _utils = utils.utils;
-const _settings = utils.settings;
-const _log = utils.log;
-const isActType = utils.isActType;
-const _archive = require('../archive/');
-
-const countStatsTotal = require('./countStatsTotal');
+import {declensionByNumber, timeSpan} from '../../utils/utils';
+import CONST from '../../utils/const';
+import {isActType} from '../../utils/isActType';
+import log from '../../utils/log';
+const ICONS = CONST.ICONS;
+import {settingsValues} from '../../settings/settings';
+import {elements} from '../../utils/elements';
+import {archiveGroups as externalArchiveGroups} from '../archive/archiveGroups';
+import {countStatsTotal} from './countStatsTotal';
 
 
-_elements.addTab('stats-side', {
+
+elements.addTab('stats-side', {
 	zone: 'equip',
 	title: 'стат',
 	content: '<div class="stats" />',
 });
-_elements.activeTab('stats-side');
-const $stats = _elements.getTabInner('stats-side');
+elements.activeTab('stats-side');
+const $stats = elements.getTabInner('stats-side');
 
-function drawStatsSide(archiveGroups) {
-	archiveGroups = archiveGroups || _archive.archiveGroups;
-	const groups = _settings.settingsValues.statsByLevel ? groupsByLevel(archiveGroups, _settings.settingsValues.statsByLevelValue) : archiveGroups;
+export function drawStatsSide(archiveGroups) {
+	archiveGroups = archiveGroups || externalArchiveGroups;
+	const groups = settingsValues.statsByLevel ? groupsByLevel(archiveGroups, settingsValues.statsByLevelValue) : archiveGroups;
 
-	const statsTotal = countStatsTotal(groups, _settings.settingsValues.statsActionsCount);
-	const mobId = _settings.settingsValues.statsByMob && (_settings.settingsValues.statsByMobId || statsTotal.lastMobId);
+	const statsTotal = countStatsTotal(groups, settingsValues.statsActionsCount);
+	const mobId = settingsValues.statsByMob && (settingsValues.statsByMobId || statsTotal.lastMobId);
 
 	let html = '';
 	let htmlMe;
-	if (_settings.settingsValues.myStatsByMob && mobId) {
+	if (settingsValues.myStatsByMob && mobId) {
 		htmlMe = drawStatsSideByActor(statsTotal.meByMob[mobId]);
 	} else {
 		htmlMe = drawStatsSideByActor(statsTotal.me);
@@ -37,7 +36,7 @@ function drawStatsSide(archiveGroups) {
 	if (mobId) {
 		htmlEnemy =
 			'<tr class="unhover">' +
-				'<td class="stats-against" colspan="5"><a href="/guide/mobs/' + mobId + '" target="_blank">' + _const.MOBS[mobId] + '</a></td>' +
+				'<td class="stats-against" colspan="5"><a href="/guide/mobs/' + mobId + '" target="_blank">' + CONST.MOBS[mobId] + '</a></td>' +
 			'</tr>' +
 			drawStatsSideByActor(statsTotal.enemyByMob[mobId]);
 	} else {
@@ -67,7 +66,7 @@ function drawStatsSide(archiveGroups) {
 
 	const loot = statsTotal.loot;
 	const htmlLoot =
-		'<span class="stats-name" title="Поднял/Пусто/Выбросил/Умер">' + _icons.pickup + '</span> ' +
+		'<span class="stats-name" title="Поднял/Пусто/Выбросил/Умер">' + ICONS.pickup + '</span> ' +
 		'<span title="Поднял">' + loot.pickup + '</span> / ' +
 		'<span title="Пусто">' + loot.empty + '</span> / ' +
 		'<span title="Выбросил">' + loot.drop + '</span> / ' +
@@ -75,7 +74,7 @@ function drawStatsSide(archiveGroups) {
 
 
 	let htmlTime =
-		'<b>' + statsTotal.actionsSum + '</b> ' + _utils.declensionByNumber(statsTotal.actionsSum, ['действие', 'действия', 'действий']) + ' за ' + _utils.timeSpan(statsTotal.actionsTime) + '<br />';
+		'<b>' + statsTotal.actionsSum + '</b> ' + declensionByNumber(statsTotal.actionsSum, ['действие', 'действия', 'действий']) + ' за ' + timeSpan(statsTotal.actionsTime) + '<br />';
 	const interestAverageActions = [{
 		type: 'fight,rest',
 		text: 'бой/отдых',
@@ -147,13 +146,13 @@ function drawStatsSide(archiveGroups) {
 			const type = types[0];
 			htmlTime +=
 				'<span class="action-icon ' + (act.countType || type) + '" ' +
-				'title="' + types.map(function(item) { return _const.ACTION_TYPE_TEXTS[item]; }).join(', ') + '">' +
-				(act.icon || _const.ACTION_TYPE_ICONS[type]) +
+				'title="' + types.map(function(item) { return CONST.ACTION_TYPE_TEXTS[item]; }).join(', ') + '">' +
+				(act.icon || CONST.ACTION_TYPE_ICONS[type]) +
 				'</span>';
 			if (!act.countAverage) {
-				htmlTime += '<span title="' + _utils.timeSpan(time) + '">' + timePercent.toFixed(1) + '%</span> - ';
+				htmlTime += '<span title="' + timeSpan(time) + '">' + timePercent.toFixed(1) + '%</span> - ';
 			} else {
-				htmlTime += _utils.timeSpan(time);
+				htmlTime += timeSpan(time);
 			}
 			htmlTime += ' ' + act.text + ' (' + countTotal + ')<br />';
 		}
@@ -171,22 +170,22 @@ function drawStatsSide(archiveGroups) {
 function drawStatsSideByActor(stats) {
 	let html = '';
 	if (!stats) return html;
-	const types = [].concat(_const.ACTIVE, ['dmgSum'], _const.PASSIVE);
+	const types = [].concat(CONST.ACTIVE, ['dmgSum'], CONST.PASSIVE);
 	for (let i = 0; i < types.length; i++) {
 		const type = types[i];
 		const isDot = isActType('DOT', type);
 		const isPassive = isActType('PASSIVE', type);
-		const sumTo = _const.SUM_TO_MAIN[type];
+		const sumTo = CONST.SUM_TO_MAIN[type];
 		const dmgSum = stats.dmgSum || {};
 		const hit = stats.hit || {};
 
 		if (stats[type]) {
 			const stat = stats[type];
-			const title = _const.ACTION_TRANSLATE[type] +
-				(sumTo ? ', включено в ' + _const.ACTION_TRANSLATE[sumTo]
+			const title = CONST.ACTION_TRANSLATE[type] +
+				(sumTo ? ', включено в ' + CONST.ACTION_TRANSLATE[sumTo]
 					: (isPassive ? ', не учитывается в сумме' : '')
 				);
-			let htmlStat = '<td class="stats-name" title="' + title + '">' + _icons[type] + '</td> ';
+			let htmlStat = '<td class="stats-name" title="' + title + '">' + ICONS[type] + '</td> ';
 
 			const count = stat.count;
 			const sum = stat.sum;
@@ -206,7 +205,7 @@ function drawStatsSideByActor(stats) {
 			}
 			const chanceText = type === 'hit' ? '-' : chance >= 100 ? Math.round(chance * 10) / 10 : chance.toFixed(2);
 
-			const countText = 'сработал ' + _utils.declensionByNumber(count, ['раз', 'раза', 'раз'], 1);
+			const countText = 'сработал ' + declensionByNumber(count, ['раз', 'раза', 'раз'], 1);
 
 			if (!sum) {
 				htmlStat += '<td class="stats-average"></td>';
@@ -219,7 +218,7 @@ function drawStatsSideByActor(stats) {
 
 				const dmgPercents = sum / totalSum * 100;
 				const dmgPercentsText = '' + (dmgPercents < 100 ? dmgPercents.toFixed(1) : Math.round(dmgPercents)) + '%';
-				const sumText = 'всего ' + _utils.declensionByNumber(sum, ['урон', 'урона', 'урона'], 1);
+				const sumText = 'всего ' + declensionByNumber(sum, ['урон', 'урона', 'урона'], 1);
 
 				const bonusPercent = Math.round((averagePercents - 100) * chance) / 100;
 				const bonusPercentText = bonusPercent && !isDot
@@ -241,7 +240,7 @@ function drawStatsSideByActor(stats) {
 }
 
 function groupsByLevel(archiveGroups, level) {
-	const levelsLog = _log.get('levelsLog') || [];
+	const levelsLog = log.get('levelsLog') || [];
 	let lv1;
 	let lv2;
 	if (level) {
@@ -263,6 +262,3 @@ function groupsByLevel(archiveGroups, level) {
 	}
 	return (i1 !== null && !time2) ? archiveGroups.slice(i1) : archiveGroups.slice(i1 || 0, i2 || 0);
 }
-
-module.exports = drawStatsSide;
-

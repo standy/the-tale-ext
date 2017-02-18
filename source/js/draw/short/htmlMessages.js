@@ -1,8 +1,8 @@
-const htmlMessage = require('./htmlMessage');
-const htmlLongMessage = require('./htmlLongMessage');
+import {htmlLongMessage} from './htmlLongMessage';
+import {htmlMessage} from './htmlMessage';
 
 
-function htmlMessages(messages) {
+export function htmlMessages(messages) {
 	let html = '';
 	for (let i = 0; i < messages.length; i++) {
 		const message = messages[i];
@@ -27,6 +27,4 @@ function htmlMessages(messages) {
 	}
 	return html;
 }
-
-module.exports = htmlMessages;
 

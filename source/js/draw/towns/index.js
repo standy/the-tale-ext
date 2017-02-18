@@ -1,34 +1,30 @@
-const _towns = module.exports = {};
-_towns.init = require('./init');
-_towns.mapDataUpdate = require('./mapDataUpdate');
-_towns.showMapDialogById = require('./showMapDialogById');
-_towns.townQuestUpdate = require('./townQuestUpdate');
-_towns.townParams = require('./townParams');
-_towns.mapData = require('./mapData');
-
-const $ = require('jquery');
-
-
-const utils = require('../../utils/');
-const _elements = utils.elements;
-const _subscribe = utils.subscribe;
+import $ from 'jquery';
+import {init} from './init';
+import {mapDataUpdate} from './mapDataUpdate';
+import {showMapDialogById} from './showMapDialogById';
+import {townQuestUpdate} from './townQuestUpdate';
+import {townParams} from './townParams';
+import {mapData} from './mapData';
+import {elements} from '../../utils/elements';
+import {utils} from '../../utils/initUtils';
+import {subscribe} from '../../utils/pubsub';
 
 
 
-const $townsContent = _elements.getTabInner('towns');
+const $townsContent = elements.getTabInner('towns');
 $('body')
 	.on('click.town', '.town', function() {
 		console.log('click .town');
-		if (!_towns.mapData) return;
+		if (!mapData) return;
 		const id = $(this).data('place-id');
-		_towns.showMapDialogById(id);
+		showMapDialogById(id);
 	})
 	.on('click.town', '.reload', function() {
 		const map_version = utils.map_version;
 		if (map_version) {
-			_towns.mapDataUpdate(map_version)
+			mapDataUpdate(map_version)
 				.done(function(mapData) {
-					_towns.townParams(mapData);
+					townParams(mapData);
 				});
 		}
 	});
@@ -37,14 +33,16 @@ $('body')
 $townsContent.html('<span class="link-ajax pull-right reload glyphicon glyphicon-repeat"></span>');
 
 
-_subscribe('preload', function() {
+subscribe('preload', function() {
 	const map_version = utils.map_version;
 	if (!map_version) return;
-	_towns.mapDataUpdate(map_version)
+	mapDataUpdate(map_version)
 		.done(function() {
-			_towns.init();
+			init();
 		});
 });
 
 
-
+subscribe('questUpdate', function(quest) {
+	townQuestUpdate(quest);
+});

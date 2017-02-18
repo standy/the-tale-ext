@@ -1,8 +1,7 @@
-const $ = require('jquery');
-const utils = require('../utils/');
-const _subscribe = utils.subscribe;
-const _settings = utils.settings;
-const _notification = require('../notifications/');
+import $ from 'jquery';
+import {utils} from '../utils/initUtils';
+import {sendNotify} from '../notifications/sendNotify';
+import {settingsValues} from '../settings/settings';
 const _heroName = utils.heroName;
 
 
@@ -30,20 +29,19 @@ const CHOICES = {
 
 let lastquest = '';
 
-function checkQuest(gameData) {
+export function checkQuest(gameData) {
 	const csrf = document.head.innerHTML.match(/("X-CSRFToken")(.*)(".*")/, 'g')[3].replace(/"/g, '');
-	const _settingsValues = _settings.settingsValues;
 	const selectChoices = {};
-	if (_settingsValues.autoquestPeacePlus) {
+	if (settingsValues.autoquestPeacePlus) {
 		selectChoices.peacePlus = 1;
 	}
-	if (_settingsValues.autoquestPeaceMinus) {
+	if (settingsValues.autoquestPeaceMinus) {
 		selectChoices.peaceMinus = 1;
 	}
-	if (_settingsValues.autoquestHonorPlus) {
+	if (settingsValues.autoquestHonorPlus) {
 		selectChoices.honorPlus = 1;
 	}
-	if (_settingsValues.autoquestHonorMinus) {
+	if (settingsValues.autoquestHonorMinus) {
 		selectChoices.honorMinus = 1;
 	}
 
@@ -68,9 +66,9 @@ function checkQuest(gameData) {
 	}
 
 	function chooseQuest(uid, name) {
-		if (_settingsValues.autoquestNotify && lastquest !== name) {
+		if (settingsValues.autoquestNotify && lastquest !== name) {
 			lastquest = name;
-			_notification.sendNotify('The Tale Extended - ' + _heroName, {
+			sendNotify('The Tale Extended - ' + _heroName, {
 				tag: 'autoquest',
 				body: 'Сделан выбор! \n— ' + name + '',
 				addTime: 1,
@@ -78,7 +76,7 @@ function checkQuest(gameData) {
 			});
 		}
 
-		if (!_settingsValues.autoquest) {
+		if (!settingsValues.autoquest) {
 			return;
 		}
 		$.ajax({
@@ -93,10 +91,3 @@ function checkQuest(gameData) {
 	}
 }
 
-module.exports = checkQuest;
-
-_subscribe('newMessages', function(messagesNew, gameData) {
-	window.setTimeout(function() {
-		checkQuest(gameData);
-	}, 1000);
-});

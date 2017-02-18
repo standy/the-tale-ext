@@ -1,10 +1,10 @@
-const $ = require('jquery');
-const pgf = require('pgf');
+import $ from 'jquery';
+import pgf from 'pgf';
+import {mapData} from './mapData';
+
 const widgets = window.widgets;
 
-const mapData = require('./mapData');
-
-function showMapDialogById(id) {
+export function showMapDialogById(id) {
 	const place = mapData.places[id];
 	showMapDialog(place.pos.x, place.pos.y);
 }
@@ -38,6 +38,3 @@ function showMapDialog(x, y) {
 		},
 	});
 }
-
-
-module.exports = showMapDialogById;

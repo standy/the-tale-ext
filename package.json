@@ -19,6 +19,7 @@
   ],
   "license": "MIT",
   "scripts": {
+    "lint": "eslint **/*.js --fix",
     "build": "webpack",
     "watch": "webpack -w"
   },

@@ -1,20 +1,15 @@
-const _parse = require('../parse/');
-const messagesLog = require('./messagesLog');
-const _utils = require('../utils');
-const _subscribe = _utils.subscribe;
+import {subscribe} from '../utils/pubsub';
+import {messagesLog} from './messagesLog';
+import {parseShort} from '../parse/parseShort';
 
-
-function traceInit() {
+export function traceInit() {
 	for (let i = 0; i < messagesLog.length; i++) {
 		const messageNew = messagesLog[i];
-		messageNew[4] = _parse.short(messageNew[2]) || false;
+		messageNew[4] = parseShort(messageNew[2]) || false;
 	}
 }
 
-module.exports = traceInit;
-
-
-_subscribe('settingsChange', function(key/*, value*/) {
+subscribe('settingsChange', function(key/*, value*/) {
 	if (key === 'heroNameStart') {
 		traceInit();
 	}

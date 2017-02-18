@@ -1,11 +1,11 @@
-const pgf = require('pgf');
-const _const = require('./const');
+import pgf from 'pgf';
+import CONST from './const';
 
 
-function setLog(name, messages) {
+function set(name, messages) {
 	try {
 		if (name === 'messagesLog') {
-			const max = /*_settings.settingsValues.maxLogLength || */_const.MAX_LOG_LENGTH;
+			const max = /*settingsValues.maxLogLength || */CONST.MAX_LOG_LENGTH;
 			pgf.base.settings.set(name, JSON.stringify(messages.slice(messages.length - max)));
 		} else {
 			pgf.base.settings.set(name, JSON.stringify(messages));
@@ -14,11 +14,11 @@ function setLog(name, messages) {
 		console.warn('setLog', name, e);
 	}
 }
-function getLog(name) {
+function get(name) {
 	const g = pgf.base.settings.get(name);
 	return g ? JSON.parse(g) : '';
 }
-function logToConsole(name) {
+function toConsole(name) {
 	const strLog = pgf.base.settings.get(name);
 	const s = strLog
 		.replace(/\],\[/g, '],\n\t[')
@@ -44,10 +44,10 @@ function size() {
 }
 
 
-module.exports = {
-	toConsole: logToConsole,
-	toStr: toStr,
-	get: getLog,
-	size: size,
-	set: setLog,
+export default {
+	toConsole,
+	toStr,
+	get,
+	size,
+	set,
 };

@@ -1,7 +1,5 @@
-const _const = require('./const');
+import CONST from './const.js';
 
-function isActType(types, actType) {
-	return _const[types].indexOf(actType) >= 0;
+export function isActType(types, actType) {
+	return CONST[types].indexOf(actType) >= 0;
 }
-
-module.exports = isActType;

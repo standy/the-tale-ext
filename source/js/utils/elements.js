@@ -1,5 +1,5 @@
-const $ = require('jquery');
-const _subscribe = require('./pubsub').subscribe;
+import $ from 'jquery';
+import {subscribe} from './pubsub';
 
 const tabs = {};
 
@@ -85,7 +85,7 @@ function getControl(name) {
 	return controls[name].$el;
 }
 
-const _elements = {
+export const elements = {
 	addTab: addTab,
 	activeTab: activeTab,
 	getTab: getTab,
@@ -95,19 +95,15 @@ const _elements = {
 	getControl: getControl,
 };
 
-module.exports = _elements;
 
-
-_elements.addTab('sets', {zone: 'main', title: '<span class="glyphicon glyphicon-cog" title="Настройки &laquo;The Tale Extended&raquo;"></span>'});
-_elements.addTab('towns', {zone: 'main', title: 'города'});
-_elements.addTab('archive', {zone: 'main', title: 'архив'});
-_elements.addTab('group', {zone: 'main', title: 'кратко'});
-_subscribe('init', function() {
-	_elements.activeTab('group');
+elements.addTab('sets', {zone: 'main', title: '<span class="glyphicon glyphicon-cog" title="Настройки &laquo;The Tale Extended&raquo;"></span>'});
+elements.addTab('towns', {zone: 'main', title: 'города'});
+elements.addTab('archive', {zone: 'main', title: 'архив'});
+elements.addTab('group', {zone: 'main', title: 'кратко'});
+subscribe('init', function() {
+	elements.activeTab('group');
 });
 
-_elements.addControl('journal-log', {title: 'Журнал', content: '<span class="value"></span> <span class="glyphicon glyphicon-th-list"></span></span>'});
-//	.on('click', function() { _log.toConsole('messagesLog'); });
+elements.addControl('journal-log', {title: 'Журнал', content: '<span class="value"></span> <span class="glyphicon glyphicon-th-list"></span></span>'});
 
-_elements.addControl('archive-log', {title: 'Архив', content: '<span class="value"></span> <span class="glyphicon glyphicon-th"></span></span>'});
-//	.on('click', function() { _log.toConsole('archiveGroups'); });
+elements.addControl('archive-log', {title: 'Архив', content: '<span class="value"></span> <span class="glyphicon glyphicon-th"></span></span>'});

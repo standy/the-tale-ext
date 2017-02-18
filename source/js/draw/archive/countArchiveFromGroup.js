@@ -1,11 +1,10 @@
 /** пересчет группы в архив */
 
-const $ = require('jquery');
-const utils = require('../../utils/');
-const isActType = utils.isActType;
-const upgradeArchiveGroup = require('./upgradeArchiveGroup');
+import $ from 'jquery';
+import {upgradeArchiveGroup} from './upgradeArchiveGroup';
+import {isActType} from '../../utils/isActType';
 
-function countArchiveFromGroup(group) {
+export function countArchiveFromGroup(group) {
 	const groupData = group.data;
 	const messages = group.messages;
 	if (!messages.length) { return false; }
@@ -55,7 +54,3 @@ function countArchiveFromGroup(group) {
 	upgradeArchiveGroup(archiveGroup);
 	return archiveGroup;
 }
-
-
-
-module.exports = countArchiveFromGroup;

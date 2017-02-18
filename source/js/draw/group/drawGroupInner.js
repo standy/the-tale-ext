@@ -1,10 +1,9 @@
-const utils = require('../../utils/');
-const _const = utils.const;
-const _utils = utils.utils;
-const _shortMessages = require('../short/');
+import {timeSpan} from '../../utils/utils';
+import CONST from '../../utils/const';
+import {htmlMessages} from '../short/htmlMessages';
 
 
-function drawGroupInner(group, groupNext) {
+export function drawGroupInner(group, groupNext) {
 	if (!group || !group.messages || !group.messages.length) return '';
 	const messages = group.messages;
 	const groupData = group.data;
@@ -14,12 +13,12 @@ function drawGroupInner(group, groupNext) {
 
 	const groupType = groupData.type;
 	const groupLink = (groupData.info_link || '').replace('/info', '');
-	let htmlGroupIcon = _const.ACTION_TYPE_ICONS[groupType] || '';
-	let iconAttr = 'class="action-icon ' + groupType + '" title="' + _const.ACTION_TYPE_TEXTS[groupType] + '"';
+	let htmlGroupIcon = CONST.ACTION_TYPE_ICONS[groupType] || '';
+	let iconAttr = 'class="action-icon ' + groupType + '" title="' + CONST.ACTION_TYPE_TEXTS[groupType] + '"';
 
 	if (groupData.isBroken && !groupData.unfinished) {
-		htmlGroupIcon = _const.ACTION_TYPE_ICONS.broken;
-		const title = _const.ERROR_CODES[groupData.isBroken || 1];
+		htmlGroupIcon = CONST.ACTION_TYPE_ICONS.broken;
+		const title = CONST.ERROR_CODES[groupData.isBroken || 1];
 		iconAttr = 'class="action-icon broken" title="' + title + '"';
 	}
 	if (groupLink) {
@@ -40,15 +39,15 @@ function drawGroupInner(group, groupNext) {
 			timeEnd = timeStartNext;
 		}
 	}
-	const timeSpan = timeEnd - timeStart;
+	const timeDiff = timeEnd - timeStart;
 	const htmlTime = /*'<span class="glyphicon glyphicon-time"></span> ' +*/
-		'<span class="group-time ' + (timeSpan > 600 ? 'bad' : timeSpan > 300 ? 'average' : '') + '">' +
-		_utils.timeSpan(timeSpan) +
+		'<span class="group-time ' + (timeDiff > 600 ? 'bad' : timeDiff > 300 ? 'average' : '') + '">' +
+		timeSpan(timeDiff) +
 		'</span> ';
 
 
 
-	const htmlGroupList = _shortMessages.htmlMessages(messages);
+	const htmlGroupList = htmlMessages(messages);
 
 	const html =
 		'<div class="group-title on-close' + (groupData.god ? ' god' : '') + '">' + htmlGroupIcon + htmlTime + htmlTitle + '</div>' +
@@ -61,6 +60,3 @@ function drawGroupInner(group, groupNext) {
 
 	return html;
 }
-
-module.exports = drawGroupInner;
-

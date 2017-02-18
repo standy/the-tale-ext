@@ -1,22 +1,19 @@
-const $ = require('jquery');
-const utils = require('../utils/');
-const _subscribe = utils.subscribe;
-const _const = utils.const;
-const _settings = utils.settings;
-const _notification = require('../notifications/');
+import $ from 'jquery';
+import {utils} from '../utils/initUtils';
+import {sendNotify} from '../notifications/sendNotify';
+import CONST from '../utils/const';
+import {settingsValues} from '../settings/settings';
 const _heroName = utils.heroName;
 
 
-function checkHero(gameData) {
-	const _settingsValues = _settings.settingsValues;
-
+export function checkHero(gameData) {
 	const hero = gameData.account.hero;
 	const actionType = hero.action.type;
 	const actionPercent = hero.action.percents;
-	const actionName = _const.ACTION_TYPE_NAMES[actionType];
+	const actionName = CONST.ACTION_TYPE_NAMES[actionType];
 
 	const energy = hero.energy.value;
-	let energyBonus = _settingsValues.autohelpEnergyBonus ? hero.energy.bonus - _settingsValues.autohelpEnergyBonusMax : 0;
+	let energyBonus = settingsValues.autohelpEnergyBonus ? hero.energy.bonus - settingsValues.autohelpEnergyBonusMax : 0;
 	if (energyBonus < 0) energyBonus = 0;
 
 	if (energy + energyBonus < 4) return;
@@ -26,23 +23,23 @@ function checkHero(gameData) {
 	const isRest = actionType < 10 && actionName !== 'fight';
 
 	const isBoss = !!hero.action.is_boss;
-	if (_settingsValues.autohelpHp && hero.base.health < _settingsValues.autohelpHpLowerValue && isFight && (!_settingsValues.autohelpHpBoss || isBoss)) {
+	if (settingsValues.autohelpHp && hero.base.health < settingsValues.autohelpHpLowerValue && isFight && (!settingsValues.autohelpHpBoss || isBoss)) {
 		godHelp('Низкое здоровье: ' + hero.base.health);
 		return;
 	}
 
 	const isHeplingCompanion = actionName === 'companionHeal';
-	if (_settingsValues.autohelpCompanion && isHeplingCompanion && hero.companion.health < _settingsValues.autohelpCompanionHp) {
+	if (settingsValues.autohelpCompanion && isHeplingCompanion && hero.companion.health < settingsValues.autohelpCompanionHp) {
 		godHelp('Низкое здоровье спутника: ' + hero.companion.health);
 
 		return;
 	}
 
-	if (_settingsValues.autohelpEnergy && energy > _settingsValues.autohelpEnergyGreaterValue && (
-			(_settingsValues.autohelpEnergyFight && isFight) ||
-			(_settingsValues.autohelpEnergyRest && isRest) ||
-			(_settingsValues.autohelpEnergyWalk && actionName === 'walk') ||
-			(_settingsValues.autohelpEnergyTradeMed && (actionName === 'trade' || actionName === 'energy'))
+	if (settingsValues.autohelpEnergy && energy > settingsValues.autohelpEnergyGreaterValue && (
+			(settingsValues.autohelpEnergyFight && isFight) ||
+			(settingsValues.autohelpEnergyRest && isRest) ||
+			(settingsValues.autohelpEnergyWalk && actionName === 'walk') ||
+			(settingsValues.autohelpEnergyTradeMed && (actionName === 'trade' || actionName === 'energy'))
 		)) {
 		//console.log('check passed', energy, _settingsValues.autohelpEnergyGreaterValue)
 		//			if (_settingsValues.autohelpEnergyRepairBuilding && _settingsValues.autohelpEnergyRepairBuildingID) {
@@ -59,17 +56,17 @@ function checkHero(gameData) {
 
 		return;
 	}
-	if (_settingsValues.autohelpIdle && actionType === 0 && !isFight && actionPercent > 0 && actionPercent < 0.8) {
+	if (settingsValues.autohelpIdle && actionType === 0 && !isFight && actionPercent > 0 && actionPercent < 0.8) {
 		godHelp('Герой бездействует');
 		return;
 	}
-	if (_settingsValues.autohelpDead && actionType === 4 && !isFight && actionPercent > 0 && actionPercent < 0.8) {
+	if (settingsValues.autohelpDead && actionType === 4 && !isFight && actionPercent > 0 && actionPercent < 0.8) {
 		godHelp('Герой умер');
 		return;
 	}
 
 	const hasCard = !$('.pgf-get-card-button').hasClass('pgf-hidden');
-	if (_settingsValues.autocard && hasCard) {
+	if (settingsValues.autocard && hasCard) {
 		$('.pgf-get-card-button a').trigger('click');
 		return;
 	}
@@ -80,17 +77,17 @@ function checkHero(gameData) {
 		const csrf = document.head.innerHTML.match(/("X-CSRFToken")(.*)(".*")/, 'g')[3].replace(/"/g, '');
 		ability = ability || 'help';
 		console.log('god ' + ability + '!', getParams, actionName, msg, $.extend({}, hero));
-		if (_settingsValues.autohelpNotify) {
-			_notification.sendNotify('The Tale Extended - ' + _heroName, {
+		if (settingsValues.autohelpNotify) {
+			sendNotify('The Tale Extended - ' + _heroName, {
 				tag: 'autohelp',
 				body: 'Сработала автоматическая помощь ' +
 					'\n' + msg + '' +
-					'\nТекущее действие: ' + _const.ACTION_TYPE_TEXTS[actionName] + '',
+					'\nТекущее действие: ' + CONST.ACTION_TYPE_TEXTS[actionName] + '',
 				addTime: 1,
 			});
 		}
 		//				console.log('godHelp! real');
-		if (!_settingsValues.autohelp) {
+		if (!settingsValues.autohelp) {
 			return;
 		}
 		let paramsStr = '';
@@ -114,14 +111,4 @@ function checkHero(gameData) {
 		});
 	}
 }
-//map autofocus
-//setInterval(widgets.map.CenterOnHero(), 10000);
-
-module.exports = checkHero;
-
-_subscribe('newTurn', function(messagesNew, gameData) {
-	window.setTimeout(function() {
-		checkHero(gameData);
-	}, 1000);
-});
 

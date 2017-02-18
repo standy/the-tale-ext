@@ -1,7 +1,7 @@
-const _archive = require('../archive/');
+import {archiveGroups as externalArchiveGroups} from '../archive/archiveGroups';
 
-function countStatsTotal(archiveGroups, count) {
-	archiveGroups = archiveGroups || _archive.archiveGroups;
+export function countStatsTotal(archiveGroups, count) {
+	archiveGroups = archiveGroups || externalArchiveGroups;
 	count = count || archiveGroups.length;
 	const me = {};
 	const enemy = {};
@@ -100,5 +100,3 @@ function addToStats(addTo, addFrom) {
 	}
 }
 
-
-module.exports = countStatsTotal;

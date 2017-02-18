@@ -1,16 +1,13 @@
-let archiveGroups = require('./archiveGroups');
-const downgradeArchiveGroup = require('./downgradeArchiveGroup');
-const utils = require('../../utils/');
-const _const = utils.const;
-const _settings = utils.settings;
-const _log = utils.log;
+import {archiveGroups} from './archiveGroups';
+import {downgradeArchiveGroup} from './downgradeArchiveGroup';
+import CONST from '../../utils/const';
+import {settingsValues} from '../../settings/settings';
+import log from '../../utils/log';
 
-function saveArchiveGroups() {
-	const max = _settings.settingsValues.maxArchiveLength || _const.MAX_ARCHIVE_LENGTH;
+export function saveArchiveGroups() {
+	const max = settingsValues.maxArchiveLength || CONST.MAX_ARCHIVE_LENGTH;
 
-	archiveGroups = archiveGroups.slice(archiveGroups.length - max);
-	const toSave = archiveGroups.map(downgradeArchiveGroup);
-	_log.set('archiveGroups', toSave);
+	const archiveGroupsForSave = archiveGroups.slice(archiveGroups.length - max);
+	const toSave = archiveGroupsForSave.map(downgradeArchiveGroup);
+	log.set('archiveGroups', toSave);
 }
-
-module.exports = saveArchiveGroups;

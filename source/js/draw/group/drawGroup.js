@@ -1,16 +1,13 @@
-const utils = require('../../utils/');
-const _settings = utils.settings;
-const drawGroupInner = require('./drawGroupInner');
-const messagesGrouped = require('./list');
+import {settingsValues} from '../../settings/settings';
+import {drawGroupInner} from './drawGroupInner';
+import {messagesGrouped} from './messagesGrouped';
 
 
-function drawGroup(group, index, isOpen) {
-	isOpen = isOpen || _settings.settingsValues.groupOpenOnDefault;
+export function drawGroup(group, index, isOpen) {
+	isOpen = isOpen || settingsValues.groupOpenOnDefault;
 	const html =
 		'<div class="group' + (isOpen ? ' open' : '') + '" data-index="' + index + '">' +
 			drawGroupInner(group, messagesGrouped[index + 1]) +
 		'</div>';
 	return html;
 }
-
-module.exports = drawGroup;

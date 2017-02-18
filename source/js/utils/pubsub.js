@@ -1,5 +1,6 @@
 const _subscribeList = [];
-function publish(e) {
+
+export function publish(e) {
 	const sp = e.split('.');
 	const event = sp[0];
 	const namespace = sp[1];
@@ -11,7 +12,8 @@ function publish(e) {
 		}
 	}
 }
-function subscribe(e, fn) {
+
+export function subscribe(e, fn) {
 	const events = e.split(',');
 	if (events.length > 1) {
 		events.forEach(function(ev) { subscribe(ev, fn); });
@@ -26,9 +28,3 @@ function subscribe(e, fn) {
 		fn: fn,
 	});
 }
-
-module.exports = {
-	subscribeList: _subscribeList,
-	publish: publish,
-	subscribe: subscribe,
-};

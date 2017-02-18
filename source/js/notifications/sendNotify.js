@@ -1,4 +1,4 @@
-const $ = require('jquery');
+import $ from 'jquery';
 
 $('body').one('click', request);
 
@@ -20,7 +20,7 @@ function generateRandomString() {
 
 let rndStr = generateRandomString();
 
-function sendNotify(name, options) {
+export function sendNotify(name, options) {
 	const d = new Date();
 	const h = d.getHours();
 	const m = d.getMinutes();
@@ -34,9 +34,3 @@ function sendNotify(name, options) {
 		rndStr = generateRandomString();
 	};
 }
-
-
-module.exports = sendNotify;
-
-
-

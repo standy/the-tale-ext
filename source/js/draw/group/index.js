@@ -1,51 +1,48 @@
-const _groupMessages = module.exports = {};
-_groupMessages.list = require('./list');
-_groupMessages.addMessages = require('./addMessages');
-_groupMessages.drawFakeMessage = require('./drawFakeMessage');
-_groupMessages.drawMessages = require('./drawMessages');
-_groupMessages.redrawGroup = require('./redrawGroup');
+import {messagesGrouped} from './messagesGrouped';
+import {addMessages} from './addMessages';
+import {drawMessages} from './drawMessages';
+import {redrawGroup} from './redrawGroup';
 
 
-const $ = require('jquery');
-const _trace = require('../../trace/');
-const utils = require('../../utils/');
-const _subscribe = utils.subscribe;
-const _elements = utils.elements;
-const _settings = utils.settings;
+import $ from 'jquery';
+import {elements} from '../../utils/elements';
+import {subscribe} from '../../utils/pubsub';
+import {settingsValues} from '../../settings/settings';
+import {messagesLog} from '../../trace/messagesLog';
 
-_subscribe('init', function() {
-	_groupMessages.addMessages(_trace.messagesLog);
-	_groupMessages.drawMessages(_groupMessages.list);
-//	_subscribe('groupFinished', function(group, index) {
-//		_groupMessages.redrawGroup(index);
+subscribe('init', function() {
+	addMessages(messagesLog);
+	drawMessages(messagesGrouped);
+//	subscribe('groupFinished', function(group, index) {
+//		redrawGroup(index);
 //	});
-	_subscribe('groupStarted', function(group, index) {
-		_groupMessages.redrawGroup(index - 1);
+	subscribe('groupStarted', function(group, index) {
+		redrawGroup(index - 1);
 	});
-	_subscribe('newTurn', function(messagesNew) {
-		_groupMessages.addMessages(messagesNew);
-		_groupMessages.redrawGroup(_groupMessages.list.length - 1);
+	subscribe('newTurn', function(messagesNew) {
+		addMessages(messagesNew);
+		redrawGroup(messagesGrouped.length - 1);
 	});
 });
 
-_elements.getTabInner('group').on('click', '.group-title', function() {
+elements.getTabInner('group').on('click', '.group-title', function() {
 	const $group = $(this).closest('.group');
 	const index = $group.data('index');
-	console.log('group>', _groupMessages.list[index]);
+	console.log('group>', messagesGrouped[index]);
 });
 
 
-_elements.addControl('group-toggle', {
+elements.addControl('group-toggle', {
 	title: 'Только действия / Подробности',
-	content: '<span class="glyphicon glyphicon-chevron-' + (_settings.settingsValues.groupOpenOnDefault ? 'down' : 'up') + '"></span>',
+	content: '<span class="glyphicon glyphicon-chevron-' + (settingsValues.groupOpenOnDefault ? 'down' : 'up') + '"></span>',
 })
 	.on('click', function() {
-//		_elements.activeTab('group');
+//		elements.activeTab('group');
 		const $icon = $(this).children('.glyphicon');
 		const isOpen = $icon.hasClass('glyphicon-chevron-up');
-		_elements.getTabInner('group')
+		elements.getTabInner('group')
 			.children('.group').toggleClass('open', isOpen);
-		_elements.getTabInner('archive')
+		elements.getTabInner('archive')
 			.find('.group').toggleClass('open', isOpen);
 		$icon.toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
 	});

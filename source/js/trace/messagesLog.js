@@ -1,9 +1,4 @@
-const core = require('../utils/');
-const _log = core.log;
+import log from '../utils/log';
 
-
-const messagesLog = _log.get('messagesLog') || [];
-
-
-module.exports = messagesLog;
+export const messagesLog = log.get('messagesLog') || [];
 

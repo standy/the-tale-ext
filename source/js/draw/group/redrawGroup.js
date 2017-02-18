@@ -1,13 +1,11 @@
-const utils = require('../../utils/');
-const _elements = utils.elements;
+import {messagesGrouped} from './messagesGrouped';
+import {drawGroup} from './drawGroup';
+import {drawGroupInner} from './drawGroupInner';
+import {elements} from '../../utils/elements';
 
-const messagesGrouped = require('./list');
-const drawGroup = require('./drawGroup');
-const drawGroupInner = require('./drawGroupInner');
+const $groupsContent = elements.getTabInner('group');
 
-const $groupsContent = _elements.getTabInner('group');
-
-function redrawGroup(index, isOpen) {
+export function redrawGroup(index, isOpen) {
 	const $group = $groupsContent.children('.group[data-index="' + index + '"]');
 	if ($group.length) {
 		if (typeof isOpen !== 'undefined') {
@@ -18,5 +16,3 @@ function redrawGroup(index, isOpen) {
 		$groupsContent.prepend(drawGroup(messagesGrouped[index], index, isOpen));
 	}
 }
-
-module.exports = redrawGroup;

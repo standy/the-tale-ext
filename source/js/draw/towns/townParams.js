@@ -1,7 +1,7 @@
-const $ = require('jquery');
+import $ from 'jquery';
 
 
-function townParams(mapData) {
+export function townParams(mapData) {
 	const places = mapData.places;
 	for (const i in places) {
 		if (places.hasOwnProperty(i)) {
@@ -50,5 +50,3 @@ function requestPlace(x, y) {
 		dataType: 'html',
 	});
 }
-
-module.exports = townParams;
