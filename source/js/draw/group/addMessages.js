@@ -1,8 +1,10 @@
 import $ from 'jquery';
 import {messagesGrouped} from './messagesGrouped';
 import CONST from '../../utils/const';
-import {publish} from '../../utils/pubsub';
 import {isActType} from '../../utils/isActType';
+import {redrawGroup} from './redrawGroup';
+import {addArchiveGroup} from '../archive/addArchiveGroup';
+import {saveArchiveGroups} from '../archive/saveArchiveGroups';
 
 export function addMessages(messagesList) {
 	for (let i = 0; i < messagesList.length; i++) {
@@ -150,7 +152,9 @@ function addMessage(message) {
 		if (data) {
 			lastG.data = $.extend(data, lastG.data);
 		}
-		publish('groupFinished', lastG, messagesGrouped.length - 1);
+
+		addArchiveGroup(lastG);
+		saveArchiveGroups();
 	}
 	function newGroup(message, data) {
 		const newG = {
@@ -164,6 +168,6 @@ function addMessage(message) {
 			newG.messages.push(message);
 		}
 		messagesGrouped[messagesGrouped.length] = newG;
-		publish('groupStarted', newG, messagesGrouped.length - 1);
+		redrawGroup(messagesGrouped.length - 1);
 	}
 }

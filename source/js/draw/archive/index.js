@@ -30,10 +30,6 @@ subscribe('init', () => {
 		const group = messagesGrouped[messagesGrouped.length - 1];
 		addArchiveGroup(group);
 	});
-	subscribe('groupFinished', (group, index) => {
-		addArchiveGroup(group);
-		saveArchiveGroups();
-	});
 });
 elements.getTabInner('archive').on('click', '.group-title', function() {
 	const $group = $(this).closest('.group');

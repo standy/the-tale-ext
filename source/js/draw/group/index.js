@@ -17,9 +17,6 @@ subscribe('init', () => {
 //	subscribe('groupFinished', function(group, index) {
 //		redrawGroup(index);
 //	});
-	subscribe('groupStarted', (group, index) => {
-		redrawGroup(index - 1);
-	});
 	subscribe('newTurn', messagesNew => {
 		addMessages(messagesNew);
 		redrawGroup(messagesGrouped.length - 1);
