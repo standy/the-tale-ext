@@ -9,8 +9,7 @@ import {elements} from '../../utils/elements';
 import {utils} from '../../utils/initUtils';
 import {subscribe} from '../../utils/pubsub';
 
-
-
+elements.addTab('towns', {zone: 'main', title: 'города'});
 const $townsContent = elements.getTabInner('towns');
 $('body')
 	.on('click.town', '.town', function() {

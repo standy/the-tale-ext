@@ -2,15 +2,16 @@ import {messagesGrouped} from './messagesGrouped';
 import {addMessages} from './addMessages';
 import {drawMessages} from './drawMessages';
 import {redrawGroup} from './redrawGroup';
-
-
 import $ from 'jquery';
 import {elements} from '../../utils/elements';
 import {subscribe} from '../../utils/pubsub';
 import {settingsValues} from '../../settings/settings';
 import {messagesLog} from '../../trace/messagesLog';
 
+elements.addTab('group', {zone: 'main', title: 'кратко'});
+
 subscribe('init', () => {
+	elements.activeTab('group');
 	addMessages(messagesLog);
 	drawMessages(messagesGrouped);
 //	subscribe('groupFinished', function(group, index) {

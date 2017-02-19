@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import {subscribe} from './pubsub';
 
 const tabs = {};
 
@@ -95,15 +94,3 @@ export const elements = {
 	getControl,
 };
 
-
-elements.addTab('sets', {zone: 'main', title: '<span class="glyphicon glyphicon-cog" title="Настройки &laquo;The Tale Extended&raquo;"></span>'});
-elements.addTab('towns', {zone: 'main', title: 'города'});
-elements.addTab('archive', {zone: 'main', title: 'архив'});
-elements.addTab('group', {zone: 'main', title: 'кратко'});
-subscribe('init', () => {
-	elements.activeTab('group');
-});
-
-elements.addControl('journal-log', {title: 'Журнал', content: '<span class="value"></span> <span class="glyphicon glyphicon-th-list"></span></span>'});
-
-elements.addControl('archive-log', {title: 'Архив', content: '<span class="value"></span> <span class="glyphicon glyphicon-th"></span></span>'});

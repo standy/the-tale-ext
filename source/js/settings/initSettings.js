@@ -8,6 +8,8 @@ import {drawMessages} from '../draw/group/drawMessages';
 import {messagesGrouped} from '../draw/group/messagesGrouped';
 import log from '../utils/log';
 
+elements.addTab('sets', {zone: 'main', title: '<span class="glyphicon glyphicon-cog" title="Настройки &laquo;The Tale Extended&raquo;"></span>'});
+
 function initSettings() {
 	addSets(setsAuto);
 	drawSets(setsAuto);

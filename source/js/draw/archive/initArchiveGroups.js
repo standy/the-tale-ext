@@ -9,6 +9,9 @@ import {isActType} from '../../utils/isActType';
 import CONST from '../../utils/const';
 const ICONS = CONST.ICONS;
 
+elements.addTab('archive', {zone: 'main', title: 'архив'});
+elements.addControl('archive-log', {title: 'Архив', content: '<span class="value"></span> <span class="glyphicon glyphicon-th"></span></span>'});
+
 const $archiveTabContent = elements.getTabInner('archive');
 const $archiveContent = $('<div class="archive-content"></div>').appendTo($archiveTabContent);
 

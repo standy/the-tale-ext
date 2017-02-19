@@ -2,10 +2,9 @@ import $ from 'jquery';
 import {elements} from '../../utils/elements';
 import {mapData} from './mapData';
 
-const $townsContent = elements.getTabInner('towns');
-
 
 export const init = () => {
+	const $townsContent = elements.getTabInner('towns');
 	const places = mapData.places;
 	let html = '';
 	for (const i in places) {

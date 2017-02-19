@@ -6,6 +6,7 @@ import {messagesLog} from '../trace/messagesLog';
 import {traceInit} from './traceInit';
 import {traceStart} from './traceStart';
 
+elements.addControl('journal-log', {title: 'Журнал', content: '<span class="value"></span> <span class="glyphicon glyphicon-th-list"></span></span>'});
 
 
 subscribe('init', game_data => {
