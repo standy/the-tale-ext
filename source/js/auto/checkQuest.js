@@ -55,7 +55,7 @@ export function checkQuest(gameData) {
 			const option_uid = q.choice_alternatives[choiceIndex][0];
 			for (const reward in CHOICES)				{
 				if (CHOICES.hasOwnProperty(reward)) {
-					if (CHOICES[reward].indexOf(choiceName) >= 0) {
+					if (CHOICES[reward].includes(choiceName)) {
 						if (selectChoices[reward]) {
 							chooseQuest(option_uid, choiceName);
 						}

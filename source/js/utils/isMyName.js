@@ -1,5 +1,5 @@
 import {settingsValues} from '../settings/settings';
 
 export function isMyName(str) {
-	return str.indexOf(settingsValues.heroNameStart) >= 0;
+	return str.includes(settingsValues.heroNameStart);
 }

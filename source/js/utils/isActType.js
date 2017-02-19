@@ -1,5 +1,5 @@
 import CONST from './const.js';
 
 export function isActType(types, actType) {
-	return CONST[types].indexOf(actType) >= 0;
+	return CONST[types].includes(actType);
 }
