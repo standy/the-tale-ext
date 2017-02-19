@@ -17,7 +17,7 @@ window.tables = ((_tables => {
 				$th.children('.sort').click(function() {
 					$th.siblings('th').children('.sort').attr('class', 'sort');
 					const inverse = $(this).hasClass('sort-up');
-					$(this).attr('class', 'sort sort-' + (inverse ? 'down' : 'up'));
+					$(this).attr('class', `sort sort-${inverse ? 'down' : 'up'}`);
 					const arr = [];
 					$rows.each(function() {
 						const valueText = $.trim($(this).children('td').eq(thIndex).text());

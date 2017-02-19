@@ -29,12 +29,12 @@ function addTab(name, opts) {
 	const $tabs = zones[zone].$tabs;
 	const $container = zones[zone].$container;
 
-	const $tab = $('<li class="pull-right"><a href="#pgf-' + name + '-container" class="pgf-' + name + '-tab-button" data-toggle="tab">' + opts.title + '</a></li>');
+	const $tab = $(`<li class="pull-right"><a href="#pgf-${name}-container" class="pgf-${name}-tab-button" data-toggle="tab">${opts.title}</a></li>`);
 	let $content;
 	if (zone === 'main') {
-		$content = $('<div class="tab-pane log-block" id="pgf-' + name + '-container"></div>');
+		$content = $(`<div class="tab-pane log-block" id="pgf-${name}-container"></div>`);
 	} else {
-		$content = $('<div class="tab-pane" id="pgf-' + name + '-container"></div>');
+		$content = $(`<div class="tab-pane" id="pgf-${name}-container"></div>`);
 	}
 
 	$tabs.append($tab);
@@ -73,7 +73,7 @@ function activeTab(name) {
 const controls = {};
 const $controls = $('<div class="ext-controls pull-right"></div>').insertAfter('#current-action-block, #pvp-info-block');
 function addControl(name, opts) {
-	const html = '<span class="ext-control link-ajax" id="ext-' + name + '" title="' + opts.title + '">' + (opts.content || '') + '</span>';
+	const html = `<span class="ext-control link-ajax" id="ext-${name}" title="${opts.title}">${opts.content || ''}</span>`;
 
 	const $el = $(html).appendTo($controls);
 	controls[name] = {

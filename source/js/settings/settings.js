@@ -6,7 +6,7 @@ import {setsGame} from './sets-game';
 
 
 export function getSettingInput(key) {
-	return $('input[data-name="' + key + '"]');
+	return $(`input[data-name="${key}"]`);
 }
 
 const deps = {};
@@ -62,12 +62,9 @@ export function drawSets(sets) {
 	for (let i = 0; i < sets.length; i++) {
 		const st = sets[i];
 		html +=
-			'<div class="">' +
-				'<div class="sets-header">' + (st.title || '') + '</div>' +
-				drawSetsGroup(st.fields) +
-			'</div>';
+			`<div class=""><div class="sets-header">${st.title || ''}</div>${drawSetsGroup(st.fields)}</div>`;
 	}
-	html = '<div class="settings-form form-horizontal">' + html + '</div>';
+	html = `<div class="settings-form form-horizontal">${html}</div>`;
 	$sets.append(html);
 	$sets.find('input').each(function() {
 		const $input = $(this);
@@ -103,28 +100,27 @@ function drawSetsGroup(fields) {
 	for (let i = 0; i < fields.length; i++) {
 		const st = fields[i];
 
-		let inputsHtml = '';
-		if (st.inputs) {
-			inputsHtml = ' ' + st.inputs.map(drawInput).join('');
-		}
 		const label =
-			'<div class="input-wrap ' + (st.isToggle ? 'checkbox' : '') + '">' +
-				'<label>' +
-					drawInput(st) +
-					st.label +
-				'</label>' +
-				inputsHtml +
-			'</div>';
+			`<div class="input-wrap ${st.isToggle ? 'checkbox' : ''}">
+				<label>${drawInput(st)}${st.label}</label>
+				${st.inputs
+					? st.inputs.map(drawInput).join('')
+					: ''
+				}
+			</div>`;
 
 
 		html +=
-			'<div class="sets' + (st.isInline ? ' sets-inline' : '') + '">' +
-				'<div class="sets-title">' +
-					label +
-					(st.note ? '<div class="note-block">' + st.note + '</div>' : '') +
-				'</div>' +
-				(st.subs ? drawSetsGroup(st.subs) : '') +
-			'</div>';
+			`<div class="sets${st.isInline ? ' sets-inline' : ''}">
+				<div class="sets-title">
+					${label}
+					${st.note
+						? '<div class="note-block">' + st.note + '</div>'
+						: ''
+					}
+				</div>
+				${st.subs ? drawSetsGroup(st.subs) : ''}
+			</div>`;
 	}
 	log.set('settings', settingsValues);
 
@@ -136,16 +132,22 @@ function drawSetsGroup(fields) {
 		}
 		let html = '';
 		if (st.isToggle || st.type === 'checkbox') {
-			html = '<input type="checkbox" data-name="' + st.name + '""' + (settingsValues[st.name] ? ' checked' : '') + '> ';
+			html = `<input type="checkbox" data-name="${st.name}""${settingsValues[st.name] ? ' checked' : ''}> `;
 		} else if (st.type === 'text' || st.type === 'num') {
-			html = '<input type="text" class="input-tiny input-tiny-' + st.type + '"' +
-				' data-name="' + st.name + '"' +
-				(' data-type="' + st.type + '"') +
-				(settingsValues[st.name] ? ' value="' + settingsValues[st.name] + '"' : '') + '>';
+			html =
+				`<input type="text"
+				   class="input-tiny input-tiny-${st.type}" 
+				   data-name="${st.name}" 
+				   data-type="${st.type}"
+				   ${settingsValues[st.name]
+						? ' value="' + settingsValues[st.name] + '"'
+						: ''
+					}>`;
 			if (st.addOn) {
-				html = '<div class="input-wrap input-append">' + html + '<span class="add-on">' + st.addOn + '</span></div>';
+				html =
+					`<div class="input-wrap input-append">${html}<span class="add-on">${st.addOn}</span></div>`;
 			} else {
-				html = '<div class="input-wrap input-wrap-inline">' + html + '</div>';
+				html = `<div class="input-wrap input-wrap-inline">${html}</div>`;
 			}
 		}
 		return html;

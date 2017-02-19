@@ -17,8 +17,8 @@ export function checkQuests(quests) {
 				if (settingsValues.notify) {
 					sendNotify(q.name, {
 						tag: 'quest',
-						body: utils.heroName + ' ' + q.action + '!',
-						icon: window.extPath + 'img/quest/caravan.png', //window.extPath + 'img/quest/' + q.type + '.png',
+						body: `${utils.heroName} ${q.action}!`,
+						icon: `${window.extPath}img/quest/caravan.png`, //window.extPath + 'img/quest/' + q.type + '.png',
 						addTime: 1,
 					});
 				}

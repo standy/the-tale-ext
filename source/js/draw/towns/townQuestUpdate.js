@@ -35,14 +35,13 @@ function doJob(quests) {
 			const actorType = actor[0];
 			const actorTypeId = +actor[1];
 			const placeId = actorTypeId === 1 ? actor[2].id : actor[2].place;
-			const $placeRow = $('.place-row[data-place-id="' + placeId + '"]');
+			const $placeRow = $(`.place-row[data-place-id="${placeId}"]`);
 			const $townQuest = $placeRow.find('.quest');
 			const questHtml =
-				(isFrom
+				`${isFrom
 					? '<span class="glyphicon glyphicon-arrow-right"></span>'
 					: '<span class="glyphicon glyphicon-arrow-left"></span>'
-				) +
-				'<span class="quest-icon-mini pgf-quest-icon ' + quest.type + '" title="' + actorType + '"></span> ';
+				}<span class="quest-icon-mini pgf-quest-icon ${quest.type}" title="${actorType}"></span> `;
 			$townQuest.append(questHtml);
 		}
 	}

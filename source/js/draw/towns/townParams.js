@@ -10,11 +10,11 @@ export function townParams(mapData) {
 				requestPlace(place.pos.x, place.pos.y)
 					.done(html => {
 						const parsed = parsePlaceHtml(html);
-						const $placeRow = $('.place-row[data-place-id="' + placeIndex + '"]');
+						const $placeRow = $(`.place-row[data-place-id="${placeIndex}"]`);
 						parsed.cityParams.forEach(item => {
 							let val = item.value;
-							if (val < 100) val = '&nbsp;' + val;
-							$placeRow.children('[data-city-param="' + item.name + '"]').html(val);
+							if (val < 100) val = `&nbsp;${val}`;
+							$placeRow.children(`[data-city-param="${item.name}"]`).html(val);
 						});
 					});
 			}))(i);
@@ -45,7 +45,7 @@ function parsePlaceHtml(html) {
 
 function requestPlace(x, y) {
 	return $.ajax({
-		url: '/game/map/cell-info?x=' + x + '&y=' + y + '&_=' + (+new Date()),
+		url: `/game/map/cell-info?x=${x}&y=${y}&_=${+new Date()}`,
 		method: 'get',
 		dataType: 'html',
 	});

@@ -35,46 +35,43 @@ export function drawStatsSide(archiveGroups) {
 	let htmlEnemy;
 	if (mobId) {
 		htmlEnemy =
-			'<tr class="unhover">' +
-				'<td class="stats-against" colspan="5"><a href="/guide/mobs/' + mobId + '" target="_blank">' + CONST.MOBS[mobId] + '</a></td>' +
-			'</tr>' +
-			drawStatsSideByActor(statsTotal.enemyByMob[mobId]);
+			`<tr class="unhover">
+				<td class="stats-against" colspan="5">
+					<a href="/guide/mobs/${mobId}" target="_blank">${CONST.MOBS[mobId]}</a>
+				</td>
+			</tr>
+			${drawStatsSideByActor(statsTotal.enemyByMob[mobId])}`;
 	} else {
 		htmlEnemy =
-			'<tr class="unhover">' +
-				'<td class="stats-against" colspan="5">бестии</td>' +
-			'</tr>' +
-			drawStatsSideByActor(statsTotal.enemy);
+			`<tr class="unhover">
+				<td class="stats-against" colspan="5">бестии</td>
+			</tr>`;
 	}
 	const statsTable =
-		'<table class="table table-condensed table-noborder table-hover-dark table-stats">' +
-			'<tr class="unhover">' +
-				'<th class="stats-name"></th>' +
-				'<th class="stats-average" title="среднее значение">средн</th>' +
-				'<th class="stats-count" title="количество срабатываний в боях">шанс(%)</th>' +
-				'<th class="stats-sum" title="доля от общего урона">урон</th>' +
-				'<th class="stats-bonus" title="прибавка к урону от умения">эфф</th>' +
-			'</tr>' +
-			'<tbody class="stats-me">' +
-				htmlMe +
-			'</tbody>' +
-			'<tbody class="stats-enemy">' +
-				htmlEnemy +
-			'</tbody>' +
-		'</table>';
+		`<table class="table table-condensed table-noborder table-hover-dark table-stats">
+			<tr class="unhover">
+				<th class="stats-name"></th>
+				<th class="stats-average" title="среднее значение">средн</th>
+				<th class="stats-count" title="количество срабатываний в боях">шанс(%)</th>
+				<th class="stats-sum" title="доля от общего урона">урон</th>
+				<th class="stats-bonus" title="прибавка к урону от умения">эфф</th>
+			</tr>
+			<tbody class="stats-me">${htmlMe}</tbody>
+			<tbody class="stats-enemy">${htmlEnemy}</tbody>
+		</table>`;
 
 
 	const loot = statsTotal.loot;
 	const htmlLoot =
-		'<span class="stats-name" title="Поднял/Пусто/Выбросил/Умер">' + ICONS.pickup + '</span> ' +
-		'<span title="Поднял">' + loot.pickup + '</span> / ' +
-		'<span title="Пусто">' + loot.empty + '</span> / ' +
-		'<span title="Выбросил">' + loot.drop + '</span> / ' +
-		'<span title="Умер">' + loot.death + '</span>';
+		`<span class="stats-name" title="Поднял/Пусто/Выбросил/Умер">${ICONS.pickup}</span> 
+		<span title="Поднял">${loot.pickup}</span> / 
+		<span title="Пусто">${loot.empty}</span> / 
+		<span title="Выбросил">${loot.drop}</span> / 
+		<span title="Умер">${loot.death}</span>`;
 
 
 	let htmlTime =
-		'<b>' + statsTotal.actionsSum + '</b> ' + declensionByNumber(statsTotal.actionsSum, ['действие', 'действия', 'действий']) + ' за ' + timeSpan(statsTotal.actionsTime) + '<br />';
+		`<b>${statsTotal.actionsSum}</b> ${declensionByNumber(statsTotal.actionsSum, ['действие', 'действия', 'действий'])} за ${timeSpan(statsTotal.actionsTime)}<br />`;
 	const interestAverageActions = [{
 		type: 'fight,rest',
 		text: 'бой/отдых',
@@ -123,7 +120,7 @@ export function drawStatsSide(archiveGroups) {
 	for (let i = 0; i < interestAverageActions.length; i++) {
 		const act = interestAverageActions[i];
 		if (act.title) {
-			htmlTime += act.title + '<br />';
+			htmlTime += `${act.title}<br />`;
 			continue;
 		}
 
@@ -144,24 +141,22 @@ export function drawStatsSide(archiveGroups) {
 
 		if (time) {
 			const type = types[0];
+			const title = types.map(item => CONST.ACTION_TYPE_TEXTS[item]).join(', ');
 			htmlTime +=
-				'<span class="action-icon ' + (act.countType || type) + '" ' +
-				'title="' + types.map(item => CONST.ACTION_TYPE_TEXTS[item]).join(', ') + '">' +
-				(act.icon || CONST.ACTION_TYPE_ICONS[type]) +
-				'</span>';
+				`<span class="action-icon ${act.countType || type}" title="${title}">${act.icon || CONST.ACTION_TYPE_ICONS[type]}</span>`;
 			if (!act.countAverage) {
-				htmlTime += '<span title="' + timeSpan(time) + '">' + timePercent.toFixed(1) + '%</span> - ';
+				htmlTime += `<span title="${timeSpan(time)}">${timePercent.toFixed(1)}%</span> - `;
 			} else {
 				htmlTime += timeSpan(time);
 			}
-			htmlTime += ' ' + act.text + ' (' + countTotal + ')<br />';
+			htmlTime += ` ${act.text} (${countTotal})<br />`;
 		}
 	}
 
 
 	html += statsTable;
-	html += '<div class="stats-side stats-loot">' + htmlLoot + '</div>';
-	html += '<div class="stats-side stats-time">' + htmlTime + '</div>';
+	html += `<div class="stats-side stats-loot">${htmlLoot}</div>`;
+	html += `<div class="stats-side stats-time">${htmlTime}</div>`;
 
 	$stats.html(html);
 }
@@ -185,7 +180,7 @@ function drawStatsSideByActor(stats) {
 				(sumTo ? ', включено в ' + CONST.ACTION_TRANSLATE[sumTo]
 					: (isPassive ? ', не учитывается в сумме' : '')
 				);
-			let htmlStat = '<td class="stats-name" title="' + title + '">' + ICONS[type] + '</td> ';
+			let htmlStat = `<td class="stats-name" title="${title}">${ICONS[type]}</td> `;
 
 			const count = stat.count;
 			const sum = stat.sum;
@@ -205,35 +200,35 @@ function drawStatsSideByActor(stats) {
 			}
 			const chanceText = type === 'hit' ? '-' : chance >= 100 ? Math.round(chance * 10) / 10 : chance.toFixed(2);
 
-			const countText = 'сработал ' + declensionByNumber(count, ['раз', 'раза', 'раз'], 1);
+			const countText = `сработал ${declensionByNumber(count, ['раз', 'раза', 'раз'], 1)}`;
 
 			if (!sum) {
 				htmlStat += '<td class="stats-average"></td>';
-				htmlStat += '<td class="stats-count" title="' + countText + '">' + chanceText + '</td>';
+				htmlStat += `<td class="stats-count" title="${countText}">${chanceText}</td>`;
 				htmlStat += '<td class="stats-count"></td>';
 				htmlStat += '<td class="stats-sum"></td>';
 			} else {
 				const averagePercents = sum / count * hitCount / hitSum * 100;
-				const averagePercentsText = Math.round(averagePercents * 100) / 100 + '';
+				const averagePercentsText = `${Math.round(averagePercents * 100) / 100}`;
 
 				const dmgPercents = sum / totalSum * 100;
-				const dmgPercentsText = '' + (dmgPercents < 100 ? dmgPercents.toFixed(1) : Math.round(dmgPercents)) + '%';
-				const sumText = 'всего ' + declensionByNumber(sum, ['урон', 'урона', 'урона'], 1);
+				const dmgPercentsText = `${dmgPercents < 100 ? dmgPercents.toFixed(1) : Math.round(dmgPercents)}%`;
+				const sumText = `всего ${declensionByNumber(sum, ['урон', 'урона', 'урона'], 1)}`;
 
 				const bonusPercent = Math.round((averagePercents - 100) * chance) / 100;
 				const bonusPercentText = bonusPercent && !isDot
-					? (bonusPercent >= 0 ? '+' : '&ndash;') + Math.abs(bonusPercent) + '%'
+					? `${(bonusPercent >= 0 ? '+' : '&ndash;') + Math.abs(bonusPercent)}%`
 					: '';
-				const bpTranslateText = (averagePercentsText >= 100 ? '+' : '&ndash;') +
-					Math.abs(Math.round(averagePercentsText * 100 - 10000) / 100) + '% x ' + chanceText;
+				const bpTranslateText = `${(averagePercentsText >= 100 ? '+' : '&ndash;') +
+    Math.abs(Math.round(averagePercentsText * 100 - 10000) / 100)}% x ${chanceText}`;
 
-				htmlStat += '<td class="stats-average" title="' + averagePercentsText + '%">' + average.toFixed(2) + '</td>';
-				htmlStat += '<td class="stats-count" title="' + countText + '">' + chanceText + '</td>';
-				htmlStat += '<td class="stats-sum" title="' + sumText + '">' + dmgPercentsText + '</td>';
-				htmlStat += '<td class="stats-bonus" title="' + bpTranslateText + '">' + bonusPercentText + '</td>';
+				htmlStat += `<td class="stats-average" title="${averagePercentsText}%">${average.toFixed(2)}</td>`;
+				htmlStat += `<td class="stats-count" title="${countText}">${chanceText}</td>`;
+				htmlStat += `<td class="stats-sum" title="${sumText}">${dmgPercentsText}</td>`;
+				htmlStat += `<td class="stats-bonus" title="${bpTranslateText}">${bonusPercentText}</td>`;
 			}
 
-			html += '<tr class="stats-row stats-row-' + type + '">' + htmlStat + '</tr>';
+			html += `<tr class="stats-row stats-row-${type}">${htmlStat}</tr>`;
 		}
 	}
 	return html;

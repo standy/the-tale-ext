@@ -18,10 +18,10 @@ export function htmlMessages(messages) {
 				htmlShortMsg += htmlShortMsg2;
 				i++;
 			}
-			htmlMsg = '<li data-ts="' + timestamp + '" class="log-record-short">' + htmlShortMsg + '</li>';
+			htmlMsg = `<li data-ts="${timestamp}" class="log-record-short">${htmlShortMsg}</li>`;
 		} else {
 			const htmlLongMsg = htmlLongMessage(message);
-			htmlMsg = '<li data-ts="' + timestamp + '" class="log-record">' + htmlLongMsg + '</li>';
+			htmlMsg = `<li data-ts="${timestamp}" class="log-record">${htmlLongMsg}</li>`;
 		}
 		html = htmlMsg + html;
 	}

@@ -24,11 +24,11 @@ export function sendNotify(name, options) {
 	const d = new Date();
 	const h = d.getHours();
 	const m = d.getMinutes();
-	const time = h + ':' + (m < 10 ? '0' + m : m);
+	const time = `${h}:${m < 10 ? '0' + m : m}`;
 	const nt = new Notification(name, {
 		tag: options.tag + rndStr,
 		body: options.body + (options.addTime ? '\n' + time : ''),
-		icon: options.icon || (window.extPath + 'img/128.png'),
+		icon: options.icon || (`${window.extPath}img/128.png`),
 	});
 	nt.onclick = nt.onclose = () => {
 		rndStr = generateRandomString();

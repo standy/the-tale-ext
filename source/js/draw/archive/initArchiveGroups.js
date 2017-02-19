@@ -22,7 +22,7 @@ function drawArchiveGroups(archiveGroups) {
 		let lv = levelsLog[levelIndex] || [];
 		while (ts > lv[0]) {
 			levelIndex++;
-			const lvlHtml = '<div class="level">' + lv[1] + ' уровень!</div>';
+			const lvlHtml = `<div class="level">${lv[1]} уровень!</div>`;
 			$archiveContent.prepend(lvlHtml);
 			lv = levelsLog[levelIndex] || [];
 		}
@@ -36,16 +36,16 @@ function drawArchiveGroup(archiveGroup, index, archiveGroups) {
 	const groupType = archiveGroup.broken ? 'broken' : archiveGroup.type;
 	let groupLink;
 	if (archiveGroup.mobId) {
-		groupLink = '/guide/mobs/' + archiveGroup.mobId;
+		groupLink = `/guide/mobs/${archiveGroup.mobId}`;
 	}
 	let htmlGroupIcon = CONST.ACTION_TYPE_ICONS[groupType] || '';
 	if (groupLink) {
-		htmlGroupIcon = '<a class="action-icon ' + groupType + '" href="' + groupLink + '" target="_blank">' + htmlGroupIcon + '</a>';
+		htmlGroupIcon = `<a class="action-icon ${groupType}" href="${groupLink}" target="_blank">${htmlGroupIcon}</a>`;
 	} else {
-		htmlGroupIcon = '<span class="action-icon ' + groupType + '">' + htmlGroupIcon + '</span>';
+		htmlGroupIcon = `<span class="action-icon ${groupType}">${htmlGroupIcon}</span>`;
 	}
 	const title = (archiveGroup.text || 'неизвестное действие');
-	const htmlTitle = '<span class="action-name">' + title + '</span>';
+	const htmlTitle = `<span class="action-name">${title}</span>`;
 
 
 	const timeStart = archiveGroup.ts[0];
@@ -60,40 +60,31 @@ function drawArchiveGroup(archiveGroup, index, archiveGroups) {
 	}
 	const timeDiff = timeEnd - timeStart;
 
-	const htmlTime = /*'<span class="glyphicon glyphicon-time"></span> ' +*/
-		'<span class="group-time ' + (timeDiff > 600 ? 'bad' : timeDiff > 300 ? 'average' : '') + '">' +
-		timeSpan(timeDiff) +
-		'</span> ';
+	const htmlTime = `<span class="group-time ${timeDiff > 600 ? 'bad' : timeDiff > 300 ? 'average' : ''}">${timeSpan(timeDiff)}</span> `;
 
 
 	let htmlGroupList = '';
 	if (archiveGroup.total && (archiveGroup.type === 'fight' || archiveGroup.type === 'fight-god')) {
 		htmlGroupList =
-			'<span class="stats-archive stats-archive-me">' +
-			drawArchiveActStat(archiveGroup.total.me) +
-			'</span>' +
-			'<span class="stats-archive stats-archive-enemy">' +
-			drawArchiveActStat(archiveGroup.total.enemy) +
-			'</span>';
+			`<span class="stats-archive stats-archive-me">${drawArchiveActStat(archiveGroup.total.me)}</span>
+			<span class="stats-archive stats-archive-enemy">${drawArchiveActStat(archiveGroup.total.enemy)}</span>`;
 	} else {
 		let actName = CONST.ACTION_TYPE_TEXTS[archiveGroup.type || 'undefined'];
 		if (archiveGroup.broken) {
 			actName = CONST.ERROR_CODES[archiveGroup.broken || 1];
 		}
-		htmlGroupList = '<span class="stats-archive">' + actName + '</span>';
+		htmlGroupList = `<span class="stats-archive">${actName}</span>`;
 	}
 	let html =
-		'<div class="group-title">' + htmlGroupIcon + htmlTime + htmlTitle + '</div>' +
-		'<div class="group-controls">' +
-		'<span class="group-toggle on-close text-muted glyphicon glyphicon-chevron-up"></span>' +
-		'<span class="group-toggle on-open text-muted glyphicon glyphicon-chevron-down"></span>' +
-		'</div>' +
-		'<div class="archive-log-list on-open">' + htmlGroupList + '</div>';
+		`<div class="group-title">${htmlGroupIcon}${htmlTime}${htmlTitle}</div>
+		<div class="group-controls">
+			<span class="group-toggle on-close text-muted glyphicon glyphicon-chevron-up"></span>
+			<span class="group-toggle on-open text-muted glyphicon glyphicon-chevron-down"></span>
+		</div>
+		<div class="archive-log-list on-open">${htmlGroupList}</div>`;
 
 	html =
-		'<div class="group' + (isOpen ? ' open' : '') + '" data-index="' + index + '">' +
-		html +
-		'</div>';
+		`<div class="group${isOpen ? ' open' : ''}" data-index="${index}">${html}</div>`;
 
 	$archiveContent.prepend(html);
 }
@@ -112,17 +103,17 @@ function drawArchiveActStat(stats) {
 			const count = stat.count;
 			const sum = stat.sum;
 			if (isActType('FIGHT_COUNTS', type)) {
-				htmlStat += count + 'x' + htmlStatName;
+				htmlStat += `${count}x${htmlStatName}`;
 			} else {
 				if (type === 'dmgSum') {
-					htmlStat += htmlStatName + '=<b>' + sum + '</b> ';
+					htmlStat += `${htmlStatName}=<b>${sum}</b> `;
 				} else {
-					htmlStat += count + 'x' + htmlStatName;
-					htmlStat += '=' + sum + ' ';
+					htmlStat += `${count}x${htmlStatName}`;
+					htmlStat += `=${sum} `;
 				}
 			}
 
-			html += '<span class="stats-archive-act stats-archive-' + type + '">' + htmlStat + '</span>';
+			html += `<span class="stats-archive-act stats-archive-${type}">${htmlStat}</span>`;
 		}
 	}
 	return html;

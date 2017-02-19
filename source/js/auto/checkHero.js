@@ -24,13 +24,13 @@ export function checkHero(gameData) {
 
 	const isBoss = !!hero.action.is_boss;
 	if (settingsValues.autohelpHp && hero.base.health < settingsValues.autohelpHpLowerValue && isFight && (!settingsValues.autohelpHpBoss || isBoss)) {
-		godHelp('Низкое здоровье: ' + hero.base.health);
+		godHelp(`Низкое здоровье: ${hero.base.health}`);
 		return;
 	}
 
 	const isHeplingCompanion = actionName === 'companionHeal';
 	if (settingsValues.autohelpCompanion && isHeplingCompanion && hero.companion.health < settingsValues.autohelpCompanionHp) {
-		godHelp('Низкое здоровье спутника: ' + hero.companion.health);
+		godHelp(`Низкое здоровье спутника: ${hero.companion.health}`);
 
 		return;
 	}
@@ -52,7 +52,7 @@ export function checkHero(gameData) {
 		//						}
 		//					});
 		//			} else {
-		godHelp('Накопилась энергия: ' + energy);
+		godHelp(`Накопилась энергия: ${energy}`);
 
 		return;
 	}
@@ -76,13 +76,14 @@ export function checkHero(gameData) {
 	function godHelp(msg, ability, getParams) {
 		const csrf = document.head.innerHTML.match(/("X-CSRFToken")(.*)(".*")/, 'g')[3].replace(/"/g, '');
 		ability = ability || 'help';
-		console.log('god ' + ability + '!', getParams, actionName, msg, $.extend({}, hero));
+		console.log(`god ${ability}!`, getParams, actionName, msg, $.extend({}, hero));
 		if (settingsValues.autohelpNotify) {
-			sendNotify('The Tale Extended - ' + _heroName, {
+			sendNotify(`The Tale Extended - ${_heroName}`, {
 				tag: 'autohelp',
-				body: 'Сработала автоматическая помощь ' +
-					'\n' + msg + '' +
-					'\nТекущее действие: ' + CONST.ACTION_TYPE_TEXTS[actionName] + '',
+				body:
+					`Сработала автоматическая помощь 
+					${msg}
+					Текущее действие: ${CONST.ACTION_TYPE_TEXTS[actionName]}`,
 				addTime: 1,
 			});
 		}
@@ -93,10 +94,10 @@ export function checkHero(gameData) {
 		let paramsStr = '';
 		for (const key in getParams) {
 			if (getParams.hasOwnProperty(key)) {
-				paramsStr += '&' + key + '=' + getParams[key];
+				paramsStr += `&${key}=${getParams[key]}`;
 			}
 		}
-		const url = '/game/abilities/' + ability + '/api/use?api_version=1.0&api_client=' + window.API_CLIENT + paramsStr;
+		const url = `/game/abilities/${ability}/api/use?api_version=1.0&api_client=${window.API_CLIENT}${paramsStr}`;
 		//				console.log('url: ', url)
 		//				if (!_settingsValues.autohelp) return;
 		hero.energy.value -= 4;

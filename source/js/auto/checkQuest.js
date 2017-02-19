@@ -68,11 +68,11 @@ export function checkQuest(gameData) {
 	function chooseQuest(uid, name) {
 		if (settingsValues.autoquestNotify && lastquest !== name) {
 			lastquest = name;
-			sendNotify('The Tale Extended - ' + _heroName, {
+			sendNotify(`The Tale Extended - ${_heroName}`, {
 				tag: 'autoquest',
-				body: 'Сделан выбор! \n— ' + name + '',
+				body: `Сделан выбор! \n— ${name}`,
 				addTime: 1,
-				icon: window.extPath + 'img/quest/caravan.png',
+				icon: `${window.extPath}img/quest/caravan.png`,
 			});
 		}
 
@@ -80,7 +80,7 @@ export function checkQuest(gameData) {
 			return;
 		}
 		$.ajax({
-			url: '/game/quests/api/choose?api_version=1.0&api_client=' + window.API_CLIENT + '&option_uid=' + encodeURIComponent(uid),
+			url: `/game/quests/api/choose?api_version=1.0&api_client=${window.API_CLIENT}&option_uid=${encodeURIComponent(uid)}`,
 			dataType: 'json',
 			type: 'post',
 			beforeSend: function(xhr) {

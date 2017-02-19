@@ -10,13 +10,13 @@ export function parseHighlight(msg, act) {
 	for (let i = 0; i < cfgHighlight.length; i++) {
 		const regExp = cfgHighlight[i].regex;
 		const type = cfgHighlight[i].type || 'value';
-		msg = msg.replace(regExp, '<span class="' + type + '">$&</span>');
+		msg = msg.replace(regExp, `<span class="${type}">$&</span>`);
 	}
 	for (const cls in act) {
 		if (act.hasOwnProperty(cls)) {
 			const value = act[cls];
 			if (cls !== 'value' && cls !== 'type') {
-				msg = msg.replace(value, '<span class="' + cls + '">' + value + '</span>');
+				msg = msg.replace(value, `<span class="${cls}">${value}</span>`);
 			}
 		}
 	}

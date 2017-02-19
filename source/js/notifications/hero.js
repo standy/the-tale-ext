@@ -14,7 +14,7 @@ subscribe('newMessages', (messagesNew, gameData) => {
 //		var healthPercent = health / healthMax * 100;
 		const minHp = settingsValues.notifyHeroHpLowerValue;
 		if (health < minHp) {
-			notifyMessages.push('Низкое здоровье: ' + health + ' HP');
+			notifyMessages.push(`Низкое здоровье: ${health} HP`);
 		}
 	}
 	if (settingsValues.notifyHeroEnergy) {
@@ -23,7 +23,7 @@ subscribe('newMessages', (messagesNew, gameData) => {
 //		var energyPercent = energy / energyMax * 100;
 		const maxEnergy = settingsValues.notifyHeroEnergyGreaterValue;
 		if (energy > maxEnergy) {
-			notifyMessages.push('Энергия накопилась: ' + energy);
+			notifyMessages.push(`Энергия накопилась: ${energy}`);
 		}
 	}
 	if (settingsValues.notifyHeroIdle) {
@@ -36,7 +36,7 @@ subscribe('newMessages', (messagesNew, gameData) => {
 	if (notifyMessages.length) {
 		const notifyMessagesText = notifyMessages.join('\n');
 		if (notifyMessagesText !== lastNotifyMessagesText) {
-			sendNotify('The Tale Extended - ' + utils.heroName, {
+			sendNotify(`The Tale Extended - ${utils.heroName}`, {
 				tag: 'send',
 				body: notifyMessagesText,
 			});

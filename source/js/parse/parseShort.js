@@ -75,8 +75,8 @@ function processShortRaw(phrases) {
 			cfgString = cfgString.replace(p[0], '');
 		}
 		if (cfgString.charAt(0) !== '~') {
-			cfgString = '^' + cfgString;
-			cfgString = cfgString + '$';
+			cfgString = `^${cfgString}`;
+			cfgString = `${cfgString}$`;
 		}
 
 		const paramNames = [];

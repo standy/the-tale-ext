@@ -14,21 +14,21 @@ export function drawGroupInner(group, groupNext) {
 	const groupType = groupData.type;
 	const groupLink = (groupData.info_link || '').replace('/info', '');
 	let htmlGroupIcon = CONST.ACTION_TYPE_ICONS[groupType] || '';
-	let iconAttr = 'class="action-icon ' + groupType + '" title="' + CONST.ACTION_TYPE_TEXTS[groupType] + '"';
+	let iconAttr = `class="action-icon ${groupType}" title="${CONST.ACTION_TYPE_TEXTS[groupType]}"`;
 
 	if (groupData.isBroken && !groupData.unfinished) {
 		htmlGroupIcon = CONST.ACTION_TYPE_ICONS.broken;
 		const title = CONST.ERROR_CODES[groupData.isBroken || 1];
-		iconAttr = 'class="action-icon broken" title="' + title + '"';
+		iconAttr = `class="action-icon broken" title="${title}"`;
 	}
 	if (groupLink) {
-		htmlGroupIcon = '<a ' + iconAttr + ' href="' + groupLink + '" target="_blank">' + htmlGroupIcon + '</a>';
+		htmlGroupIcon = `<a ${iconAttr} href="${groupLink}" target="_blank">${htmlGroupIcon}</a>`;
 	} else {
-		htmlGroupIcon = '<span ' + iconAttr + '">' + htmlGroupIcon + '</span>';
+		htmlGroupIcon = `<span ${iconAttr}">${htmlGroupIcon}</span>`;
 	}
 
 
-	const htmlTitle = '<span class="action-name">' + (groupData.actionName || 'неизвестное действие') + '</span>';
+	const htmlTitle = `<span class="action-name">${groupData.actionName || 'неизвестное действие'}</span>`;
 
 	const timeStart = messageFirst[0];
 	let timeEnd = messageLast[0];
@@ -40,23 +40,25 @@ export function drawGroupInner(group, groupNext) {
 		}
 	}
 	const timeDiff = timeEnd - timeStart;
-	const htmlTime = /*'<span class="glyphicon glyphicon-time"></span> ' +*/
-		'<span class="group-time ' + (timeDiff > 600 ? 'bad' : timeDiff > 300 ? 'average' : '') + '">' +
-		timeSpan(timeDiff) +
-		'</span> ';
+	const htmlTime = `<span class="group-time ${timeDiff > 600 ? 'bad' : timeDiff > 300 ? 'average' : ''}">${timeSpan(timeDiff)}</span> `;
 
 
 
 	const htmlGroupList = htmlMessages(messages);
 
 	const html =
-		'<div class="group-title on-close' + (groupData.god ? ' god' : '') + '">' + htmlGroupIcon + htmlTime + htmlTitle + '</div>' +
-//		'<div class="group-stats on-close">' + htmlStats + '</div>' +
-		'<div class="group-controls">' +
-			'<span class="group-toggle on-close text-muted glyphicon glyphicon-chevron-up"></span>' +
-			'<span class="group-toggle on-open text-muted glyphicon glyphicon-chevron-down"></span>' +
-		'</div>' +
-		'<ul class="unstyled pgf-log-list on-open">' + htmlGroupList + '</ul>';
+		`<div class="group-title on-close${groupData.god ? ' god' : ''}">
+			${htmlGroupIcon}
+			${htmlTime}
+			${htmlTitle}
+		</div>
+		<div class="group-controls">
+			<span class="group-toggle on-close text-muted glyphicon glyphicon-chevron-up"></span>
+			<span class="group-toggle on-open text-muted glyphicon glyphicon-chevron-down"></span>
+		</div>
+		<ul class="unstyled pgf-log-list on-open">
+			${htmlGroupList}
+		</ul>`;
 
 	return html;
 }
