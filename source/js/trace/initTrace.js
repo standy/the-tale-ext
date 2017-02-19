@@ -52,7 +52,7 @@ subscribe('init', () => {
 		});
 });
 
-subscribe('newTurn', messagesNew => {
+subscribe('newTurn', () => {
 	window.setTimeout(() => {
 		elements.getControl('journal-log')
 			.find('.value').text(messagesLog.length);

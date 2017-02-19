@@ -56,9 +56,8 @@ export function traceData(game_data) {
 		}
 	}
 	log.set('messagesLog', messagesLog.map(item => [item[0], item[1], item[2], item[3]]));
-//	_trace.heroData = heroData;
 
-	publish('newTurn', messagesNew, game_data, messagesPackTimestamp);
+	publish('newTurn', messagesNew, game_data);
 	if (messagesNew.length) {
 		publish('newMessages', messagesNew, game_data, messagesPackTimestamp);
 	}

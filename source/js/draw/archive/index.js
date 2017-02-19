@@ -38,7 +38,7 @@ elements.getTabInner('archive').on('click', '.group-title', function() {
 	console.log('archive>', archiveGroups[index], index, new Date(ts[0] * 1000));
 });
 
-subscribe('newTurn', messagesNew => {
+subscribe('newTurn', () => {
 	window.setTimeout(() => {
 		elements.getControl('archive-log')
 			.find('.value').text(archiveGroups.length);

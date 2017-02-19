@@ -91,7 +91,7 @@ subscribe('settingsChange', key/*, value*/ => {
 	}
 });
 
-subscribe('newTurn', messagesNew => {
+subscribe('newTurn', () => {
 	window.setTimeout(() => {
 		$('#storage-size')
 			.text(`(занято ${Math.round(log.size() / 1024 / 1024 * 100) / 100}Мб)`);
