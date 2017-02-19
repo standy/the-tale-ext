@@ -35,11 +35,11 @@ function parsePlaceHtml(html) {
 		const value = parseFloat(valueText);
 		cityParams.push({
 			name: paramName,
-			value: value,
+			value,
 		});
 	});
 	return {
-		cityParams: cityParams,
+		cityParams,
 	};
 }
 

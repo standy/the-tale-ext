@@ -23,8 +23,8 @@ export function subscribe(e, fn) {
 	const event = sp[0];
 	const namespace = sp[1];
 	_subscribeList.push({
-		event: event,
-		namespace: namespace,
-		fn: fn,
+		event,
+		namespace,
+		fn,
 	});
 }

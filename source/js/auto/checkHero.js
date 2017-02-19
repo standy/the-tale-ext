@@ -102,7 +102,7 @@ export function checkHero(gameData) {
 		//				if (!_settingsValues.autohelp) return;
 		hero.energy.value -= 4;
 		$.ajax({
-			url: url,
+			url,
 			dataType: 'json',
 			type: 'post',
 			beforeSend: function(xhr) {

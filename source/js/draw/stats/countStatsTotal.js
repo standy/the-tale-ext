@@ -65,18 +65,18 @@ export function countStatsTotal(archiveGroups, count) {
 	// проброс счетчика боев для отценки шанса пассивного скил
 	me.fightsCount = enemy.fightsCount = fights;
 	const statsTotal = {
-		fights: fights,
-		fightRestTime: fightRestTime,
-		otherTime: otherTime,
-		actionsTime: actionsTime,
-		actionsTimes: actionsTimes,
-		actionsCounts: actionsCounts,
-		actionsSum: actionsSum,
-		loot: loot,
-		me: me,
-		enemy: enemy,
-		meByMob: meByMob,
-		enemyByMob: enemyByMob,
+		fights,
+		fightRestTime,
+		otherTime,
+		actionsTime,
+		actionsTimes,
+		actionsCounts,
+		actionsSum,
+		loot,
+		me,
+		enemy,
+		meByMob,
+		enemyByMob,
 	};
 	if (mobId) {
 		statsTotal.lastMobId = mobId;

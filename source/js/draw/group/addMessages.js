@@ -56,7 +56,7 @@ function addMessage(message) {
 		if (!currInfoLink) currGr.data.info_link = actionInfoLink;
 		if (!currTypeId) currGr.data.typeId = actionTypeId;
 		grData = {
-			actionName: actionName,
+			actionName,
 			type: actionType,
 			info_link: actionInfoLink,
 			typeId: actionTypeId,

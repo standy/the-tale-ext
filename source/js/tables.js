@@ -25,7 +25,7 @@ window.tables = ((_tables => {
 
 						arr.push({
 							$item: this,
-							value: value,
+							value,
 						});
 					});
 					arr.sort((a, b) => {
@@ -49,7 +49,7 @@ window.tables = ((_tables => {
 	});
 
 	$.extend(_tables, {
-		makeSortable: makeSortable,
+		makeSortable,
 	});
 
 	function parseDate(str) { //02.04.2014 10:50

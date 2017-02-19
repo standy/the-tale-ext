@@ -46,10 +46,10 @@ function addTab(name, opts) {
 	}
 
 	tabs[name] = {
-		zone: zone,
-		$tab: $tab,
-		$content: $content,
-		$inner: $inner,
+		zone,
+		$tab,
+		$content,
+		$inner,
 	};
 	return $inner;
 }
@@ -77,7 +77,7 @@ function addControl(name, opts) {
 
 	const $el = $(html).appendTo($controls);
 	controls[name] = {
-		$el: $el,
+		$el,
 	};
 	return $el;
 }
@@ -86,13 +86,13 @@ function getControl(name) {
 }
 
 export const elements = {
-	addTab: addTab,
-	activeTab: activeTab,
-	getTab: getTab,
-	getTabInner: getTabInner,
+	addTab,
+	activeTab,
+	getTab,
+	getTabInner,
 
-	addControl: addControl,
-	getControl: getControl,
+	addControl,
+	getControl,
 };
 
 
