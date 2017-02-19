@@ -10,8 +10,8 @@ import $ from 'jquery';
 
 import {publish} from './pubsub';
 
-setTimeout(function() {
-	$(document).on('ajaxSuccess.ext', function(event, XMLHttpRequest, setting, result) {
+setTimeout(() => {
+	$(document).on('ajaxSuccess.ext', (event, XMLHttpRequest, setting, result) => {
 		if (setting.url.indexOf('/game/api/info?api_client=') === 0) {
 			const game_data = result.data;
 

@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 //console.log('tables.js')
-window.tables = (function(_tables) {
+window.tables = ((_tables => {
 	'use strict';
 
 	function makeSortable($table) {
@@ -28,7 +28,7 @@ window.tables = (function(_tables) {
 							value: value,
 						});
 					});
-					arr.sort(function(a, b) {
+					arr.sort((a, b) => {
 						if (a.value === b.value) {
 							return 0;
 						}
@@ -36,7 +36,7 @@ window.tables = (function(_tables) {
 							? inverse ? 1 : -1
 							: inverse ? -1 : 1;
 					});
-					arr.forEach(function(item) {
+					arr.forEach(item => {
 						$table.append(item.$item);
 					});
 				});
@@ -61,4 +61,4 @@ window.tables = (function(_tables) {
 	}
 
 	return _tables;
-})({});
+}))({});

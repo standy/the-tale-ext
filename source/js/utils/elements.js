@@ -100,7 +100,7 @@ elements.addTab('sets', {zone: 'main', title: '<span class="glyphicon glyphicon-
 elements.addTab('towns', {zone: 'main', title: 'города'});
 elements.addTab('archive', {zone: 'main', title: 'архив'});
 elements.addTab('group', {zone: 'main', title: 'кратко'});
-subscribe('init', function() {
+subscribe('init', () => {
 	elements.activeTab('group');
 });
 

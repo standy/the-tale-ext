@@ -5,7 +5,7 @@ import {mapData} from './mapData';
 const $townsContent = elements.getTabInner('towns');
 
 
-export const init = function() {
+export const init = () => {
 	const places = mapData.places;
 	let html = '';
 	for (const i in places) {

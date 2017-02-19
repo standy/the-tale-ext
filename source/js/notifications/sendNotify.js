@@ -30,7 +30,7 @@ export function sendNotify(name, options) {
 		body: options.body + (options.addTime ? '\n' + time : ''),
 		icon: options.icon || (window.extPath + 'img/128.png'),
 	});
-	nt.onclick = nt.onclose = function() {
+	nt.onclick = nt.onclose = () => {
 		rndStr = generateRandomString();
 	};
 }

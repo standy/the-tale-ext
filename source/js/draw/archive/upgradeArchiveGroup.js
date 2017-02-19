@@ -34,7 +34,7 @@ export function upgradeArchiveGroup(archiveGroup, index) {
 					sum = 0;
 				} else {
 					count = vals.length;
-					sum = vals.reduce(function(pv, cv) { return pv + cv; }, 0) || 0;
+					sum = vals.reduce((pv, cv) => pv + cv, 0) || 0;
 				}
 
 				let av;
@@ -45,12 +45,12 @@ export function upgradeArchiveGroup(archiveGroup, index) {
 				if (type === 'hit' && sum) {
 					av = sum / count;
 					critMin = av * 1.35;
-					critVals = vals.filter(function(item) { return item > critMin; });
+					critVals = vals.filter(item => item > critMin);
 					critCount = critVals.length;
 				}
 				if (critCount) {
 					addTo.crit = addTo.crit || {sum: 0, count: 0};
-					const critSum = critVals.reduce(function(pv, cv) { return pv + cv; }, 0) || 0;
+					const critSum = critVals.reduce((pv, cv) => pv + cv, 0) || 0;
 					addTo.crit.count += critCount;
 					addTo.crit.sum += critSum;
 				}

@@ -19,11 +19,11 @@ $('body')
 		const id = $(this).data('place-id');
 		showMapDialogById(id);
 	})
-	.on('click.town', '.reload', function() {
+	.on('click.town', '.reload', () => {
 		const map_version = utils.map_version;
 		if (map_version) {
 			mapDataUpdate(map_version)
-				.done(function(mapData) {
+				.done(mapData => {
 					townParams(mapData);
 				});
 		}
@@ -33,16 +33,16 @@ $('body')
 $townsContent.html('<span class="link-ajax pull-right reload glyphicon glyphicon-repeat"></span>');
 
 
-subscribe('preload', function() {
+subscribe('preload', () => {
 	const map_version = utils.map_version;
 	if (!map_version) return;
 	mapDataUpdate(map_version)
-		.done(function() {
+		.done(() => {
 			init();
 		});
 });
 
 
-subscribe('questUpdate', function(quest) {
+subscribe('questUpdate', quest => {
 	townQuestUpdate(quest);
 });

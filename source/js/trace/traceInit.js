@@ -9,7 +9,7 @@ export function traceInit() {
 	}
 }
 
-subscribe('settingsChange', function(key/*, value*/) {
+subscribe('settingsChange', key/*, value*/ => {
 	if (key === 'heroNameStart') {
 		traceInit();
 	}

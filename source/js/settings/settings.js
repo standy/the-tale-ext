@@ -12,7 +12,7 @@ export function getSettingInput(key) {
 const deps = {};
 function checkDependences(key, value, isDisabled) {
 	if (deps[key]) {
-		deps[key].forEach(function(keyName) {
+		deps[key].forEach(keyName => {
 			if (keyName) {
 				getSettingInput(keyName).closest('.input-wrap').toggleClass('disabled', isDisabled || !value);//.prop('disabled', !value);
 			}

@@ -8,13 +8,13 @@ import {traceStart} from './traceStart';
 
 
 
-subscribe('init', function(game_data) {
+subscribe('init', game_data => {
 	traceInit();
 	traceStart();
 });
 
 
-subscribe('newMessages', function(messagesNew, gameData, timestamp) {
+subscribe('newMessages', (messagesNew, gameData, timestamp) => {
 	log.set('game_data', gameData);
 	const hero = gameData.account.hero;
 	const levelsLog = log.get('levelsLog') || [];
@@ -25,7 +25,7 @@ subscribe('newMessages', function(messagesNew, gameData, timestamp) {
 		log.set('levelsLog', levelsLog);
 	}
 	let powersLog = log.get('powersLog') || [];
-	powersLog = powersLog.filter(function(t) { return typeof t[1] === 'number'; });
+	powersLog = powersLog.filter(t => typeof t[1] === 'number');
 	const lastPower = (powersLog[powersLog.length - 1] || [])[1];
 	const powerSum = hero.secondary.power[0] + hero.secondary.power[1];
 	if (powerSum !== lastPower) {
@@ -36,11 +36,11 @@ subscribe('newMessages', function(messagesNew, gameData, timestamp) {
 });
 
 
-subscribe('init', function() {
+subscribe('init', () => {
 	$('#pgf-journal-container')
 		.on('click', '[data-ts]', function() {
 			const timestamp = $(this).data('ts');
-			messagesLog.forEach(function(message) {
+			messagesLog.forEach(message => {
 				if (message[0] === timestamp) {
 					console.log(message);
 				}
@@ -51,8 +51,8 @@ subscribe('init', function() {
 		});
 });
 
-subscribe('newTurn', function(messagesNew) {
-	window.setTimeout(function() {
+subscribe('newTurn', messagesNew => {
+	window.setTimeout(() => {
 		elements.getControl('journal-log')
 			.find('.value').text(messagesLog.length);
 	}, 10);

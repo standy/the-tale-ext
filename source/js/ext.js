@@ -19,7 +19,7 @@ import '../css/main.css';
 /* todo разнести эту логику */
 publish('init');
 elements.getTabInner('sets')
-	.on('click', '#reset-stats', function() {
+	.on('click', '#reset-stats', () => {
 		if (confirm('Будет сброшена вся история\nПродолжить?')) {
 			log.set('messagesLog', '');
 			messagesLog.splice(0, messagesLog.length);

@@ -10,7 +10,7 @@ export function mapDataUpdate(map_version) {
 		dataType: 'json',
 		type: 'get',
 	})
-		.done(function(map_data) {
+		.done(map_data => {
 			for (const key in mapData) {
 				if (mapData.hasOwnProperty(key)) {
 					delete mapData[key];

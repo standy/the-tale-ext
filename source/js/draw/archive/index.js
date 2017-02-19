@@ -17,7 +17,7 @@ import {messagesGrouped} from '../group/messagesGrouped';
  * */
 
 
-subscribe('init', function() {
+subscribe('init', () => {
 	loadArchiveGroups();
 	for (let i = 1; i < messagesGrouped.length; i++) {
 		const gr = messagesGrouped[i];
@@ -26,11 +26,11 @@ subscribe('init', function() {
 	saveArchiveGroups();
 
 
-	subscribe('newMessages', function() {
+	subscribe('newMessages', () => {
 		const group = messagesGrouped[messagesGrouped.length - 1];
 		addArchiveGroup(group);
 	});
-	subscribe('groupFinished', function(group, index) {
+	subscribe('groupFinished', (group, index) => {
 		addArchiveGroup(group);
 		saveArchiveGroups();
 	});
@@ -42,8 +42,8 @@ elements.getTabInner('archive').on('click', '.group-title', function() {
 	console.log('archive>', archiveGroups[index], index, new Date(ts[0] * 1000));
 });
 
-subscribe('newTurn', function(messagesNew) {
-	window.setTimeout(function() {
+subscribe('newTurn', messagesNew => {
+	window.setTimeout(() => {
 		elements.getControl('archive-log')
 			.find('.value').text(archiveGroups.length);
 	}, 10);

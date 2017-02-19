@@ -4,7 +4,7 @@ import {subscribe} from '../utils/pubsub';
 import {sendNotify} from './sendNotify';
 
 let lastNotifyMessagesText = '';
-subscribe('newMessages', function(messagesNew, gameData) {
+subscribe('newMessages', (messagesNew, gameData) => {
 	const hero = gameData.account.hero;
 	if (!settingsValues.notify) return;
 	const notifyMessages = [];

@@ -25,9 +25,7 @@ export function addArchiveGroup(group) {
 		}
 		if (!isInArr) {
 			archiveGroups.push(archiveGroup);
-			archiveGroups.sort(function(a, b) {
-				return a.ts[0] - b.ts[0];
-			});
+			archiveGroups.sort((a, b) => a.ts[0] - b.ts[0]);
 //					console.log('add to millde', archiveGroup);
 		}
 	}

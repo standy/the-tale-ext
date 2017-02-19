@@ -134,7 +134,7 @@ export function initArchiveGroups() {
 	const $archiveTab = elements.getTab('archive').toggle(showArchive);
 
 	$('<span class="link-ajax archive-renew">обновить</span>').appendTo($archiveTabContent)
-		.on('click', function() {
+		.on('click', () => {
 			drawArchiveGroups(archiveGroups);
 		});
 
@@ -142,7 +142,7 @@ export function initArchiveGroups() {
 		$(this).closest('.group').toggleClass('open');
 	});
 
-	subscribe('settingsChange', function(key, value) {
+	subscribe('settingsChange', (key, value) => {
 		if (key === 'showArchive') {
 			showArchive = value;
 			$archiveTab.toggle(showArchive);

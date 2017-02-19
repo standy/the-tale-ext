@@ -5,19 +5,19 @@ export function townParams(mapData) {
 	const places = mapData.places;
 	for (const i in places) {
 		if (places.hasOwnProperty(i)) {
-			(function(placeIndex) {
+			((placeIndex => {
 				const place = places[placeIndex];
 				requestPlace(place.pos.x, place.pos.y)
-					.done(function(html) {
+					.done(html => {
 						const parsed = parsePlaceHtml(html);
 						const $placeRow = $('.place-row[data-place-id="' + placeIndex + '"]');
-						parsed.cityParams.forEach(function(item) {
+						parsed.cityParams.forEach(item => {
 							let val = item.value;
 							if (val < 100) val = '&nbsp;' + val;
 							$placeRow.children('[data-city-param="' + item.name + '"]').html(val);
 						});
 					});
-			})(i);
+			}))(i);
 		}
 	}
 }

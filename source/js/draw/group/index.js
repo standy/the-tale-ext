@@ -10,16 +10,16 @@ import {subscribe} from '../../utils/pubsub';
 import {settingsValues} from '../../settings/settings';
 import {messagesLog} from '../../trace/messagesLog';
 
-subscribe('init', function() {
+subscribe('init', () => {
 	addMessages(messagesLog);
 	drawMessages(messagesGrouped);
 //	subscribe('groupFinished', function(group, index) {
 //		redrawGroup(index);
 //	});
-	subscribe('groupStarted', function(group, index) {
+	subscribe('groupStarted', (group, index) => {
 		redrawGroup(index - 1);
 	});
-	subscribe('newTurn', function(messagesNew) {
+	subscribe('newTurn', messagesNew => {
 		addMessages(messagesNew);
 		redrawGroup(messagesGrouped.length - 1);
 	});

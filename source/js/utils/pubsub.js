@@ -16,7 +16,7 @@ export function publish(e) {
 export function subscribe(e, fn) {
 	const events = e.split(',');
 	if (events.length > 1) {
-		events.forEach(function(ev) { subscribe(ev, fn); });
+		events.forEach(ev => { subscribe(ev, fn); });
 		return;
 	}
 	const sp = e.split('.');

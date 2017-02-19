@@ -6,16 +6,16 @@ import {drawStatsSide} from './drawStatsSide';
  * статистика собирается из архива
  * */
 
-subscribe('settingsChange', function(key, value) {
+subscribe('settingsChange', (key, value) => {
 	if (['statsByMob', 'statsByMobId', 'myStatsByMob', 'statsActionsCount', 'statsByLevel', 'statsByLevelValue'].indexOf(key) > 0) {
 		drawStatsSide();
 	}
 });
 
-subscribe('preload', function() {
+subscribe('preload', () => {
 	drawStatsSide();
 
-	subscribe('newMessages', function() {
+	subscribe('newMessages', () => {
 		drawStatsSide();
 	});
 });

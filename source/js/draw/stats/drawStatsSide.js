@@ -146,7 +146,7 @@ export function drawStatsSide(archiveGroups) {
 			const type = types[0];
 			htmlTime +=
 				'<span class="action-icon ' + (act.countType || type) + '" ' +
-				'title="' + types.map(function(item) { return CONST.ACTION_TYPE_TEXTS[item]; }).join(', ') + '">' +
+				'title="' + types.map(item => CONST.ACTION_TYPE_TEXTS[item]).join(', ') + '">' +
 				(act.icon || CONST.ACTION_TYPE_ICONS[type]) +
 				'</span>';
 			if (!act.countAverage) {
@@ -244,8 +244,8 @@ function groupsByLevel(archiveGroups, level) {
 	let lv1;
 	let lv2;
 	if (level) {
-		lv1 = levelsLog.filter(function(item) { return item[1] === level; })[0] || [];
-		lv2 = levelsLog.filter(function(item) { return item[1] === level + 1; })[0] || [];
+		lv1 = levelsLog.filter(item => item[1] === level)[0] || [];
+		lv2 = levelsLog.filter(item => item[1] === level + 1)[0] || [];
 	} else {
 		lv1 = levelsLog[levelsLog.length - 1];
 		lv2 = [];

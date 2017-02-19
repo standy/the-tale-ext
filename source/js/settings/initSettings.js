@@ -51,7 +51,7 @@ function initSettings() {
 	});
 }
 
-subscribe('preload', function(gameData) {
+subscribe('preload', gameData => {
 	if (gameData) {
 		const hero = gameData.account.hero;
 		const energyBonus = hero.energy.bonus;
@@ -62,7 +62,7 @@ subscribe('preload', function(gameData) {
 	}
 });
 
-subscribe('init', function() {
+subscribe('init', () => {
 	initSettings();
 });
 
@@ -70,7 +70,7 @@ subscribe('init', function() {
 addSets(setsGame);
 
 
-subscribe('init', function() {
+subscribe('init', () => {
 	init();
 });
 
@@ -83,14 +83,14 @@ subscribe('preload', function() {
 	}
 });
 
-subscribe('settingsChange', function(key/*, value*/) {
+subscribe('settingsChange', key/*, value*/ => {
 	if (key === 'heroNameStart') {
 		drawMessages(messagesGrouped);
 	}
 });
 
-subscribe('newTurn', function(messagesNew) {
-	window.setTimeout(function() {
+subscribe('newTurn', messagesNew => {
+	window.setTimeout(() => {
 		$('#storage-size')
 			.text('(занято ' + Math.round(log.size() / 1024 / 1024 * 100) / 100 + 'Мб)');
 	}, 10);
