@@ -1,18 +1,14 @@
 import $ from 'jquery';
+import pgf from 'pgf';
 import {elements} from '../utils/elements';
 import log from '../utils/log';
 import {subscribe} from '../utils/pubsub';
-import {messagesLog} from '../trace/messagesLog';
-import {traceInit} from './traceInit';
-import {traceStart} from './traceStart';
+import {messagesLog} from './messagesLog';
+import {parseShort} from '../parse/parseShort';
+import {traceData} from './traceData';
+
 
 elements.addControl('journal-log', {title: 'Журнал', content: '<span class="value"></span> <span class="glyphicon glyphicon-th-list"></span></span>'});
-
-
-subscribe('init', game_data => {
-	traceInit();
-	traceStart();
-});
 
 
 subscribe('newMessages', (messagesNew, gameData, timestamp) => {
@@ -57,5 +53,31 @@ subscribe('newTurn', () => {
 		elements.getControl('journal-log')
 			.find('.value').text(messagesLog.length);
 	}, 10);
+});
+
+
+
+function traceStart() {
+	$(document).bind(`${pgf.game.events.DATA_REFRESHED}.ext-trace`, (e, game_data) => {
+		traceData(game_data);
+	});
+}
+
+function traceInit() {
+	for (let i = 0; i < messagesLog.length; i++) {
+		const messageNew = messagesLog[i];
+		messageNew[4] = parseShort(messageNew[2]) || false;
+	}
+}
+
+subscribe('init', () => {
+	traceInit();
+	traceStart();
+});
+
+subscribe('settingsChange', key => {
+	if (key === 'heroNameStart') {
+		traceInit();
+	}
 });
 
