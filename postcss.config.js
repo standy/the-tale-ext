@@ -1,8 +1,12 @@
 /**
  * PostCSS config
  */
-module.exports = [
-	require('autoprefixer')({
-		browsers: ['last 4 Chrome versions'],
-	}),
-];
+module.exports = {
+	plugins: [
+		require('postcss-nested'),
+		require('postcss-custom-properties'),
+		require('autoprefixer')({
+			browsers: ['last 4 Chrome versions'],
+		}),
+	],
+};

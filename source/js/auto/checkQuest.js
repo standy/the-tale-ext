@@ -1,8 +1,6 @@
 import $ from 'jquery';
-import {utils} from '../utils/initUtils';
 import {sendNotify} from '../notifications/sendNotify';
 import {settingsValues} from '../settings/settings';
-const _heroName = utils.heroName;
 
 
 const CHOICES = {
@@ -68,7 +66,7 @@ export function checkQuest(gameData) {
 	function chooseQuest(uid, name) {
 		if (settingsValues.autoquestNotify && lastquest !== name) {
 			lastquest = name;
-			sendNotify(`The Tale Extended - ${_heroName}`, {
+			sendNotify(`The Tale Extended - {heroName}`, {
 				tag: 'autoquest',
 				body: `Сделан выбор! \n— ${name}`,
 				addTime: 1,

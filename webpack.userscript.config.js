@@ -1,10 +1,10 @@
+const baseConfig = require('./webpack.base.config');
 const {resolve} = require('path');
 const packageJson = require('./package.json');
 const {BannerPlugin} = require('webpack');
 
-const DIST = resolve(__dirname, './dist/userscript');
-const SOURCE = resolve(__dirname, './source');
-const SOURCE_USERSCRIPT = resolve(SOURCE, './export/userscript');
+const DIST_USERSCRIPT = resolve(__dirname, './dist/userscript');
+const SOURCE_USERSCRIPT = resolve(__dirname, './source/export/userscript');
 
 
 const HEADER =
@@ -26,44 +26,42 @@ const HEADER =
 
 
 /**
- * Webpack config
+ * Webpack config for Userscript
  */
-module.exports = {
+const config = Object.assign({}, baseConfig, {
 	context: SOURCE_USERSCRIPT,
 	entry: {
 		'the-tale-extension.user': './the-tale-extension.user',
 	},
 	output: {
-		path: DIST,
+		path: DIST_USERSCRIPT,
 		filename: '[name].js',
+		library: 'ext',
+		libraryTarget: 'var',
 	},
-	externals: {
-		pgf: 'pgf',
-		jquery: 'jQuery',
-	},
-	module: {
-		rules: [
-			{
-				test: /\.css$/,
-				use: [
-					{
-						loader: 'style-loader',
-					},
-					{
-						loader: 'css-loader',
-					},
-					{
-						loader: 'postcss-loader',
-					},
-				],
-			},
-		],
-	},
-	plugins: [
-		new BannerPlugin({
-			banner: HEADER,
-			raw: true,
-			entryOnly: true,
-		}),
+});
+
+config.module.rules.push({
+	test: /\.css$/,
+	use: [
+		{
+			loader: 'style-loader',
+		},
+		{
+			loader: 'css-loader',
+		},
+		{
+			loader: 'postcss-loader',
+		},
 	],
-};
+});
+
+config.plugins.push(
+	new BannerPlugin({
+		banner: HEADER,
+		raw: true,
+		entryOnly: true,
+	})
+);
+
+module.exports = config;

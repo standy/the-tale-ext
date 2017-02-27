@@ -10,8 +10,6 @@
 	color: #005580;
 	background-image: linear-gradient(to right, #005580, #005580 50%, transparent 50%);
 }
-span[title] { cursor: default; }
-input[disabled] { cursor: default; }
 
 #abilities-block .angel-ability { width: auto !important; display: inline-block; }
 #abilities-block .angel-ability.pgf-ability-help { margin: 0 50px; }
@@ -88,62 +86,87 @@ input[disabled] { cursor: default; }
 
 
 /* short */
-.act.me { color: black; }
-.act.me .glyphicon { color: #005000; }
-.act.enemy { color: #B90000; }
-.act.enemy .glyphicon { color: darkred; }
+.log-record.ext:hover {
+	background: none;
+}
 
-.act-rest.me { color: #005000; }
-.act-heal.me { color: #005000; }
-.act-heal.enemy { color: darkred; }
+.act {
+	white-space: nowrap;
+	padding: 1px 5px;
+	margin: -1px 0;
+	display: inline-block;
+
+	&:hover {
+		background: #e1e6e6;
+	}
+
+	svg {
+		height: 13px;
+		/*width: 13px;*/
+		vertical-align: -1px;
+		display: inline-block;
+	}
+}
+
+.act.positive { color: black; }
+.act.positive .glyphicon { color: #005000; }
+.act.positive svg { fill: #005000; }
+.act.negative { color: #B90000; }
+.act.negative .glyphicon { color: darkred; }
+.act.negative svg { fill: darkred; }
+
+.act.loot { color: darkgoldenrod; }
+.act.loot.drop .artifact{ text-decoration: line-through; }
+
+
+.act-rest.positive { color: #005000; }
+.act-heal.positive { color: #005000; }
+.act-heal.negative { color: darkred; }
 .act-godheal.act .glyphicon,
 .act-godheal.act { color: darkmagenta; text-decoration: underline; }
 
-.act-vamp.me .glyphicon,
-.act-vamp.me .vamp { color: #005000; }
-.act-vamp.enemy .glyphicon,
-.act-vamp.enemy .vamp { color: darkred; }
+.act.positive .vamp { color: #005000; }
+.act.negative .vamp { color: darkred; }
 
-.act-slow.me { color: #00008B; }
+.act-slow.positive { color: #00008B; }
 
-.act-coins.me .glyphicon,
-.act-coins.me { color: darkgoldenrod; }
-.act-coins.enemy { color: darkgoldenrod; text-decoration: line-through; }
+.act-coins.positive .glyphicon,
+.act-coins.positive { color: darkgoldenrod; }
+.act-coins.negative { color: darkgoldenrod; text-decoration: line-through; }
 .act-coins .glyphicon { font-size: 9px; }
 .act-godcoins.act .glyphicon,
 .act-godcoins.act { color: darkmagenta; text-decoration: underline; }
 
-.act-pvpeff.me { color: dodgerblue; }
-.act-pvpeff.enemy { color: dodgerblue; text-decoration: line-through; }
-.act-pvpice.me,
-.act-pvpflame.enemy,
-.act-pvpfail.enemy { color: darkgreen; }
-.act-pvpice.enemy,
-.act-pvpflame.me,
-.act-pvpfail.me { color: darkred; }
+.act-pvpeff.positive { color: dodgerblue; }
+.act-pvpeff.negative { color: dodgerblue; text-decoration: line-through; }
+.act-pvpice.positive,
+.act-pvpflame.negative,
+.act-pvpfail.negative { color: darkgreen; }
+.act-pvpice.negative,
+.act-pvpflame.positive,
+.act-pvpfail.positive { color: darkred; }
 .act-pvpice .glyphicon,
 .act-pvpflame .glyphicon,
 .act-pvpfail .glyphicon { font-size: 15px; }
 
 
 .sub-icon {
-	margin-left: -2px;
 }
 .sub-icon .glyphicon {
 	font-size: 10px;
 	vertical-align: sub;
 	margin-left: -1px;
 }
-.act.me .sub-icon .glyphicon { color: #444; }
-.act.enemy .sub-icon .glyphicon { color: #005000; }
+.act.positive .sub-icon .glyphicon { color: #444; }
+.act.negative .sub-icon .glyphicon { color: #005000; }
 /* eo short */
 
 /* highlight */
-.me .value { color: darkred; }
-.enemy .value { color: red; }
+.positive .value { color: darkred; }
+.negative .value { color: red; }
 
-.msg-dmg.me .value { color: darkred; }
-.msg-dmg.enemy .value { color: red; }
+.msg-dmg.positive .value { color: darkred; }
+.msg-dmg.negative .value { color: red; }
 
 .msg-godhit { color: darkmagenta; }
 .msg-pickup .item { color: darkgoldenrod; }
@@ -153,6 +176,7 @@ input[disabled] { cursor: default; }
 
 .submessage .energy { color: dodgerblue; }
 .submessage .coins { color: darkgoldenrod; }
+.submessage .coins svg { fill: darkgoldenrod; }
 .submessage .godcoins { color: darkmagenta; }
 
 .submessage .level,

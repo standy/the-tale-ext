@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import log from '../utils/log';
+import clientStorage from '../utils/clientStorage';
 import {publish} from '../utils/pubsub';
 import {elements} from '../utils/elements';
 import {setsGame} from './sets-game';
@@ -20,7 +20,7 @@ function checkDependences(key, value, isDisabled) {
 	}
 }
 
-export const settingsValues = log.get('settings') || {};
+export const settingsValues = clientStorage.get('settings') || {};
 
 export function addSets(sets) {
 	for (let i = 0; i < sets.length; i++) {
@@ -90,7 +90,7 @@ export function init() {
 			const isDisabled = $input.closest('.input-wrap').hasClass('disabled');
 			checkDependences();
 			publish('settingsChange', name, value, isDisabled);
-			log.set('settings', settingsValues);
+			clientStorage.set('settings', settingsValues);
 		});
 }
 
@@ -122,7 +122,7 @@ function drawSetsGroup(fields) {
 				${st.subs ? drawSetsGroup(st.subs) : ''}
 			</div>`;
 	}
-	log.set('settings', settingsValues);
+	clientStorage.set('settings', settingsValues);
 
 	return html;
 

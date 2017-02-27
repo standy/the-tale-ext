@@ -4,9 +4,7 @@ import {elements} from '../utils/elements';
 import {setsAuto} from './sets-auto';
 import {subscribe} from '../utils/pubsub';
 import {setsGame} from './sets-game';
-import {drawMessages} from '../draw/group/drawMessages';
-import {messagesGrouped} from '../draw/group/messagesGrouped';
-import log from '../utils/log';
+import clientStorage from '../utils/clientStorage';
 
 elements.addTab('sets', {zone: 'main', title: '<span class="glyphicon glyphicon-cog" title="Настройки &laquo;The Tale Extended&raquo;"></span>'});
 
@@ -85,15 +83,9 @@ subscribe('preload', function() {
 	}
 });
 
-subscribe('settingsChange', key/*, value*/ => {
-	if (key === 'heroNameStart') {
-		drawMessages(messagesGrouped);
-	}
-});
-
 subscribe('newTurn', () => {
 	window.setTimeout(() => {
 		$('#storage-size')
-			.text(`(занято ${Math.round(log.size() / 1024 / 1024 * 100) / 100}Мб)`);
+			.text(`(занято ${Math.round(clientStorage.size() / 1024 / 1024 * 100) / 100}Мб)`);
 	}, 10);
 });

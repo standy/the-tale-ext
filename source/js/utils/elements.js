@@ -60,7 +60,8 @@ function getTab(name) {
 }
 
 function activeTab(name) {
-//		tabs[name].$tab.addClass('active').siblings().removeClass('active');
+	getTab(name).addClass('active').siblings().removeClass('active');
+	getTabInner(name).addClass('active').siblings().removeClass('active');
 //		if (tabs[name].zone === 'mainMiddle') {
 //			$('#pgf-journal-container').addClass('active').siblings().removeClass('active');
 //			tabs[name].$content.show().siblings().hide();

@@ -1,9 +1,7 @@
 import $ from 'jquery';
-import {utils} from '../utils/initUtils';
 import {sendNotify} from '../notifications/sendNotify';
 import CONST from '../utils/const';
 import {settingsValues} from '../settings/settings';
-const _heroName = utils.heroName;
 
 
 export function checkHero(gameData) {
@@ -78,7 +76,7 @@ export function checkHero(gameData) {
 		ability = ability || 'help';
 		console.log(`god ${ability}!`, getParams, actionName, msg, $.extend({}, hero));
 		if (settingsValues.autohelpNotify) {
-			sendNotify(`The Tale Extended - ${_heroName}`, {
+			sendNotify(`The Tale Extended - {_heroName}`, {
 				tag: 'autohelp',
 				body:
 					`Сработала автоматическая помощь 
