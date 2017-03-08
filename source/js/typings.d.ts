@@ -1,5 +1,10 @@
 ///<reference path="../../node_modules/@types/jquery/index.d.ts"/>
 ///<reference path="../../node_modules/typescript/lib/lib.es6.d.ts"/>
+///<reference path="../../node_modules/typescript/lib/lib.es2016.array.include.d.ts"/>
+
+interface Window {
+	ext: any;
+}
 
 declare module "*.css" {
 	const css: any;
@@ -7,6 +12,19 @@ declare module "*.css" {
 }
 
 declare const pgf: any;
+
+type PhraseNumberKey = 'damage' | 'health' | 'coins';
+type ActorKey = 'me' | 'companion' | 'mob';
+
+declare type PhraseDataRaw = {
+	[key: string]: string;
+}
+
+declare const enum SkillOwner {
+	me = 0,
+	mob = 1,
+	companion = 2,
+}
 
 declare type PhraseData = {
 	attacker?: string,
@@ -24,20 +42,35 @@ declare type PhraseData = {
 	artifact?: string,
 }
 
+declare type PhraseMeta = {
+	/* чей скилл сработал */
+	owner: SkillOwner,
+}
+
 declare const enum MSG {
 	TimeStamp = 0,
 	TimeSting = 1,
 	PhraseSting = 2,
 	PhraseId = 3,
 	PhraseData = 4,
+	PhraseMeta = 5,
 }
+
+declare type MessageRaw = [
+	number, //timestamp,
+	string, //timeSting,
+	string, //phraseSting,
+	number, //phraseId,
+	PhraseDataRaw //phraseData,
+];
 
 declare type Message = [
 	number, //timestamp,
 	string, //timeSting,
 	string, //phraseSting,
 	number, //phraseId,
-	PhraseData //phraseData,
+	PhraseData, //phraseData,
+	PhraseMeta //phraseMeta,
 ];
 
 declare type GameData = any;
@@ -55,3 +88,6 @@ declare type ActsByIds = {
 
 declare type Icon = string;
 
+type PlainObject<T> = {
+    [key: string]: T;
+};

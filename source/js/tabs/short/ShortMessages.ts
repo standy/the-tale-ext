@@ -1,4 +1,4 @@
-import {elements} from '../../utils/elements';
+import {createTab} from '../tabs';
 import {actsByIds, actToHtmlShort, actToHtmlDefault} from '../../utils/phraseToHtml';
 
 
@@ -10,12 +10,10 @@ export default class ShortMessages {
 	private $root: JQuery;
 	private $list: JQuery;
 	private $prevGroup: JQuery|null;
+	tab = createTab('кратко');
 
 	constructor() {
-		elements.addTab('short', {zone: 'main', title: 'кратко'});
-		elements.activeTab('short');
-
-		this.$root = elements.getTabInner('short');
+		this.$root = this.tab.$content;
 
 		this.$list = $(`<ul class="unstyled pgf-log-list"></ul>`).appendTo(this.$root);
 		this.$prevGroup = null;

@@ -37,8 +37,8 @@ const config = Object.assign({}, baseConfig, {
 	output: {
 		path: DIST_CHROME,
 		filename: '[name].js',
-		library: 'ext',
-		libraryTarget: 'var',
+		// library: 'ext',
+		// libraryTarget: 'var',
 	},
 });
 
@@ -49,6 +49,9 @@ config.module.rules.push({
 		use: [
 			{
 				loader: 'css-loader',
+				options: {
+					url: false,
+				},
 			},
 			{
 				loader: 'postcss-loader',

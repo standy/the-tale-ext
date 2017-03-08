@@ -1,15 +1,26 @@
 ///<reference path="../typings.d.ts"/>
 import EventEmitter from "../utils/EventEmitter";
-import {MAX_LOG_LENGTH} from '../utils/const';
+import {MAX_LOG_LENGTH, PHRASE_NUMBER_KEYS} from '../utils/const';
 import clientStorage from '../utils/clientStorage';
-import store from '../storage/storage';
+import storage from '../storage/storage';
 
+const NEGATIVE_PHRASE_ID = [
+	1,
+	11,
+	12,
+	280001,
+	280004,
+	280010,
+	280014,
+	280016,
+	280019,
+];
 
 /**
  * Позволяет подписаться на обновление данных
  */
 export default class Tracking {
-	messagesLog:Message[] = clientStorage.get('messagesLog');
+	messagesLog: MessageRaw[] = clientStorage.get('messagesLog');
 	onNewTurn = EventEmitter<Message[]>();
 	onNewMessages = EventEmitter<Message[]>();
 	onLoad = EventEmitter();
@@ -22,8 +33,44 @@ export default class Tracking {
 	}
 
 
-	getMessagesLog() {
-		return this.messagesLog;
+	getMessagesLog(): Message[] {
+		return this.messagesLog.map(Tracking.convertMessageFromRaw);
+	}
+
+	static convertMessageFromRaw(messageRaw: MessageRaw): Message {
+		return [
+			messageRaw[MSG.TimeStamp],
+			messageRaw[MSG.TimeSting],
+			messageRaw[MSG.PhraseSting],
+			messageRaw[MSG.PhraseId],
+			Tracking.convertPhraseDataFromRaw( messageRaw[MSG.PhraseData]), /*phraseData*/
+			Tracking.getMeta(messageRaw), /*phraseMeta*/
+		] as Message;
+	}
+
+	static convertPhraseDataFromRaw(phraseDataRaw: PhraseDataRaw): PhraseData {
+		const phraseData = Object.assign({}, phraseDataRaw) as PhraseData;
+		for (let i = 0; i < PHRASE_NUMBER_KEYS.length; i++) {
+			const key = PHRASE_NUMBER_KEYS[i];
+			if (typeof phraseDataRaw[key] === 'string') phraseData[key] = +phraseDataRaw[key];
+		}
+		return phraseData;
+	}
+
+	static getMeta(message: MessageRaw): PhraseMeta {
+		const phraseId = message[MSG.PhraseId];
+		const phraseDataRaw = message[MSG.PhraseData];
+		const actor = phraseDataRaw.attacker || phraseDataRaw.actor;
+		const isMyName = actor === storage.heroName;
+		const isMe = isMyName !== NEGATIVE_PHRASE_ID.includes(phraseId);
+		const isCompanion = !isMyName && actor === storage.companionName || [580003].includes(phraseId);
+		const owner = isMe
+			? SkillOwner.me
+			: isCompanion
+				? SkillOwner.companion
+				: SkillOwner.mob;
+
+		return {owner: owner};
 	}
 
 	private track(game_data: GameData) {
@@ -36,14 +83,17 @@ export default class Tracking {
 
 		const lastLog = messagesLog[messagesLog.length - 1] || [];
 		const lastTimestamp = lastLog[MSG.TimeStamp];
-		const messages:Message[] = hero.messages;
-		const messagesNew:Message[] = [];
+		const messages: MessageRaw[] = hero.messages;
+		const messagesNew: Message[] = [];
 		for (let i = 0; i < messages.length; i++) {
-			const message = messages[i];
+			const messageRaw = messages[i];
+			const message = Tracking.convertMessageFromRaw(messageRaw);
+
 			// console.log('time>', lastTimestamp, message[0], message[0] > lastTimestamp, lastLog[1], message[1]);
 			if (!lastTimestamp || message[MSG.TimeStamp] > lastTimestamp) {
-				messagesLog.push(message);
+				messagesLog.push(messageRaw);
 				messagesNew.push(message);
+				console.log('message>', message)
 			}
 		}
 
@@ -75,8 +125,8 @@ export default class Tracking {
 			this.onLoadDone = true;
 
 			const hero = game_data.account.hero;
-			store.heroName = hero.base.name;
-			store.companionName = hero.companion && hero.companion.name.toLowerCase();
+			storage.heroName = hero.base.name;
+			storage.companionName = hero.companion && hero.companion.name.toLowerCase();
 
 			this.onLoad.emit(game_data);
 

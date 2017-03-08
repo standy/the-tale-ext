@@ -11,6 +11,48 @@
 	background-image: linear-gradient(to right, #005580, #005580 50%, transparent 50%);
 }
 
+.pgf-ext-tab-button {
+	background: url(img/128.png) center center no-repeat;
+	background-size: 16px 16px;
+	color: transparent !important;
+	text-indent: -500px;
+}
+
+.ext-container {
+
+	.ext-tabs {
+		margin-bottom: 10px;
+		text-align: right;
+
+		.ext-tab {
+			text-decoration: dotted;
+			color: #0088cc;
+			background-image: linear-gradient(to right, #0088cc, #0088cc 50%, transparent 50%);
+			background-size: 2px 1px;
+			background-position: 0 95%;
+			background-repeat: repeat-x;
+			cursor: pointer;
+			margin-left: 10px;
+
+			&.active {
+				background-image: none;
+				color: #333;
+				font-weight: bold;
+			}
+
+		}
+	}
+
+	.ext-content {
+		display: none;
+
+		&.active {
+			display: block;
+		}
+	}
+}
+
+
 #abilities-block .angel-ability { width: auto !important; display: inline-block; }
 #abilities-block .angel-ability.pgf-ability-help { margin: 0 50px; }
 #abilities-block .dropdown { width: auto !important; }
@@ -22,63 +64,37 @@
 .ext-control.link-ajax { background: none; }
 
 
-.table-stats {  }
-.table-stats th,
-.table-stats td { padding: 1px 10px 1px 0; cursor: default; }
-.table-stats .stats-name { width: 16px; padding-right: 0; }
-.table-stats .stats-sum { text-align: right; }
-.table-stats .stats-count { text-align: right; }
-.table-stats .stats-average { text-align: right; }
-.table-stats .stats-bonus { text-align: left; padding-left: 10px; padding-right: 5px;  }
-.table-stats th.stats-bonus { text-align: center;  }
-.table-stats .stats-against { border-top: 10px solid #f5fafa; }
+.table-stats {
+	width: 100%;
 
-.table-stats .stats-row-dmgSum td { font-weight: bold; }
+	thead {
+		td {
+			text-align: right;
+			font-weight: bold;
+			border-bottom: 2px solid #ddd;
+		}
+	}
 
-.stats-side { margin-bottom: 10px; }
-.stats-side.stats-loot { margin-top: 20px; padding-top: 10px; border-top: 1px solid #ccc; }
-
-
-.archive-log-list { margin-left: 30px; }
-.stats-archive { display: block; }
-.stats-archive-act { margin-right: 6px; }
-.stats-archive-me { color: #005000; }
-.stats-archive-enemy { color: darkred; }
-
-.stats-log {
-	margin-top: 10px;
-	max-height: 500px;
-	overflow-y: auto;
-}
-/*.stats-log .pgf-log-list {*/
-	/*padding-top: 10px;*/
-	/*border-top: 1px solid #ddd;*/
-	/*margin-bottom: 30px;*/
-/*}*/
-
-
-
-.log-record-short {
-	display: inline-block;
-}
-.log-record-short .submessage {
-	display: inline-block;
-	cursor: default;
-	padding: 0 2px;
-}
-.log-record-short .submessage:first-child { padding-left: 4px; }
-.log-record-short .submessage:last-child { padding-right: 4px; }
-
-.log-record-short:hover {
-	background: #ddd;
+	tbody {
+		th,
+		td {
+			vertical-align: top;
+			border-top: 1px solid #ddd;
+			padding: 5px;
+			white-space: nowrap;
+		}
+		tr:hover {
+			background-color: #e1e6e6;
+		}
+		th {
+			text-align: left;
+		}
+		td {
+			text-align: right;
+		}
+	}
 }
 
-.stats-me .glyphicon { color: #005000; }
-.stats-loot .glyphicon { color: darkgoldenrod; }
-.stats-enemy .glyphicon { color: darkred; }
-
-.stats .glyphicon { font-size: 12px; opacity: .8; }
-.stats .glyphicon.small { font-size: 9px; }
 .log-block .glyphicon { font-size: 12px; opacity: .8; }
 .log-block .glyphicon-heart { vertical-align: -1px; }
 .log-block .glyphicon-heart-empty { vertical-align: -2px; }
@@ -290,27 +306,6 @@
 	font-size: 12px;
 }
 
-/* tables */
-body .table-noborder tbody,
-.table-noborder td,
-.table-noborder th { border: none; }
-.table tbody tr.unhover:hover td,
-.table tbody tr.unhover:hover th { background: inherit; }
-.table-hover-dark tbody tr:hover td,
-.table-hover-dark tbody tr:hover th { background: #ddd; }
-
-.table-towns th.size,
-.table-towns td.size {
-	padding-left: 0;
-	padding-right: 0;
-}
-.table-towns th.size { text-align: center; }
-.table-towns td.size { text-align: right; }
-
-.table-towns td {
-	white-space: nowrap;
-}
-/* eo tables */
 
 
 /* settings */
