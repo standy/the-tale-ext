@@ -26,7 +26,7 @@ function flightStart(phraseData: PhraseData) {
 	// mob	монстр
 	// hero	герой
 	const mob = MOBS.filter(m => m.name === phraseData.mob)[0];
-	return act('', `<a href="/guide/mobs/${mob.id}">${phraseData.mob}</a> ${ICONS.fight}`);
+	return act('', `<a href="/guide/mobs/${mob.id}">${phraseData.mob}</a> (уровень ${mob.level}) ${ICONS.fight}`);
 }
 
 function mobAct(icon: string) {
