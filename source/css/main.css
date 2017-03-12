@@ -11,6 +11,11 @@
 	background-image: linear-gradient(to right, #005580, #005580 50%, transparent 50%);
 }
 
+body .nav-tabs > li > a {
+	padding-left: 9px;
+	padding-right: 9px;
+}
+
 .pgf-ext-tab-button {
 	background: url(img/128.png) center center no-repeat;
 	background-size: 16px 16px;
@@ -122,17 +127,22 @@
 		vertical-align: -1px;
 		display: inline-block;
 	}
+
+
+	&.positive { color: black; }
+	&.positive svg { fill: #005000; }
+	&.negative { color: #B90000; }
+	&.negative svg { fill: darkred; }
+
+	.companion svg {
+		fill: #002000;
+	}
+
+	&.loot { color: darkgoldenrod; }
+	&.loot.drop .artifact{ text-decoration: line-through; }
 }
 
-.act.positive { color: black; }
-.act.positive .glyphicon { color: #005000; }
-.act.positive svg { fill: #005000; }
-.act.negative { color: #B90000; }
-.act.negative .glyphicon { color: darkred; }
-.act.negative svg { fill: darkred; }
 
-.act.loot { color: darkgoldenrod; }
-.act.loot.drop .artifact{ text-decoration: line-through; }
 
 
 .act-rest.positive { color: #005000; }

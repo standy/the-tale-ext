@@ -15,6 +15,10 @@ const NEGATIVE_PHRASE_ID = [
 	280016,
 	280019,
 ];
+const COMPANION_PHRASE_ID = [
+	580003,
+	580004,
+];
 
 /**
  * Позволяет подписаться на обновление данных
@@ -63,7 +67,7 @@ export default class Tracking {
 		const actor = phraseDataRaw.attacker || phraseDataRaw.actor;
 		const isMyName = actor === storage.heroName;
 		const isMe = isMyName !== NEGATIVE_PHRASE_ID.includes(phraseId);
-		const isCompanion = !isMyName && actor === storage.companionName || [580003].includes(phraseId);
+		const isCompanion = !isMyName && actor === storage.companionName || COMPANION_PHRASE_ID.includes(phraseId);
 		const owner = isMe
 			? SkillOwner.me
 			: isCompanion

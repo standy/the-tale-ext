@@ -23,7 +23,7 @@ export default {
 
 	heal:  require('../../svg/heal.svg'),
 
-	companion: require('../../svg/companion.svg'),
+	companion: `<span class="companion">${require('../../svg/companion.svg')}</span>`,
 
 	trade: require('../../svg/coin.svg'),
 	rest: require('../../svg/rest.svg'),
