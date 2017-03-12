@@ -1,6 +1,6 @@
-export const MAX_LOG_LENGTH = 1000;
+export const MAX_LOG_LENGTH = 10000;
 
-export const PHRASE_NUMBER_KEYS: PhraseNumberKey[] = ['damage', 'health', 'coins'];
+export const PHRASE_NUMBER_KEYS: PhraseNumberKey[] = ['damage', 'health', 'coins', 'sell_price'];
 
 export const PHRASE_ID_TO_TEXT = {
 	1: 'Стан',

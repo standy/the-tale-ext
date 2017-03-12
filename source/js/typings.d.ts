@@ -13,8 +13,7 @@ declare module "*.css" {
 
 declare const pgf: any;
 
-type PhraseNumberKey = 'damage' | 'health' | 'coins';
-type ActorKey = 'me' | 'companion' | 'mob';
+type PhraseNumberKey = 'damage' | 'health' | 'coins' | 'sell_price';
 
 declare type PhraseDataRaw = {
 	[key: string]: string;
@@ -40,6 +39,8 @@ declare type PhraseData = {
 	current_destination?: string,
 	coins?: number,
 	artifact?: string,
+	sell_price?: number,
+	old_artifact?: string,
 }
 
 declare type PhraseMeta = {
