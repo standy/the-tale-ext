@@ -4,6 +4,7 @@
 
 interface Window {
 	ext: any;
+	extPath: string;
 }
 
 declare module "*.css" {
@@ -92,3 +93,42 @@ declare type Icon = string;
 type PlainObject<T> = {
     [key: string]: T;
 };
+
+
+
+
+type SetInput = {
+	type: string;
+	name: string;
+	value?: any,
+	addOn?: string,
+	isInline?: boolean;
+}
+type SetField0 = {
+	label: string;
+	name: string;
+	note?: string;
+	isToggle?: boolean;
+	isInline?: boolean;
+	value?: any;
+	inputs?: SetInput[];
+}
+type SetField1 = SetField0 & {
+	subs?: SetField0[];
+}
+
+type SetField = SetField0 & {
+	subs?: SetField1[];
+}
+
+type Sets = {
+	title: string,
+	fields: SetField[];
+}
+
+type SettingsValue = number|string|boolean|null;
+type SettingsData = {
+	name: string;
+	value: SettingsValue;
+};
+type SettingsValues = PlainObject<SettingsValue>;

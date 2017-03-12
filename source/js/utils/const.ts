@@ -1,4 +1,4 @@
-export const MAX_LOG_LENGTH = 10000;
+export const MAX_LOG_LENGTH = 100000;
 
 export const PHRASE_NUMBER_KEYS: PhraseNumberKey[] = ['damage', 'health', 'coins', 'sell_price'];
 
@@ -32,7 +32,6 @@ export const PHRASE_ID_TO_TEXT = {
 
 export default {
 	MAX_LOG_LENGTH,
-	MAX_ARCHIVE_LENGTH: 2000,
 
 	ACTION_TYPE_NAMES: {
 		0: 'idle',         //безделие

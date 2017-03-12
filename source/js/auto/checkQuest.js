@@ -1,27 +1,28 @@
+/*
 import $ from 'jquery';
 import {sendNotify} from '../notifications/sendNotify';
-import {settingsValues} from '../settings/settings';
+import {settingsValues} from '../tabs/settings/sets';
 
 
 const CHOICES = {
-	/* peacefullnes */
+	/!* peacefullnes *!/
 	peacePlus: [
-		'прибегнуть к дипломатии', /* collect_debt */
+		'прибегнуть к дипломатии', /!* collect_debt *!/
 	],
 	peaceMinus: [
-		'задействовать грубую силу', /* collect_debt */
+		'задействовать грубую силу', /!* collect_debt *!/
 	],
 	honorPlus: [
-		'довести дело до конца', /* spying */
-		'защищать торговца', /* caravan */
-		'честно выполнить свои обязательства', /* delivery */
+		'довести дело до конца', /!* spying *!/
+		'защищать торговца', /!* caravan *!/
+		'честно выполнить свои обязательства', /!* delivery *!/
 	],
 	honorMinus: [
-		'поддаться укорам совести и раскрыться', /* spying */
-		'шантажировать самостоятельно', /* spying */
-		'присвоить письмо и продать', /* delivery */
-		'украсть-украсть-украсть', /* delivery */
-		'подделать письмо', /* delivery */
+		'поддаться укорам совести и раскрыться', /!* spying *!/
+		'шантажировать самостоятельно', /!* spying *!/
+		'присвоить письмо и продать', /!* delivery *!/
+		'украсть-украсть-украсть', /!* delivery *!/
+		'подделать письмо', /!* delivery *!/
 	],
 };
 
@@ -89,3 +90,4 @@ export function checkQuest(gameData) {
 	}
 }
 
+*/

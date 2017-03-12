@@ -1,15 +1,12 @@
-import $ from 'jquery';
-
 $('body').one('click', request);
 
 function request() {
-	if (Notification.permission.toLowerCase() !== 'granted') {
-		Notification.requestPermission(newMessage);
-	}
-	function newMessage(permission) {
-		if (permission !== 'granted') return false;
-		const notify = new Notification('Thanks for letting notify you');
-		return !!notify;
+	if ((Notification as any).permission.toLowerCase() !== 'granted') {
+		Notification.requestPermission(permission => {
+			if (permission !== 'granted') return false;
+			const notify = new Notification('Thanks for letting notify you');
+			return !!notify;
+		});
 	}
 }
 
@@ -20,7 +17,14 @@ function generateRandomString() {
 
 let rndStr = generateRandomString();
 
-export function sendNotify(name, options) {
+type SentNotifyOptions = {
+	tag: string;
+	body: string;
+	icon?: string;
+	addTime?: boolean;
+}
+
+export function sendNotify(name: string, options: SentNotifyOptions) {
 	const d = new Date();
 	const h = d.getHours();
 	const m = d.getMinutes();

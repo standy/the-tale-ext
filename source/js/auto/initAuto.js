@@ -1,3 +1,4 @@
+/*
 import {subscribe} from '../utils/pubsub';
 import {checkHero} from './checkHero';
 import {checkQuest} from './checkQuest';
@@ -13,3 +14,4 @@ subscribe('newMessages', (messagesNew, gameData) => {
 		checkQuest(gameData);
 	}, 1000);
 });
+*/

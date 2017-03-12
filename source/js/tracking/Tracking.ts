@@ -25,7 +25,7 @@ const COMPANION_PHRASE_ID = [
  */
 export default class Tracking {
 	messagesLog: MessageRaw[] = clientStorage.get('messagesLog');
-	onNewTurn = EventEmitter<Message[]>();
+	onNewTurn = EventEmitter<any>();
 	onNewMessages = EventEmitter<Message[]>();
 	onLoad = EventEmitter();
 
@@ -97,14 +97,13 @@ export default class Tracking {
 			if (!lastTimestamp || message[MSG.TimeStamp] > lastTimestamp) {
 				messagesLog.push(messageRaw);
 				messagesNew.push(message);
-				console.log('message>', message)
 			}
 		}
 
 		this.messagesLog = messagesLog.slice(messagesLog.length - MAX_LOG_LENGTH);
 		clientStorage.set('messagesLog', this.messagesLog);
 
-		this.onNewTurn.emit(messagesNew);
+		this.onNewTurn.emit(hero);
 		if (messagesNew.length) {
 			this.onNewMessages.emit(messagesNew);
 		}

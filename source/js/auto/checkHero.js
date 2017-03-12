@@ -1,7 +1,8 @@
+/*
 import $ from 'jquery';
 import {sendNotify} from '../notifications/sendNotify';
 import CONST from '../utils/const';
-import {settingsValues} from '../settings/settings';
+import {settingsValues} from '../tabs/settings/sets';
 
 
 export function checkHero(gameData) {
@@ -79,7 +80,7 @@ export function checkHero(gameData) {
 			sendNotify(`The Tale Extended - {_heroName}`, {
 				tag: 'autohelp',
 				body:
-					`Сработала автоматическая помощь 
+					`Сработала автоматическая помощь
 					${msg}
 					Текущее действие: ${CONST.ACTION_TYPE_TEXTS[actionName]}`,
 				addTime: 1,
@@ -111,3 +112,4 @@ export function checkHero(gameData) {
 	}
 }
 
+*/

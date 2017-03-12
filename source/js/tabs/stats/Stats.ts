@@ -56,7 +56,6 @@ export default class Stats {
 			})
 		} else {
 			statInList.count++;
-			statInList.example = phraseSting;
 			for (let i = 0; i < PHRASE_NUMBER_KEYS.length; i++) {
 				const numberKey = PHRASE_NUMBER_KEYS[i];
 				const value = phraseData[numberKey];
