@@ -2,8 +2,9 @@
 
 import {createTab} from '../tabs';
 import actFight from '../../utils/act/act-fight';
-import {PHRASE_NUMBER_KEYS, PHRASE_ID_TO_TEXT} from '../../utils/const';
-import ICONS from '../../utils/icons';
+import {PHRASE_ID_TO_TEXT} from '../../utils/const/texts';
+import {PHRASE_NUMBER_KEYS} from '../../utils/const/vars';
+import ICONS from '../../utils/const/icons';
 
 type StatsByPhraseAndOwner = PhraseMeta & {
 	phraseId: number,

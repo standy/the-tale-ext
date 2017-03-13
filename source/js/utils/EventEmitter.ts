@@ -1,4 +1,4 @@
-
+///<reference path="../typings.d.ts"/>
 interface EventEmitter<DataType> {
 	(callback: Callback<DataType>): void;
 	emit: Callback<DataType>;

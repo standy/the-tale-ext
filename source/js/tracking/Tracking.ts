@@ -1,6 +1,6 @@
 ///<reference path="../typings.d.ts"/>
 import EventEmitter from "../utils/EventEmitter";
-import {MAX_LOG_LENGTH, PHRASE_NUMBER_KEYS} from '../utils/const';
+import {MAX_LOG_LENGTH, PHRASE_NUMBER_KEYS} from '../utils/const/vars';
 import clientStorage from '../utils/clientStorage';
 import storage from '../storage/storage';
 

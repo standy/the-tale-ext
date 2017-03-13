@@ -1,7 +1,7 @@
 ///<reference path="../../typings.d.ts"/>
-import ICONS from '../icons';
-import MOBS from '../mobs';
-import ARTIFACTS from '../artifacts';
+import ICONS from '../const/icons';
+import MOBS from '../const/mobs';
+import ARTIFACTS from '../const/artifacts';
 import {act} from './act';
 
 export default {

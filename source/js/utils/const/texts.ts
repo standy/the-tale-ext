@@ -1,6 +1,4 @@
-export const MAX_LOG_LENGTH = 100000;
-
-export const PHRASE_NUMBER_KEYS: PhraseNumberKey[] = ['damage', 'health', 'coins', 'sell_price'];
+///<reference path="../../typings.d.ts"/>
 
 export const PHRASE_ID_TO_TEXT = {
 	1: 'Стан',
@@ -49,52 +47,3 @@ export const ACTION_TYPE_TEXTS = {
 	// [ACTION_TYPE_NAMES.undefined]: 'неизвестное действие',
 	// [ACTION_TYPE_NAMES.broken]: 'неразобранное действие',
 };
-
-export default {
-	MAX_LOG_LENGTH,
-
-	ACTION_TYPE_ICONS: {
-		idle: '<span class="glyphicon glyphicon-home"></span>',
-		quest: '<span class="glyphicon glyphicon-globe"></span>',
-		walk: '<span class="glyphicon glyphicon-road"></span>',
-		fight: '<span class="glyphicon glyphicon-leaf"></span>',
-		dead: '<span class="glyphicon glyphicon-remove"></span>',
-		city: '<span class="glyphicon glyphicon-home"></span>',
-		rest: '<span class="glyphicon glyphicon-heart-empty"></span>',
-		equip: '<span class="glyphicon glyphicon-collapse-down"></span>',
-		trade: '<span class="glyphicon glyphicon-copyright-mark"></span>',
-		nearcity: '<span class="glyphicon glyphicon-globe"></span>',
-		energy: '<span class="glyphicon glyphicon-flash"></span>',
-		noeffect: '<span class="glyphicon glyphicon-music"></span>',
-		companionHeal: '<span class="glyphicon glyphicon-user"></span>',
-		broken: '<span class="glyphicon glyphicon-ban-circle"></span>',
-	},
-	ERROR_CODES: {
-		1: 'Неполное действие',
-		2: 'Не найдено начало боя',
-		3: 'Не найден конец боя',
-		4: 'Дыра в середине действия',
-		5: 'Запись обрывается',
-	},
-	ACTION_TRANSLATE: {
-		hit: 'Удар',
-		crit: 'Критический удар',
-		stunHit: 'Разбег-толчок',
-		stun: 'Шок',
-		might: 'Тяжёлый удар',
-		slow: 'Заморозка',
-		speed: 'Ускорение',
-		fire: 'Шар огня',
-		flame: 'Пламя',
-		mush: 'Волшебный гриб',
-		ue: 'Шаг в сторону',
-		eva: 'Увернулся',
-		poisoncloud: 'Ядовитое облако',
-		poison: 'Отравление',
-		vamp: 'Удар вампира',
-		heal: 'Регенерация',
-		dmgSum: 'Всего',
-	},
-};
-
-

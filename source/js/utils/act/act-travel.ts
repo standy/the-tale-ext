@@ -1,5 +1,5 @@
 ///<reference path="../../typings.d.ts"/>
-import ICONS from '../icons';
+import ICONS from '../const/icons';
 import {act} from './act';
 
 export default {

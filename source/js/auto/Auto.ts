@@ -2,7 +2,7 @@
 
 import storage from '../storage/storage'
 import {sendNotify} from '../notifications/sendNotify';
-import {ACTION_TYPE_TEXTS} from '../utils/const';
+import {ACTION_TYPE_TEXTS} from '../utils/const/texts';
 
 export default class Auto {
 

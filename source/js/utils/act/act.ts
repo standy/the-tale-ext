@@ -1,5 +1,5 @@
 import storage from '../../storage/storage';
-import ICONS from '../icons';
+import ICONS from '../const/icons';
 
 export function act(modificator: string, shortMsg: string) {
 	return `<span class="act ${modificator}">${shortMsg}</span>`;

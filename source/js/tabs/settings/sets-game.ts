@@ -1,4 +1,4 @@
-import {MAX_LOG_LENGTH} from '../../utils/const';
+import {MAX_LOG_LENGTH} from '../../utils/const/vars';
 
 export const setsGame: Sets[] = [
 	{
