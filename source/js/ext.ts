@@ -1,4 +1,3 @@
-import './auto/initAuto.js';
 import './tabs/settings/Settings.ts';
 import './tables.js';
 import Tracking from './tracking/Tracking';
@@ -6,6 +5,7 @@ import ShortMessages from './tabs/short/ShortMessages';
 import Stats from './tabs/stats/Stats';
 import Settings from './tabs/settings/Settings';
 import Notifications from './notifications/Notifications';
+import Auto from './auto/Auto';
 
 import '../css/global.css';
 import '../css/glyphicons.css';
@@ -18,10 +18,11 @@ const shortMessages = new ShortMessages();
 const stats = new Stats();
 const settings = new Settings();
 const notifications = new Notifications();
+const auto = new Auto();
 
 tracking.onLoad(() => {
 	const pastMessages = tracking.getMessagesLog();
-	shortMessages.addMessages(pastMessages);
+	shortMessages.addMessages(pastMessages.slice(pastMessages.length - 1000));
 	stats.addToStats(pastMessages);
 });
 
@@ -33,7 +34,15 @@ tracking.onNewMessages(messages => {
 
 tracking.onNewTurn(hero => {
 	notifications.check(hero, settings.settingsValues);
+	auto.check(hero, settings.settingsValues);
 });
+
+settings.onCleanup(() => {
+	tracking.clear();
+	stats.clear();
+	shortMessages.clear();
+});
+
 
 window.ext = {
 	tracking,

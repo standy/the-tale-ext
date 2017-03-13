@@ -105,8 +105,10 @@ export default class Stats {
 				`<th>Всего кол-во</th>` +
 				`<td>${
 					Stats.drawTotalCount(countMe) + 
-					(countMe && countCompanion ? `<br>` : '') +
-					Stats.drawTotalCount(countCompanion, ICONS.companion)
+					(countCompanion 
+						? `<br>${Stats.drawTotalCount(countCompanion, ICONS.companion)}` 
+						: ''
+					)					
 				}</td>` +
 				`<td>${Stats.drawTotalCount(countMob)}</td>` +
 			`</tr>`;
@@ -156,6 +158,10 @@ export default class Stats {
 		return `<span class="act">${icon}x${count}</span>`;
 	}
 
+	clear() {
+		this.statistics = [];
+		this.tab.$content.html('');
+	}
 }
 
 

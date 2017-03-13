@@ -3,6 +3,8 @@ import EventEmitter from '../../utils/EventEmitter';
 import clientStorage from '../../utils/clientStorage';
 import {setsAuto} from './sets-auto';
 import {setsGame} from './sets-game';
+import {sendNotify} from '../../notifications/sendNotify';
+
 
 export default class Settings {
 	tab = createTab('<span class="glyphicon glyphicon-cog" title="Настройки &laquo;The Tale Extended&raquo;"></span>');
@@ -11,22 +13,40 @@ export default class Settings {
 	deps: PlainObject<string[]> = {};
 
 	onSettingsChange = EventEmitter<SettingsData>();
+	onCleanup = EventEmitter();
 
 	constructor() {
 		this.addSets(setsGame);
-		// this.addSets(setsAuto);
+		this.addSets(setsAuto);
+		console.log('settingsValues>', this.settingsValues)
+
+		this.handlersGame();
+		this.handlersAuto();
 	}
 
+	handlersGame() {
+		$('#test-notifications').on('click', e => {
+			e.preventDefault();
+			sendNotify('Проверка уведомлений', {
+				body: 'Проверка уведомлений',
+				tag: 'test',
+			});
+		});
 
-	/*initSettingsForAuto() {
-		this.addSets(setsAuto);
-		this.drawSets(setsAuto);
+		$('#reset-stats').on('click', e => {
+			if (!confirm('Очистить историю сообщений?')) {
+				return;
+			}
+			this.onCleanup.emit(undefined as any);
+		});
+	}
 
-		this.$root
-			.on('click', '[data-auto]', function(e) {
+	handlersAuto() {
+		this.$root.find('[data-auto]')
+			.on('click', function(e) {
 				e.preventDefault();
 				const type = $(this).data('auto');
-				const types = {
+				const types: PlainObject<PlainObject<number>> = {
 					rest: {
 						autohelpIdle: 1,
 						autohelpDead: 1,
@@ -59,7 +79,7 @@ export default class Settings {
 					}
 				}
 			});
-	}*/
+	}
 
 
 
@@ -93,10 +113,7 @@ export default class Settings {
 				this.settingsValues[data.name] = data.value;
 				this.onSettingsChange.emit(data);
 				clientStorage.set('settings', this.settingsValues);
-				console.log('??', this.settingsValues)
 			});
-
-
 	}
 
 	static getData($input: JQuery): SettingsData {
@@ -126,8 +143,8 @@ export default class Settings {
 			const st = fields[i];
 			if (st.name) {
 				childs.push(st.name);
-				console.log('>', st.name, st.value)
-				this.settingsValues[st.name] = st.value;
+				const storedValue = this.settingsValues[st.name];
+				this.settingsValues[st.name] = typeof storedValue === 'undefined' ? st.value : storedValue;
 			}
 
 			const subsChilds: string[] = [

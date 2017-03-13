@@ -62,4 +62,8 @@ export default class ShortMessages {
 	private addToRecord(html:string, $record: JQuery) {
 		$record.find('.submessage').prepend(html);
 	}
+
+	clear() {
+		this.$list.html('');
+	}
 }

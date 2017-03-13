@@ -4,7 +4,7 @@ export const setsGame: Sets[] = [
 	{
 		title: 'Уведомления',
 		fields: [{
-			label: 'Отправлять уведомления',
+			label: 'Отправлять уведомления (<span class="link-ajax" id="test-notifications">тест</span>)',
 			name: 'notify',
 			isToggle: true,
 			value: true,

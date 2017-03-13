@@ -30,46 +30,29 @@ export const PHRASE_ID_TO_TEXT = {
 	580004: 'Спутник ранен', //  защитил своего владельца от удара, но получил рану
 };
 
+export const ACTION_TYPE_TEXTS = {
+	[ACTION_TYPE_NAMES.idle]: 'безделие',
+	[ACTION_TYPE_NAMES.quest]: 'задание',
+	[ACTION_TYPE_NAMES.walk]: 'путешествие между городами',
+	[ACTION_TYPE_NAMES.fight]: 'сражение 1x1 с монстром',
+	[ACTION_TYPE_NAMES.dead]: 'воскрешение',
+	[ACTION_TYPE_NAMES.city]: 'действия в городе',
+	[ACTION_TYPE_NAMES.rest]: 'отдых',
+	[ACTION_TYPE_NAMES.equip]: 'экипировка',
+	[ACTION_TYPE_NAMES.trade]: 'торговля',
+	[ACTION_TYPE_NAMES.nearcity]: 'путешествие около города',
+	[ACTION_TYPE_NAMES.energy]: 'восстановление энергии',
+	[ACTION_TYPE_NAMES.noeffect]: 'действие без эффекта на игру',
+	[ACTION_TYPE_NAMES.proxy]: 'прокси-действия для взаимодействия героев',
+	[ACTION_TYPE_NAMES.pvp]: 'PvP 1x1',
+	[ACTION_TYPE_NAMES.companionHeal]: 'уход за спутником',
+	// [ACTION_TYPE_NAMES.undefined]: 'неизвестное действие',
+	// [ACTION_TYPE_NAMES.broken]: 'неразобранное действие',
+};
+
 export default {
 	MAX_LOG_LENGTH,
 
-	ACTION_TYPE_NAMES: {
-		0: 'idle',         //безделие
-		1: 'quest',        //задание
-		2: 'walk',         //путешествие между городами
-		3: 'fight',        //сражение 1x1 с монстром
-		4: 'dead',         //воскрешение
-		5: 'city',         //действия в городе
-		6: 'rest',         //отдых
-		7: 'equip',        //экипировка
-		8: 'trade',        //торговля
-		9: 'nearcity',     //путешествие около города
-		10: 'energy',       //восстановление энергии
-		11: 'noeffect',     //действие без эффекта на игру
-		12: 'proxy',        //прокси-действия для взаимодействия героев
-		13: 'pvp',          //PvP 1x1
-		14: 'test',         //проверочное действие
-		15: 'companionHeal', //уход за спутником
-	},
-	ACTION_TYPE_TEXTS: {
-		idle: 'безделие',
-		quest: 'задание',
-		walk: 'путешествие между городами',
-		fight: 'сражение 1x1 с монстром',
-		dead: 'воскрешение',
-		city: 'действия в городе',
-		rest: 'отдых',
-		equip: 'экипировка',
-		trade: 'торговля',
-		nearcity: 'путешествие около города',
-		energy: 'восстановление энергии',
-		noeffect: 'действие без эффекта на игру',
-		proxy: 'прокси-действия для взаимодействия героев',
-		pvp: 'PvP 1x1',
-		undefined: 'неизвестное действие',
-		companionHeal: 'уход за спутником',
-		broken: 'неразобранное действие',
-	},
 	ACTION_TYPE_ICONS: {
 		idle: '<span class="glyphicon glyphicon-home"></span>',
 		quest: '<span class="glyphicon glyphicon-globe"></span>',

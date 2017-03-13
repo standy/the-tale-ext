@@ -5,6 +5,7 @@
 interface Window {
 	ext: any;
 	extPath: string;
+	API_CLIENT: string;
 }
 
 declare module "*.css" {
@@ -126,9 +127,32 @@ type Sets = {
 	fields: SetField[];
 }
 
-type SettingsValue = number|string|boolean|null;
+type SettingsValue = number|string|boolean;
 type SettingsData = {
 	name: string;
 	value: SettingsValue;
 };
-type SettingsValues = PlainObject<SettingsValue>;
+type SettingsValues = PlainObject<SettingsValue> & {
+	autohelpEnergyBonusMax: number;
+};
+
+
+
+declare const enum ACTION_TYPE_NAMES {
+	idle, //безделие
+	quest, //задание
+	walk, //путешествие между городами
+	fight, //сражение 1x1 с монстром
+	dead, //воскрешение
+	city, //действия в городе
+	rest, //отдых
+	equip, //экипировка
+	trade, //торговля
+	nearcity, //путешествие около города
+	energy, //восстановление энергии
+	noeffect, //действие без эффекта на игру
+	proxy, //прокси-действия для взаимодействия героев
+	pvp, //PvP 1x1
+	test, //проверочное действие
+	companionHeal, //уход за спутником
+}

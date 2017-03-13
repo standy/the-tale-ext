@@ -24,7 +24,7 @@ const COMPANION_PHRASE_ID = [
  * Позволяет подписаться на обновление данных
  */
 export default class Tracking {
-	messagesLog: MessageRaw[] = clientStorage.get('messagesLog');
+	messagesLog: MessageRaw[] = clientStorage.get('messagesLog') || [];
 	onNewTurn = EventEmitter<any>();
 	onNewMessages = EventEmitter<Message[]>();
 	onLoad = EventEmitter();
@@ -32,7 +32,6 @@ export default class Tracking {
 	private onLoadDone = false;
 
 	constructor() {
-		this.emitMessages();
 		this.emitLoad();
 	}
 
@@ -132,8 +131,15 @@ export default class Tracking {
 			storage.companionName = hero.companion && hero.companion.name.toLowerCase();
 
 			this.onLoad.emit(game_data);
+			this.track(game_data);
+			this.emitMessages();
 
 			$(document).off('ajaxSuccess.ext');
 		});
+	}
+
+	clear() {
+		clientStorage.set('messagesLog', '');
+		this.messagesLog = [];
 	}
 }
