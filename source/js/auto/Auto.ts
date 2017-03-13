@@ -1,5 +1,6 @@
 ///<reference path="../typings.d.ts"/>
 
+import storage from '../storage/storage'
 import {sendNotify} from '../notifications/sendNotify';
 import {ACTION_TYPE_TEXTS} from '../utils/const';
 
@@ -8,6 +9,7 @@ export default class Auto {
 	check(hero: any, settingsValues: SettingsValues) {
 		setTimeout(() => {
 			this.checkHero(hero, settingsValues);
+			this.checkQuest(hero, settingsValues);
 		}, 1000);
 	}
 
@@ -77,7 +79,7 @@ export default class Auto {
 			const ability = 'help';
 			console.log(`god ${ability}!`, actionType, msg, Object.assign({}, hero));
 			if (settingsValues.autohelpNotify) {
-				sendNotify(`The Tale Extended - {_heroName}`, {
+				sendNotify(`The Tale Extended - ${storage.heroName}`, {
 					tag: 'autohelp',
 					body:
 						`Сработала автоматическая помощь
@@ -98,6 +100,84 @@ export default class Auto {
 			// const csrf = document.head.innerHTML.match(/"X-CSRFToken"[^"]*(".*")/)[1].replace(/"/g, '');
 			$.ajax({
 				url,
+				dataType: 'json',
+				type: 'post',
+				// beforeSend: function(xhr) {
+				// 	xhr.setRequestHeader('X-CSRFToken', csrf);
+				// },
+				data: {},
+			});
+		}
+	}
+
+
+	static readonly CHOICES = {
+		/* peacefullnes */
+		peacePlus: [
+			'прибегнуть к дипломатии', /* collect_debt */
+		],
+		peaceMinus: [
+			'задействовать грубую силу', /* collect_debt */
+		],
+		honorPlus: [
+			'довести дело до конца', /* spying */
+			'защищать торговца', /* caravan */
+			'честно выполнить свои обязательства', /* delivery */
+		],
+		honorMinus: [
+			'поддаться укорам совести и раскрыться', /* spying */
+			'шантажировать самостоятельно', /* spying */
+			'присвоить письмо и продать', /* delivery */
+			'украсть-украсть-украсть', /* delivery */
+			'подделать письмо', /* delivery */
+		],
+	};
+	private lastquest = '';
+
+	checkQuest(hero: any, settingsValues: SettingsValues) {
+		const selectChoices: PlainObject<boolean> = {
+			peacePlus: settingsValues.autoquestPeacePlus,
+			peaceMinus: settingsValues.autoquestPeaceMinus,
+			honorPlus: settingsValues.autoquestHonorPlus,
+			honorMinus: settingsValues.autoquestHonorMinus,
+		};
+
+		const quests = hero.quests.quests;
+		const line = quests[1].line;
+		for (let i = 0; i < line.length; i++) {
+			const q = line[i];
+			for (let choiceIndex = 0; choiceIndex < q.choice_alternatives.length; choiceIndex++) {
+				const choiceName = q.choice_alternatives[choiceIndex][1];
+				const option_uid = q.choice_alternatives[choiceIndex][0];
+				for (const reward in Auto.CHOICES) {
+					if (
+						selectChoices[reward] &&
+						Auto.CHOICES.hasOwnProperty(reward) &&
+						Auto.CHOICES[reward].includes(choiceName)
+					) {
+						chooseQuest(option_uid, choiceName);
+					}
+				}
+			}
+		}
+
+		function chooseQuest(uid: string, name: string) {
+			if (settingsValues.autoquestNotify && this.lastquest !== name) {
+				this.lastquest = name;
+				sendNotify(`The Tale Extended - ${storage.heroName}`, {
+					tag: 'autoquest',
+					body: `Сделан выбор! \n— ${name}`,
+					addTime: true,
+					icon: `${window.extPath}img/quest/caravan.png`,
+				});
+			}
+
+			if (!settingsValues.autoquest) {
+				return;
+			}
+			// const csrf = document.head.innerHTML.match(/("X-CSRFToken")(.*)(".*")/, 'g')[3].replace(/"/g, '');
+			$.ajax({
+				url: `/game/quests/api/choose?api_version=1.0&api_client=${window.API_CLIENT}&option_uid=${encodeURIComponent(uid)}`,
 				dataType: 'json',
 				type: 'post',
 				// beforeSend: function(xhr) {

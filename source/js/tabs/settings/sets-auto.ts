@@ -20,6 +20,7 @@ export const setsAuto: Sets[] = [{
 			inputs: [{
 				name: 'autohelpEnergyBonusMax',
 				type: 'num',
+				value: 0,
 			}],
 		}, {
 			label: 'Герой бездействует',

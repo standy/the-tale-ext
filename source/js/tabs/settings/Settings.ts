@@ -113,6 +113,7 @@ export default class Settings {
 				this.settingsValues[data.name] = data.value;
 				this.onSettingsChange.emit(data);
 				clientStorage.set('settings', this.settingsValues);
+				console.log('settings: ', this.settingsValues);
 			});
 	}
 

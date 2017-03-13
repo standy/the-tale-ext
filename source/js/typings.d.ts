@@ -132,10 +132,42 @@ type SettingsData = {
 	name: string;
 	value: SettingsValue;
 };
-type SettingsValues = PlainObject<SettingsValue> & {
+type SettingsValues = {
+	notify: boolean;
+	notifyQuestChoose: boolean;
+	notifyHeroIdle: boolean;
+	notifyHeroHp: boolean;
+	notifyHeroHpLowerValue: number;
+	notifyHeroEnergy: boolean;
+	notifyHeroEnergyGreaterValue: number;
+	maxLogLength: number;
+	autohelp: boolean;
+	autohelpNotify: boolean;
+	autohelpEnergyBonus: boolean;
 	autohelpEnergyBonusMax: number;
+	autohelpIdle: boolean;
+	autohelpDead: boolean;
+	autohelpHp: boolean;
+	autohelpHpLowerValue: number;
+	autohelpHpBoss: boolean;
+	autohelpCompanion: boolean;
+	autohelpCompanionHp: number;
+	autohelpEnergy: boolean;
+	autohelpEnergyGreaterValue: number;
+	autohelpEnergyFight: boolean;
+	autohelpEnergyRest: boolean;
+	autohelpEnergyWalk: boolean;
+	autohelpEnergyTradeMed: boolean;
+	autoquest: boolean;
+	autoquestNotify: boolean;
+	autoquestHonor: boolean;
+	autoquestHonorPlus: boolean;
+	autoquestHonorMinus: boolean;
+	autoquestPeace: boolean;
+	autoquestPeacePlus: boolean;
+	autoquestPeaceMinus: boolean;
+	autocard: boolean;
 };
-
 
 
 declare const enum ACTION_TYPE_NAMES {
