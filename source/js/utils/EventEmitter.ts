@@ -1,4 +1,3 @@
-export type Callback<DataType> = ((arg: DataType) => void);
 
 interface EventEmitter<DataType> {
 	(callback: Callback<DataType>): void;

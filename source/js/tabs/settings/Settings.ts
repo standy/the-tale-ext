@@ -12,7 +12,14 @@ export default class Settings {
 	settingsValues: SettingsValues = clientStorage.get('settings') || {};
 	deps: PlainObject<string[]> = {};
 
-	onSettingsChange = EventEmitter<SettingsData>();
+	private _onNamedSettingChange = EventEmitter<SettingsData>();
+	readonly onNamedSettingChange = <T extends keyof SettingsValues>(settingName: T, callback: Callback<SettingsValues[T]>) => {
+		this._onNamedSettingChange(({name, value}) => {
+			if (name === settingName) {
+				callback(value);
+			}
+		});
+	};
 	onCleanup = EventEmitter();
 
 	constructor() {
@@ -111,7 +118,7 @@ export default class Settings {
 				const data = Settings.getData($input);
 				this.checkDependencies(data);
 				this.settingsValues[data.name as keyof SettingsValues] = data.value;
-				this.onSettingsChange.emit(data);
+				this._onNamedSettingChange.emit(data);
 				clientStorage.set('settings', this.settingsValues);
 				console.log('settings: ', this.settingsValues);
 			});

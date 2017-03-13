@@ -95,6 +95,8 @@ type PlainObject<T> = {
     [key: string]: T;
 };
 
+type Callback<DataType> = ((arg: DataType) => void);
+
 
 
 
@@ -135,6 +137,7 @@ type SettingsValues = {
 	notifyHeroHpLowerValue: number;
 	notifyHeroEnergy: boolean;
 	notifyHeroEnergyGreaterValue: number;
+	extHtml: boolean;
 	maxLogLength: number;
 	autohelp: boolean;
 	autohelpNotify: boolean;

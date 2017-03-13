@@ -42,6 +42,15 @@ export const setsGame: Sets[] = [
 		}],
 	},
 	{
+		title: 'Отображение',
+		fields: [{
+			label: 'Использовать глобальные стили расширения',
+			name: 'extHtml',
+			isToggle: true,
+			value: true,
+		}],
+	},
+	{
 		title: 'Хранилище <span id="storage-size"></span>',
 		fields: [{
 			label: 'Сохранять последние сообщения:',

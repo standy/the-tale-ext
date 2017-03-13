@@ -10,6 +10,7 @@ import Auto from './auto/Auto';
 import '../css/global.css';
 import '../css/glyphicons.css';
 import '../css/main.css';
+import {fixHtml} from './utils/fixHtml';
 
 
 
@@ -43,6 +44,8 @@ settings.onCleanup(() => {
 	shortMessages.clear();
 });
 
+fixHtml(settings.settingsValues.extHtml);
+settings.onNamedSettingChange('extHtml', fixHtml);
 
 window.ext = {
 	tracking,
