@@ -100,14 +100,14 @@ type PlainObject<T> = {
 
 type SetInput = {
 	type: string;
-	name: string;
+	name: keyof SettingsValues;
 	value?: any,
 	addOn?: string,
 	isInline?: boolean;
 }
 type SetField0 = {
 	label: string;
-	name: string;
+	name: keyof SettingsValues|'';
 	note?: string;
 	isToggle?: boolean;
 	isInline?: boolean;
@@ -127,11 +127,6 @@ type Sets = {
 	fields: SetField[];
 }
 
-type SettingsValue = number|string|boolean;
-type SettingsData = {
-	name: string;
-	value: SettingsValue;
-};
 type SettingsValues = {
 	notify: boolean;
 	notifyQuestChoose: boolean;
@@ -167,6 +162,11 @@ type SettingsValues = {
 	autoquestPeacePlus: boolean;
 	autoquestPeaceMinus: boolean;
 	autocard: boolean;
+};
+type SettingsValue = SettingsValues[keyof SettingsValues];
+type SettingsData = {
+	name: keyof SettingsValues;
+	value: SettingsValue;
 };
 
 

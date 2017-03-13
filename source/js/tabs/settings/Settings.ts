@@ -9,7 +9,7 @@ import {sendNotify} from '../../notifications/sendNotify';
 export default class Settings {
 	tab = createTab('<span class="glyphicon glyphicon-cog" title="Настройки &laquo;The Tale Extended&raquo;"></span>');
 	$root = this.tab.$content;
-	settingsValues = clientStorage.get('settings') || {};
+	settingsValues: SettingsValues = clientStorage.get('settings') || {};
 	deps: PlainObject<string[]> = {};
 
 	onSettingsChange = EventEmitter<SettingsData>();
@@ -110,7 +110,7 @@ export default class Settings {
 				const $input = $(e.target);
 				const data = Settings.getData($input);
 				this.checkDependencies(data);
-				this.settingsValues[data.name] = data.value;
+				this.settingsValues[data.name as keyof SettingsValues] = data.value;
 				this.onSettingsChange.emit(data);
 				clientStorage.set('settings', this.settingsValues);
 				console.log('settings: ', this.settingsValues);
@@ -142,10 +142,11 @@ export default class Settings {
 		let childs: string[] = [];
 		for (let i = 0; i < fields.length; i++) {
 			const st = fields[i];
-			if (st.name) {
-				childs.push(st.name);
-				const storedValue = this.settingsValues[st.name];
-				this.settingsValues[st.name] = typeof storedValue === 'undefined' ? st.value : storedValue;
+			const name = st.name as void|keyof SettingsValues;
+			if (name) {
+				childs.push(name);
+				const storedValue = this.settingsValues[name];
+				this.settingsValues[name] = typeof storedValue === 'undefined' ? st.value : storedValue;
 			}
 
 			const subsChilds: string[] = [
@@ -153,8 +154,8 @@ export default class Settings {
 				...this.settingsDefaults((st as SetField).subs),
 			];
 
-			if (subsChilds.length && st.name) {
-				this.deps[st.name] = subsChilds.filter(x => x);
+			if (subsChilds.length && name) {
+				this.deps[name] = subsChilds.filter(x => x);
 				childs = subsChilds.concat(childs);
 			}
 		}

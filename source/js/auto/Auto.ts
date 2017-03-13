@@ -111,7 +111,7 @@ export default class Auto {
 	}
 
 
-	static readonly CHOICES = {
+	static readonly CHOICES: any = {
 		/* peacefullnes */
 		peacePlus: [
 			'прибегнуть к дипломатии', /* collect_debt */
