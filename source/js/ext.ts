@@ -47,6 +47,9 @@ settings.onCleanup(() => {
 fixHtml(settings.settingsValues.extHtml);
 settings.onNamedSettingChange('extHtml', fixHtml);
 
+tracking.setMaxLogLength(settings.settingsValues.maxLogLength);
+settings.onNamedSettingChange('maxLogLength', tracking.setMaxLogLength);
+
 window.ext = {
 	tracking,
 	shortMessages,

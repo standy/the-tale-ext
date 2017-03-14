@@ -1,4 +1,4 @@
-import {MAX_LOG_LENGTH} from '../../utils/const/vars';
+const MAX_LOG_LENGTH = 100000;
 
 export const setsGame: Sets[] = [
 	{

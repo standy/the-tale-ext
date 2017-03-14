@@ -1,6 +1,6 @@
 ///<reference path="../typings.d.ts"/>
 import EventEmitter from "../utils/EventEmitter";
-import {MAX_LOG_LENGTH, PHRASE_NUMBER_KEYS} from '../utils/const/vars';
+import {PHRASE_NUMBER_KEYS} from '../utils/const/vars';
 import clientStorage from '../utils/clientStorage';
 import storage from '../storage/storage';
 
@@ -25,6 +25,7 @@ const COMPANION_PHRASE_ID = [
  */
 export default class Tracking {
 	messagesLog: MessageRaw[] = clientStorage.get('messagesLog') || [];
+	maxLogLength: number;
 	onNewTurn = EventEmitter<any>();
 	onNewMessages = EventEmitter<Message[]>();
 	onLoad = EventEmitter();
@@ -39,6 +40,10 @@ export default class Tracking {
 	getMessagesLog(): Message[] {
 		return this.messagesLog.map(Tracking.convertMessageFromRaw);
 	}
+
+	setMaxLogLength = (value: number) => {
+		this.maxLogLength = value;
+	};
 
 	static convertMessageFromRaw(messageRaw: MessageRaw): Message {
 		return [
@@ -99,7 +104,7 @@ export default class Tracking {
 			}
 		}
 
-		this.messagesLog = messagesLog.slice(messagesLog.length - MAX_LOG_LENGTH);
+		this.messagesLog = messagesLog.slice(this.maxLogLength ? messagesLog.length - this.maxLogLength : 0);
 		clientStorage.set('messagesLog', this.messagesLog);
 
 		this.onNewTurn.emit(hero);
