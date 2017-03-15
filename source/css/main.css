@@ -208,12 +208,18 @@ body .nav-tabs > li > a {
 	&.positive svg { fill: #005000; }
 	&.negative { color: #B90000; }
 	&.negative svg { fill: darkred; }
+	&.god{ color: #007b7b; text-decoration: underline; }
+	&.god svg { fill: #007b7b; }
 
 	.companion svg {
 		fill: #002000;
 	}
+	.god-icon svg {
+		fill: #004F4F;
+	}
 
 	&.loot { color: darkgoldenrod; }
+	&.loot svg { fill: darkgoldenrod; }
 	&.loot.drop .artifact{ text-decoration: line-through; }
 }
 

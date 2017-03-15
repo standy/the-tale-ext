@@ -2,6 +2,7 @@ declare function require(path: string): string;
 
 export default {
 	fight: require('../../../svg/fight.svg'),
+	peace: require('../../../svg/peace.svg'),
 
 	hit: require('../../../svg/hit.svg'),
 	might: require('../../../svg/might.svg'),
@@ -25,23 +26,13 @@ export default {
 
 	companion: `<span class="companion">${require('../../../svg/companion.svg')}</span>`,
 
+	god: `<span class="god-icon">${require('../../../svg/god.svg')}</span>`,
+
 	trade: require('../../../svg/coin.svg'),
 	rest: require('../../../svg/rest.svg'),
-	dmgSum: '<span class="glyphicon glyphicon-asterisk"></span>',
+	loot: require('../../../svg/loot.svg'),
 
-	godheal: '<span class="glyphicon glyphicon-heart-empty"></span>',
-	coins: '<span class="glyphicon glyphicon-copyright-mark"></span>',
-	godcoins: '<span class="glyphicon glyphicon-copyright-mark"></span>',
-
-	pickup: '<span class="glyphicon glyphicon-ok-circle"></span>',
-	empty: '<span class="glyphicon glyphicon-remove-circle"></span>',
-	drop: '<span class="glyphicon glyphicon-ban-circle"></span>',
 	death: require('../../../svg/death.svg'),
 	travel: require('../../../svg/travel.svg'),
 	travelWagon: require('../../../svg/travelWagon.svg'),
-
-	pvpeff: '<span class="glyphicon glyphicon-flash"></span>',
-	pvpice: '<span class="glyphicon glyphicon-cloud-upload"></span>',
-	pvpflame: '<span class="glyphicon glyphicon-cloud-download"></span>',
-	pvpfail: '<span class="glyphicon glyphicon-cloud"></span>',
 };

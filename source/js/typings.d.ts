@@ -35,6 +35,7 @@ declare type PhraseData = {
 	attacker_damage?: string,
 	health?: number,
 	companion_owner?: string,
+	companion?: string,
 	mob?: string,
 	hero?: string,
 	destination?: string,
@@ -43,6 +44,7 @@ declare type PhraseData = {
 	artifact?: string,
 	sell_price?: number,
 	old_artifact?: string,
+	experience?: number,
 }
 
 declare type PhraseMeta = {

@@ -2,12 +2,14 @@
 import actFight from './act/act-fight';
 import groupFight from './act/group-fight';
 import actTravel from './act/act-travel';
+import actGodAbilities from './act/act-god-abilities';
 
 export const actsByIds: ActsByIds = Object.assign(
 	{},
 	groupFight,
 	actFight,
 	actTravel,
+	actGodAbilities,
 );
 
 export function actToHtmlShort(act: Act, message: Message) {
