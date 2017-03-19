@@ -175,11 +175,6 @@ body .nav-tabs > li > a {
 	}
 }
 
-.log-block .glyphicon { font-size: 12px; opacity: .8; }
-.log-block .glyphicon-heart { vertical-align: -1px; }
-.log-block .glyphicon-heart-empty { vertical-align: -2px; }
-.log-block .glyphicon.small { font-size: 9px; }
-
 
 /* short */
 .log-record.ext:hover {
@@ -229,7 +224,6 @@ body .nav-tabs > li > a {
 .act-rest.positive { color: #005000; }
 .act-heal.positive { color: #005000; }
 .act-heal.negative { color: darkred; }
-.act-godheal.act .glyphicon,
 .act-godheal.act { color: darkmagenta; text-decoration: underline; }
 
 .act.positive .vamp { color: #005000; }
@@ -237,11 +231,8 @@ body .nav-tabs > li > a {
 
 .act-slow.positive { color: #00008B; }
 
-.act-coins.positive .glyphicon,
 .act-coins.positive { color: darkgoldenrod; }
 .act-coins.negative { color: darkgoldenrod; text-decoration: line-through; }
-.act-coins .glyphicon { font-size: 9px; }
-.act-godcoins.act .glyphicon,
 .act-godcoins.act { color: darkmagenta; text-decoration: underline; }
 
 .act-pvpeff.positive { color: dodgerblue; }
@@ -252,20 +243,6 @@ body .nav-tabs > li > a {
 .act-pvpice.negative,
 .act-pvpflame.positive,
 .act-pvpfail.positive { color: darkred; }
-.act-pvpice .glyphicon,
-.act-pvpflame .glyphicon,
-.act-pvpfail .glyphicon { font-size: 15px; }
-
-
-.sub-icon {
-}
-.sub-icon .glyphicon {
-	font-size: 10px;
-	vertical-align: sub;
-	margin-left: -1px;
-}
-.act.positive .sub-icon .glyphicon { color: #444; }
-.act.negative .sub-icon .glyphicon { color: #005000; }
 /* eo short */
 
 /* highlight */
@@ -301,8 +278,6 @@ body .nav-tabs > li > a {
 
 .group.open { margin: 0; }
 
-.group .glyphicon-time { font-size: 9px; }
-
 .group-time {  }
 .group-time.average { color: #8a6d3b; text-decoration: underline; }
 .group-time.bad { color: #a94442; text-decoration: underline; }
@@ -316,7 +291,6 @@ body .nav-tabs > li > a {
 }
 .group-title:hover { background: #ddd; }
 
-.action-icon .glyphicon { font-size: 10px; opacity: .8; }
 .action-icon.fight { color: darkred; }
 .action-icon.fight-god { color: darkviolet; }
 
@@ -340,8 +314,6 @@ body .nav-tabs > li > a {
 .group-time { margin-right: 3px; }
 
 .group-controls { position: absolute; right: 0; top: 1px; }
-.group-controls .glyphicon { position: absolute; right: 0; top: 0; }
-.group-controls .glyphicon:hover { color: #000; }
 .group-stats { margin-bottom: 2px; }
 .group-stats .stat { margin: 0 0 0 4px;}
 .group-stats .stat-me + .stat-enemy { margin-left: 8px;}

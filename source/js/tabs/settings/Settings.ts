@@ -7,7 +7,7 @@ import {sendNotify} from '../../notifications/sendNotify';
 
 
 export default class Settings {
-	tab = createTab('<span class="glyphicon glyphicon-cog" title="Настройки &laquo;The Tale Extended&raquo;"></span>');
+	tab = createTab(`настройки`);
 	$root = this.tab.$content;
 	settingsValues: SettingsValues = clientStorage.get('settings') || {};
 	deps: PlainObject<string[]> = {};
