@@ -49,6 +49,9 @@ config.module.rules.push({
 		},
 		{
 			loader: 'css-loader',
+			options: {
+				url: false,
+			},
 		},
 		{
 			loader: 'postcss-loader',

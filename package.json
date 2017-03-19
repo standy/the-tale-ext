@@ -20,7 +20,9 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint **/*.js --fix",
-    "build": "webpack",
+    "build-chrome": "webpack --config webpack.chrome.config.js",
+    "build-userscript": "webpack --config webpack.userscript.config.js",
+    "build": "npm run build-chrome && npm run build-userscript",
     "watch": "webpack -w"
   },
   "dependencies": {
