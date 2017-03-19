@@ -9,6 +9,8 @@ const manifestJson = require('./source/export/chrome/manifest.json');
 const DIST_CHROME = resolve(__dirname, './dist/chrome');
 const SOURCE_CHROME = resolve(__dirname, './source/export/chrome');
 
+const DIST_CHROME_ZIP = resolve(__dirname, `./dist/chrome-extension-${packageJson.version}.zip`);
+
 
 /**
  * Copy images & manifest.json
@@ -62,5 +64,47 @@ config.module.rules.push({
 config.plugins.push(
 	new ExtractTextPlugin('[name].css')
 );
+
+/* archive plugin */
+config.plugins.push(
+	{
+		apply: function(compiler) {
+			compiler.plugin('after-emit', (stats, cb) => {
+				zipDir(DIST_CHROME, DIST_CHROME_ZIP, cb);
+			});
+		},
+	}
+);
+
+function zipDir(dir, dest, callback) {
+	const fs = require('fs');
+	const archiver = require('archiver');
+
+	// create a file to stream archive data to.
+	const output = fs.createWriteStream(dest);
+	const archive = archiver('zip');
+
+	// listen for all archive data to be written
+	output.on('close', () => {
+		console.log('[Archive] Total size:', archive.pointer() + ' bytes');
+		callback();
+	});
+
+	// good practice to catch this error explicitly
+	archive.on('error', err => {
+		console.error('[Archive] Error:', err);
+		throw err;
+	});
+
+	// pipe archive data to the file
+	archive.pipe(output);
+
+
+	archive.directory(dir, '/');
+
+	// finalize the archive (ie we are done appending files but streams have to finish yet)
+	archive.finalize();
+}
+
 
 module.exports = config;
