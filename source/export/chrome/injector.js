@@ -39,7 +39,7 @@
 				filesText[index] = text;
 				count++;
 				if (count === files.length) {
-					filesText.push('if (window.injectDone) injectDone();window.extPath="' + chrome.extension.getURL('') + '";');
+					filesText.push('window.extPath="' + chrome.extension.getURL('') + '";');
 //					filesText.push('console.timeEnd("ext");')
 					injectCode(filesText.join(';\n'));
 				}

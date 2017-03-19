@@ -7,9 +7,7 @@ import Settings from './tabs/settings/Settings';
 import Notifications from './notifications/Notifications';
 import Auto from './auto/Auto';
 
-import '../css/global.css';
-import '../css/glyphicons.css';
-import '../css/main.css';
+import '../css/ext.css';
 import {fixHtml} from './utils/fixHtml';
 
 
