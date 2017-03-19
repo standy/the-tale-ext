@@ -1,3 +1,6 @@
+[![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg)](https://github.com/conventional-changelog/standard-version)
+
+
 #The Tale Extended 
 Исходный код для расширения браузерной игры "[Сказка](http://the-tale.org)"
 
