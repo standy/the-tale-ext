@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "rootDir": "source",
+    "moduleResolution": "node",
+    "module": "es6",
+    "allowJs": true
+  },
+  "files": [
+    "source/js/typings.d.ts"
+  ],
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules/**"
+  ],
+  "compileOnSave": false
+}

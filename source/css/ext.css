@@ -1,0 +1,431 @@
+html.ext-html {
+	height: 100%;
+
+	body {
+		box-sizing: border-box;
+
+		footer {
+			margin-top: 0;
+			display: none;
+		}
+		#main-container {
+			height: 100%;
+			box-sizing: border-box;
+
+			#content {
+				padding: 0;
+				height: 100%;
+			}
+		}
+	}
+
+	.pgf-game-data {
+		height: 100%;
+		min-height: 740px;
+	}
+
+	.pgf-hero-column,
+	.pgf-info-column {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+
+		.first-row-block {
+			min-height: 240px;
+			flex: 0 0 auto;
+		}
+
+		&.pgf-info-column .second-row-block {
+			flex: 1 1 auto;
+			display: flex;
+			flex-direction: column;
+			margin-bottom: 25px;
+
+			.tab-content {
+				flex: 1 1 auto;
+
+				margin-right: -5px;
+				padding-right: 5px;
+				overflow-y: scroll;
+
+				&::-webkit-scrollbar {
+					width: 5px;
+				}
+				&::-webkit-scrollbar-track {
+					background-color: rgba(0, 0, 0, .05);
+				}
+
+				&::-webkit-scrollbar-thumb {
+					background-color: rgba(0, 0, 0, .2);
+					border-radius: 2px;
+
+					&:hover {
+						background-color: rgba(0, 0, 0, .3);
+					}
+				}
+
+				.log-block {
+					overflow: visible;
+					height: auto;
+				}
+			}
+		}
+	}
+}
+
+.link-ajax {
+	color: #0088cc;
+	cursor: default;
+	background-image: linear-gradient(to right, #0088cc, #0088cc 50%, transparent 50%);
+	background-size: 2px 1px;
+	background-position: 0 95%;
+	background-repeat: repeat-x;
+}
+.link-ajax:hover {
+	color: #005580;
+	background-image: linear-gradient(to right, #005580, #005580 50%, transparent 50%);
+}
+
+body .nav-tabs > li > a {
+	padding-left: 9px;
+	padding-right: 9px;
+}
+
+.pgf-ext-tab-button {
+	background: url(img/128.png) center center no-repeat;
+	background-size: 16px 16px;
+	color: transparent !important;
+	text-indent: -500px;
+}
+
+.ext-container {
+
+	.ext-tabs {
+		margin-bottom: 10px;
+		text-align: right;
+
+		.ext-tab {
+			text-decoration: dotted;
+			color: #0088cc;
+			background-image: linear-gradient(to right, #0088cc, #0088cc 50%, transparent 50%);
+			background-size: 2px 1px;
+			background-position: 0 95%;
+			background-repeat: repeat-x;
+			cursor: pointer;
+			margin-left: 10px;
+
+			&.active {
+				background-image: none;
+				color: #333;
+				font-weight: bold;
+			}
+
+		}
+	}
+
+	.ext-content {
+		display: none;
+
+		&.active {
+			display: block;
+		}
+	}
+}
+
+
+#abilities-block .angel-ability { width: auto !important; display: inline-block; }
+#abilities-block .angel-ability.pgf-ability-help { margin: 0 50px; }
+#abilities-block .dropdown { width: auto !important; }
+
+
+
+.ext-controls { font-size: 12px; }
+.ext-control { margin-right: 10px; }
+.ext-control.link-ajax { background: none; }
+
+
+.table-stats {
+	width: 100%;
+
+	thead {
+		td {
+			text-align: right;
+			font-weight: bold;
+			border-bottom: 2px solid #ddd;
+		}
+	}
+
+	tbody {
+		th,
+		td {
+			vertical-align: top;
+			border-top: 1px solid #ddd;
+			padding: 5px;
+			white-space: nowrap;
+		}
+		tr:hover {
+			background-color: #e1e6e6;
+		}
+		th {
+			text-align: left;
+		}
+		td {
+			text-align: right;
+		}
+	}
+}
+
+.log-block .glyphicon { font-size: 12px; opacity: .8; }
+.log-block .glyphicon-heart { vertical-align: -1px; }
+.log-block .glyphicon-heart-empty { vertical-align: -2px; }
+.log-block .glyphicon.small { font-size: 9px; }
+
+
+/* short */
+.log-record.ext:hover {
+	background: none;
+}
+
+.act {
+	white-space: nowrap;
+	padding: 1px 5px;
+	margin: -1px 0;
+	display: inline-block;
+
+	&:hover {
+		background: #e1e6e6;
+	}
+
+	svg {
+		height: 13px;
+		/*width: 13px;*/
+		vertical-align: -1px;
+		display: inline-block;
+	}
+
+
+	&.positive { color: black; }
+	&.positive svg { fill: #005000; }
+	&.negative { color: #B90000; }
+	&.negative svg { fill: darkred; }
+	&.god{ color: #007b7b; text-decoration: underline; }
+	&.god svg { fill: #007b7b; }
+
+	.companion svg {
+		fill: #002000;
+	}
+	.god-icon svg {
+		fill: #004F4F;
+	}
+
+	&.loot { color: darkgoldenrod; }
+	&.loot svg { fill: darkgoldenrod; }
+	&.loot.drop .artifact{ text-decoration: line-through; }
+}
+
+
+
+
+.act-rest.positive { color: #005000; }
+.act-heal.positive { color: #005000; }
+.act-heal.negative { color: darkred; }
+.act-godheal.act .glyphicon,
+.act-godheal.act { color: darkmagenta; text-decoration: underline; }
+
+.act.positive .vamp { color: #005000; }
+.act.negative .vamp { color: darkred; }
+
+.act-slow.positive { color: #00008B; }
+
+.act-coins.positive .glyphicon,
+.act-coins.positive { color: darkgoldenrod; }
+.act-coins.negative { color: darkgoldenrod; text-decoration: line-through; }
+.act-coins .glyphicon { font-size: 9px; }
+.act-godcoins.act .glyphicon,
+.act-godcoins.act { color: darkmagenta; text-decoration: underline; }
+
+.act-pvpeff.positive { color: dodgerblue; }
+.act-pvpeff.negative { color: dodgerblue; text-decoration: line-through; }
+.act-pvpice.positive,
+.act-pvpflame.negative,
+.act-pvpfail.negative { color: darkgreen; }
+.act-pvpice.negative,
+.act-pvpflame.positive,
+.act-pvpfail.positive { color: darkred; }
+.act-pvpice .glyphicon,
+.act-pvpflame .glyphicon,
+.act-pvpfail .glyphicon { font-size: 15px; }
+
+
+.sub-icon {
+}
+.sub-icon .glyphicon {
+	font-size: 10px;
+	vertical-align: sub;
+	margin-left: -1px;
+}
+.act.positive .sub-icon .glyphicon { color: #444; }
+.act.negative .sub-icon .glyphicon { color: #005000; }
+/* eo short */
+
+/* highlight */
+.positive .value { color: darkred; }
+.negative .value { color: red; }
+
+.msg-dmg.positive .value { color: darkred; }
+.msg-dmg.negative .value { color: red; }
+
+.msg-godhit { color: darkmagenta; }
+.msg-pickup .item { color: darkgoldenrod; }
+.msg-empty { color: darkgoldenrod; text-decoration: line-through; }
+.msg-drop { color: darkgoldenrod; text-decoration: line-through; }
+.msg-death { color: darkred; text-decoration: line-through; }
+
+.submessage .energy { color: dodgerblue; }
+.submessage .coins { color: darkgoldenrod; }
+.submessage .coins svg { fill: darkgoldenrod; }
+.submessage .godcoins { color: darkmagenta; }
+
+.submessage .level,
+.submessage .exp { color: darkviolet; text-decoration: underline; }
+/* eo highlight */
+
+
+/* group */
+.archive-content .level { color: darkviolet; text-decoration: underline; }
+.group { position: relative; margin-bottom: 2px; }
+.group .group-toggle { cursor: default; }
+.group .on-open { display: none; }
+.group.open .on-open { display: block; }
+.group.open .on-close { display: none; }
+
+.group.open { margin: 0; }
+
+.group .glyphicon-time { font-size: 9px; }
+
+.group-time {  }
+.group-time.average { color: #8a6d3b; text-decoration: underline; }
+.group-time.bad { color: #a94442; text-decoration: underline; }
+
+.group-title {
+	cursor: default;
+	margin-right: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.group-title:hover { background: #ddd; }
+
+.action-icon .glyphicon { font-size: 10px; opacity: .8; }
+.action-icon.fight { color: darkred; }
+.action-icon.fight-god { color: darkviolet; }
+
+.action-icon.equip,
+.action-icon.trade { color: darkgoldenrod; }
+.action-icon.quest,
+.action-icon.noeffect { color: dodgerblue; }
+.action-icon.idle { color: dodgerblue; }
+.action-icon.energy { color: dodgerblue; }
+.action-icon.rest { color: #005000; }
+.action-icon.dead { color: darkred; }
+.action-icon.companionHeal { color: #008000; }
+.action-icon.broken { color: red; }
+
+.action-icon {
+	display: inline-block;
+	vertical-align: text-bottom;
+	width: 15px;
+}
+.group-title.god .group-time { color: darkviolet; text-decoration: underline; }
+.group-time { margin-right: 3px; }
+
+.group-controls { position: absolute; right: 0; top: 1px; }
+.group-controls .glyphicon { position: absolute; right: 0; top: 0; }
+.group-controls .glyphicon:hover { color: #000; }
+.group-stats { margin-bottom: 2px; }
+.group-stats .stat { margin: 0 0 0 4px;}
+.group-stats .stat-me + .stat-enemy { margin-left: 8px;}
+
+.group-stats .stat-me { color: #005000; }
+.group-stats .stat-enemy { color: darkred; }
+
+.group-stats .stat-against {
+	display: inline-block;
+	width: 35px;
+	white-space: nowrap;
+}
+/*.group .pgf-log-list { margin: 0; }*/
+/* eo group */
+
+
+.text-muted { color: #999; }
+.text-primary { color: #428bca; }
+.text-success { color: #3c763d; }
+.text-info { color: #31708f; }
+.text-warning { color: #8a6d3b; }
+.text-danger { color: #a94442; }
+
+
+.quest-icon-mini {
+	float: none;
+	display: inline-block;
+	margin: 0;
+	vertical-align: bottom;
+	width: 16px;
+	height: 16px;
+	background-size: 32px 192px;
+	background-image: url('http://static.the-tale.org/static/168/game/images/quests.png');
+}
+.quest-icon-mini.caravan { background-position: 0 0; }
+.quest-icon-mini.delivery { background-position: 0 -16px; }
+.quest-icon-mini.help { background-position: 0 -32px; }
+.quest-icon-mini.help_friend { background-position: 0 -48px; }
+.quest-icon-mini.hometown { background-position: 0 -64px; }
+.quest-icon-mini.hunt { background-position: 0 -80px; }
+.quest-icon-mini.interfere_enemy { background-position: 0 -96px; }
+.quest-icon-mini.collect_debt { background-position: 0 -112px; }
+.quest-icon-mini.spying { background-position: 0 -128px; }
+.quest-icon-mini.search_smith { background-position: 0 -144px; }
+.quest-icon-mini.no-quest { background-position: 0 -160px; }
+.quest-icon-mini.next-spending { background-position: 0 -176px; }
+.quest-icon-mini.pilgrimage { background-position: -16px -80px; }
+
+
+
+/*#pgf-towns-container { background: #fff; }*/
+#pgf-towns-container .reload {
+	font-size: 12px;
+}
+
+
+
+/* settings */
+#log-block-sets { height: auto; }
+.sets-header { margin: 10px 0 5px;}
+.sets { margin: 5px 0 0 20px; }
+.sets-inline { display: inline-block; }
+
+.note-block { color: #999; }
+input.input-tiny { height: 11px; width: 60px; font-size: 12px; margin: -2px 0 -3px; vertical-align: 0; }
+input.input-tiny-num { width: 45px; }
+.input-append .add-on { height: 11px; line-height: 11px; margin-top: -2px; margin-bottom: -3px; vertical-align: -1px; }
+
+
+.sets label {
+	display: inline;
+	font-weight: normal;
+	margin-bottom: 0;
+}
+.sets .input-wrap-inline {
+	display: inline-block;
+}
+.sets .input-wrap {
+	transition: opacity .2s;
+}
+.sets .input-wrap.disabled { opacity: .7; }
+/* eo sets */
+
+
+div.easy-block {
+	clear: right;
+}
