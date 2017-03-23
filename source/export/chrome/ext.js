@@ -1,1 +1,1 @@
-import '../../js/ext';
+import '../../ext';

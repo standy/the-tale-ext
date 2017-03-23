@@ -13,13 +13,12 @@ const HEADER =
 // @description ${packageJson.description}
 // @author      ${packageJson.author}
 // @version     ${packageJson.version}
-// @include     http://the-tale.org/game/
+// @include     /^https?://the-tale\.org/game/
 // @run-at      document-end
 // @license     MIT License
 // @namespace   ${packageJson.name}
+// @grant       none
 // ==/UserScript==
-// @require     http://code.jquery.com/jquery-1.11.2.min.js
-// @grant       GM_addStyle
 
 `;
 
@@ -50,13 +49,20 @@ config.module.rules.push({
 		{
 			loader: 'css-loader',
 			options: {
-				url: false,
+				url: true,
 			},
 		},
 		{
 			loader: 'postcss-loader',
 		},
 	],
+});
+
+config.module.rules.push({
+	test: /\.png$/,
+	loader: 'url-loader',
+	options: {
+	},
 });
 
 config.plugins.push(
