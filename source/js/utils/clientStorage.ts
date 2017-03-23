@@ -13,6 +13,10 @@ function get(name: string) {
 	const g = pgf.base.settings.get(name);
 	return g ? JSON.parse(g) : null;
 }
+function remove(name: string) {
+	if (!window.localStorage) return;
+	localStorage.removeItem(pgf.base.settings._prefix + '_' + name);
+}
 
 function size(): number {
 	let t = 0;
@@ -26,6 +30,7 @@ function size(): number {
 
 
 export default {
+	remove,
 	set,
 	get,
 	size,

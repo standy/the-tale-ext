@@ -20,11 +20,13 @@ const COMPANION_PHRASE_ID = [
 	580004,
 ];
 
+clientStorage.remove('messagesLog');
+
 /**
  * Позволяет подписаться на обновление данных
  */
 export default class Tracking {
-	messagesLog: MessageRaw[] = clientStorage.get('messagesLog') || [];
+	messagesLog: MessageRaw[] = clientStorage.get('ext_log') || [];
 	maxLogLength: number;
 	onNewTurn = EventEmitter<any>();
 	onNewMessages = EventEmitter<Message[]>();
@@ -105,7 +107,7 @@ export default class Tracking {
 		}
 
 		this.messagesLog = messagesLog.slice(this.maxLogLength ? messagesLog.length - this.maxLogLength : 0);
-		clientStorage.set('messagesLog', this.messagesLog);
+		clientStorage.set('ext_log', this.messagesLog);
 
 		this.onNewTurn.emit(hero);
 		if (messagesNew.length) {
@@ -144,7 +146,7 @@ export default class Tracking {
 	}
 
 	clear() {
-		clientStorage.set('messagesLog', '');
+		clientStorage.remove('ext_log');
 		this.messagesLog = [];
 	}
 }

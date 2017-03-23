@@ -5,11 +5,12 @@ import {setsAuto} from './sets-auto';
 import {setsGame} from './sets-game';
 import {sendNotify} from '../../notifications/sendNotify';
 
+clientStorage.remove('settings');
 
 export default class Settings {
 	tab = createTab(`настройки`);
 	$root = this.tab.$content;
-	settingsValues: SettingsValues = clientStorage.get('settings') || {};
+	settingsValues: SettingsValues = clientStorage.get('ext_settings') || {};
 	deps: PlainObject<string[]> = {};
 
 	private _onNamedSettingChange = EventEmitter<SettingsData>();
@@ -119,7 +120,7 @@ export default class Settings {
 				this.checkDependencies(data);
 				this.settingsValues[data.name as keyof SettingsValues] = data.value;
 				this._onNamedSettingChange.emit(data);
-				clientStorage.set('settings', this.settingsValues);
+				clientStorage.set('ext_settings', this.settingsValues);
 				console.log('settings: ', this.settingsValues);
 			});
 	}
@@ -197,7 +198,7 @@ export default class Settings {
 					${st.subs ? this.drawSetsGroup(st.subs) : ''}
 				</div>`;
 		}
-		clientStorage.set('settings', this.settingsValues);
+		clientStorage.set('ext_settings', this.settingsValues);
 
 		return html;
 	}
