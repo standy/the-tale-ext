@@ -112,27 +112,28 @@ export default class Auto {
 
 
 	static readonly CHOICES: any = {
-		/* peacefullnes */
+		// Влияние выбора на характер см. в github.com/Tiendil/questgen
 		peacePlus: [
-			'прибегнуть к дипломатии', /* collect_debt */
+			'help', /* collect_debt */
 		],
 		peaceMinus: [
-			'задействовать грубую силу', /* collect_debt */
+			'attack', /* collect_debt */
 		],
 		honorPlus: [
-			'довести дело до конца', /* spying */
-			'защищать торговца', /* caravan */
-			'честно выполнить свои обязательства', /* delivery */
+			'jump_defence', /* caravan */
+			'delivery', /* delivery */
+			'spy', /* spying */
 		],
 		honorMinus: [
-			'поддаться укорам совести и раскрыться', /* spying */
-			'шантажировать самостоятельно', /* spying */
-			'присвоить письмо и продать', /* delivery */
-			'украсть-украсть-украсть', /* delivery */
-			'подделать письмо', /* delivery */
+			'jump_attack', /* caravan */
+			'steal', /* delivery */
+			'fake', /* delivery */
+			'open_up', /* spying */
+			'blackmail', /* spying */
 		],
 	};
-	private lastquest = '';
+	// private lastquest = '';
+	// невозможно получить доступ к this.lastquest  изнутри chooseQuest
 
 	checkQuest(hero: any, settingsValues: SettingsValues) {
 		const selectChoices: PlainObject<boolean> = {
@@ -149,11 +150,15 @@ export default class Auto {
 			for (let choiceIndex = 0; choiceIndex < q.choice_alternatives.length; choiceIndex++) {
 				const choiceName = q.choice_alternatives[choiceIndex][1];
 				const option_uid = q.choice_alternatives[choiceIndex][0];
+				// #option([ns-1]finish_spying_choice, [ns-1]blackmail_finish, blackmail)
+				// Свойство "blackmail" -  путь (тип пути), по которому будет выполняться задание.
+		    const option_uid_split = option_uid.split(/\W+/);
+				const choiceType = option_uid_split[option_uid_split.length - 2];
 				for (const reward in Auto.CHOICES) {
 					if (
 						selectChoices[reward] &&
 						Auto.CHOICES.hasOwnProperty(reward) &&
-						Auto.CHOICES[reward].includes(choiceName)
+						Auto.CHOICES[reward].includes(choiceType)
 					) {
 						chooseQuest(option_uid, choiceName);
 					}
@@ -162,8 +167,7 @@ export default class Auto {
 		}
 
 		function chooseQuest(uid: string, name: string) {
-			if (settingsValues.autoquestNotify && this.lastquest !== name) {
-				this.lastquest = name;
+			if (settingsValues.autoquestNotify) {
 				sendNotify(`The Tale Extended - ${storage.heroName}`, {
 					tag: 'autoquest',
 					body: `Сделан выбор! \n— ${name}`,
