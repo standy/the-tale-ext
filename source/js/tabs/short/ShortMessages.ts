@@ -7,10 +7,11 @@ import {actsByIds, actToHtmlShort, actToHtmlDefault} from '../../utils/phraseToH
  */
 
 export default class ShortMessages {
+	tab = createTab('кратко');
+
 	private $root: JQuery;
 	private $list: JQuery;
 	private $prevGroup: JQuery|null;
-	tab = createTab('кратко');
 
 	constructor() {
 		this.$root = this.tab.$content;
@@ -46,7 +47,11 @@ export default class ShortMessages {
 		}
 	}
 
-	private createRecord(html:string, isShort:boolean) {
+	clear() {
+		this.$list.html('');
+	}
+
+	private createRecord(html: string, isShort: boolean) {
 		return $(
 			`<li class="log-record ${isShort ? 'ext' : ''}">` +
 				`<div class="time">↓</div>` +
@@ -59,11 +64,7 @@ export default class ShortMessages {
 		).prependTo(this.$list);
 	}
 
-	private addToRecord(html:string, $record: JQuery) {
+	private addToRecord(html: string, $record: JQuery) {
 		$record.find('.submessage').prepend(html);
-	}
-
-	clear() {
-		this.$list.html('');
 	}
 }

@@ -4,7 +4,7 @@ type Tab = {
 	$tab: JQuery;
 	$content: JQuery;
 	onTabChange: EventEmitter<boolean>;
-}
+};
 
 
 const $root = $('#pgf-diary-container').parent().parent();
@@ -15,7 +15,7 @@ const $tabContent = $root.children('.tab-content');
 const $tab = $(`<li><a href="#pgf-ext-container" class="pgf-ext-tab-button" data-toggle="tab">e</a></li>`).prependTo($navTabs);
 const $container = $(
 	`<div class="tab-pane log-block ext-container" id="pgf-ext-container">
-		<div class="ext-tabs"></div>		
+		<div class="ext-tabs"></div>
 	</div>`
 ).appendTo($tabContent);
 $tab.addClass('active').siblings().removeClass('active');

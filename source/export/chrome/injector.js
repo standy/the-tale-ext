@@ -40,7 +40,7 @@
 				count++;
 				if (count === files.length) {
 					filesText.push('window.extPath="' + chrome.extension.getURL('') + '";');
-//					filesText.push('console.timeEnd("ext");')
+					// filesText.push('console.timeEnd("ext");')
 					injectCode(filesText.join(';\n'));
 				}
 			};

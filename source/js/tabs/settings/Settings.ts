@@ -12,24 +12,41 @@ export default class Settings {
 	$root = this.tab.$content;
 	settingsValues: SettingsValues = clientStorage.get('ext_settings') || {};
 	deps: PlainObject<string[]> = {};
-
+	onCleanup = EventEmitter();
 	private _onNamedSettingChange = EventEmitter<SettingsData>();
+
+	constructor() {
+		this.addSets(setsGame);
+		this.addSets(setsAuto);
+		console.log('settingsValues>', this.settingsValues);
+
+		this.handlersGame();
+		this.handlersAuto();
+	}
+
+	static getData($input: JQuery): SettingsData {
+		const name = $input.data('name');
+		const isDisabled = $input.closest('.input-wrap').hasClass('disabled');
+		let value;
+		if (isDisabled) {
+			value = null;
+		} if ($input.is('[type="checkbox"]')) {
+			value = $input.prop('checked');
+		} else if ($input.data('type') === 'num') {
+			value = +$input.val();
+		} else {
+			value = $input.val();
+		}
+
+		return {name, value};
+	}
+
 	readonly onNamedSettingChange = <T extends keyof SettingsValues>(settingName: T, callback: Callback<SettingsValues[T]>) => {
 		this._onNamedSettingChange(({name, value}) => {
 			if (name === settingName) {
 				callback(value);
 			}
 		});
-	};
-	onCleanup = EventEmitter();
-
-	constructor() {
-		this.addSets(setsGame);
-		this.addSets(setsAuto);
-		console.log('settingsValues>', this.settingsValues)
-
-		this.handlersGame();
-		this.handlersAuto();
 	}
 
 	handlersGame() {
@@ -125,51 +142,6 @@ export default class Settings {
 			});
 	}
 
-	static getData($input: JQuery): SettingsData {
-		const name = $input.data('name');
-		const isDisabled = $input.closest('.input-wrap').hasClass('disabled');
-		let value;
-		if (isDisabled) {
-			value = null;
-		} if ($input.is('[type="checkbox"]')) {
-			value = $input.prop('checked');
-		} else if ($input.data('type') === 'num') {
-			value = +$input.val();
-		} else {
-			value = $input.val();
-		}
-
-		return {name, value};
-	}
-
-	/**
-	 * Проставляет дефолтные значения и заполняет зависимости
-	 */
-	private settingsDefaults(fields?: SetField[] | SetInput[]): string[] {
-		if (!fields) return [];
-		let childs: string[] = [];
-		for (let i = 0; i < fields.length; i++) {
-			const st = fields[i];
-			const name = st.name as void|keyof SettingsValues;
-			if (name) {
-				childs.push(name);
-				const storedValue = this.settingsValues[name];
-				this.settingsValues[name] = typeof storedValue === 'undefined' ? st.value : storedValue;
-			}
-
-			const subsChilds: string[] = [
-				...this.settingsDefaults((st as SetField).inputs),
-				...this.settingsDefaults((st as SetField).subs),
-			];
-
-			if (subsChilds.length && name) {
-				this.deps[name] = subsChilds.filter(x => x);
-				childs = subsChilds.concat(childs);
-			}
-		}
-		return childs as string[];
-	}
-
 
 	drawSetsGroup(fields: SetField[]) {
 		let html = '';
@@ -211,8 +183,8 @@ export default class Settings {
 		} else if (st.type === 'text' || st.type === 'num') {
 			html =
 				`<input type="text"
-				   class="input-tiny input-tiny-${st.type}" 
-				   data-name="${st.name}" 
+				   class="input-tiny input-tiny-${st.type}"
+				   data-name="${st.name}"
 				   data-type="${st.type}"
 				   ${settingsValues[st.name]
 						? ' value="' + settingsValues[st.name] + '"'
@@ -226,17 +198,45 @@ export default class Settings {
 			}
 		}
 		return html;
-	};
+	}
 
 	checkDependencies(settingsData: SettingsData) {
 		const key = settingsData.name;
 		const value = settingsData.value;
 		if (!this.deps[key]) return;
 		this.deps[key].forEach(keyName => {
-			getSettingInput(keyName).closest('.input-wrap').toggleClass('disabled', !value);//.prop('disabled', !value);
+			getSettingInput(keyName).closest('.input-wrap').toggleClass('disabled', !value); // .prop('disabled', !value);
 		});
 	}
 
+
+	/**
+	 * Проставляет дефолтные значения и заполняет зависимости
+	 */
+	private settingsDefaults(fields?: SetField[] | SetInput[]): string[] {
+		if (!fields) return [];
+		let childs: string[] = [];
+		for (let i = 0; i < fields.length; i++) {
+			const st = fields[i];
+			const name = st.name as void|keyof SettingsValues;
+			if (name) {
+				childs.push(name);
+				const storedValue = this.settingsValues[name];
+				this.settingsValues[name] = typeof storedValue === 'undefined' ? st.value : storedValue;
+			}
+
+			const subsChilds: string[] = [
+				...this.settingsDefaults((st as SetField).inputs),
+				...this.settingsDefaults((st as SetField).subs),
+			];
+
+			if (subsChilds.length && name) {
+				this.deps[name] = subsChilds.filter(x => x);
+				childs = subsChilds.concat(childs);
+			}
+		}
+		return childs as string[];
+	}
 }
 
 

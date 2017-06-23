@@ -6,7 +6,7 @@ interface EventEmitter<DataType> {
 
 
 function EventEmitter<DataType>() {
-	const callbacks:Callback<DataType>[] = [];
+	const callbacks: Callback<DataType>[] = [];
 
 	const emitter = (callback => {
 		callbacks.push(callback);

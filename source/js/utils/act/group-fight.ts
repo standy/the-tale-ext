@@ -28,9 +28,9 @@ function flightStart(icon: string, icon2 = '') {
 	// companion?	спутник
 	return (phraseData: PhraseData) => {
 		const mob = MOBS.filter(m => m.name === phraseData.mob)[0] ||
-			({ level: 'неизвестен', id: "неизвестен" });
+			({ level: 'неизвестен', id: 'неизвестен' });
 		return act('', `${icon} ${icon2} ${phraseData.mob} (уровень ${mob.level}) <a href="/guide/mobs/${mob.id}">#</a>`);
-	}
+	};
 }
 
 function mobAct(icon: string) {
@@ -38,7 +38,7 @@ function mobAct(icon: string) {
 	// hero	герой
 	return (phraseData: PhraseData) => {
 		return act('', `${icon} ${phraseData.mob}`);
-	}
+	};
 }
 
 function lootEmpty(phraseData: PhraseData) {
@@ -57,5 +57,5 @@ function loot(modificator: string, msg: string = '') {
 			? `<a href="/guide/artifacts/${artifact.id}">${phraseData.artifact}</a>`
 			: phraseData.artifact;
 		return act(`loot ${modificator}`, `${ICONS.loot} <span class="artifact">${artifactHtml}</span>${msg}`);
-	}
+	};
 }

@@ -22,7 +22,7 @@ type SentNotifyOptions = {
 	body: string;
 	icon?: string;
 	addTime?: boolean;
-}
+};
 
 export function sendNotify(name: string, options: SentNotifyOptions) {
 	const d = new Date();

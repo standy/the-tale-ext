@@ -1,10 +1,32 @@
 ///<reference path="../typings.d.ts"/>
 
-import storage from '../storage/storage'
+import storage from '../storage/storage';
 import {sendNotify} from '../notifications/sendNotify';
 import {ACTION_TYPE_TEXTS} from '../utils/const/texts';
 
 export default class Auto {
+	static readonly CHOICES: any = {
+		/* peacefullnes */
+		peacePlus: [
+			'прибегнуть к дипломатии', /* collect_debt */
+		],
+		peaceMinus: [
+			'задействовать грубую силу', /* collect_debt */
+		],
+		honorPlus: [
+			'довести дело до конца', /* spying */
+			'защищать торговца', /* caravan */
+			'честно выполнить свои обязательства', /* delivery */
+		],
+		honorMinus: [
+			'поддаться укорам совести и раскрыться', /* spying */
+			'шантажировать самостоятельно', /* spying */
+			'присвоить письмо и продать', /* delivery */
+			'украсть-украсть-украсть', /* delivery */
+			'подделать письмо', /* delivery */
+		],
+	};
+	private lastquest = '';
 
 	check(hero: any, settingsValues: SettingsValues) {
 		setTimeout(() => {
@@ -70,9 +92,9 @@ export default class Auto {
 			$('.pgf-get-card-button a').trigger('click');
 			return;
 		}
-		const hasModal = $('.modal-header') && ($('.pgf-dialog-title').text() === 'Вы получаете новую карту!')
+		const hasModal = $('.modal-header') && ($('.pgf-dialog-title').text() === 'Вы получаете новую карту!');
 		if (hasModal) {
-			$('.pgf-dialog-button-0').trigger('click')
+			$('.pgf-dialog-button-0').trigger('click');
 			return;
 		}
 		return;
@@ -113,30 +135,6 @@ export default class Auto {
 			});
 		}
 	}
-
-
-	static readonly CHOICES: any = {
-		/* peacefullnes */
-		peacePlus: [
-			'прибегнуть к дипломатии', /* collect_debt */
-		],
-		peaceMinus: [
-			'задействовать грубую силу', /* collect_debt */
-		],
-		honorPlus: [
-			'довести дело до конца', /* spying */
-			'защищать торговца', /* caravan */
-			'честно выполнить свои обязательства', /* delivery */
-		],
-		honorMinus: [
-			'поддаться укорам совести и раскрыться', /* spying */
-			'шантажировать самостоятельно', /* spying */
-			'присвоить письмо и продать', /* delivery */
-			'украсть-украсть-украсть', /* delivery */
-			'подделать письмо', /* delivery */
-		],
-	};
-	private lastquest = '';
 
 	checkQuest(hero: any, settingsValues: SettingsValues) {
 		const selectChoices: PlainObject<boolean> = {

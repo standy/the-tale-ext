@@ -1,5 +1,5 @@
 ///<reference path="../typings.d.ts"/>
-import EventEmitter from "../utils/EventEmitter";
+import EventEmitter from '../utils/EventEmitter';
 import {PHRASE_NUMBER_KEYS} from '../utils/const/vars';
 import clientStorage from '../utils/clientStorage';
 import storage from '../storage/storage';
@@ -38,15 +38,6 @@ export default class Tracking {
 		this.emitLoad();
 	}
 
-
-	getMessagesLog(): Message[] {
-		return this.messagesLog.map(Tracking.convertMessageFromRaw);
-	}
-
-	setMaxLogLength = (value: number) => {
-		this.maxLogLength = value;
-	};
-
 	static convertMessageFromRaw(messageRaw: MessageRaw): Message {
 		return [
 			messageRaw[MSG.TimeStamp],
@@ -81,6 +72,19 @@ export default class Tracking {
 				: SkillOwner.mob;
 
 		return {owner: owner};
+	}
+
+	getMessagesLog(): Message[] {
+		return this.messagesLog.map(Tracking.convertMessageFromRaw);
+	}
+
+	setMaxLogLength = (value: number) => {
+		this.maxLogLength = value;
+	}
+
+	clear() {
+		clientStorage.remove('ext_log');
+		this.messagesLog = [];
 	}
 
 	private track(game_data: GameData) {
@@ -143,10 +147,5 @@ export default class Tracking {
 
 			$(document).off('ajaxSuccess.ext');
 		});
-	}
-
-	clear() {
-		clientStorage.remove('ext_log');
-		this.messagesLog = [];
 	}
 }

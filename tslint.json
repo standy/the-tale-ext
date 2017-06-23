@@ -1,0 +1,23 @@
+{
+  "extends": "tslint-config-standard",
+  "rules": {
+    "whitespace": [true,
+        "check-branch",
+        "check-decl",
+        "check-operator",
+        "check-module",
+        "check-separator",
+        "check-type",
+        "check-typecast",
+        "check-preblock"
+      ],
+    "object-literal-key-quotes": [true, "consistent-as-needed"],
+    "variable-name": false,
+    "space-before-function-paren": false,
+    "no-consecutive-blank-lines": [true, 5],
+    "trailing-comma": true,
+    "semicolon": true,
+    "ter-indent": [true, "tab"],
+    "indent": [true, "tabs"]
+  }
+}

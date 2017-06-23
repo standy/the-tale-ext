@@ -11,20 +11,47 @@ type StatsByPhraseAndOwner = PhraseMeta & {
 	count: number,
 	example: string,
 	phraseData: PhraseData,
-}
+};
 
 export default class Stats {
 	tab = createTab('статистика');
 	statistics: StatsByPhraseAndOwner[] = [];
 
-	constructor() {
+	static drawCellByStat(stat?: StatsByPhraseAndOwner) {
+		if (!stat) return '';
+		const phraseId = stat.phraseId;
 
+		const averagePhraseData: PhraseData = {} as PhraseData;
+		Object.keys(stat.phraseData).forEach((key: keyof PhraseData) => {
+			const value = stat.phraseData[key];
+			if (PHRASE_NUMBER_KEYS.includes(key as PhraseNumberKey)) {
+				if (value) {
+					averagePhraseData[key] = Math.round((value as number) / stat.count);
+				}
+			} else {
+				averagePhraseData[key] = value;
+			}
+		});
+
+		const cell =
+			`<span title="${stat.example}\n${JSON.stringify(averagePhraseData).replace(/"/g, '&quot;')}">` +
+				`${actFight[phraseId].fn(averagePhraseData)}x${stat.count}` +
+			`</span>`;
+		return cell;
+	}
+
+	static drawTotalCount(count: number, icon: string = '') {
+		return `<span class="act">${icon}x${count}</span>`;
 	}
 
 	addToStats(messages: Message[]) {
 		this.addPhrases(messages);
 		this.drawStats();
-		// console.log('phrasesById', this.phrasesById)
+	}
+
+	clear() {
+		this.statistics = [];
+		this.tab.$content.html('');
 	}
 
 	private addPhrases(messages: Message[]) {
@@ -54,7 +81,7 @@ export default class Stats {
 				count: 1,
 				example: phraseSting,
 				phraseData: phraseData,
-			})
+			});
 		} else {
 			statInList.count++;
 			for (let i = 0; i < PHRASE_NUMBER_KEYS.length; i++) {
@@ -105,11 +132,11 @@ export default class Stats {
 			`<tr>` +
 				`<th>Всего кол-во</th>` +
 				`<td>${
-					Stats.drawTotalCount(countMe) + 
-					(countCompanion 
-						? `<br>${Stats.drawTotalCount(countCompanion, ICONS.companion)}` 
+					Stats.drawTotalCount(countMe) +
+					(countCompanion
+						? `<br>${Stats.drawTotalCount(countCompanion, ICONS.companion)}`
 						: ''
-					)					
+					)
 				}</td>` +
 				`<td>${Stats.drawTotalCount(countMob)}</td>` +
 			`</tr>`;
@@ -130,38 +157,6 @@ export default class Stats {
 			`</table>`
 			// `<pre>${JSON.stringify(this.statistics, null, 2)}</pre>`
 		);
-	}
-
-	static drawCellByStat(stat?: StatsByPhraseAndOwner) {
-		if (!stat) return '';
-		const phraseId = stat.phraseId;
-
-		const averagePhraseData: PhraseData = {} as PhraseData;
-		Object.keys(stat.phraseData).forEach((key: keyof PhraseData) => {
-			const value = stat.phraseData[key];
-			if (PHRASE_NUMBER_KEYS.includes(key as PhraseNumberKey)) {
-				if (value) {
-					averagePhraseData[key] = Math.round((value as number) / stat.count);
-				}
-			} else {
-				averagePhraseData[key] = value;
-			}
-		});
-
-		const cell =
-			`<span title="${stat.example}\n${JSON.stringify(averagePhraseData).replace(/"/g, '&quot;')}">` +
-				`${actFight[phraseId].fn(averagePhraseData)}x${stat.count}` +
-			`</span>`;
-		return cell;
-	}
-
-	static drawTotalCount(count: number, icon: string = '') {
-		return `<span class="act">${icon}x${count}</span>`;
-	}
-
-	clear() {
-		this.statistics = [];
-		this.tab.$content.html('');
 	}
 }
 

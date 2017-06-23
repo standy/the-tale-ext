@@ -8,7 +8,7 @@ interface Window {
 	API_CLIENT: string;
 }
 
-declare module "*.css" {
+declare module '*.css' {
 	const css: any;
 	export default css;
 }
@@ -19,7 +19,7 @@ type PhraseNumberKey = 'damage' | 'health' | 'coins' | 'sell_price';
 
 declare type PhraseDataRaw = {
 	[key: string]: string;
-}
+};
 
 declare const enum SkillOwner {
 	me = 0,
@@ -45,12 +45,12 @@ declare type PhraseData = {
 	sell_price?: number,
 	old_artifact?: string,
 	experience?: number,
-}
+};
 
 declare type PhraseMeta = {
 	/* чей скилл сработал */
 	owner: SkillOwner,
-}
+};
 
 declare const enum MSG {
 	TimeStamp = 0,
@@ -62,20 +62,20 @@ declare const enum MSG {
 }
 
 declare type MessageRaw = [
-	number, //timestamp,
-	string, //timeSting,
-	string, //phraseSting,
-	number, //phraseId,
-	PhraseDataRaw //phraseData,
+	number, // timestamp,
+	string, // timeSting,
+	string, // phraseSting,
+	number, // phraseId,
+	PhraseDataRaw // phraseData,
 ];
 
 declare type Message = [
-	number, //timestamp,
-	string, //timeSting,
-	string, //phraseSting,
-	number, //phraseId,
-	PhraseData, //phraseData,
-	PhraseMeta //phraseMeta,
+	number, // timestamp,
+	string, // timeSting,
+	string, // phraseSting,
+	number, // phraseId,
+	PhraseData, // phraseData,
+	PhraseMeta // phraseMeta,
 ];
 
 declare type GameData = any;
@@ -85,16 +85,16 @@ declare type ActToHtml = (phraseData: PhraseData) => string;
 declare type Act = {
 	fn: ActToHtml;
 	type: ActType
-}
+};
 declare type ActsByIds = {
 	[id: number]: Act;
-}
+};
 
 
 declare type Icon = string;
 
 type PlainObject<T> = {
-    [key: string]: T;
+	[key: string]: T;
 };
 
 type Callback<DataType> = ((arg: DataType) => void);
@@ -108,7 +108,7 @@ type SetInput = {
 	value?: any,
 	addOn?: string,
 	isInline?: boolean;
-}
+};
 type SetField0 = {
 	label: string;
 	name: keyof SettingsValues|'';
@@ -117,19 +117,19 @@ type SetField0 = {
 	isInline?: boolean;
 	value?: any;
 	inputs?: SetInput[];
-}
+};
 type SetField1 = SetField0 & {
 	subs?: SetField0[];
-}
+};
 
 type SetField = SetField0 & {
 	subs?: SetField1[];
-}
+};
 
 type Sets = {
 	title: string,
 	fields: SetField[];
-}
+};
 
 type SettingsValues = {
 	notify: boolean;
@@ -176,20 +176,20 @@ type SettingsData = {
 
 
 declare const enum ACTION_TYPE_NAMES {
-	idle, //безделие
-	quest, //задание
-	walk, //путешествие между городами
-	fight, //сражение 1x1 с монстром
-	dead, //воскрешение
-	city, //действия в городе
-	rest, //отдых
-	equip, //экипировка
-	trade, //торговля
-	nearcity, //путешествие около города
-	energy, //восстановление энергии
-	noeffect, //действие без эффекта на игру
-	proxy, //прокси-действия для взаимодействия героев
-	pvp, //PvP 1x1
-	test, //проверочное действие
-	companionHeal, //уход за спутником
+	idle, // безделие
+	quest, // задание
+	walk, // путешествие между городами
+	fight, // сражение 1x1 с монстром
+	dead, // воскрешение
+	city, // действия в городе
+	rest, // отдых
+	equip, // экипировка
+	trade, // торговля
+	nearcity, // путешествие около города
+	energy, // восстановление энергии
+	noeffect, // действие без эффекта на игру
+	proxy, // прокси-действия для взаимодействия героев
+	pvp, // PvP 1x1
+	test, // проверочное действие
+	companionHeal, // уход за спутником
 }
