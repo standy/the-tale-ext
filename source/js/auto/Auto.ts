@@ -47,11 +47,11 @@ export default class Auto {
 		}
 
 		if (settingsValues.autohelpEnergy && energy > settingsValues.autohelpEnergyGreaterValue && (
-				(settingsValues.autohelpEnergyFight && isFight) ||
-				(settingsValues.autohelpEnergyRest && isRest) ||
-				(settingsValues.autohelpEnergyWalk && actionType === ACTION_TYPE_NAMES.walk) ||
-				(settingsValues.autohelpEnergyTradeMed && (actionType === ACTION_TYPE_NAMES.trade || actionType === ACTION_TYPE_NAMES.energy))
-			)) {
+			(settingsValues.autohelpEnergyFight && isFight) ||
+			(settingsValues.autohelpEnergyRest && isRest) ||
+			(settingsValues.autohelpEnergyWalk && actionType === ACTION_TYPE_NAMES.walk) ||
+			(settingsValues.autohelpEnergyTradeMed && (actionType === ACTION_TYPE_NAMES.trade || actionType === ACTION_TYPE_NAMES.energy))
+		)) {
 			godHelp(`Накопилась энергия: ${energy}`);
 
 			return;
@@ -70,7 +70,11 @@ export default class Auto {
 			$('.pgf-get-card-button a').trigger('click');
 			return;
 		}
-
+		const hasModal = $('.modal-header') && ($('.pgf-dialog-title').text() === 'Вы получаете новую карту!')
+		if (hasModal) {
+			$('.pgf-dialog-button-0').trigger('click')
+			return;
+		}
 		return;
 
 
@@ -82,7 +86,7 @@ export default class Auto {
 				sendNotify(`The Tale Extended - ${storage.heroName}`, {
 					tag: 'autohelp',
 					body:
-						`Сработала автоматическая помощь
+					`Сработала автоматическая помощь
 						${msg}
 						Текущее действие: ${ACTION_TYPE_TEXTS[actionType]}`,
 					addTime: true,
