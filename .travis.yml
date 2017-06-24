@@ -11,6 +11,8 @@ script:
   - "npm run tslint"
   - "npm run build"
 
-after_success:
-  - test $TRAVIS_BRANCH = "master" &&
-    npm run github-releases
+deploy:
+  provider: script
+  script: "npm run deploy"
+  on:
+    tags: true

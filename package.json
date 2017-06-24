@@ -21,7 +21,7 @@
   "scripts": {
     "release": "standard-version",
     "precommit": "lint-staged",
-    "github-releases": "conventional-github-releaser -p eslint",
+    "deploy": "webstore upload --file dist/chrome.zip --auto-publish && conventional-github-releaser -p eslint",
     "lint": "eslint **/*.js --fix",
     "tslint": "tslint source/**/*.ts --type-check -p tsconfig.json --fix",
     "build-chrome": "webpack --config webpack.chrome.config.js",
@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "@types/jquery": "^2.0.40",
+    "chrome-webstore-upload-cli": "^1.1.1",
     "conventional-github-releaser": "^1.1.11",
     "eslint": "^4.0.0",
     "eslint-config-standard": "^10.2.1",

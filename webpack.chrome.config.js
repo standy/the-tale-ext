@@ -9,7 +9,7 @@ const manifestJson = require('./source/export/chrome/manifest.json');
 const DIST_CHROME = resolve(__dirname, './dist/chrome');
 const SOURCE_CHROME = resolve(__dirname, './source/export/chrome');
 
-const DIST_CHROME_ZIP = resolve(__dirname, `./dist/chrome-extension-${packageJson.version}.zip`);
+const DIST_CHROME_ZIP = resolve(__dirname, `./dist/chrome.zip`);
 
 
 /**
