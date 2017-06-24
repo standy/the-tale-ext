@@ -5,14 +5,13 @@
     "noImplicitAny": true,
     "rootDir": "source",
     "moduleResolution": "node",
-    "module": "es6",
-    "allowJs": true
+    "module": "es6"
   },
   "files": [
     "source/js/typings.d.ts"
   ],
   "include": [
-    "src/**/*.ts"
+    "source/**/*.ts"
   ],
   "exclude": [
     "node_modules/**"

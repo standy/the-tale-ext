@@ -24,7 +24,7 @@
     "release-minor": "npm run release -- --release-as minor",
     "release-major": "npm run release -- --release-as major",
     "lint": "eslint **/*.js --fix",
-    "tslint": "tslint source/**/*.ts -c tslint.json --fix",
+    "tslint": "tslint source/**/*.ts --fix --type-check -p tsconfig.json",
     "build-chrome": "webpack --config webpack.chrome.config.js",
     "build-userscript": "webpack --config webpack.userscript.config.js",
     "build": "npm run build-chrome && npm run build-userscript",

@@ -221,7 +221,7 @@ export default class Settings {
 			const name = st.name as void|keyof SettingsValues;
 			if (name) {
 				childs.push(name);
-				const storedValue = this.settingsValues[name];
+				const storedValue = this.settingsValues[name] as string | boolean | undefined;
 				this.settingsValues[name] = typeof storedValue === 'undefined' ? st.value : storedValue;
 			}
 

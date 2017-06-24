@@ -157,36 +157,36 @@ export default class Auto {
 						Auto.CHOICES.hasOwnProperty(reward) &&
 						Auto.CHOICES[reward].includes(choiceName)
 					) {
-						chooseQuest(option_uid, choiceName);
+						this.chooseQuest(option_uid, choiceName, settingsValues);
 					}
 				}
 			}
 		}
+	}
 
-		function chooseQuest(uid: string, name: string) {
-			if (settingsValues.autoquestNotify && this.lastquest !== name) {
-				this.lastquest = name;
-				sendNotify(`The Tale Extended - ${storage.heroName}`, {
-					tag: 'autoquest',
-					body: `Сделан выбор! \n— ${name}`,
-					addTime: true,
-					icon: `${window.extPath}img/quest/caravan.png`,
-				});
-			}
-
-			if (!settingsValues.autoquest) {
-				return;
-			}
-			// const csrf = document.head.innerHTML.match(/("X-CSRFToken")(.*)(".*")/, 'g')[3].replace(/"/g, '');
-			$.ajax({
-				url: `/game/quests/api/choose?api_version=1.0&api_client=${window.API_CLIENT}&option_uid=${encodeURIComponent(uid)}`,
-				dataType: 'json',
-				type: 'post',
-				// beforeSend: function(xhr) {
-				// 	xhr.setRequestHeader('X-CSRFToken', csrf);
-				// },
-				data: {},
+	private chooseQuest(uid: string, name: string, settingsValues: SettingsValues) {
+		if (settingsValues.autoquestNotify && this.lastquest !== name) {
+			this.lastquest = name;
+			sendNotify(`The Tale Extended - ${storage.heroName}`, {
+				tag: 'autoquest',
+				body: `Сделан выбор! \n— ${name}`,
+				addTime: true,
+				icon: `${window.extPath}img/quest/caravan.png`,
 			});
 		}
+
+		if (!settingsValues.autoquest) {
+			return;
+		}
+		// const csrf = document.head.innerHTML.match(/("X-CSRFToken")(.*)(".*")/, 'g')[3].replace(/"/g, '');
+		$.ajax({
+			url: `/game/quests/api/choose?api_version=1.0&api_client=${window.API_CLIENT}&option_uid=${encodeURIComponent(uid)}`,
+			dataType: 'json',
+			type: 'post',
+			// beforeSend: function(xhr) {
+			// 	xhr.setRequestHeader('X-CSRFToken', csrf);
+			// },
+			data: {},
+		});
 	}
 }

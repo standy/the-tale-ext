@@ -44,16 +44,17 @@ export default class Tracking {
 			messageRaw[MSG.TimeSting],
 			messageRaw[MSG.PhraseSting],
 			messageRaw[MSG.PhraseId],
-			Tracking.convertPhraseDataFromRaw( messageRaw[MSG.PhraseData]), /*phraseData*/
+			Tracking.convertPhraseDataFromRaw(messageRaw[MSG.PhraseData]), /*phraseData*/
 			Tracking.getMeta(messageRaw), /*phraseMeta*/
 		] as Message;
 	}
 
-	static convertPhraseDataFromRaw(phraseDataRaw: PhraseDataRaw): PhraseData {
+	static convertPhraseDataFromRaw(phraseDataRaw: Partial<PhraseDataRaw>): PhraseData {
 		const phraseData = Object.assign({}, phraseDataRaw) as PhraseData;
 		for (let i = 0; i < PHRASE_NUMBER_KEYS.length; i++) {
 			const key = PHRASE_NUMBER_KEYS[i];
-			if (typeof phraseDataRaw[key] === 'string') phraseData[key] = +phraseDataRaw[key];
+			const value = phraseDataRaw[key];
+			if (typeof value === 'string') phraseData[key] = +value;
 		}
 		return phraseData;
 	}
