@@ -1,10 +1,32 @@
 ///<reference path="../typings.d.ts"/>
 
-import storage from '../storage/storage'
+import storage from '../storage/storage';
 import {sendNotify} from '../notifications/sendNotify';
 import {ACTION_TYPE_TEXTS} from '../utils/const/texts';
 
 export default class Auto {
+	static readonly CHOICES: any = {
+		/* peacefullnes */
+		peacePlus: [
+			'прибегнуть к дипломатии', /* collect_debt */
+		],
+		peaceMinus: [
+			'задействовать грубую силу', /* collect_debt */
+		],
+		honorPlus: [
+			'довести дело до конца', /* spying */
+			'защищать торговца', /* caravan */
+			'честно выполнить свои обязательства', /* delivery */
+		],
+		honorMinus: [
+			'поддаться укорам совести и раскрыться', /* spying */
+			'шантажировать самостоятельно', /* spying */
+			'присвоить письмо и продать', /* delivery */
+			'украсть-украсть-украсть', /* delivery */
+			'подделать письмо', /* delivery */
+		],
+	};
+	private lastquest = '';
 
 	check(hero: any, settingsValues: SettingsValues) {
 		setTimeout(() => {
@@ -70,9 +92,9 @@ export default class Auto {
 			$('.pgf-get-card-button a').trigger('click');
 			return;
 		}
-		const hasModal = $('.modal-header') && ($('.pgf-dialog-title').text() === 'Вы получаете новую карту!')
+		const hasModal = $('.modal-header') && ($('.pgf-dialog-title').text() === 'Вы получаете новую карту!');
 		if (hasModal) {
-			$('.pgf-dialog-button-0').trigger('click')
+			$('.pgf-dialog-button-0').trigger('click');
 			return;
 		}
 		return;
@@ -114,30 +136,6 @@ export default class Auto {
 		}
 	}
 
-
-	static readonly CHOICES: any = {
-		/* peacefullnes */
-		peacePlus: [
-			'прибегнуть к дипломатии', /* collect_debt */
-		],
-		peaceMinus: [
-			'задействовать грубую силу', /* collect_debt */
-		],
-		honorPlus: [
-			'довести дело до конца', /* spying */
-			'защищать торговца', /* caravan */
-			'честно выполнить свои обязательства', /* delivery */
-		],
-		honorMinus: [
-			'поддаться укорам совести и раскрыться', /* spying */
-			'шантажировать самостоятельно', /* spying */
-			'присвоить письмо и продать', /* delivery */
-			'украсть-украсть-украсть', /* delivery */
-			'подделать письмо', /* delivery */
-		],
-	};
-	private lastquest = '';
-
 	checkQuest(hero: any, settingsValues: SettingsValues) {
 		const selectChoices: PlainObject<boolean> = {
 			peacePlus: settingsValues.autoquestPeacePlus,
@@ -159,36 +157,36 @@ export default class Auto {
 						Auto.CHOICES.hasOwnProperty(reward) &&
 						Auto.CHOICES[reward].includes(choiceName)
 					) {
-						chooseQuest(option_uid, choiceName);
+						this.chooseQuest(option_uid, choiceName, settingsValues);
 					}
 				}
 			}
 		}
+	}
 
-		function chooseQuest(uid: string, name: string) {
-			if (settingsValues.autoquestNotify && this.lastquest !== name) {
-				this.lastquest = name;
-				sendNotify(`The Tale Extended - ${storage.heroName}`, {
-					tag: 'autoquest',
-					body: `Сделан выбор! \n— ${name}`,
-					addTime: true,
-					icon: `${window.extPath}img/quest/caravan.png`,
-				});
-			}
-
-			if (!settingsValues.autoquest) {
-				return;
-			}
-			// const csrf = document.head.innerHTML.match(/("X-CSRFToken")(.*)(".*")/, 'g')[3].replace(/"/g, '');
-			$.ajax({
-				url: `/game/quests/api/choose?api_version=1.0&api_client=${window.API_CLIENT}&option_uid=${encodeURIComponent(uid)}`,
-				dataType: 'json',
-				type: 'post',
-				// beforeSend: function(xhr) {
-				// 	xhr.setRequestHeader('X-CSRFToken', csrf);
-				// },
-				data: {},
+	private chooseQuest(uid: string, name: string, settingsValues: SettingsValues) {
+		if (settingsValues.autoquestNotify && this.lastquest !== name) {
+			this.lastquest = name;
+			sendNotify(`The Tale Extended - ${storage.heroName}`, {
+				tag: 'autoquest',
+				body: `Сделан выбор! \n— ${name}`,
+				addTime: true,
+				icon: `${window.extPath}img/quest/caravan.png`,
 			});
 		}
+
+		if (!settingsValues.autoquest) {
+			return;
+		}
+		// const csrf = document.head.innerHTML.match(/("X-CSRFToken")(.*)(".*")/, 'g')[3].replace(/"/g, '');
+		$.ajax({
+			url: `/game/quests/api/choose?api_version=1.0&api_client=${window.API_CLIENT}&option_uid=${encodeURIComponent(uid)}`,
+			dataType: 'json',
+			type: 'post',
+			// beforeSend: function(xhr) {
+			// 	xhr.setRequestHeader('X-CSRFToken', csrf);
+			// },
+			data: {},
+		});
 	}
 }

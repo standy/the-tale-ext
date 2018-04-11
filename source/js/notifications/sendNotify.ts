@@ -1,11 +1,11 @@
 $('body').one('click', request);
 
 function request() {
-	if ((Notification as any).permission.toLowerCase() !== 'granted') {
-		Notification.requestPermission(permission => {
-			if (permission !== 'granted') return false;
-			const notify = new Notification('Thanks for letting notify you');
-			return !!notify;
+	const Notify = Notification as any;
+	if (Notify.permission.toLowerCase() !== 'granted') {
+		Notify.requestPermission().then((permission: string) => {
+			if (permission !== 'granted') return;
+			Notify('Thanks for letting notify you');
 		});
 	}
 }
@@ -22,7 +22,7 @@ type SentNotifyOptions = {
 	body: string;
 	icon?: string;
 	addTime?: boolean;
-}
+};
 
 export function sendNotify(name: string, options: SentNotifyOptions) {
 	const d = new Date();

@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 /**
  * Base config
  */
@@ -25,5 +27,7 @@ module.exports = {
 			},
 		],
 	},
-	plugins: [],
+	plugins: [
+		new webpack.optimize.ModuleConcatenationPlugin(),
+	],
 };

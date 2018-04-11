@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.4"></a>
+## [0.5.4](https://github.com/standy/the-tale-ext/compare/v0.5.3...v0.5.4) (2017-06-24)
+
+
+### Bug Fixes
+
+* обновил список мобов ([aec7f7c](https://github.com/standy/the-tale-ext/commit/aec7f7c))
+* отсутсвие моба приводит к падению ([1ea6fcf](https://github.com/standy/the-tale-ext/commit/1ea6fcf)), closes [#52](https://github.com/standy/the-tale-ext/issues/52)
+* при взятии карточки закрывать модальное окно ([6293403](https://github.com/standy/the-tale-ext/commit/6293403)), closes [#38](https://github.com/standy/the-tale-ext/issues/38)
+
+
+### Performance Improvements
+
+* добавил webpack.optimize.ModuleConcatenationPlugin ([7c4ef24](https://github.com/standy/the-tale-ext/commit/7c4ef24))
+
+
+
 <a name="0.5.3"></a>
 ## [0.5.3](https://github.com/standy/the-tale-ext/compare/v0.5.2...v0.5.3) (2017-03-23)
 

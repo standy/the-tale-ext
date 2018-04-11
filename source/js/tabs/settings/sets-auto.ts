@@ -132,7 +132,7 @@ export const setsAuto: Sets[] = [{
 			value: false,
 		}, {
 			label: 'Задания, влияющие на честь',
-//					note: 'Доставка, сопроводить караван, пошпионить',
+			// note: 'Доставка, сопроводить караван, пошпионить',
 			name: 'autoquestHonor',
 			isToggle: true,
 			value: true,
@@ -151,7 +151,7 @@ export const setsAuto: Sets[] = [{
 			}],
 		}, {
 			label: 'Задания, влияющие на миролюбие',
-//					note: 'Выбить долг',
+			// note: 'Выбить долг',
 			name: 'autoquestPeace',
 			isToggle: true,
 			value: true,

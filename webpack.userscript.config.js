@@ -13,7 +13,7 @@ const HEADER =
 // @description ${packageJson.description}
 // @author      ${packageJson.author}
 // @version     ${packageJson.version}
-// @include     /^https?://the-tale\.org/game/
+// @include     /^https?://the-tale.org/game/
 // @run-at      document-end
 // @license     MIT License
 // @namespace   ${packageJson.name}

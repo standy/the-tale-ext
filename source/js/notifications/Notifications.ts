@@ -4,9 +4,14 @@ import {sendNotify} from './sendNotify';
 
 
 export default class Notifications {
+	static questTests = ['action', 'choice', 'name', 'type', 'uid'];
+
 	lastNotifyMessagesText: string = '';
 	lastQuests: any[];
-	static questTests = ['action', 'choice', 'name', 'type', 'uid'];
+
+	static isSameQuest(q1: any, q2: any) {
+		return Notifications.questTests.every(key => q1[key] === q2[key]);
+	}
 
 	check(hero: any, settingsValues: SettingsValues) {
 		if (!settingsValues.notify) return;
@@ -70,7 +75,7 @@ export default class Notifications {
 					sendNotify(q.name, {
 						tag: 'quest',
 						body: `${storage.heroName} ${q.action}!`,
-						icon: `${window.extPath}img/quest/caravan.png`, //window.extPath + 'img/quest/' + q.type + '.png',
+						icon: `${window.extPath}img/quest/caravan.png`, // window.extPath + 'img/quest/' + q.type + '.png',
 						addTime: true,
 					});
 				}
@@ -78,9 +83,5 @@ export default class Notifications {
 			}
 		}
 		this.lastQuests = quests;
-	}
-
-	static isSameQuest(q1: any, q2: any) {
-		return Notifications.questTests.every(key => q1[key] === q2[key]);
 	}
 }

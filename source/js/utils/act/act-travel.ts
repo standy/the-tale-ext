@@ -27,7 +27,7 @@ function tradeBuy(phraseData: PhraseData) {
 	// coins	количество монет
 	// hero	герой
 	// artifact	предмет
-	return act('trade', `<span class="coins">${phraseData.coins}${ICONS.trade}→<span class="artifact">${phraseData.artifact}</span></span>`)
+	return act('trade', `<span class="coins">${phraseData.coins}${ICONS.trade}→<span class="artifact">${phraseData.artifact}</span></span>`);
 }
 
 function tradeChange(phraseData: PhraseData) {
@@ -49,7 +49,7 @@ function tradeChange(phraseData: PhraseData) {
 			hero: phraseData.hero,
 			coins: phraseData.coins,
 		})
-	)
+	);
 }
 
 function rest(icon: Icon) {
