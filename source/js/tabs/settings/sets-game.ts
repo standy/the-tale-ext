@@ -7,7 +7,7 @@ export const setsGame: Sets[] = [
 			label: 'Отправлять уведомления (<span class="link-ajax" id="test-notifications">тест</span>)',
 			name: 'notify',
 			isToggle: true,
-			value: true,
+			value: false,
 			subs: [{
 				label: 'Выбор в задании',
 				name: 'notifyQuestChoose',
