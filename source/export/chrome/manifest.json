@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": null,
   "description": null,
   "version": null,
@@ -11,7 +11,7 @@
     "128": "img/128.png"
   },
   "permissions": [
-    "http://the-tale.org/game/*",
+    "https://the-tale.org/game/*",
     "unlimitedStorage",
     "notifications"
   ],
@@ -25,8 +25,8 @@
     {
       "run_at": "document_end",
       "matches": [
-        "http://the-tale.org/game/",
-        "http://the-tale.org/game/pvp/"
+        "https://the-tale.org/game/",
+        "https://the-tale.org/game/pvp/"
       ],
       "js": ["injector.js"]
     }
