@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.7"></a>
+## [0.5.7](https://github.com/standy/the-tale-ext/compare/v0.5.5...v0.5.7) (2018-04-24)
+
+
+
 <a name="0.5.5"></a>
 ## [0.5.5](https://github.com/standy/the-tale-ext/compare/v0.5.4...v0.5.5) (2018-04-24)
 
