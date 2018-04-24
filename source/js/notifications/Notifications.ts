@@ -33,7 +33,7 @@ export default class Notifications {
 		}
 
 		const maxEnergy = settingsValues.notifyHeroEnergyGreaterValue;
-		if (settingsValues.notifyHeroEnergy && maxEnergy) {
+		if (settingsValues.notifyHeroEnergy && maxEnergy && hero.energy) {
 			const energy = hero.energy.value;
 			if (energy > maxEnergy) {
 				notifyMessages.push(`Энергия накопилась: ${energy}`);
