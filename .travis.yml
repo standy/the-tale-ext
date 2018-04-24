@@ -16,3 +16,4 @@ deploy:
   script: "npm run deploy"
   on:
     tags: true
+    branch: master
