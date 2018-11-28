@@ -13,6 +13,7 @@ export default {
 	vampire: require('../../../svg/vampire.svg'),
 	reckless: require('../../../svg/reckless.svg'),
 	disorientation: require('../../../svg/disorientation.svg'),
+	strike: require('../../../svg/strike.svg'),
 
 	miss: require('../../../svg/miss.svg'),
 	slow: require('../../../svg/slow.svg'),
