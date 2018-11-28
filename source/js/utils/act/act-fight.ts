@@ -29,6 +29,9 @@ export default {
 	280017: {fn: companionHeal(ICONS.heal), type: 'inline'}, // Журнал: Герой лечит спутника
 	280018: {fn: reckless(ICONS.reckless), type: 'inline'}, // Журнал: Безрассудная атака
 	280019: {fn: miss(ICONS.reckless), type: 'inline'}, // Журнал: Безрассудная атака (промах)
+	280020: {fn: strikeItem(ICONS.strike), type: 'inline'}, // Журнал: Заряд (урон по герою и разрушение вещи)
+	280021: {fn: damage(ICONS.strike), type: 'inline'}, // Журнал: Заряд (только урон по герою)
+	280022: {fn: miss(ICONS.strike), type: 'inline'}, // Журнал: Заряд (промах)
 
 	580003: {fn: companionDefended(ICONS.miss), type: 'inline'}, // Журнал: спутник защитил своего владельца от удара
 	580004: {fn: companionInjured(), type: 'inline'}, // Журнал: спутник защитил своего владельца от удара, но получил рану
@@ -108,6 +111,16 @@ function heal(icon: Icon) {
 	return (phraseData: PhraseData) => actPositive(
 		phraseData.actor,
 		`<span class="heal">${phraseData.health}</span>${icon}`
+	);
+}
+function strikeItem(icon: Icon) {
+	// attacker	атакующий
+	// damage	количество урона
+	// defender	защищающийся
+	// artifact артефакт
+	return (phraseData: PhraseData) => actPositive(
+		phraseData.attacker,
+		`<span class="damage">${phraseData.damage}${ICONS.strike}${phraseData.artifact}</span>`
 	);
 }
 function companionHeal(icon: Icon) {
