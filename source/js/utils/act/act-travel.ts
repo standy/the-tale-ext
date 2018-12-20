@@ -13,6 +13,8 @@ export default {
 	80002: {fn: tradeChange, type: 'inline'}, // Дневник: Покупка артефакта и замена
 	80003: {fn: tradeChange, type: 'inline'}, // Дневник: Покупка аналогичного артефакта и замена
 
+	580006: {fn: shareWisdom, type: 'block'}, // Журнал: спутник говорит мудрость (способность «мудрый»)
+
 } as ActsByIds;
 
 
@@ -63,4 +65,11 @@ function travel(icon: Icon) {
 	// hero	герой
 	// current_destination	текущее место назначения
 	return (phraseData: PhraseData) => act('', `${icon} ${phraseData.destination}`);
+}
+
+function shareWisdom(phraseData: PhraseData) {
+	// companion_owner	владелец спутника
+	// companion	спутник
+	// experience	опыт
+	return act('companion-wisdom', `${ICONS.companion}+${phraseData.experience} опыта`);
 }
