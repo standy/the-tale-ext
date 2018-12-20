@@ -92,7 +92,9 @@ export default class Tracking {
 	private track(game_data: GameData) {
 		if (!this.onLoadDone) return;
 
-		const hero = game_data.account.hero;
+		let hero = game_data.account.hero;
+		hero.energy = ({value: game_data.account.energy});
+
 		if (!hero) return;
 
 		const messagesLog = this.messagesLog;

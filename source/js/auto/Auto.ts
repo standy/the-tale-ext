@@ -40,11 +40,9 @@ export default class Auto {
 		const actionPercent = hero.action.percents;
 
 		const energy = hero.energy.value;
-		let energyBonus = settingsValues.autohelpEnergyBonus ? hero.energy.bonus - settingsValues.autohelpEnergyBonusMax : 0;
-		if (energyBonus < 0) energyBonus = 0;
 
-		if (energy + energyBonus < 4) return;
 
+		if (energy < 4) return;
 
 		const isFight = actionType === ACTION_TYPE_NAMES.fight;
 		const isRest = actionType < 10 && actionType !== ACTION_TYPE_NAMES.fight;

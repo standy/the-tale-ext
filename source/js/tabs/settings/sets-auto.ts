@@ -12,17 +12,6 @@ export const setsAuto: Sets[] = [{
 			isToggle: true,
 			value: false,
 		}, {
-			label: 'Использовать бонусную энергию, оставить',
-			note: 'Указанный запас энергии тратиться не будет',
-			name: 'autohelpEnergyBonus',
-			isToggle: true,
-			value: false,
-			inputs: [{
-				name: 'autohelpEnergyBonusMax',
-				type: 'num',
-				value: 0,
-			}],
-		}, {
 			label: 'Герой бездействует',
 			name: 'autohelpIdle',
 			isToggle: true,

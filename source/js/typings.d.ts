@@ -143,8 +143,6 @@ type SettingsValues = {
 	maxLogLength: number;
 	autohelp: boolean;
 	autohelpNotify: boolean;
-	autohelpEnergyBonus: boolean;
-	autohelpEnergyBonusMax: number;
 	autohelpIdle: boolean;
 	autohelpDead: boolean;
 	autohelpHp: boolean;
