@@ -135,11 +135,15 @@ export default class Auto {
 	}
 
 	checkQuest(hero: any, settingsValues: SettingsValues) {
+		if (!settingsValues.autoquest) {
+			return;
+		}
+
 		const selectChoices: PlainObject<boolean> = {
-			peacePlus: settingsValues.autoquestPeacePlus,
-			peaceMinus: settingsValues.autoquestPeaceMinus,
-			honorPlus: settingsValues.autoquestHonorPlus,
-			honorMinus: settingsValues.autoquestHonorMinus,
+			peacePlus: settingsValues.autoquestPeace && settingsValues.autoquestPeacePlus,
+			peaceMinus: settingsValues.autoquestPeace && settingsValues.autoquestPeaceMinus,
+			honorPlus: settingsValues.autoquestHonor && settingsValues.autoquestHonorPlus,
+			honorMinus: settingsValues.autoquestHonor && settingsValues.autoquestHonorMinus,
 		};
 
 		const quests = hero.quests.quests;
