@@ -6,6 +6,7 @@ interface Window {
 	ext: any;
 	extPath: string;
 	API_CLIENT: string;
+	widgets: any;
 }
 
 declare module '*.css' {
