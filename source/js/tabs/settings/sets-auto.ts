@@ -163,5 +163,10 @@ export const setsAuto: Sets[] = [{
 		name: 'autocard',
 		isToggle: true,
 		value: false,
+	}, {
+		label: 'Следить за героем на карте',
+		name: 'autoFollowHero',
+		isToggle: true,
+		value: false,
 	}],
 }];

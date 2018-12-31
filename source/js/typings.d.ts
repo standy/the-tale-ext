@@ -165,6 +165,7 @@ type SettingsValues = {
 	autoquestPeacePlus: boolean;
 	autoquestPeaceMinus: boolean;
 	autocard: boolean;
+	autoFollowHero: boolean;
 };
 type SettingsValue = SettingsValues[keyof SettingsValues];
 type SettingsData = {

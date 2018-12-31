@@ -27,7 +27,13 @@ export default class Auto {
 		],
 	};
 	private lastquest = '';
-
+	private lastPosition: PlainObject<number> = {
+		x: -1,
+		y: -1,
+		dx: -1,
+		dy: -1
+	};
+	
 	check(hero: any, settingsValues: SettingsValues) {
 		setTimeout(() => {
 			this.checkHero(hero, settingsValues);
@@ -38,10 +44,19 @@ export default class Auto {
 	checkHero(hero: any, settingsValues: SettingsValues) {
 		const actionType = hero.action.type as ACTION_TYPE_NAMES;
 		const actionPercent = hero.action.percents;
+		const heroPosition = hero.position;
+
+		if (settingsValues.autoFollowHero && (
+			this.lastPosition.x !== heroPosition.x ||
+			this.lastPosition.y !== heroPosition.y ||
+			this.lastPosition.dx !== heroPosition.dx ||
+			this.lastPosition.dy !== heroPosition.dy
+		)) {
+			this.lastPosition = heroPosition;
+			window.widgets.map.CenterOnHero();
+		}
 
 		const energy = hero.energy.value;
-
-
 		if (energy < 4) return;
 
 		const isFight = actionType === ACTION_TYPE_NAMES.fight;
