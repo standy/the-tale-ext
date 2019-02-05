@@ -8,22 +8,22 @@ export default class Auto {
 	static readonly CHOICES: any = {
 		/* peacefullnes */
 		peacePlus: [
-			'прибегнуть к дипломатии', /* collect_debt */
+			'help', /* collect_debt */
 		],
 		peaceMinus: [
-			'задействовать грубую силу', /* collect_debt */
+			'attack', /* collect_debt */
 		],
 		honorPlus: [
-			'довести дело до конца', /* spying */
-			'защищать торговца', /* caravan */
-			'честно выполнить свои обязательства', /* delivery */
+			'spy', /* spying */
+			'delivery', /* delivery */
+			'jump_defence', /* caravan */
 		],
 		honorMinus: [
-			'поддаться укорам совести и раскрыться', /* spying */
-			'шантажировать самостоятельно', /* spying */
-			'присвоить письмо и продать', /* delivery */
-			'украсть-украсть-украсть', /* delivery */
-			'подделать письмо', /* delivery */
+			'open_up', /* spying */
+			'blackmail', /* spying */
+			'steal', /* delivery */
+			'fake', /* delivery */
+			'jump_attack', /* caravan */
 		],
 	};
 	private lastquest = '';
@@ -135,11 +135,15 @@ export default class Auto {
 	}
 
 	checkQuest(hero: any, settingsValues: SettingsValues) {
+		if (!settingsValues.autoquest) {
+			return;
+		}
+
 		const selectChoices: PlainObject<boolean> = {
-			peacePlus: settingsValues.autoquestPeacePlus,
-			peaceMinus: settingsValues.autoquestPeaceMinus,
-			honorPlus: settingsValues.autoquestHonorPlus,
-			honorMinus: settingsValues.autoquestHonorMinus,
+			peacePlus: settingsValues.autoquestPeace && settingsValues.autoquestPeacePlus,
+			peaceMinus: settingsValues.autoquestPeace && settingsValues.autoquestPeaceMinus,
+			honorPlus: settingsValues.autoquestHonor && settingsValues.autoquestHonorPlus,
+			honorMinus: settingsValues.autoquestHonor && settingsValues.autoquestHonorMinus,
 		};
 
 		const quests = hero.quests.quests;
@@ -149,11 +153,12 @@ export default class Auto {
 			for (let choiceIndex = 0; choiceIndex < q.choice_alternatives.length; choiceIndex++) {
 				const choiceName = q.choice_alternatives[choiceIndex][1];
 				const option_uid = q.choice_alternatives[choiceIndex][0];
+				const choiceType = option_uid.replace('#option(','').replace(')','').split(',')[2].replace(/\s+/g, ''); 
 				for (const reward in Auto.CHOICES) {
 					if (
 						selectChoices[reward] &&
 						Auto.CHOICES.hasOwnProperty(reward) &&
-						Auto.CHOICES[reward].includes(choiceName)
+						Auto.CHOICES[reward].includes(choiceType)
 					) {
 						this.chooseQuest(option_uid, choiceName, settingsValues);
 					}
