@@ -6,6 +6,7 @@ interface Window {
 	ext: any;
 	extPath: string;
 	API_CLIENT: string;
+	widgets: any;
 }
 
 declare module '*.css' {
@@ -165,6 +166,7 @@ type SettingsValues = {
 	autoquestPeacePlus: boolean;
 	autoquestPeaceMinus: boolean;
 	autocard: boolean;
+	autoFollowHero: boolean;
 };
 type SettingsValue = SettingsValues[keyof SettingsValues];
 type SettingsData = {
