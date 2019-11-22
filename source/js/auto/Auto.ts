@@ -57,6 +57,11 @@ export default class Auto {
 		}
 
 		const energy = hero.energy.value;
+
+		if (energy > 1 && settingsValues.cleanInventory && hero.secondary.max_bag_size - Object.keys(hero.bag).length < settingsValues.cleanInventorySlots ) {
+			cleanInventory();
+		}
+
 		if (energy < 4) return;
 
 		const isFight = actionType === ACTION_TYPE_NAMES.fight;
@@ -113,6 +118,33 @@ export default class Auto {
 		return;
 
 
+		function cleanInventory() {
+			if (!settingsValues.autohelp) {
+				return;
+			}
+
+			const url = `/game/abilities/drop_item/api/use?api_version=1.0&api_client=${window.API_CLIENT}`;
+			hero.energy.value -= 1;
+
+			$.ajax({
+				url,
+				dataType: 'json',
+				type: 'post',
+				success: function() {
+					if (settingsValues.autohelpNotify) {
+						sendNotify(`The Tale Extended - ${storage.heroName}`, {
+							tag: 'autohelp',
+							body:
+								`Сработала автоматическая помощь
+								Очистка рюкзака
+								Текущее действие: ${ACTION_TYPE_TEXTS[actionType]}`,
+							addTime: true,
+						});
+					}
+				},
+				data: {},
+			});
+		}
 
 		function godHelp(msg: string) {
 			const ability = 'help';

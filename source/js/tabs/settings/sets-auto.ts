@@ -164,6 +164,16 @@ export const setsAuto: Sets[] = [{
 		isToggle: true,
 		value: false,
 	}, {
+		label: 'Держать пустой слот в рюкзаке',
+		name: 'cleanInventory',
+		isToggle: true,
+		value: false,
+		inputs: [{
+			type: 'num',
+			name: 'cleanInventorySlots',
+			value: 1,
+		}]
+	}, {
 		label: 'Следить за героем на карте',
 		name: 'autoFollowHero',
 		isToggle: true,
