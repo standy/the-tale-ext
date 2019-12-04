@@ -166,6 +166,8 @@ type SettingsValues = {
 	autoquestPeacePlus: boolean;
 	autoquestPeaceMinus: boolean;
 	autocard: boolean;
+	cleanInventory: boolean;
+	cleanInventorySlots: number;
 	autoFollowHero: boolean;
 };
 type SettingsValue = SettingsValues[keyof SettingsValues];
